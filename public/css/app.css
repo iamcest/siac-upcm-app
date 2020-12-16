@@ -1,0 +1,112 @@
+/*GENERAL DESIGN SET UP*/
+@font-face {
+  font-family: 'Gotham';
+  src: url('../fonts/Gotham-Book.ttf');
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('../fonts/Gotham-Bold.otf');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('../fonts/GothamRoundedMedium.ttf');
+  font-weight: 500;
+  font-style: normal;
+}
+*, .subtitle-1, .subtitle-2, h1, h2, h3 , h4, h5, h6, .v-application .text-h3, .v-application .text-h4{
+	font-family: 'Gotham' !important;
+}
+a{
+  text-decoration: none;
+}
+h1, h2, h3 , h4, h5, h6, .v-application .text-h3, .v-application .text-h4{
+	font-weight: bold !important;
+}
+.font-weight-medium{
+  font-weight: lighter !important;
+}
+.cursor-pointer{
+  cursor:pointer;
+}
+.theme--light.v-application{
+	background: #F6F6F6; 
+}
+.full-width {
+  width: 1920px;
+}
+.dialog_form{
+  width:99%;
+}
+/*END*/
+.header{
+  background-image: url(../img/login-bg.jpg);
+  min-height: 5vw !important;
+  background-size: cover;
+  background-position: 20%;
+  border-bottom: 30px solid #000;
+  border-image:url('../img/paper-border-01.png');
+
+  border-image-slice: 300;
+}
+.header .user-img-icon{
+  align-items: end !important;
+  font-size: 3vw !important;
+}
+.sidebar{
+  min-height: 100vh;
+  border-right: 2px solid rgba(0,0,0,0.1);
+}
+.sidebar .v-application--is-ltr .v-list-item__action:first-child, .v-application--is-ltr .v-list-item__icon:first-child{
+  margin-right: 10px ;
+}
+.sidebar .v-list-item__subtitle, .v-list-item__title{
+  white-space: unset;
+}
+.menu-item .v-list-item__icon.v-list-group__header__prepend-icon .v-icon, .menu-item.v-list-item .v-icon{
+  color: #76d7d7 !important;
+}
+.menu-item .sub-item{
+  background: #EBEBEB;
+  font-weight: 400 !important;
+}
+.fc-button-primary {
+  background-color: #76d7d7 !important;
+  border: none !important;
+}
+.fc-toolbar-title, .fc-day, .fc-day-past{
+  text-transform: uppercase;
+}
+.action-button{
+  font-size:.7em !important;
+}
+.avatar-image{
+  font-size: 7vw !important;
+}
+.whatsapp-platform .v-icon.v-icon, .telegram-platform .v-icon.v-icon, .sms-platform .v-icon.v-icon{
+  font-size: 1.7vw !important;
+}
+.whatsapp-platform .v-icon.v-icon {
+  color: #28d445;
+}
+.telegram-platform .v-icon.v-icon {
+  color: #0088cc;
+}
+.logo-icon{
+  font-size: 10vw !important;
+}
+.submit-button.v-btn{
+  border-radius: 0px 5px 5px 0px !important;
+  margin-top: -18px;
+}
+.submit-button.v-btn--contained{
+  box-shadow: 0px 0px 0px 0px !important;
+}
+.mp-select-toolbar, .mp-select-toolbar .v-toolbar__content{
+  height: 100% !important;
+}
+/*PATIENTS SECTION*/
+.factor-risk-container{
+  border: 1px solid lightgrey;
+}
