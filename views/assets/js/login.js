@@ -21,10 +21,6 @@ let vm = new Vue({
     },
 
     methods: {
-      reserve () {
-        this.loading = true
-
-      },
       login () {
         var url = api_url + 'members/sign-in'
         var app = this
@@ -32,7 +28,6 @@ let vm = new Vue({
         var password = app.password
         app.loading = true;
         app.$http.post(url, {email, password}).then(res => {
-          console.log(res);
           app.loading = false
           app.alert_message = res.body.message
           app.alert_type = res.body.status

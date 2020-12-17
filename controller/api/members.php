@@ -22,6 +22,11 @@ switch ($method) {
 	case 'create':
 		if (empty($data)) $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');;
 		$columns = ['first_name', 'last_name', 'email', 'gender', 'birthdate', 'user_type', 'password'];
+		if ($data['user_type'] == 'coordinador' || $data['user_type'] == 'miembro') {
+			$columns[] = 'rol'; 
+			$columns[] = 'upcm_id';
+			$data['upcm_id'] = intval($data['upcm_id']);
+		}
 		$result = $member->create(sanitize($data), $columns);
 		if (!$result) $helper->response_message('Error', 'No se pudo registrar el miembro correctamente', 'error');
 		$columns = ['user_id', 'telephone', 'whatsapp', 'telegram', 'sms'];
@@ -60,6 +65,8 @@ switch ($method) {
 			$_SESSION['gender'] = $result->gender;
 			$_SESSION['birthdate'] = $result->birthdate;
 			$_SESSION['user_type'] = $result->user_type;
+			$_SESSION['rol'] = $result->rol;
+			$_SESSION['upcm_id'] = $result->upcm_id;
 			$_SESSION['telephone'] = $result->telephone;
 			$_SESSION['whatsapp'] = $result->whatsapp;
 			$_SESSION['telegram'] = $result->telegram;
@@ -86,6 +93,8 @@ switch ($method) {
 			'email' => $_SESSION['email'],
 			'gender' => $_SESSION['gender'],
 			'birthdate' => $_SESSION['birthdate'],
+			'rol' => $_SESSION['rol'],
+			'upcm_id' => $_SESSION['upcm_id'],
 			'telephone' => $_SESSION['telephone'],
 			'whatsapp' => $_SESSION['whatsapp'],
 			'telegram' => $_SESSION['telegram'],

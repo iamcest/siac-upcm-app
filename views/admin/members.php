@@ -42,7 +42,7 @@
                                   </v-col>
                                   <v-col cols="12" sm="12" md="6" v-if="editedItem.user_type == 'coordinador' || editedItem.user_type == 'miembro'">
                                     <label>UPCM</label>
-                                    <v-select class="mt-3" v-model="editedItem.upcm_id" :items="upcms" item-text="name" item-value="upcm_id" outlined></v-select>
+                                    <v-select class="mt-3" v-model="editedItem.upcm_id" :items="upcms" item-text="upcm_name" item-value="upcm_id" outlined></v-select>
                                   </v-col>
                                   <v-col cols="12" sm="12" md="6" v-if="editedItem.user_type == 'coordinador' || editedItem.user_type == 'miembro'">
                                     <label>Rol</label>

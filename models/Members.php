@@ -14,10 +14,10 @@ class Members
 	}
 	public function get(int $id = 0) {
 		if ($id != 0) {
-			$sql = "SELECT u.user_id AS user_id, first_name, last_name, email, gender, birthdate, user_type, uc.telephone, uc.whatsapp AS whatsapp, uc.telegram AS telegram, uc.sms AS sms FROM " . $this->table. " as u INNER JOIN ". $this->contact_table. " as uc ON u.user_id = uc.user_id WHERE " . $this->id_column . " = $id";
+			$sql = "SELECT u.user_id AS user_id, first_name, last_name, email, gender, birthdate, user_type, rol, upcm_id, uc.telephone, uc.whatsapp AS whatsapp, uc.telegram AS telegram, uc.sms AS sms FROM " . $this->table. " as u INNER JOIN ". $this->contact_table. " as uc ON u.user_id = uc.user_id WHERE " . $this->id_column . " = $id";
 		}
 		else{
-			$sql = "SELECT u.user_id AS user_id, first_name, last_name, email, gender, birthdate, user_type, uc.telephone, uc.whatsapp AS whatsapp, uc.telegram AS telegram, uc.sms AS sms FROM " . $this->table . " as u INNER JOIN ". $this->contact_table. " as uc ON u.user_id = uc.user_id";
+			$sql = "SELECT u.user_id AS user_id, first_name, last_name, email, gender, birthdate, user_type, rol, upcm_id, uc.telephone, uc.whatsapp AS whatsapp, uc.telegram AS telegram, uc.sms AS sms FROM " . $this->table . " as u INNER JOIN ". $this->contact_table. " as uc ON u.user_id = uc.user_id";
 		}
 		$result = execute_query($sql);
 		$arr = [];
@@ -27,7 +27,7 @@ class Members
 		return $arr;
 	}
 	public function check_user($email, $password) {
-		$sql = "SELECT u.user_id AS user_id, avatar, first_name, last_name, email, gender, birthdate, user_type, uc.telephone, uc.whatsapp AS whatsapp, uc.telegram AS telegram, uc.sms AS sms FROM " . $this->table. " as u INNER JOIN ". $this->contact_table. " as uc ON u.user_id = uc.user_id WHERE email = '$email' AND password = '$password'";
+		$sql = "SELECT u.user_id AS user_id, avatar, first_name, last_name, email, gender, birthdate, user_type, rol, upcm_id, uc.telephone, uc.whatsapp AS whatsapp, uc.telegram AS telegram, uc.sms AS sms FROM " . $this->table. " as u INNER JOIN ". $this->contact_table. " as uc ON u.user_id = uc.user_id WHERE email = '$email' AND password = '$password'";
 		$result = execute_query($sql);
 		if ($result) return $result->fetch_object();
 		return null;
@@ -54,9 +54,11 @@ class Members
 		if (empty($data) OR empty($id)) return false;
 		extract($data);
 		$sql = "UPDATE " . $this->table . " SET first_name = '$first_name', last_name = '$last_name', email = '$email', gender = '$gender', birthdate = '$birthdate', user_type = '$user_type' WHERE " . $this->id_column . " = $id;";
-		if ($data['password'] != "") {
+		if ($user_type == 'coordinador' || $user_type == 'miembro' && !isset($data['password'])) $sql = "UPDATE " . $this->table . " SET first_name = '$first_name', last_name = '$last_name', email = '$email', gender = '$gender', birthdate = '$birthdate', user_type = '$user_type', rol = '$rol', upcm_id = $upcm_id WHERE " . $this->id_column . " = $id;";
+		if (isset($data['password'])) {
 			$password = md5($password);
 			$sql = "UPDATE " . $this->table . " SET first_name = '$first_name', last_name = '$last_name', email = '$email', gender = '$gender', birthdate = '$birthdate', user_type = '$user_type', password = '$password' WHERE " . $this->id_column . " = $id;";
+			if ($user_type == 'coordinador' || $user_type == 'miembro') $sql = "UPDATE " . $this->table . " SET first_name = '$first_name', last_name = '$last_name', email = '$email', gender = '$gender', birthdate = '$birthdate', user_type = '$user_type', rol = '$rol', upcm_id = $upcm_id, password = '$password' WHERE " . $this->id_column . " = $id;";
 		}
 		$result = execute_query($sql);
 		return $result;

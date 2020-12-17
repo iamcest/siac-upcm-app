@@ -11,12 +11,13 @@ class UPCMS
 
 	function __construct() {
 	}
-	public function get(int $id = 0) {
+	public function get(int $id = 0, $columns = []) {
+		$columns = empty($columns) ? '*' : implode(',', $columns);
 		if ($id != 0) {
-			$sql = "SELECT * FROM " . $this->table. "WHERE ". $this->id_column. " = $id";
+			$sql = "SELECT $columns FROM " . $this->table. "WHERE ". $this->id_column. " = $id";
 		}
 		else{
-			$sql = "SELECT * FROM ". $this->table;
+			$sql = "SELECT $columns FROM ". $this->table;
 		}
 		$result = execute_query($sql);
 		$arr = [];

@@ -10,11 +10,18 @@ $upcm = New UPCMS();
 $helper = New Helper();
 
 $data = json_decode(file_get_contents("php://input"), true);
+if (empty($query)) $query = 0;
 
 switch ($method) {
 		case 'get':
-		if (empty($query)) $query = 0;
 		$results = $upcm->get($query);
+		echo json_encode($results > 0 ? $results : 'No se encontraron resultados');
+		die();
+		break;	
+
+		case 'upcm-list':
+		$columns = ['upcm_id','upcm_name'];
+		$results = $upcm->get($query, $columns);
 		echo json_encode($results > 0 ? $results : 'No se encontraron resultados');
 		die();
 		break;	

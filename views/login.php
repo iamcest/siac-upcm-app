@@ -26,11 +26,7 @@
 					          <div class="d-flex flex-column justify-space-between align-center mb-5">
 						          <v-btn class="grey white--text py-5" :loading="loading" :disabled="email == '' || password == ''" v-on:click="login" rounded>Iniciar Sesión</v-btn>
 						        </div>
-						        <v-col cols="12">
-									    <v-alert border="top" colored-border :color="alert_type" elevation="2" v-if="alert">
-									      {{ alert_message }}
-									    </v-alert>
-						        </v-col>
+						        <?php echo new Template('components/alert') ?>
 					        </v-col>
 
 					      </v-row>

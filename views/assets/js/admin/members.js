@@ -16,16 +16,7 @@ let vm = new Vue({
         { text: 'Acciones', value: 'actions', align:'center', sortable: false },
       ],
       members: [],
-      upcms: [
-        {
-          upcm_id: 1,
-          name: 'Lorem Ipsum'
-        },
-        {
-          upcm_id: 2,
-          name: 'Lorem Ipsum'
-        },
-      ],
+      upcms: [],
       rols: ['Cardiólogo', 'Enfermera', 'Enfermero', 'Secretaria'],
       user_types: ['administrador', 'coordinador', 'miembro'],
       genders: [
@@ -89,6 +80,12 @@ let vm = new Vue({
     methods: {
 
       initialize () {
+        var url = api_url + 'upcms/upcm-list'
+        this.$http.get(url).then(res => {
+          this.upcms = res.body;
+        }, err => {
+
+        })
         var url = api_url + 'members/get'
         this.$http.get(url).then(res => {
           this.members = res.body;

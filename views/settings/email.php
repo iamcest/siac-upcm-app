@@ -16,17 +16,18 @@
 
               <v-col cols="12">
                 <label>Servidor de correo</label>
-                <v-select class="mt-3" :items="email_servers" outlined ></v-select>
+                <v-select v-model="form.email_service" class="mt-3" :items="email_servers" item-text="text" item-value="val" outlined ></v-select>
               </v-col>
               <v-col cols="12" md="6">
                 <label>Correo electrónico</label>
-                <v-text-field class="mt-3" :counter="60" outlined required ></v-text-field>
+                <v-text-field type="email" name="email" v-model="form.email" class="mt-3" :counter="60" outlined required ></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
                 <label>Contraseña</label>
-                <v-text-field class="mt-3" :counter="20" outlined required ></v-text-field>
+                <v-text-field name="password" v-model="form.password" class="mt-3" :counter="20" outlined required ></v-text-field>
               </v-col>
-              <v-btn class="white--text secondary" rounded block>Actualizar información</v-btn>
+              <v-btn class="white--text secondary" :disabled="no_valid" :loading="loading" v-on:click="store" rounded block>Actualizar información</v-btn>
+              <?php echo new Template('components/alert') ?>
             </v-row>
           </v-form>
         </v-col>
