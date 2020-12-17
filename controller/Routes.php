@@ -25,6 +25,7 @@ class Routes
 			$footer = false;
 			switch ($route[0]) {
 				case '':
+					if (!isset($_SESSION['user_id'])) header("Location: ".SITE_URL."/login");header("Locate");
 					$styles = [['name' => 'full-calendar-5.4.0.min']];
 					$scripts = [['name' => 'full-calendar-5.4.0.min'],['name' => 'full-calendar-5.4.0/lib/locales-all'], ['name' => 'dashboard']];
 					$content = new Template("home");
