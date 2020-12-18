@@ -98,6 +98,7 @@
 			      	<v-icon class="mr-1">mdi-air-horn</v-icon>
 			        <v-list-item-title class="pl-2 font-weight-normal body-1">Notificaciones</v-list-item-title>
 			      </v-list-item>
+			      <?php if ($_SESSION['user_type'] == 'coordinador'): ?>
 			      <v-list-group prepend-icon="mdi-hospital-building" class="menu-item">
 			        <template v-slot:activator>
 			          <v-list-item-title class="font-weight-normal body-1">Administrar UPCM</v-list-item-title>
@@ -109,6 +110,7 @@
 			        	<v-list-item-title>Información de UPCM</v-list-item-title>
 			        </v-list-item>
 			      </v-list-group>
+			      <?php endif ?>
 			      <v-list-group prepend-icon="mdi-cog" class="menu-item">
 			        <template v-slot:activator>
 			          <v-list-item-title class="font-weight-normal body-1">Ajustes</v-list-item-title>

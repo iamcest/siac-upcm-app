@@ -39,6 +39,12 @@ h1, h2, h3 , h4, h5, h6, .v-application .text-h3, .v-application .text-h4{
 .dialog_form{
   width:99%;
 }
+.v-text-field__suffix{
+  font-size: 12px;
+}
+.v-input__prepend-outer{
+  font-size: 14px;
+}
 /*END*/
 .header{
   background-image: url(../img/login-bg.jpg);
