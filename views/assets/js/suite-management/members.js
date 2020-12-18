@@ -3,36 +3,21 @@ let vm = new Vue({
     vuetify,
     el: '#siac-suite-container',
     data: {
-      menu: '',
       dialog: false,
+      image_loading: false,
+      upload_button: false,
       dialogDelete: false,
+      menu: '',
+      previewImage: '',
       headers: [
-        {
-          text: 'Nombre Completo', align: 'start', value: 'full_name' },
-        { text: 'Rol', value: 'rol_text' },
+        { text: 'Nombre Completo', align: 'start', value: 'full_name' },
+        { text: 'Rol', value: 'rol' },
         { text: 'Email', value: 'email' },
         { text: 'Telephone', value: 'telephone' },
         { text: 'Actions', value: 'actions', align:'center', sortable: false },
       ],
       members: [],
-      rols: [
-        {
-          name: 'Cardiólogo',
-          id: 1,
-        },
-        {
-          name: 'Enfermera',
-          id: 2,
-        },
-        {
-          name: 'Enfermero',
-          id: 3,
-        },
-        {
-          name: 'Secretaria',
-          id: 4,
-        },
-      ],
+      rols: ['Cardiólogo', 'Enfermera', 'Enfermero', 'Secretaria'],
       genders: [
         {
           name: 'Masculino',
@@ -41,20 +26,6 @@ let vm = new Vue({
         {
           name: 'Femenino',
           gender: 'F',
-        },
-      ],
-      communication_platforms: [
-        {
-          text: 'Whatsapp',
-          val: 'whatsapp',
-        },
-        {
-          text: 'Telegram',
-          val: 'telegram',
-        },
-        {
-          text: 'Mensaje de texto',
-          val: 'sms',
         },
       ],
       editedIndex: -1,
@@ -69,6 +40,9 @@ let vm = new Vue({
         rol: '',
         email: '',
         telephone: '',
+        whatsapp: "0",
+        telegram: "0",
+        sms: "0",
       },
     },
 
@@ -97,64 +71,14 @@ let vm = new Vue({
 
     methods: {
       initialize () {
-        this.members = [
-          {
-            full_name: '',
-            first_name: 'John',
-            last_name: 'Doe',
-            rol_text: 'Enfermera',
-            rol_val: 1,
-            email: 'correo_prueba@prueba.com',
-            telephone: '(+xx) xxx xxxxx',
-            platforms: 'whatsapp',
-            gender: 'M',
-            birthdate: '1998-09-14',
-            password: '',
-            confirm_password: '',
-          },
-          {
-            full_name: '',
-            first_name: 'John',
-            last_name: 'Doe',
-            rol_text: 'Cardiólogo',
-            rol_val: 1,
-            email: 'correo_prueba@prueba.com',
-            telephone: '(+xx) xxx xxxxx',
-            platforms: 'telegram',
-            gender: 'M',
-            birthdate: '1998-09-14',
-            password: '',
-            confirm_password: '',
-          },
-          {
-            full_name: '',
-            first_name: 'John',
-            last_name: 'Doe',
-            rol_text: 'Secretaria',
-            rol_val: 4,
-            email: 'correo_prueba@prueba.com',
-            telephone: '(+xx) xxx xxxxx',
-            platforms: 'whatsapp',
-            gender: 'M',
-            birthdate: '1998-09-14',
-            password: '',
-            confirm_password: '',
-          },
-          {
-            full_name: '',
-            first_name: 'John',
-            last_name: 'Doe',
-            rol: 'Cardiólogo',
-            email: 'correo_prueba@prueba.com',
-            telephone: '(+xx) xxx xxxxx',
-            platforms: 'sms',
-            gender: 'M',
-            birthdate: '1998-09-14',
-            password: '',
-            confirm_password: '',
-          },
-        ]
+        var url = api_url + 'members/upcm-members'
+        this.$http.get(url).then(res => {
+          this.members = res.body;
+        }, err => {
+
+        })
       },
+
       editItem (item) {
         this.editedIndex = this.members.indexOf(item)
         this.editedItem = Object.assign({}, item)
@@ -168,12 +92,20 @@ let vm = new Vue({
       },
 
       deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
-        this.closeDelete()
+        var id = this.editedItem.user_id;
+        var url = api_url + 'members/delete'
+        this.$http.post(url, {user_id: id}).then(res => {
+            this.members.splice(this.editedIndex, 1)
+            this.closeDelete()
+          }, err => {
+          this.closeDelete()
+        })
       },
 
       close () {
         this.dialog = false
+        this.previewImage = ''
+        this.upload_button = false
         this.$nextTick(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
@@ -188,8 +120,41 @@ let vm = new Vue({
         })
       },
 
+      prevImage(e){
+        const image = e.target.files[0]
+        const reader = new FileReader()
+        reader.readAsDataURL(image)
+        reader.onload = e =>{
+            this.editedItem.avatar = image;
+            this.previewImage = e.target.result
+            this.upload_button = true
+        };
+      },
+
+       uploadImage(event) {
+        var app = this
+        let data = new FormData()
+        var url = api_url + 'members/update-member-avatar'
+        app.image_loading = true
+        data.append('avatar', app.editedItem.avatar);
+        data.append('user_id', app.editedItem.user_id);
+        app.$http.post(url, data).then(res => {
+          app.image_loading = false
+        }, err => {
+
+        })
+      },
+
       save () {
-        Object.assign(this.members[this.editedIndex], this.editedItem)
+        var app = this
+        var member = app.editedItem
+        var editedIndex = app.editedIndex
+        var url = api_url + 'members/update'
+          app.$http.post(url, member).then(res => {
+            Object.assign(app.members[editedIndex], member)
+          }, err => {
+
+          })
         this.close()
       },
     }

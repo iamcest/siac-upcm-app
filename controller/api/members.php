@@ -3,18 +3,24 @@
 *	@var method
 * @var query
 */
-if (empty($method)) die('403');
+if (empty($method)) die(403);
 require_once("models/Members.php");
 
 $member = New Members();
 $helper = New Helper();
 
 $data = json_decode(file_get_contents("php://input"), true);
+$query = empty($query) ? 0 : $query;
 
 switch ($method) {
-		case 'get':
-		if (empty($query)) $query = 0;
+	case 'get':
 		$results = $member->get($query);
+		echo json_encode($results > 0 ? $results : 'No se encontraron resultados');
+		die();
+
+	case 'upcm-members':
+		if (empty($_SESSION['upcm_id'])) die(403);
+		$results = $member->get_upcm_members($_SESSION['upcm_id']);
 		echo json_encode($results > 0 ? $results : 'No se encontraron resultados');
 		die();
 		break;	
@@ -121,14 +127,26 @@ switch ($method) {
 				$_SESSION[$value] = $data[$value];
 		}
 		$helper->response_message('Éxito', 'Tu información ha sido actualizada correctamente', 'success');
+		break;	
+
+	case 'update-member-avatar':
+ 		$id = intval($_POST['user_id']);
+		if (empty($id)) die(403);
+		$avatar_file = $_FILES['avatar'];
+		$ext = explode(".", $_FILES['avatar']['name']);
+		$file_name = 'siac_avatar_' .time() .'.' . end($ext);
+		if(!move_uploaded_file($_FILES["avatar"]["tmp_name"], DIRECTORY . "/public/img/avatars/" . $file_name)) $helper->response_message('Error', 'No se pudo guardar correctamente la imágen de perfil del miembro', 'error');
+		$result = $member->update_avatar($id, $file_name);
+		$helper->response_message('Éxito', 'Tu imágen de perfil ha sido actualizada correctamente', 'success');
 		break;
 
 	case 'update-avatar':
 		$avatar_file = $_FILES['avatar'];
 		$id = $_SESSION['user_id'];
+		if (empty($id)) die(403);
 		$ext = explode(".", $_FILES['avatar']['name']);
 		$file_name = 'siac_avatar_' .time() .'.' . end($ext);
-		move_uploaded_file($_FILES["avatar"]["tmp_name"], DIRECTORY . "/public/img/avatars/" . $file_name);
+		if(!move_uploaded_file($_FILES["avatar"]["tmp_name"], DIRECTORY . "/public/img/avatars/" . $file_name)) $helper->response_message('Error', 'No se pudo guardar correctamente tu imágen de perfil', 'error');
 		$result = $member->update_avatar($id, $file_name);
 		$_SESSION['avatar'] = $file_name;
 		$helper->response_message('Éxito', 'Tu imágen de perfil ha sido actualizada correctamente', 'success');

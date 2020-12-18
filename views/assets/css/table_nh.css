@@ -1,3 +1,3 @@
-.v-data-table .v-sheet.theme--light.v-toolbar.v-toolbar--flat, .v-toolbar__content{
+.v-data-table header.v-sheet.theme--light.v-toolbar.v-toolbar--flat, .v-data-table header .v-toolbar__content{
 	height: 100% !important;
 }

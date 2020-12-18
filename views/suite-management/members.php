@@ -11,7 +11,7 @@
             </v-col>
             
           </v-row>
-          <v-row class="px-16 mx-auto mt-6">
+          <v-row class="mt-6">
             <v-col cols="12">
               <v-data-table :headers="headers" :items="members" sort-by="full_name" class="elevation-1" >
                 <template v-slot:top>
@@ -33,15 +33,38 @@
                         <v-card-text>
                           <v-container>
                             <v-row>
-                              <v-col class="d-flex justify-center" cols="12">
-                                <v-icon class="avatar-image">mdi-account-circle</v-icon>
+                              <v-col cols="12" md="12">
+                                <h2 class="text-center">Mi Perfil</h2>
                               </v-col>
-                              <v-col class="d-flex justify-center pt-0 my-0" cols="12">
-                                <v-icon large color="#00BFA5">mdi-pencil-box-outline</v-icon>
+                              
+                              <v-col cols="12" md="12">
+                                <div class="d-flex justify-center">
+                                  <v-form>
+                                    <v-avatar class="uploading-image d-block" v-if="editedItem.avatar != null && !upload_button" size="7vw">
+                                      <img :src="'<?php echo SITE_URL ?>/public/img/avatars/' + editedItem.avatar">
+                                    </v-avatar>
+                                    <v-col class="d-flex justify-center" v-if="editedItem.avatar == null" cols="12">
+                                      <v-icon class="avatar-image">mdi-account-circle</v-icon>
+                                    </v-col>
+                                    <v-avatar class="uploading-image d-block" v-if="upload_button" size="7vw">
+                                      <img :src="previewImage">
+                                      <img :src="editedItem.avatar" >
+                                    </v-avatar>
+                                    <v-row class="d-flex justify-center">
+                                      <label for="avatar">
+                                        <v-icon class="text-center cursor-pointer" large color="#00BFA5">mdi-pencil-box-outline</v-icon>
+                                        <input type="file" name="avatar" id="avatar" class="d-none" v-on:change="prevImage"/>  
+                                      </label>
+                                    </v-row>
+                                    <v-row class="d-flex justify-center mt-4" v-if="upload_button">
+                                      <v-btn class="primary white--text" v-on:click="uploadImage" :loading="image_loading" d-block>Subir</v-btn> 
+                                    </v-row>
+                                  </v-form>
+                                </div>
                               </v-col>
                               <v-col cols="12">
                                 <label>Rol</label>
-                                <v-select class="mt-3" v-model="editedItem.rol_val" :items="rols" item-text="name" item-value="id" outlined ></v-select>
+                                <v-select class="mt-3" v-model="editedItem.rol" :items="rols" outlined ></v-select>
                               </v-col>
                               <v-col cols="12" sm="6" md="4" >
                                 <label>Nombre</label>
@@ -59,9 +82,20 @@
                                 <label>Teléfono</label>
                                 <v-text-field class="mt-3" v-model="editedItem.telephone" outlined solo></v-text-field>
                               </v-col>
-                              <v-col cols="12" sm="6" md="6" >
+                              <v-col cols="12" md="6">
                                 <label>Plataformas de comunicación</label>
-                                <v-select class="mt-3" v-model="editedItem.platforms" :items="communication_platforms" item-text="text" item-value="val" outlined ></v-select>
+                                <v-row class="pt-0">
+                                  <v-col cols="4" class="whatsapp-platform">
+                                    <v-checkbox v-model="editedItem.whatsapp" prepend-icon="mdi-whatsapp" ></v-checkbox>
+                                  </v-col>
+                                  <v-col cols="4" class="telegram-platform">
+                                    <v-checkbox v-model="editedItem.telegram" prepend-icon="mdi-telegram" ></v-checkbox>
+                                  </v-col>
+                                  <v-col cols="4" class="sms-platform">
+                                    <v-checkbox v-model="editedItem.sms" prepend-icon="mdi-comment-text" ></v-checkbox>
+
+                                  </v-col>
+                                </v-row>
                               </v-col>
                               <v-col cols="12" sm="6" md="6" >
                                 <label>Género</label>
@@ -134,7 +168,7 @@
                     Reset
                   </v-btn>
                 </template>
-              </v-data-table>
+
             </v-col>
           </v-row>
         </v-col>

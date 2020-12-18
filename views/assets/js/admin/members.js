@@ -29,20 +29,6 @@ let vm = new Vue({
           gender: 'F',
         },
       ],
-      communication_platforms: [
-        {
-          text: 'Whatsapp',
-          val: 'whatsapp',
-        },
-        {
-          text: 'Telegram',
-          val: 'telegram',
-        },
-        {
-          text: 'Mensaje de texto',
-          val: 'sms',
-        },
-      ],
       password: '',
       password_confirm: '',
       editedIndex: -1,
