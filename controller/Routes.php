@@ -112,7 +112,7 @@ class Routes
 						break;
 					
 					case 'notifications':
-						$scripts = [['name' => 'notifications']];
+						$scripts = [['name' => 'moment.min'], ['name' => 'vue-components/vue2-editor.min'], ['name' => 'notifications']];
 						$content = new Template("notifications");
 						break;
 					
