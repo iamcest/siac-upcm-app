@@ -7,30 +7,12 @@ let vm = new Vue({
       loading: false,
       dialog: false,
       dialogDelete: false,
-      announcements: [
-        {
-          announcement_id: 1,
-          title: 'Caso clínico',
-          content: 'Contenido de prueba',
-          user_id: 1,
-          published_at: '2020-12-19 01:00:09',
-        },
-        {
-          announcement_id: 2,
-          title: 'Caso clínico',
-          content: 'Lorem Ipsum',
-          user_id: 1,
-          published_at: '2020-12-19 00:10:09',
-        },
-        {
-          announcement_id: 3,
-          title: 'Caso clínico',
-          content: 'Lorem ipsum dolor asit me',
-          user_id: 1,
-          published_at: '2020-12-19 01:10:09',
-        },
-      ],
+      viewDialog: false,
+      all_announcements: true,
+      user_id: -1,
       editedIndex: -1,
+      announcements: [],
+      author: {},
       editedItem: {},
       defaultItem: {
         title: '',
@@ -42,7 +24,23 @@ let vm = new Vue({
     computed: {
       formTitle () {
         return this.editedIndex === -1 ? 'Crear anuncio' : 'Editar anuncio'
-      },    
+      },
+
+      filterByDate () {
+        if (!this.all_announcements) {
+          var user_id = this.user_id
+          var my_announcements = this.announcements.filter(announcement => {
+            return announcement.user_id == user_id 
+          })  
+          var my_announcements = my_announcements.sort((a, b) => (a.published_at < b.published_at) ? 1 : -1)
+          return my_announcements
+        }
+        return this.announcements.sort((a, b) => (a.published_at < b.published_at) ? 1 : -1)
+      },
+
+      announcementBtnTitle () {
+        return this.all_announcements ? 'Mis anuncios' : 'Todos los anuncios'
+      },
     },
 
     created () {
@@ -56,7 +54,6 @@ let vm = new Vue({
       initialize () {
         var url = api_url + 'announcements/get'
         this.$http.get(url).then(res => {
-          console.log(res)
           this.announcements = res.body;
         }, err => {
 
@@ -107,28 +104,49 @@ let vm = new Vue({
       save () {
         var app = this
         var editedIndex = app.editedIndex
-        var upcm = app.editedItem
+        var announcement = app.editedItem
         if (this.editedIndex > -1) {
           var url = api_url + 'announcements/update'
-          this.$http.post(url, upcm).then(res => {
-            Object.assign(app.announcements[editedIndex], upcm)
+          this.$http.post(url, announcement).then(res => {
+            Object.assign(app.announcements[editedIndex], announcement)
           }, err => {
 
           })
         } else {
           var url = api_url + 'announcements/create'
-          this.$http.post(url, upcm).then(res => {
-            upcm.published_at = moment()
-            upcm.announcement_id = res.body.data
-            this.announcements.push(upcm)
+          this.$http.post(url, announcement).then(res => {
+            announcement.published_at = moment()
+            announcement.user_id = res.body.data.user_id
+            announcement.announcement_id = res.body.data.announcement_id
+            this.announcements.push(announcement)
           }, err => {
 
           })
         }
         this.close()
       },
+
+      switchAnnouncenments(user) {
+        if (this.all_announcements) this.all_announcements = false
+        else this.all_announcements = true
+        this.user_id = user
+      },
+
+      get_announcement (item) {
+        var app = this
+        app.author = {}  
+        var url = api_url + 'announcements/get-author'
+        app.viewDialog = true
+        app.editedItem = Object.assign({}, item)
+        app.$http.post(url, {announcement_id: item.announcement_id}).then(res => {
+          app.author = res.body;
+        }, err => {
+
+        })
+      },
+
       fromNow (date) {
         return moment(date).fromNow();
       },
-  	}
+    }
 });
