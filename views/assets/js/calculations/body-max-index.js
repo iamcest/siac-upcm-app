@@ -15,7 +15,7 @@ let vm = new Vue({
           id: 2
         }
       ],
-      calc: {
+      vars: {
         height: 0.00,
         weight: 0.00
       },
@@ -40,6 +40,13 @@ let vm = new Vue({
     },
 
     computed: {
+      calc () {
+        if (this.vars.height != 0 && this.vars.weight != 0) 
+          var height = Math.pow(this.vars.height / 100, 2)
+          var weight = this.vars.weight
+          return Math.round(weight * 10 / height) / 10
+        return ''
+      }
     },
 
     created () {

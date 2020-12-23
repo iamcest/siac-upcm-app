@@ -7,7 +7,7 @@
         <v-col cols="12" md="9" lg="10" class="pt-16 pl-md-8">
           <v-row>
             <v-col cols="12" md="12">
-              <h2 class="text-center">Calculadora de Superficie Corporal</h2>
+              <h2 class="text-center">Calculadora de índice Masa Corporal</h2>
             </v-col>
             
           </v-row>
@@ -21,17 +21,17 @@
 
               <v-col cols="12" md="6">
                 <label>Altura</label>
-                <v-text-field class="mt-3" v-model="calc.height" :counter="7" outlined required ></v-text-field>
+                <v-text-field class="mt-3" v-model="vars.height" :counter="7" hint="Ingrese la unidad en centímetros" persistent-hint outlined required ></v-text-field>
               </v-col>
 
               <v-col cols="12" md="6">
                 <label>Peso</label>
-                <v-text-field class="mt-3" v-model="calc.weight" :counter="7" outlined required ></v-text-field>
+                <v-text-field class="mt-3" v-model="vars.weight" :counter="7" hint="Ingrese la unidad en kilogramos" persistent-hint outlined required ></v-text-field>
               </v-col>
 
-              <v-col cols="12" md="4" offset-md="4">
-                <label class="text-center result-label">Resultado</label>
-                <v-text-field class="mt-3 result-box" outlined readonly required ></v-text-field>
+              <v-col  cols="12" md="4" offset-md="4">
+                <label class="text-center d-flex justify-center">Resultado</label>
+                <v-text-field class="mt-3" :value="calc" outlined readonly required ></v-text-field>
               </v-col>
 
               <v-col cols="12">

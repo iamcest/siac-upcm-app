@@ -16,16 +16,16 @@
 
               <v-col cols="12" md="6">
                 <label>Valor sistólico</label>
-                <v-text-field class="mt-3" v-model="calc.systolic" :counter="7" outlined required></v-text-field>
+                <v-text-field class="mt-3" v-model="vars.systolic" :counter="7" outlined required></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
                 <label>Valor diastólico</label>
-                <v-text-field class="mt-3" v-model="calc.diastolic" :counter="7" outlined required></v-text-field>
+                <v-text-field class="mt-3" v-model="vars.diastolic" :counter="7" outlined required></v-text-field>
               </v-col>
 
               <v-col cols="12" md="4" offset-md="4">
-                <label class="text-center result-label">Resultado</label>
-                <v-text-field class="mt-3 result-box" outlined readonly required ></v-text-field>
+                <label class="text-center d-flex justify-center">Resultado</label>
+                <v-text-field class="mt-3 result-box" :value="calc" outlined readonly required ></v-text-field>
               </v-col>
             </v-row>
           </v-form>

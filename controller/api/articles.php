@@ -64,7 +64,11 @@ switch ($method) {
 		break;	
 
 	case 'delete':
-		$result = $article->delete(intval($data['article_id']));
+		$id = intval($data['article_id']);
+		$image = $article->get($id, ['image']);
+		$image = $current_image[0]['image'];
+		if(empty(!$image)) unlink(DIRECTORY . "/public/img/articles/covers/" . $image);
+		$result = $article->delete($id);
 		if (!$result) $helper->response_message('Error', 'No se pudo eliminar el artículo correctamente', 'error');
 		$helper->response_message('Éxito', 'Se eliminó el artículo correctamente');
 		break;

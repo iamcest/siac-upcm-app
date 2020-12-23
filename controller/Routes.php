@@ -235,7 +235,8 @@ class Routes
 					break;
 				
 				case 'community':
-					$scripts = [['name' => 'community']];
+					$scripts = [['name' => 'moment.min'], ['name' => 'community']];
+					$styles = [['name' => 'community']];
 					$content = new Template("community");
 					break;
 					

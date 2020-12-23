@@ -4,13 +4,18 @@ let vm = new Vue({
     el: '#siac-suite-container',
     data: {
       loading: false,
-      calc: {
+      vars: {
         tas: 0.00,
         tad: 0.00
       },
     },
 
     computed: {
+      calc () {
+        var tas = this.vars.tas
+        var tad = this.vars.tad
+        return Math.round(tad-(-(tas-tad)/3))
+      }
     },
 
     created () {
@@ -20,7 +25,5 @@ let vm = new Vue({
     },
 
     methods: {
-      reserve () {
-      },
     }
 });
