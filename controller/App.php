@@ -3,6 +3,7 @@
  * 
  */
 if (session_status() === PHP_SESSION_NONE) session_start();
+require("controller/Template.php");
 require_once("vendor/autoload.php");
 require_once("models/helper/DB.php");
 require_once("controller/Helper.php");

@@ -6,33 +6,139 @@
         <?php echo new Template('admin/parts/sidebar') ?>
         <v-col cols="12" md="9" lg="10" class="pt-16 pl-md-8">
           <v-row>
-            <v-col cols="12" md="5">
-              <v-btn class="rounded-pill secondary white--text py-6"><v-icon>mdi-plus</v-icon> Añadir anuncio</v-btn>
-              <v-btn class="rounded-pill secondary white--text py-6">Todos los anuncios</v-btn>
+            <v-col cols="12" md="6" lg="5">
+              <v-btn class="rounded-pill secondary white--text py-6 mb-sm-4 mb-lg-0" @click="editItem(defaultItem)"><v-icon>mdi-plus</v-icon> Añadir anuncio</v-btn>
+              <v-btn class="rounded-pill secondary white--text py-6" @click="switchAnnouncenments(<?php echo $_SESSION['user_id'] ?>)">{{ announcementBtnTitle }}</v-btn>
             </v-col>
-            <v-col cols="12" md="3">
-              <h2 class="text-center">Notificaciones</h2>
+            <v-col cols="12" md="6" lg="5">
+              <h2>Notificaciones</h2>
             </v-col>
+            <v-dialog v-model="viewDialog" max-width="1200px" >
+              <v-card>
+                <v-toolbar elevation="0">
+                  <v-toolbar-title>Detalles del anuncio</v-toolbar-title>
+                  <v-spacer></v-spacer>
+                  <v-toolbar-items>
+                  <v-btn icon dark @click="viewDialog = false">
+                    <v-icon color="grey">mdi-close</v-icon>
+                  </v-btn>
+                  </v-toolbar-items>
+                </v-toolbar>
+                
+                <v-divider></v-divider>
+
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12">
+                        <h3 class="text-h5 text-center">{{ editedItem.title }}</h3>
+                      </v-col>
+                      <v-col cols="12">
+                        {{ editedItem.content }}
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-actions class="pt-0 px-8">
+                  <v-row>
+                    <v-col cols="12">
+                      <h4 class="text-h6 text-center">Publicado por:</h4>   
+                    </v-col>
+                    <v-col cols="12" md="12" class="py-3 mt-n3 d-flex justify-center align-center">
+                      <v-avatar class="mr-2" size="5vw">
+                        <img :src="'<?php echo SITE_URL ?>/public/img/avatars/'+author.avatar">
+                      </v-avatar>
+                      <p>
+                        <b>{{ author.first_name }} {{ author.last_name }}</b>
+                        <br>
+                        {{ author.rol }}
+                      </p>
+                    </v-col>
+                    <v-col cols="12" md="12" class="py-3 mt-n3 d-flex justify-end">
+                      <v-icon class="grey--text grey-lighten-1">mdi-timer</v-icon><span class="body-1 grey--text grey-lighten-1">{{ fromNow(editedItem.published_at) }}</span>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-btn color="secondary white--text" block>
+                        Unirse a la discusión
+                      </v-btn>
+                    </v-col>   
+                  </v-row>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <v-dialog v-model="dialog" max-width="1200px" >
+              <v-card>
+                <v-toolbar elevation="0">
+                  <v-toolbar-title>{{ formTitle }}</v-toolbar-title>
+                  <v-spacer></v-spacer>
+                  <v-toolbar-items>
+                  <v-btn icon dark @click="dialog = false">
+                    <v-icon color="grey">mdi-close</v-icon>
+                  </v-btn>
+                  </v-toolbar-items>
+                </v-toolbar>
+                
+                <v-divider></v-divider>
+
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12">
+                        <label>Título</label>
+                        <v-text-field class="mt-3" v-model="editedItem.title"outlined ></v-text-field>
+                      </v-col>
+                      <v-col cols="12">
+                        <label>Contenido</label>
+                        <vue-editor class="mt-3" v-model="editedItem.content" placeholder="Contenido del anuncio"/>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-card-text>
+
+                <v-card-actions class="px-8">
+                  <v-spacer></v-spacer>
+                  <v-btn color="secondary white--text" block @click="save">
+                    Guardar
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <v-dialog v-model="dialogDelete" max-width="1200px">
+              <v-card>
+                <v-card-title class="headline">¿Estás seguro de que quieres eliminar este anuncio?</v-card-title>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="closeDelete">Cancelar</v-btn>
+                  <v-btn color="blue darken-1" text @click="deleteItemConfirm">Continuar</v-btn>
+                  <v-spacer></v-spacer>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </v-row>
 
           <v-row>
-            <v-col cols="12" md="4" v-for="i in 12">
+            <v-col cols="12" md="4" v-for="(item, index) in filterByDate" :key="item.announcement_id">
               <v-card max-width="400" outlined >
                 <v-card-title class="primary white--text d-block text-center">Anuncio</v-card-title>
                 <v-card-text class="pt-10">
-                  <h5 class="text-h6 text-center">Caso clínico 1</h5>
+                  <h5 class="text-h6 text-center">{{ item.title }}</h5>
                 </v-card-text>
 
-                <v-card-actions class="mb-6">
-                  <v-btn class="mx-auto white--text subtitle-2 py-4 px-8" color="#c6c6c6">
+                <v-card-actions class="mb-3">
+                  <v-btn class="mx-auto white--text subtitle-2 py-4 px-8" color="#c6c6c6" v-on:click="get_announcement(item)">
                     Leer más
                   </v-btn>
                 </v-card-actions>
-                <div class="px-2 mb-4">
-                  <v-icon class="green--text">mdi-pencil</v-icon>
-                  <v-icon class="red--text">mdi-trash-can</v-icon>
-                  <span class="body-1 grey--text grey-lighten-1 d-inline-block float-right">Hace 20 minutos</span>
-                </div>
+                <v-card-actions class="annoucement-info pb-1">
+                  <div class="px-2">
+                    <v-icon class="green--text" @click="editItem(item)" v-if="item.user_id == <?php echo $_SESSION['user_id'] ?>">mdi-pencil</v-icon>
+                    <v-icon class="red--text" @click="deleteItem(item)">mdi-trash-can</v-icon>
+                    <span class="body-1 grey--text grey-lighten-1 float-right">{{ fromNow(item.published_at) }}</span>
+                  </div>
+                </v-card-actions>
               </v-card>
             </v-col>
           </v-row>

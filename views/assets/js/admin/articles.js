@@ -3,9 +3,13 @@ let vm = new Vue({
     vuetify,
     el: '#siac-suite-container',
     data: {
-      loading: false,     
+      loading: false,
+      valid: false,     
       dialog: false,
       dialogDelete: false,
+      rules: [
+        value => !value || value.size < 3000000 || 'La imágen no debe tener un tamaño mayor a 3 MB!',
+      ],
       headers: [
         { text: 'Título', align: 'start', value: 'title' },
         { text: 'Descripción', value: 'description' },
@@ -24,7 +28,7 @@ let vm = new Vue({
     computed: {
       formTitle () {
         return this.editedIndex === -1 ? 'Crear artículo para SIAC Comunidad' : 'Editar artículo'
-      },
+      }
     },
 
     watch: {
@@ -34,6 +38,13 @@ let vm = new Vue({
       dialogDelete (val) {
         val || this.closeDelete()
       },
+      editedItem: {
+        deep: true,
+        handler: () => {
+          if (this.editedIndex == -1)
+            vm.$refs.form.validate()
+        }
+      }
     },
 
     created () {
@@ -44,6 +55,7 @@ let vm = new Vue({
     },
 
     methods: {
+
       initialize () {
         var url = api_url + 'articles/get'
         this.$http.get(url).then(res => {
@@ -56,6 +68,7 @@ let vm = new Vue({
       editItem (item) {
         this.editedIndex = this.articles.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        this.editedItem.image = null
         this.dialog = true
       },
 
@@ -101,18 +114,26 @@ let vm = new Vue({
         var app = this
         var editedIndex = app.editedIndex
         var article = app.editedItem
+        var data = new FormData();
+        data.append('image', article.image);
+        data.append('title', article.title);
+        data.append('description', article.description);
+        data.append('content', article.content);
         if (this.editedIndex > -1) {
+          data.append('article_id', article.article_id);
           var url = api_url + 'articles/update'
-          this.$http.post(url, article).then(res => {
-            Object.assign(app.articles[editedIndex], article)
+          this.$http.post(url, data, { headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).then(res => {
+            if (res.body.status == "success") 
+              Object.assign(app.articles[editedIndex], article)
           }, err => {
 
           })
         } else {
           var url = api_url + 'articles/create'
-          this.$http.post(url, article).then(res => {
-            article.published_at = current_date
-            this.members.push(article)
+          this.$http.post(url, data).then(res => {
+            if (res.body.status == "success") 
+              article.published_at = current_date
+              this.articles.push(article)
           }, err => {
 
           })

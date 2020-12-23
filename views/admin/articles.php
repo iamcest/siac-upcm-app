@@ -33,31 +33,39 @@
                             
                             <v-divider></v-divider>
 
-                            <v-card-text>
-                              <v-container>
-                                <v-row>
-                                  <v-col cols="12">
-                                    <label>Título</label>
-                                    <v-text-field class="mt-3" v-model="editedItem.title" outlined solo></v-text-field>
-                                  </v-col>
-                                  <v-col cols="12">
-                                    <label>Descripción corta</label>
-                                    <v-textarea class="mt-3" v-model="editedItem.description":counter="240" outlined solo></v-textarea>
-                                  </v-col>
-                                  <v-col cols="12">
-                                    <label class="black--text">Contenido del artículo</label>
-                                    <vue-editor class="mt-3" v-model="editedItem.content" placeholder="Contenido del artículo"/>
-                                  </v-col>
-                                </v-row>
-                              </v-container>
-                            </v-card-text>
+                            <v-form ref="form" v-model="valid" lazy-validation>
+                              <v-card-text>
+                                <v-container>
+                                    <v-row>
+                                      <v-col cols="12">
+                                        <label>Imágen del artículo</label>
+                                          <v-file-input class="mt-3" v-model="editedItem.image" :rules="rules" accept="image/png, image/jpeg, image/bmp" placeholder="Escoge una imágen para el artículo" prepend-icon='mdi-image' hint="Solo archivos con extensión .jpg, .png, .bmp" persistent-hint outlined solo></v-file-input>
+                                      </v-col>
+                                      <v-col cols="12">
+                                        <label>Título</label>
+                                        <v-text-field class="mt-3" v-model="editedItem.title" outlined solo></v-text-field>
+                                      </v-col>
+                                      <v-col cols="12">
+                                        <label>Descripción corta</label>
+                                        <v-textarea class="mt-3" v-model="editedItem.description":counter="240" outlined solo></v-textarea>
+                                      </v-col>
+                                      <v-col cols="12">
+                                        <label class="black--text">Contenido del artículo</label>
+                                        <vue-editor class="mt-3" v-model="editedItem.content" placeholder="Contenido del artículo"/>
+                                      </v-col>
+                                    </v-row>
+                                    
+                                  </v-form>
+                                </v-container>
+                              </v-card-text>
 
-                            <v-card-actions class="px-8">
-                              <v-spacer></v-spacer>
-                              <v-btn color="secondary white--text" block @click="save">
-                                Guardar
-                              </v-btn>
-                            </v-card-actions>
+                              <v-card-actions class="px-8">
+                                <v-spacer></v-spacer>
+                                <v-btn color="secondary white--text" block @click="save" :disabled="!valid">
+                                  Guardar
+                                </v-btn>
+                              </v-card-actions>
+                            </form>
                           </v-card>
                         </v-dialog>
                         <v-dialog v-model="dialogDelete" max-width="1200px">

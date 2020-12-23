@@ -31,7 +31,7 @@ class Routes
 					$content = new Template("home");
 				break;
 				case 'admin':
-					if (!isset($_SESSION['user_id'])) header("Location: ".SITE_URL."/login");header("Locate");
+					if (!isset($_SESSION['user_id'])) header("Location: ".SITE_URL."/login");
 					switch ($route[1]) {
 						case '':
 							$scripts = [['name' => 'admin/upcm']];
@@ -49,7 +49,7 @@ class Routes
 							break;
 
 						case 'announcements':
-							$scripts = [['name' => 'admin/announcements']];
+							$scripts = [['name' => 'moment.min'], ['name' => 'vue-components/vue2-editor.min'], ['name' => 'admin/announcements']];
 							$content = new Template("admin/announcements");
 							break;
 
