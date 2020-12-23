@@ -164,7 +164,7 @@ class Routes
 								break;
 
 							case 'oms-ops-risk':
-								$scripts = [['name' => 'calculations/oms-ops-risk']];
+								$scripts = [['name' => 'calculations/oms-ops-risk/risk_vars'], ['name' => 'calculations/oms-ops-risk/calc']];
 								$content = new Template("calculations/oms-ops-risk");
 								break;
 								

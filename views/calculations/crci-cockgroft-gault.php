@@ -21,31 +21,27 @@
 
               <v-col cols="12" md="6">
                 <label>Edad</label>
-                <v-text-field class="mt-3" v-model="calc.age" :counter="3" outlined required ></v-text-field>
+                <v-text-field class="mt-3" v-model="vars.age" :counter="3" outlined required ></v-text-field>
               </v-col>
 
               <v-col cols="12" md="6">
                 <label>Género</label>
-                <v-select class="mt-3" v-model="calc.gender" :items="genders" item-text="gender" item-value="abbr" outlined required></v-select>
+                <v-select class="mt-3" v-model="vars.gender" :items="genders" item-text="gender" item-value="abbr" outlined required></v-select>
               </v-col>
 
               <v-col cols="12" md="6">
                 <label>Peso</label>
-                <v-text-field class="mt-3" v-model="calc.weight" :counter="7" outlined required ></v-text-field>
+                <v-text-field class="mt-3" v-model="vars.weight" :counter="7" outlined required ></v-text-field>
               </v-col>
 
               <v-col cols="12" md="6">
                 <label>Suero de creatinina</label>
-                <v-text-field class="mt-3" v-model="calc.creatinine_serum" :counter="7" outlined required ></v-text-field>
-              </v-col>
-
-              <v-col cols="12">
-                <v-btn class="white--text secondary" block rounded>Obtener resultado</v-btn>
+                <v-text-field class="mt-3" v-model="vars.creatinine_serum" :counter="7" outlined required ></v-text-field>
               </v-col>
 
               <v-col cols="12" md="4" offset-md="4">
-                <label class="text-center result-label">Resultado</label>
-                <v-text-field class="mt-3 result-box" outlined readonly required ></v-text-field>
+                <label class="text-center d-flex justify-center">Resultado</label>
+                <v-text-field class="mt-3 result-box" :value="calc" outlined readonly required ></v-text-field>
               </v-col>
 
             </v-row>

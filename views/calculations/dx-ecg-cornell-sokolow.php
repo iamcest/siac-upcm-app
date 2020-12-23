@@ -35,8 +35,8 @@
               </v-col>
 
               <v-col cols="12" md="4" offset-md="4">
-                <label class="text-center result-label">Resultado</label>
-                <v-text-field class="mt-3 result-box" outlined readonly required ></v-text-field>
+                <label class="text-center d-flex justify-center">Resultado</label>
+                <v-text-field class="mt-3 result-box" :value="calcC" outlined readonly required ></v-text-field>
               </v-col>  
 
               <v-col cols="12">
@@ -58,17 +58,17 @@
 
               <v-col cols="12" md="6">
                 <label>Onda S VI</label>
-                <v-text-field class="mt-3" v-model="calc.cornell.wave_r_avl" :counter="5" outlined required ></v-text-field>
+                <v-text-field type="number" class="mt-3" v-model="calc.sokolow_lyon.wave_s_v6" :counter="5" outlined required ></v-text-field>
               </v-col>
 
               <v-col cols="12" md="6">
                 <label>Onda R V5 o V6</label>
-                <v-text-field class="mt-3" v-model="calc.cornell.wave_s_v3" :counter="5" outlined required ></v-text-field>
+                <v-text-field type="number" class="mt-3" v-model="calc.sokolow_lyon.wave_r_v5" :counter="5" outlined required ></v-text-field>
               </v-col>
 
               <v-col cols="12" md="4" offset-md="4">
-                <label class="text-center result-label">Resultado</label>
-                <v-text-field class="mt-3 result-box" outlined readonly required ></v-text-field>
+                <label class="text-center d-flex justify-center">Resultado</label>
+                <v-text-field class="mt-3 result-box" :value="calcSL" outlined readonly></v-text-field>
               </v-col>  
 
               <v-col cols="12">
