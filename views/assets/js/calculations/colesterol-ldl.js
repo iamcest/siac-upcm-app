@@ -15,13 +15,17 @@ let vm = new Vue({
           id: 2
         }
       ],
-      calc: {
+      vars: {
+        total_cholesterol: 0.00,
         triglyceride_level: 0.00,
         c_HDL: 0.00
       },
     },
 
     computed: {
+      calc () {
+        return parseInt(this.vars.total_cholesterol) - parseInt(this.vars.c_HDL)
+      }
     },
 
     created () {
