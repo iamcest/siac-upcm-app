@@ -52,7 +52,7 @@
 			        	<v-list-item-title>Riesgo 2013 AHA/ACC</v-list-item-title>
 			        </v-list-item>
 
-			        <v-list-item class="pl-12 sub-item">
+			        <v-list-item class="pl-12 sub-item" href="<?php SITE_URL ?>/suite/forms/unit-converter" link>
 			        	<v-list-item-title>Conversor de unidades</v-list-item-title>
 			        </v-list-item>
 			        <v-list-item class="pl-12 sub-item" href="<?php SITE_URL ?>/suite/forms/crci-cockgroft-gault" link>

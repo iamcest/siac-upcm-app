@@ -171,6 +171,11 @@ class Routes
 							case 'aha-acc-2013-risk':
 								$scripts = [['name' => 'calculations/aha-acc-2013-risk']];
 								$content = new Template("calculations/aha-acc-2013-risk");
+								break;	
+
+							case 'unit-converter':
+								$scripts = [['name' => 'calculations/unit-converter']];
+								$content = new Template("calculations/unit-converter");
 								break;
 
 							case 'colesterol-ldl':
