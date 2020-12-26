@@ -14,21 +14,33 @@
           <v-form>
             <v-row class="px-16 mx-auto">
 
-              <v-col cols="12" md="12">
-                <label>Medida de PA ambulatoria (automedida)</label>
-                <v-text-field class="mt-3" v-model="calc.amount" suffix="mmHg" hint="Ingrese la unidad en mmHg" outlined required></v-text-field>
+              <v-col cols="12" md="6">
+                <label>Medida de presión arterial sistólica ambulatoria (automedida)</label>
+                <v-text-field class="mt-3" v-model="vars.pas" suffix="mmHg" hint="Ingrese la unidad en mmHg" outlined required></v-text-field>
+              </v-col>
+
+              <v-col cols="12" md="6">
+                <label>Medida de presión arterial diastólica ambulatoria (automedida)</label>
+                <v-text-field class="mt-3" v-model="vars.pad" suffix="mmHg" hint="Ingrese la unidad en mmHg" outlined required></v-text-field>
+              </v-col>
+
+              <v-col cols="12" md="6" v-if="ampa_form">
+                <label>Auto medida domiciliaria de la presión arterial (AMPA)</label>
+                <v-text-field class="mt-3" v-model="vars.ampa" suffix="mmHg" hint="Ingrese los datos como en el ejemplo mostrado: 130/80"  placeholder="Ejemplo: 130/80" outlined required></v-text-field>
               </v-col>   
 
-              <v-col cols="12" md="4" offset-md="4">
-                <label class="text-center result-label">Diagnóstico</label>
-                <v-text-field class="mt-3 result-box" outlined readonly required ></v-text-field>
-              </v-col>  
-              <v-col cols="12">
-                <h3 class="mb-4 grey--text text--darken-2">Tratamiento</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum iure doloribus, minima saepe quos nulla, velit! Enim, beatae maiores saepe a, dolorum voluptas nesciunt obcaecati sit neque vel, omnis fugiat!</p>
+              <v-col cols="12" md="6" offset-md="3">
+                <label class="text-center d-flex justify-center">Diagnóstico</label>
+                <v-text-field class="mt-3 result-box" :value="diagnostic" outlined readonly required ></v-text-field>
+              </v-col>
+              <v-col cols="6" v-if="tracking !== ''">
+                <h3 class="mb-4 grey--text text--darken-2">Seguimiento</h3>
+                <p>{{ tracking }}</p>      
+              </v-col>
 
-                <h3 class="mt-4 grey--text text--darken-2">AMPA</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum iure doloribus, minima saepe quos nulla, velit! Enim, beatae maiores saepe a, dolorum voluptas nesciunt obcaecati sit neque vel, omnis fugiat!</p>
+              <v-col cols="6" v-if="treatment !== ''">
+                <h3 class="mb-4 grey--text text--darken-2">Seguimiento</h3>
+                <p>{{ Tratamiento }}</p>                   
               </v-col>
             </v-row>
           </v-form>

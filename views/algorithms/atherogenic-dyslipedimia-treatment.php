@@ -15,17 +15,17 @@
             <v-row class="px-16 mx-auto">
 
               <v-col cols="12" md="12">
-                <label>Cribado de trigléceridos(sin ayuno)</label>
-                <v-text-field class="mt-3" v-model="calc.amount" hint="Ingrese la unidad en mg/dl" suffix="mg/dl" outlined required></v-text-field>
+                <label>Cribado de triglicéridos (sin ayuno)</label>
+                <v-text-field class="mt-3" v-model="amount" hint="Ingrese la unidad en mg/dl" suffix="mg/dl" outlined required></v-text-field>
               </v-col>   
 
               <v-col cols="12" md="4" offset-md="4">
-                <label class="text-center result-label">Resultado</label>
-                <v-text-field class="mt-3 result-box" outlined readonly required ></v-text-field>
+                <label class="text-center d-flex justify-center">Resultado</label>
+                <v-text-field class="mt-3 result-box" :value="diagnostic" outlined readonly required ></v-text-field>
               </v-col>  
-              <v-col cols="12">
+              <v-col cols="12" v-if="tracking !== ''">
                 <h3 class="mb-4 grey--text text--darken-2">Seguimiento</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum iure doloribus, minima saepe quos nulla, velit! Enim, beatae maiores saepe a, dolorum voluptas nesciunt obcaecati sit neque vel, omnis fugiat!</p>
+                <p>{{ tracking }}</p>
               </v-col>
             </v-row>
           </v-form>

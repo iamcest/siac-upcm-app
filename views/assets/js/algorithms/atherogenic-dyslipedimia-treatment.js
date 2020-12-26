@@ -4,13 +4,15 @@ let vm = new Vue({
     el: '#siac-suite-container',
     data: {
       loading: false,
-      calc: {
-        height: 0.00,
-        weight: 0.00
-      },
+      diagnostic: '',
+      tracking: '',
+      amount: ''
     },
 
-    computed: {
+    watch: {
+      amount: {
+        handler: 'calc'
+      }
     },
 
     created () {
@@ -20,7 +22,34 @@ let vm = new Vue({
     },
 
     methods: {
-      reserve () {
-      },
+      calc () {
+        var app = this
+        var amount = app.amount
+        app.diagnostic = ''
+        app.tracking = ''
+
+        if (amount <= 200) {
+          app.tracking = 'Perfil lipídico semestral'
+          if (amount <= 100) {
+            app.diagnostic = 'Óptimo'
+          }
+          else if (amount > 100 && amount <= 149) {
+            app.diagnostic = 'Normal'
+          }
+          else if (amount >= 150 && amount <= 199) {
+            app.diagnostic = 'Limitrofe'
+          }
+        }
+        else {
+          app.tracking = 'Evaluar CTEV. Iniciar combo de AGO3 o fibratos.'
+          if (amount >= 200 && amount <= 499) {
+            app.diagnostic = 'Alto'            
+          }
+          else {
+            app.tracking += ' Algunos pacientes requerirán triple terapia.'
+            app.diagnostic = 'Muy Alto'             
+          }
+        }
+      }
     }
 });

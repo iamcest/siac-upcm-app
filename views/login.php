@@ -21,7 +21,8 @@
 					          <v-text-field type="email" name="email" v-model="email" outlined required ></v-text-field>
 
 					        	<label for="">Contraseña</label>
-					          <v-text-field type="password" name="password" v-model="password" outlined required ></v-text-field>
+					          <v-text-field type="password" name="password" v-model="password"  v-on:keyup.enter="login" outlined required ></v-text-field>
+
 					          <p class="text-right">¿Olvidaste tu contraseña?</p>
 					          <div class="d-flex flex-column justify-space-between align-center mb-5">
 						          <v-btn class="grey white--text py-5" :loading="loading" :disabled="email == '' || password == ''" v-on:click="login" rounded>Iniciar Sesión</v-btn>
