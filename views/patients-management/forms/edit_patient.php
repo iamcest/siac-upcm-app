@@ -5,7 +5,7 @@
 													        Información general
 													      </v-tab>
 
-													      <v-tab class="font-weight-bold" href="#tab-2">
+													      <v-tab class="font-weight-bold" href="#tab-2" @click="initializeAppointments">
 													        Citas 
 													      </v-tab>
 

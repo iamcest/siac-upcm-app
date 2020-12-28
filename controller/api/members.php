@@ -23,6 +23,13 @@ switch ($method) {
 		$results = $member->get_upcm_members($_SESSION['upcm_id']);
 		echo json_encode($results > 0 ? $results : 'No se encontraron resultados');
 		die();
+		break;
+
+	case 'get-doctors':
+		if (empty($_SESSION['upcm_id'])) die(403);
+		$results = $member->get_upcm_doctors($_SESSION['upcm_id']);
+		echo json_encode($results > 0 ? $results : 'No se encontraron resultados');
+		die();
 		break;	
 
 	case 'create':
@@ -48,8 +55,7 @@ switch ($method) {
 		$id = intval($data['user_id']);
 		$result = $member->edit($id,sanitize($data));
 		if (!$result) $helper->response_message('Error', 'No se pudo editar el miembro correctamente', 'error');
-		$columns = ['user_id', 'telephone', 'whatsapp', 'telegram', 'sms'];
-		$result = $member->edit_contact($id, sanitize($data), $columns);
+		$result = $member->edit_contact($id, sanitize($data));
 		if (!$result) {
 			$helper->response_message('Error', 'no se pudo editar la información de contacto del miembro', 'error');
 		}

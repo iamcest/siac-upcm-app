@@ -13,7 +13,7 @@
                               </v-col>
                               <v-col cols="12" sm="6">
                                 <label>N° de identificación</label>
-                                <v-text-field class="mt-3" v-model="editedItem.id_number" outlined></v-text-field>
+                                <v-text-field class="mt-3" v-model="editedItem.document_id" outlined></v-text-field>
                               </v-col>
                               <v-col cols="12" sm="6">
                                 <label>Fecha de nacimiento</label>
@@ -48,9 +48,20 @@
                                 <label>Teléfono</label>
                                 <v-text-field class="mt-3" v-model="editedItem.telephone" outlined></v-text-field>
                               </v-col>
-                              <v-col cols="12" sm="6" md="4">
+                              <v-col cols="12" md="4">
                                 <label>Plataformas de comunicación</label>
-                                <v-select class="mt-3" v-model="editedItem.platforms" :items="communication_platforms" item-text="text" item-value="val" outlined></v-select>
+                                <v-row class="pt-0">
+                                  <v-col cols="4" class="whatsapp-platform">
+                                    <v-checkbox v-model="editedItem.whatsapp" :true-value="'1'" :false-value="'0'" prepend-icon="mdi-whatsapp" ></v-checkbox>
+                                  </v-col>
+                                  <v-col cols="4" class="telegram-platform">
+                                    <v-checkbox v-model="editedItem.telegram" :true-value="'1'" :false-value="'0'" prepend-icon="mdi-telegram" ></v-checkbox>
+                                  </v-col>
+                                  <v-col cols="4" class="sms-platform">
+                                    <v-checkbox v-model="editedItem.sms" :true-value="'1'" :false-value="'0'" prepend-icon="mdi-comment-text" ></v-checkbox>
+
+                                  </v-col>
+                                </v-row>
                               </v-col>
                               <v-col cols="12" sm="6" md="4">
                                 <label>Fecha de ingreso</label>

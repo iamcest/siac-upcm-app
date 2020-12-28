@@ -18,7 +18,7 @@
                     <v-spacer></v-spacer>           
                     <v-dialog v-model="dialog" max-width="98%" >
                       <template v-slot:activator="{ on, attrs }">
-                        <v-btn color="secondary" dark rounded class="mb-2" v-bind="attrs" v-on="on">
+                        <v-btn color="secondary" dark rounded class="mb-2" v-bind="attrs" v-on="on" @click="editedItem = defaultItem">
                           <v-icon>mdi-plus</v-icon>
                           Añadir paciente
                         </v-btn>
@@ -95,7 +95,7 @@
                 </template>
                 <template v-slot:no-data>
                   <v-btn color="primary" @click="initialize" >
-                    Reset
+                    Recargar
                   </v-btn>
                 </template>
               </v-data-table>

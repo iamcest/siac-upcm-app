@@ -6,7 +6,7 @@
                                           <v-spacer></v-spacer>           
                                           <v-dialog v-model="patient_appointments.dialog" max-width="90%" >
                                             <template v-slot:activator="{ on, attrs }">
-                                              <v-btn color="secondary" dark rounded class="mb-2" v-bind="attrs" v-on="on">
+                                              <v-btn color="secondary" dark rounded class="mb-2" v-bind="attrs" v-on="on" @click="patient_appointments.editedItem = {}">
                                                 <v-icon>mdi-plus</v-icon>
                                                 Añadir cita
                                               </v-btn>
@@ -27,30 +27,30 @@
                                                 <v-row class="px-8">
                                                   <v-col cols="12" sm="6">
                                                     <label>Seleccione el especialista</label>
-                                                    <v-select class="mt-3" v-model="patient_appointments.editedItem.doctor_id" :items="patient_appointments.doctors" item-text="full_name" item-value="id" no-data-text='No hay datos disponibles' outlined></v-select>
+                                                    <v-select class="mt-3" v-model="patient_appointments.editedItem.user_id" :items="patient_appointments.doctors" item-text="full_name" item-value="user_id" no-data-text='No hay datos disponibles' :loading="patient_appointments.select" outlined></v-select>
                                                   </v-col>
                                                   <v-col cols="12" sm="6">
                                                     <label>Motivo de la cita</label>
-                                                    <v-text-field class="mt-3" v-model="patient_appointments.editedItem.reason" outlined>
+                                                    <v-text-field class="mt-3" v-model="patient_appointments.editedItem.appointment_reason" outlined>
                                                     </v-text-field>
                                                   </v-col>
                                                   <v-col cols="12" sm="6">
                                                     <label>Tipo de cita</label>
-                                                    <v-select class="mt-3" v-model="patient_appointments.editedItem.type_id" :items="patient_appointments.types" item-text="text" item-value="id" :no-data-text='empty_message' outlined></v-select>
+                                                    <v-select class="mt-3" v-model="patient_appointments.editedItem.appointment_type" :items="patient_appointments.types" outlined></v-select>
                                                   </v-col>
                                                   <v-col cols="12" sm="6">
                                                     <label>Fecha de la cita</label>
 
-                                                    <v-dialog ref="appointment_date_dialog" v-model="patient_appointments.date_modal" :return-value.sync="patient_appointments.editedItem.date" width="290px">
+                                                    <v-dialog ref="appointment_date_dialog" v-model="patient_appointments.date_modal" :return-value.sync="patient_appointments.editedItem.appointment_date" width="290px">
                                                       <template v-slot:activator="{ on, attrs }">
-                                                        <v-text-field class="mt-3" v-model="patient_appointments.editedItem.date" append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" outlined></v-text-field>
+                                                        <v-text-field class="mt-3" v-model="patient_appointments.editedItem.appointment_date" append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" outlined></v-text-field>
                                                       </template>
-                                                      <v-date-picker v-model="patient_appointments.editedItem.date" locale="es" scrollable>
+                                                      <v-date-picker v-model="patient_appointments.editedItem.appointment_date" locale="es" scrollable>
                                                         <v-spacer></v-spacer>
                                                         <v-btn text color="primary" @click="patient_appointments.date_modal = false">
                                                           Cancel
                                                         </v-btn>
-                                                        <v-btn text color="primary" @click="$refs.appointment_date_dialog.save(patient_appointments.editedItem.date)">
+                                                        <v-btn text color="primary" @click="$refs.appointment_date_dialog.save(patient_appointments.editedItem.appointment_date)">
                                                           OK
                                                         </v-btn>
                                                       </v-date-picker>
@@ -58,16 +58,16 @@
                                                   </v-col>
                                                   <v-col cols="12" sm="6">
                                                     <label>Hora de la cita</label>
-                                                    <v-dialog  ref="appointment_time_dialog" v-model="patient_appointments.time_modal" :return-value.sync="patient_appointments.editedItem.time" persistent width="290px">
+                                                    <v-dialog  ref="appointment_time_dialog" v-model="patient_appointments.time_modal" :return-value.sync="patient_appointments.editedItem.appointment_time" persistent width="290px">
                                                       <template v-slot:activator="{ on, attrs }">
-                                                        <v-text-field class="mt-3" v-model="patient_appointments.editedItem.time" append-icon="mdi-clock-time-four-outline" readonly v-bind="attrs" v-on="on" outlined></v-text-field>
+                                                        <v-text-field class="mt-3" v-model="patient_appointments.editedItem.appointment_time" append-icon="mdi-clock-time-four-outline" readonly v-bind="attrs" v-on="on" outlined></v-text-field>
                                                       </template>
-                                                      <v-time-picker v-if="patient_appointments.time_modal" v-model="patient_appointments.editedItem.time" full-width>
+                                                      <v-time-picker v-if="patient_appointments.time_modal" v-model="patient_appointments.editedItem.appointment_time" full-width>
                                                         <v-spacer></v-spacer>
                                                         <v-btn text color="primary" @click="patient_appointments.time_modal = false" >
                                                           Cancelar
                                                         </v-btn>
-                                                        <v-btn text color="primary" @click="$refs.appointment_time_dialog.save(patient_appointments.editedItem.time)" >
+                                                        <v-btn text color="primary" @click="$refs.appointment_time_dialog.save(patient_appointments.editedItem.appointment_time)" >
                                                           OK
                                                         </v-btn>
                                                       </v-time-picker>
@@ -97,12 +97,6 @@
                                           </v-dialog>
                                         </v-toolbar>
                                       </template>
-                                      <template v-slot:item.doctor_full_name="{ item }">
-                                        {{ getDoctorFullName(item.doctor_id) }}
-                                      </template>
-                                      <template v-slot:item.type="{ item }">
-                                        {{ getAppointmentType(item.type_id) }}
-                                      </template>
                                       <template v-slot:item.actions="{ item }">
                                         <v-row justify="center" align="center">
                                           <v-icon md class="" @click="editAppointmentItem(item)" color="#00BFA5">
@@ -115,8 +109,8 @@
 
                                       </template>
                                       <template v-slot:no-data>
-                                        <v-btn color="primary" @click="initialize" >
-                                          Reset
+                                        <v-btn color="primary" @click="initializeAppointments" >
+                                          Recargar
                                         </v-btn>
                                       </template>
                                     </v-data-table>

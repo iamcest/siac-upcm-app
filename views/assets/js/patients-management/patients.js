@@ -7,6 +7,7 @@ let vm = new Vue({
       birthdate_modal: '',
       entry_date_modal: '',
       birthdate_dialog: '',
+      entry_date_dialog: '',
       appointment_date_dialog: '',
       appointment_time_dialog: '',
       exam_date_dialog: '',
@@ -16,7 +17,7 @@ let vm = new Vue({
       dialogDelete: false,
       patients: [],
       headers: [
-        {text: 'N° de historia', align: 'start', value: 'history_id', width:"auto" },
+        {text: 'N° de historia', align: 'start', value: 'patient_id', width:"auto" },
         { text: 'Nombre y Apellido', value: 'full_name', width:"auto" },
         { text: 'Teléfono', value: 'telephone', width:"auto" },
         { text: 'Email', value: 'email', width:"auto" },
@@ -29,84 +30,25 @@ let vm = new Vue({
         dialogDelete: false,
         date_modal: false,
         time_modal: false,
+        select: false,
         types: [
           {
             text: 'Primera vez',
-            id: 1
           },
           {
             text: 'Consulta de chequeo',
-            id: 2
           }
         ],
-        doctors: [
-          {
-            id: 1,
-            full_name: 'Samantha Smith',
-          },
-          {
-            id: 2,
-            full_name: 'Dereck Coldman',
-          },
-          {
-            id: 3,
-            full_name: 'Cinthia Dominguez',
-          },
-          {
-            id: 4,
-            full_name: 'Dimitri Alexander',
-          }
-        ],
+        doctors: [],
         headers: [
-          {text: 'Fecha de la cita', align: 'start', value: 'date' },
-          { text: 'Hora de la cita', value: 'time' },
-          { text: 'Doctor', value: 'doctor_full_name' },
-          { text: 'Tipo de cita', value: 'type' },
-          { text: 'Motivo de la cita', value: 'reason' },
+          {text: 'Fecha de la cita', align: 'start', value: 'appointment_date' },
+          { text: 'Hora de la cita', value: 'appointment_time' },
+          { text: 'Doctor', value: 'full_name' },
+          { text: 'Tipo de cita', value: 'appointment_type' },
+          { text: 'Motivo de la cita', value: 'appointment_reason' },
           { text: 'Acciones', value: 'actions', align:'center', sortable: false },
         ],
-        appointments: [
-          {
-            date: '2020-10-20',
-            time: '10:00',
-            doctor_id: 1,
-            type: 'Lorem ipsum dolor',
-            type_id: 2,
-            reason: 'Lorem ipsum dolor sit amet, culpa!'
-          },
-          {
-            date: '2020-10-20',
-            time: '10:00',
-            doctor_id: 3,
-            type: 'Lorem ipsum dolor',
-            type_id: 2,
-            reason: 'Lorem ipsum dolor asit me'
-          },
-          {
-            date: '2020-10-20',
-            time: '10:00',
-            doctor_id: 2,
-            type: 'Lorem ipsum dolor',
-            type_id: 2,
-            reason: 'Lorem ipsum dolor asit me'
-          },
-          {
-            date: '2020-10-20',
-            time: '10:00',
-            doctor_id: 1,
-            type: 'Lorem ipsum dolor',
-            type_id: 2,
-            reason: 'Lorem ipsum dolor asit me'
-          },
-          {
-            date: '2020-10-20',
-            time: '10:00',
-            doctor_id: 2,
-            type: 'Lorem ipsum dolor',
-            type_id: 2,
-            reason: 'Lorem ipsum dolor asit me'
-          }
-        ],
+        appointments: [],
         editedItem: {},
         editedIndex: -1,
       },
@@ -508,12 +450,15 @@ let vm = new Vue({
       editedItem: {
       },
       defaultItem: {
+        telegram: '0',
+        whatsapp: '0',
+        sms: '0',
       },
     },
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'Añadir nuevo paciente' : 'Editar ficha del paciente - N° de historia: ' + this.editedItem.history_id
+        return this.editedIndex === -1 ? 'Añadir nuevo paciente' : 'Editar ficha del paciente - N° de historia: ' + this.editedItem.patient_id
       },
       AppointmentFormTitle () {
         const obj =this.patient_appointments;
@@ -545,85 +490,28 @@ let vm = new Vue({
 
     methods: {
       initialize () {
-        this.patients = [
-          {
-            history_id: 17092020,
-            full_name: '',
-            first_name: 'John',
-            last_name: 'Doe',
-            telephone: '(+xx) xxx xxxxx',
-            email: 'correo_prueba@prueba.com',
-            address: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. pariatur ut voluptates, ipsum?',
-            platforms: 'whatsapp',
-            gender: 'M',
-            birthdate: '1998-09-14',
-            dates: [],
-            anthropometry: [],
-            vitals_signs: [],
-            history: [],
-            laboratory_exams: [],
-            risk_factors: [],
-          },
-          {
-            history_id: 17092020,
-            full_name: '',
-            first_name: 'John',
-            last_name: 'Doe',
-            telephone: '(+xx) xxx xxxxx',
-            email: 'correo_prueba@prueba.com',
-            address: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. pariatur ut voluptates, ipsum?',
-            platforms: 'whatsapp',
-            gender: 'M',
-            birthdate: '1998-09-14',
-            dates: [],
-            anthropometry: [],
-            vitals_signs: [],
-            history: [],
-            laboratory_exams: [],
-            risk_factors: [],
-          },
-          {
-            history_id: 17092020,
-            full_name: '',
-            first_name: 'John',
-            last_name: 'Doe',
-            telephone: '(+xx) xxx xxxxx',
-            email: 'correo_prueba@prueba.com',
-            address: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. pariatur ut voluptates, ipsum?',
-            platforms: 'whatsapp',
-            gender: 'M',
-            birthdate: '1998-09-14',
-            dates: [],
-            anthropometry: [],
-            vitals_signs: [],
-            history: [],
-            laboratory_exams: [],
-            risk_factors: [],
-          },
-          {
-            history_id: 17092020,
-            full_name: '',
-            first_name: 'John',
-            last_name: 'Doe',
-            telephone: '(+xx) xxx xxxxx',
-            email: 'correo_prueba@prueba.com',
-            address: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. pariatur ut voluptates, ipsum?',
-            platforms: 'whatsapp',
-            gender: 'M',
-            birthdate: '1998-09-14',
-            dates: [],
-            anthropometry: [],
-            vitals_signs: [],
-            history: [],
-            laboratory_exams: [],
-            risk_factors: [],
-          },
-        ]
+        var url = api_url + 'patients/get'
+        this.$http.get(url).then( res => {
+          this.patients = res.body
+        }, err => {
+
+        })
+      },
+      initializeAppointments() {
+        var app = this
+        app.getDoctors()
+        var url = api_url + 'appointments/get/'+app.editedItem.patient_id
+        app.$http.get(url).then( res => {
+          app.patient_appointments.appointments = res.body
+        }, err => {
+
+        })
       },
       editItem (item) {
-        this.editedIndex = this.patients.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
+        var app = this
+        app.editedIndex = app.patients.indexOf(item)
+        app.editedItem = Object.assign({}, item)
+        app.dialog = true
       },
       editAppointmentItem (item) {
         var obj = this.patient_appointments
@@ -653,14 +541,32 @@ let vm = new Vue({
       },
 
       deleteItemConfirm () {
-        this.patients.splice(this.editedIndex, 1)
-        this.closeDelete()
+        var app = this
+        var url = api_url + 'patients/delete'
+        app.$http.post(url, app.editedItem).then( res => {
+          app.loading = false
+          if (res.body.status == "success") {
+              this.patients.splice(this.editedIndex, 1)
+              this.closeDelete()
+          }
+        }, err => {
+
+        })
       }, 
 
       deleteAppointmentItemConfirm () {
-        var obj = this.patient_appointments
-        obj.appointments.splice(obj.editedIndex, 1)
-        this.closeAppointmentDelete()
+        var app = this
+        var obj = app.patient_appointments
+        var url = api_url + 'appointments/delete'
+        app.$http.post(url, {appointment_id: obj.editedItem.appointment_id}).then( res => {
+          app.loading = false
+          if (res.body.status == "success") {
+            obj.appointments.splice(obj.editedIndex, 1)
+          }
+          app.closeAppointmentDelete()
+        }, err => {
+          app.closeAppointmentDelete()
+        })
       },
 
       deleteExamItemConfirm () {
@@ -723,22 +629,69 @@ let vm = new Vue({
       },
 
       save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.patients[this.editedIndex], this.editedItem)
+        var app = this
+        app.loading = true
+        if (app.editedIndex > -1) {
+          var url = api_url + 'patients/update'
+          app.$http.post(url, app.editedItem).then( res => {
+            app.loading = false
+            if (res.body.status == "success") {
+              Object.assign(app.patients[app.editedIndex], app.editedItem)
+            }
+          }, err => {
+
+          })
         } else {
-          this.patients.push(this.editedItem)
+          var url = api_url + 'patients/create'
+          app.$http.post(url, app.editedItem).then( res => {
+            app.loading = false
+            if (res.body.status == "success") {
+              app.editedItem.patient_id = res.body.data.patient_id
+              app.patients.push(app.editedItem)
+            }
+          }, err => {
+            app.loading = false
+          })
         }
-        this.close()
+        app.close()
       },
 
       saveAppointment () {
-        var obj = this.patient_appointments
+        var app = this
+        var obj = app.patient_appointments
+        obj.editedItem.patient_id = app.editedItem.patient_id
+        obj.editedItem.full_name = app.getDoctorFullName(obj.editedItem.user_id)
+        app.loading = true
         if (obj.editedIndex > -1) {
-          Object.assign(obj.appointments[obj.editedIndex], obj.editedItem)
+          var url = api_url + 'appointments/update'
+          app.$http.post(url, obj.editedItem).then( res => {
+            app.loading = false
+            if (res.body.status == "success") {
+              Object.assign(obj.appointments[obj.editedIndex], obj.editedItem)
+              app.closeAppointment()
+              return true
+            }
+            app.closeAppointment()
+          }, err => {
+            app.loading = false
+            app.closeAppointment()
+          })
         } else {
-          obj.appointments.push(obj.editedItem)
+          var url = api_url + 'appointments/create'
+          app.$http.post(url, obj.editedItem).then( res => {
+            app.loading = false
+            if (res.body.status == "success") {
+              obj.editedItem.appointment_id = res.body.data.appointment_id
+              obj.appointments.push(obj.editedItem)
+              app.closeAppointment()
+              return true
+            }
+            app.closeAppointment()
+          }, err => {
+            app.loading = false
+            app.closeAppointment()
+          })
         }
-        this.closeAppointment()
       },
 
       saveExam () {
@@ -747,20 +700,26 @@ let vm = new Vue({
         this.closeExam()
       },
 
-      getDoctorFullName (doctor_id) {
-        var obj = this.patient_appointments
-        var results = obj.doctors.filter(function (doctor) { 
-          return doctor.id == doctor_id;
-        });
-        return results[0]['full_name'];
+      getDoctors () {
+        var app = this
+        var url = api_url + 'members/get-doctors'
+        if (app.patient_appointments.doctors.length == 0) {
+          app.patient_appointments.select = true
+          app.$http.get(url).then(res => {
+            app.patient_appointments.select = false
+            app.patient_appointments.doctors = res.body
+          }, err => {
+            app.patient_appointments.select = false
+          })
+        }
       },
 
-      getAppointmentType (appointment_type) {
+      getDoctorFullName (id) {
         var obj = this.patient_appointments
-        var results = obj.types.filter(function (type) { 
-          return type.id == appointment_type;
+        var results = obj.doctors.filter( (doctor) => { 
+          return doctor.user_id == id;
         });
-        return results[0]['text'];
+        return results[0]['full_name'];
       },
 
       showExamResults (item) {
