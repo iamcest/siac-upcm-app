@@ -16,8 +16,7 @@ switch ($method) {
 	case 'get':
 		$results = $patient->get($query);
 		echo json_encode($results > 0 ? $results : 'No se encontraron resultados');
-		die();
-
+		break;
 	case 'create':
 		if (empty($data)) $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');;
 		$columns = ['first_name', 'last_name', 'document_id', 'document_type', 'birthdate', 'gender', 'address', 'email', 'patient_upcm'];

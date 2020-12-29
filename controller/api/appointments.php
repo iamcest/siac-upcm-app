@@ -16,7 +16,7 @@ switch ($method) {
 	case 'get':
 		$results = $appointment->get($query);
 		echo json_encode($results > 0 ? $results : 'No se encontraron resultados');
-		die();
+		break;
 
 	case 'create':
 		if (empty($data)) $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');;

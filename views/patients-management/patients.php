@@ -18,7 +18,7 @@
                     <v-spacer></v-spacer>           
                     <v-dialog v-model="dialog" max-width="98%" >
                       <template v-slot:activator="{ on, attrs }">
-                        <v-btn color="secondary" dark rounded class="mb-2" v-bind="attrs" v-on="on" @click="editedItem = defaultItem">
+                        <v-btn color="secondary" dark rounded class="mb-2" v-bind="attrs" v-on="on" @click="editedItem = defaultItem; general_save = true">
                           <v-icon>mdi-plus</v-icon>
                           Añadir paciente
                         </v-btn>
@@ -55,7 +55,7 @@
                           </v-container>
                         </v-card-text>
 
-                        <v-card-actions class="px-6">
+                        <v-card-actions class="px-6" v-if="general_save">
                           <v-spacer></v-spacer>
                           <v-btn color="secondary white--text" block @click="save">
                             Guardar

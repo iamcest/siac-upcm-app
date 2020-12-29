@@ -21,7 +21,6 @@ switch ($method) {
 		if ($results < 0) $helper->response_message('Advertencia', 'No se encontraron resultados', 'warning');
 		$results = ['email' => Crypto::decrypt($results[0]['email'], $key), 'password' => Crypto::decrypt($results[0]['password'], $key), 'email_service' => $results[0]['email_service']];
 		echo json_encode($results);
-		die();
 		break;	
 
 	case 'store':

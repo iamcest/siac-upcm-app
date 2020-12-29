@@ -17,7 +17,6 @@ switch ($method) {
 		if (empty($query)) $query = 0;
 		$results = $announcement->get($query);
 		echo json_encode($results > 0 ? $results : 'No se encontraron resultados');
-		die();
 		break;	
 
 	case 'create':

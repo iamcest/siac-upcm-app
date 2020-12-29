@@ -15,6 +15,7 @@ let vm = new Vue({
       tab: null,
       dialog: false,
       dialogDelete: false,
+      general_save: false,
       patients: [],
       headers: [
         {text: 'N° de historia', align: 'start', value: 'patient_id', width:"auto" },
@@ -63,7 +64,7 @@ let vm = new Vue({
         dialogDelete: false,
         modal: false,
         headers: [
-          {text: 'Exámen de Laboratorio', align: 'start', value: 'exam', width:"auto" },
+          {text: 'Exámen de Laboratorio', align: 'start', value: 'name', width:"auto" },
           { text: 'Acción', value: 'action', width:"auto" },
         ],
         table_options: {
@@ -72,188 +73,147 @@ let vm = new Vue({
           hideDefaultFooter: true,
         },
         exam_headers: [
-          {text: 'Fecha del exámen', align: 'start', value: 'date', width:"auto" },
-          { text: 'Resultado', value: 'result', width:"auto" },
+          {text: 'Fecha del exámen', align: 'start', value: 'exam_date', width:"auto" },
+          { text: 'Resultado', value: 'results', width:"auto" },
           { text: 'Acción', value: 'action', width:"auto" },
         ],
-        exam_results: [
-          {
-            id: 1,
-            date: '2020-11-25',
-            result: '60',
-          },
-          {
-            id: 2,
-            date: '2020-11-10',
-            result: '70',
-          },
-          {
-            id: 3,
-            date: '2020-11-05',
-            result: '50',
-          },
-          {
-            id: 4,
-            date: '2020-10-15',
-            result: '55',
-          },
-        ],
-        exams: [
-          {
-            exam: 'Hgb',
-            nomenclature: 'g/dl',
-          },
-          {
-            exam: 'Htc',
-            nomenclature: '',
-          },
-          {
-            exam: 'Glóbulos Blancos',
-            nomenclature: 'mil/mm3',
-          },
-          {
-            exam: 'Glucemia',
-            nomenclature: 'mg/dL',
-          },
-          {
-            exam: 'Hgb A1c',
-            nomenclature: '%',
-          },
-          {
-            exam: 'Tasa Filt Glom',
-            nomenclature: 'mL/min',
-
-          },
-          {
-            exam: 'Col Total',
-            nomenclature: 'mg/dL',
-          },
-          {
-            exam: 'Triglic',
-            nomenclature: 'mg/dL',
-          },
-          {
-            exam: 'Colesterol HDL',
-            nomenclature: 'mg/dL',
-          },
-          {
-            exam: 'Colesterol LDL',
-            nomenclature: 'mg/dL',
-          },
-          {
-            exam: 'Colesterol No HDL',
-            nomenclature: 'mg/dL',
-          },
-        ],
+        exam_results: [],
+        exams: [],
         editedItem: {},
         defaultItem: {},
         selectedExam: {},
         editedIndex: -1,
       },
       patient_vital_signs: {
+        default: {
+          sitting: {
+            pa_right_arm1: 0,
+            pa_right_arm2: 0,
+            pa_left_arm1: 0,
+            pa_left_arm2: 0,
+            breathing_rate: 0,
+            temperature: 0
+          },
+          lying_down: {
+            pa_right_arm1: 0,
+            pa_right_arm2: 0,
+            pa_left_arm1: 0,
+            pa_left_arm2: 0,
+            breathing_rate: 0,
+            temperature: 0
+          },
+          standing: {
+            pa_right_arm1: 0,
+            pa_right_arm2: 0,
+            pa_left_arm1: 0,
+            pa_left_arm2: 0,
+            breathing_rate: 0,
+            temperature: 0
+          },
+        },
         takes: [
           {
             sitting: {
-              pa_right_arm1: '',
-              pa_right_arm2: '',
-              pa_left_arm1: '',
-              pa_left_arm2: '',
-              breathing_rate: '',
-              temperature: ''
+              pa_right_arm1: 0,
+              pa_right_arm2: 0,
+              pa_left_arm1: 0,
+              pa_left_arm2: 0,
+              breathing_rate: 0,
+              temperature: 0
             },
             lying_down: {
-              pa_right_arm1: '',
-              pa_right_arm2: '',
-              pa_left_arm1: '',
-              pa_left_arm2: '',
-              breathing_rate: '',
-              temperature: ''
+              pa_right_arm1: 0,
+              pa_right_arm2: 0,
+              pa_left_arm1: 0,
+              pa_left_arm2: 0,
+              breathing_rate: 0,
+              temperature: 0
             },
             standing: {
-              pa_right_arm1: '',
-              pa_right_arm2: '',
-              pa_left_arm1: '',
-              pa_left_arm2: '',
-              breathing_rate: '',
-              temperature: ''
+              pa_right_arm1: 0,
+              pa_right_arm2: 0,
+              pa_left_arm1: 0,
+              pa_left_arm2: 0,
+              breathing_rate: 0,
+              temperature: 0
             },
           },
           {
             sitting: {
-              pa_right_arm1: '',
-              pa_right_arm2: '',
-              pa_left_arm1: '',
-              pa_left_arm2: '',
-              breathing_rate: '',
-              temperature: ''
+              pa_right_arm1: 0,
+              pa_right_arm2: 0,
+              pa_left_arm1: 0,
+              pa_left_arm2: 0,
+              breathing_rate: 0,
+              temperature: 0
             },
             lying_down: {
-              pa_right_arm1: '',
-              pa_right_arm2: '',
-              pa_left_arm1: '',
-              pa_left_arm2: '',
-              breathing_rate: '',
-              temperature: ''
+              pa_right_arm1: 0,
+              pa_right_arm2: 0,
+              pa_left_arm1: 0,
+              pa_left_arm2: 0,
+              breathing_rate: 0,
+              temperature: 0
             },
             standing: {
-              pa_right_arm1: '',
-              pa_right_arm2: '',
-              pa_left_arm1: '',
-              pa_left_arm2: '',
-              breathing_rate: '',
-              temperature: ''
+              pa_right_arm1: 0,
+              pa_right_arm2: 0,
+              pa_left_arm1: 0,
+              pa_left_arm2: 0,
+              breathing_rate: 0,
+              temperature: 0
             },
           },
           {
             sitting: {
-              pa_right_arm1: '',
-              pa_right_arm2: '',
-              pa_left_arm1: '',
-              pa_left_arm2: '',
-              breathing_rate: '',
-              temperature: ''
+              pa_right_arm1: 0,
+              pa_right_arm2: 0,
+              pa_left_arm1: 0,
+              pa_left_arm2: 0,
+              breathing_rate: 0,
+              temperature: 0
             },
             lying_down: {
-              pa_right_arm1: '',
-              pa_right_arm2: '',
-              pa_left_arm1: '',
-              pa_left_arm2: '',
-              breathing_rate: '',
-              temperature: ''
+              pa_right_arm1: 0,
+              pa_right_arm2: 0,
+              pa_left_arm1: 0,
+              pa_left_arm2: 0,
+              breathing_rate: 0,
+              temperature: 0
             },
             standing: {
-              pa_right_arm1: '',
-              pa_right_arm2: '',
-              pa_left_arm1: '',
-              pa_left_arm2: '',
-              breathing_rate: '',
-              temperature: ''
+              pa_right_arm1: 0,
+              pa_right_arm2: 0,
+              pa_left_arm1: 0,
+              pa_left_arm2: 0,
+              breathing_rate: 0,
+              temperature: 0
             },
           },
           {
             sitting: {
-              pa_right_arm1: '',
-              pa_right_arm2: '',
-              pa_left_arm1: '',
-              pa_left_arm2: '',
-              breathing_rate: '',
-              temperature: ''
+              pa_right_arm1: 0,
+              pa_right_arm2: 0,
+              pa_left_arm1: 0,
+              pa_left_arm2: 0,
+              breathing_rate: 0,
+              temperature: 0
             },
             lying_down: {
-              pa_right_arm1: '',
-              pa_right_arm2: '',
-              pa_left_arm1: '',
-              pa_left_arm2: '',
-              breathing_rate: '',
-              temperature: ''
+              pa_right_arm1: 0,
+              pa_right_arm2: 0,
+              pa_left_arm1: 0,
+              pa_left_arm2: 0,
+              breathing_rate: 0,
+              temperature: 0
             },
             standing: {
-              pa_right_arm1: '',
-              pa_right_arm2: '',
-              pa_left_arm1: '',
-              pa_left_arm2: '',
-              breathing_rate: '',
-              temperature: ''
+              pa_right_arm1: 0,
+              pa_right_arm2: 0,
+              pa_left_arm1: 0,
+              pa_left_arm2: 0,
+              breathing_rate: 0,
+              temperature: 0
             },
           },
         ],
@@ -497,18 +457,45 @@ let vm = new Vue({
 
         })
       },
+
+      initializeExams () {
+        var app = this
+        app.general_save = false
+        var url = api_url + 'medical-exams/get-exams-list'
+        app.$http.get(url).then( res => {
+          app.patient_laboratory_exams.exams = res.body
+        }, err => {
+
+        })
+      },
+
       initializeAppointments() {
         var app = this
+        app.general_save = false
         app.getDoctors()
-        var url = api_url + 'appointments/get/'+app.editedItem.patient_id
+        if (app.patient_appointments.appointments.length == 0) {
+          var url = api_url + 'appointments/get/'+app.editedItem.patient_id
+          app.$http.get(url).then( res => {
+            app.patient_appointments.appointments = res.body
+          }, err => {
+
+          })
+        }
+      },
+
+      initializeAnthropometry() {
+        var app = this
+        app.general_save = false
+        var url = api_url + 'anthropometry/get/'+app.editedItem.patient_id
         app.$http.get(url).then( res => {
-          app.patient_appointments.appointments = res.body
+          app.patient_anthropometry = res.body[0]
         }, err => {
 
         })
       },
       editItem (item) {
         var app = this
+        app.general_save = true
         app.editedIndex = app.patients.indexOf(item)
         app.editedItem = Object.assign({}, item)
         app.dialog = true
@@ -570,9 +557,17 @@ let vm = new Vue({
       },
 
       deleteExamItemConfirm () {
-        var obj = this.patient_laboratory_exams
-        obj.exam_results.splice(obj.editedIndex, 1)
-        this.closeExamDelete()
+        var app = this
+        var obj = app.patient_laboratory_exams
+        var url = api_url + 'medical-exams/delete'
+        app.$http.post(url, obj.editedItem).then(res => {
+          if (res.body.status == 'success') {
+            obj.exam_results.splice(obj.editedIndex, 1)
+            app.closeExamDelete()
+          }
+        }, err => {
+          app.closeExamDelete()
+        })
       },      
 
       close () {
@@ -694,10 +689,130 @@ let vm = new Vue({
         }
       },
 
+      saveAnthropometry () {
+        var app = this
+        app.loading = true
+        var url = api_url + 'anthropometry/create'
+        var data = {
+          patient_id: app.editedItem.patient_id,
+          weight: app.patient_anthropometry.weight,
+          height: app.patient_anthropometry.height,
+          abdominal_waist: app.patient_anthropometry.abdominal_waist
+        }
+        app.$http.post(url, data).then( res => {
+          app.loading = false
+          if (res.body.status == "success") {
+            return true
+          }
+        }, err => {
+          app.loading = false
+        })
+      },
+
+      calcVitalSigns () {
+        var app = this
+        var results = {
+          sitting: {
+            pa_suffix: 'mmHg',
+            br_suffix: 'rpm',          
+            t_suffix: '°C',          
+            pa_right_arm1: 0,
+            pa_right_arm2: 0,
+            pa_left_arm1: 0,
+            pa_left_arm2: 0,
+            breathing_rate: 0,
+            temperature: 0
+          },
+          lying_down: {
+            pa_suffix: 'mmHg',
+            br_suffix: 'rpm',      
+            t_suffix: '°C',
+            pa_right_arm1: 0,
+            pa_right_arm2: 0,
+            pa_left_arm1: 0,
+            pa_left_arm2: 0,
+            breathing_rate: 0,
+            temperature: 0
+          },
+          standing: {
+            pa_suffix: 'mmHg',
+            br_suffix: 'rpm',      
+            t_suffix: '°C',
+            pa_right_arm1: 0,
+            pa_right_arm2: 0,
+            pa_left_arm1: 0,
+            pa_left_arm2: 0,
+            breathing_rate: 0,
+            temperature: 0
+          }
+        }
+        app.patient_vital_signs.takes.forEach( (take, index) => {
+          results.sitting.pa_right_arm1 = parseInt(results.sitting.pa_right_arm1) + parseInt(take.sitting.pa_right_arm1)
+          results.sitting.pa_right_arm2 = parseInt(results.sitting.pa_right_arm2) + parseInt(take.sitting.pa_right_arm2)
+          results.sitting.pa_left_arm1 = parseInt(results.sitting.pa_left_arm1) + parseInt(take.sitting.pa_left_arm1)
+          results.sitting.pa_left_arm2 = parseInt(results.sitting.pa_left_arm2) + parseInt(take.sitting.pa_left_arm2)
+          results.sitting.breathing_rate = parseInt(results.sitting.breathing_rate) + parseInt(take.sitting.breathing_rate)
+          results.sitting.temperature = parseInt(results.sitting.temperature) + parseInt(take.sitting.temperature)
+
+          results.lying_down.pa_right_arm1 = parseInt(results.lying_down.pa_right_arm1) + parseInt(take.lying_down.pa_right_arm1)
+          results.lying_down.pa_right_arm2 = parseInt(results.lying_down.pa_right_arm2) + parseInt(take.lying_down.pa_right_arm2)
+          results.lying_down.pa_left_arm1 = parseInt(results.lying_down.pa_left_arm1) + parseInt(take.lying_down.pa_left_arm1)
+          results.lying_down.pa_left_arm2 = parseInt(results.lying_down.pa_left_arm2) + parseInt(take.lying_down.pa_left_arm2)
+          results.lying_down.breathing_rate = parseInt(results.lying_down.breathing_rate) + parseInt(take.lying_down.breathing_rate)
+          results.lying_down.temperature = parseInt(results.lying_down.temperature) + parseInt(take.lying_down.temperature)
+          
+          results.standing.pa_right_arm1 = parseInt(results.standing.pa_right_arm1) + parseInt(take.standing.pa_right_arm1)
+          results.standing.pa_right_arm2 = parseInt(results.standing.pa_right_arm2) + parseInt(take.standing.pa_right_arm2)
+          results.standing.pa_left_arm1 = parseInt(results.standing.pa_left_arm1) + parseInt(take.standing.pa_left_arm1)
+          results.standing.pa_left_arm2 = parseInt(results.standing.pa_left_arm2) + parseInt(take.standing.pa_left_arm2)
+          results.standing.breathing_rate = parseInt(results.standing.breathing_rate) + parseInt(take.standing.breathing_rate)
+          results.standing.temperature = parseInt(results.standing.temperature) + parseInt(take.standing.temperature)
+        })
+        results.sitting.pa_right_arm1 = results.sitting.pa_right_arm1 == 0 ? results.sitting.pa_right_arm1 : Math.round(results.sitting.pa_right_arm1 / 4)
+        results.sitting.pa_right_arm2 = results.sitting.pa_right_arm2 == 0 ? results.sitting.pa_right_arm2 : Math.round(results.sitting.pa_right_arm2 / 4)
+        results.sitting.pa_left_arm1 = results.sitting.pa_left_arm1 == 0 ? results.sitting.pa_left_arm1 : Math.round(results.sitting.pa_left_arm1 / 4)
+        results.sitting.pa_left_arm2 = results.sitting.pa_left_arm2 == 0 ? results.sitting.pa_left_arm2 : Math.round(results.sitting.pa_left_arm2 / 4)
+        results.sitting.breathing_rate = results.sitting.breathing_rate == 0 ? results.sitting.breathing_rate : Math.round(results.sitting.breathing_rate / 4)
+        results.sitting.temperature = results.sitting.temperature == 0 ? results.sitting.temperature : Math.round(results.sitting.temperature / 4)
+
+        results.lying_down.pa_right_arm1 = results.lying_down.pa_right_arm1 == 0 ? results.lying_down.pa_right_arm1 : Math.round(results.lying_down.pa_right_arm1 / 4)
+        results.lying_down.pa_right_arm2 = results.lying_down.pa_right_arm2 == 0 ? results.lying_down.pa_right_arm2 : Math.round(results.lying_down.pa_right_arm2 / 4)
+        results.lying_down.pa_left_arm1 = results.lying_down.pa_left_arm1 == 0 ? results.lying_down.pa_left_arm1 : Math.round(results.lying_down.pa_left_arm1 / 4)
+        results.lying_down.pa_left_arm2 = results.lying_down.pa_left_arm2 == 0 ? results.lying_down.pa_left_arm2 : Math.round(results.lying_down.pa_left_arm2 / 4)
+        results.lying_down.breathing_rate = results.lying_down.breathing_rate == 0 ? results.lying_down.breathing_rate : Math.round(results.lying_down.breathing_rate / 4)
+        results.lying_down.temperature = results.lying_down.temperature == 0 ? results.lying_down.temperature : Math.round(results.lying_down.temperature / 4)          
+
+        results.standing.pa_right_arm1 = results.standing.pa_right_arm1 == 0 ? results.standing.pa_right_arm1 : Math.round(results.standing.pa_right_arm1 / 4)
+        results.standing.pa_right_arm2 = results.standing.pa_right_arm2 == 0 ? results.standing.pa_right_arm2 : Math.round(results.standing.pa_right_arm2 / 4)
+        results.standing.pa_left_arm1 = results.standing.pa_left_arm1 == 0 ? results.standing.pa_left_arm1 : Math.round(results.standing.pa_left_arm1 / 4)
+        results.standing.pa_left_arm2 = results.standing.pa_left_arm2 == 0 ? results.standing.pa_left_arm2 : Math.round(results.standing.pa_left_arm2 / 4)
+        results.standing.breathing_rate = results.standing.breathing_rate == 0 ? results.standing.breathing_rate : Math.round(results.standing.breathing_rate / 4)
+        results.standing.temperature = results.standing.temperature == 0 ? results.standing.temperature : Math.round(results.standing.temperature / 4)
+        var url = api_url + 'vital-signals/create'
+        results.patient_id = app.editedItem.patient_id
+        app.$http.post(url, results).then( res => {
+          console.log(res.body)
+        }, err => {
+
+        })
+      },
+
       saveExam () {
-        var obj = this.patient_laboratory_exams
-        obj.exam_results.push(obj.editedItem)
-        this.closeExam()
+        var app = this
+        var obj = app.patient_laboratory_exams
+        var url = api_url + "medical-exams/create"
+        obj.editedItem.patient_id = app.editedItem.patient_id
+        obj.editedItem.exam_id = obj.selectedExam.exam_id
+
+        app.$http.post(url, obj.editedItem).then(res => {
+          if (res.body.status == 'success') {
+            obj.editedItem.patient_exam_id = res.body.data.exam_id
+            obj.exam_results.push(obj.editedItem)
+            app.closeExam()
+          }
+        }, err => {
+          app.closeExam()
+        })
       },
 
       getDoctors () {
@@ -723,9 +838,17 @@ let vm = new Vue({
       },
 
       showExamResults (item) {
-        var obj = this.patient_laboratory_exams
+        var app = this
+        var obj = app.patient_laboratory_exams
         obj.laboratory_exam = true
         obj.selectedExam = item
+        var url = api_url + "medical-exams/get"
+        var data = {exam_id: item.exam_id, patient_id : this.editedItem.patient_id}
+        app.$http.post(url, data).then(res => {
+          obj.exam_results = res.body
+        }, err => {
+
+        })
 
       },
 

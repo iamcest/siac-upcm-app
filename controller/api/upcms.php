@@ -16,14 +16,12 @@ switch ($method) {
 		case 'get':
 		$results = $upcm->get($query);
 		echo json_encode($results > 0 ? $results : 'No se encontraron resultados');
-		die();
 		break;	
 
 		case 'get-info':
 		if ($_SESSION['upcm_id'] == null) echo json_encode(403);
 		$results = $upcm->get_info(intval($_SESSION['upcm_id']));
 		echo json_encode($results > 0 ? $results[0] : 'No se encontraron resultados');
-		die();
 		break;	
 
 		case 'upcm-list':

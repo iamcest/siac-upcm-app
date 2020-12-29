@@ -1,7 +1,7 @@
 
 													    <v-tabs v-model="tab" show-arrows fixed-tabs>
 
-													      <v-tab class="font-weight-bold" href="#tab-1">
+													      <v-tab class="font-weight-bold" href="#tab-1" @click="general_save = true">
 													        Información general
 													      </v-tab>
 
@@ -9,11 +9,11 @@
 													        Citas 
 													      </v-tab>
 
-													      <v-tab class="font-weight-bold" href="#tab-3">
+													      <v-tab class="font-weight-bold" href="#tab-3" @click="initializeAnthropometry">
 													        Antropometría
 													      </v-tab>
 
-													      <v-tab class="font-weight-bold" href="#tab-4">
+													      <v-tab class="font-weight-bold" href="#tab-4" @click="general_save = false">
 													        Signos Vitales
 													      </v-tab>
 
@@ -21,7 +21,7 @@
 													        Antecedentes
 													      </v-tab>
 
-													      <v-tab class="font-weight-bold" href="#tab-6">
+													      <v-tab class="font-weight-bold" href="#tab-6" @click="initializeExams">
 													        Exámenes de <br>laboratorio
 													      </v-tab>
 

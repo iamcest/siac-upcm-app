@@ -16,8 +16,8 @@ switch ($method) {
 	case 'get':
 		$results = $member->get($query);
 		echo json_encode($results > 0 ? $results : 'No se encontraron resultados');
-		die();
-
+		break;
+		
 	case 'upcm-members':
 		if (empty($_SESSION['upcm_id'])) die(403);
 		$results = $member->get_upcm_members($_SESSION['upcm_id']);

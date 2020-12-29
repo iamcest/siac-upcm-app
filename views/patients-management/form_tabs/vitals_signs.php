@@ -96,4 +96,13 @@
                                           </v-row>
                                         </v-col>
                                       </v-row>
+                                      <v-row>
+                                        
+                                        <v-col cols="12">
+                                          <v-btn color="secondary white--text" block @click="calcVitalSigns">
+                                            Guardar
+                                          </v-btn>
+                                        </v-col>
+                                        
+                                      </v-row>
                                   </v-col> 
