@@ -219,140 +219,7 @@ let vm = new Vue({
         ],
       },
       patient_history: {
-        diseases: [
-          {
-            title: 'HTA',
-            item_prop: 'hta',
-            form: [
-              {
-                title: 'IECAS',
-                prop: 'iecas',
-                cols: 2,
-              },
-              {
-                title: 'BRA',
-                prop: '',
-                cols: 2,
-              },
-              {
-                title: 'Ca',
-                prop: 'ca',
-                cols: 2,
-              },
-              {
-                title: 'Diurético',
-                prop: 'diuretic',
-                cols: 2,
-              },
-              {
-                title: 'Beta bloq',
-                prop: 'block_beta',
-                cols: 1,
-              },
-              {
-                title: 'Bloq',
-                prop: 'block',
-                cols: 1,
-              },
-            ],
-          },
-          {
-            title: 'DMT2',
-            item_prop: 'dtm2',
-            form: [
-              {
-                title: 'Metformina',
-                prop: 'metformin',
-                cols: 2,
-              },
-              {
-                title: 'Insulina',
-                prop: 'insulin',
-                cols: 2,
-              },
-              {
-                title: 'Sulfonilureas',
-                prop: 'sulfonylureas',
-                cols: 2,
-              },
-              {
-                title: 'Inh DPP',
-                prop: 'inh_dpp',
-                cols: 2,
-              },
-              {
-                title: 'I SLGT2',
-                prop: 'i_slgt2',
-                cols: 1,
-              },
-              {
-                title: 'GL',
-                prop: 'gl',
-                cols: 1,
-              },
-            ],
-          },
-          {
-            title: 'Dislipidemia',
-            item_prop: 'dyslipidemia',
-            form: [
-              {
-                title: 'Estatinas',
-                prop: 'statins',
-                cols: 2,
-              },
-              {
-                title: 'EZT',
-                prop: 'ezt',
-                cols: 2,
-              },
-              {
-                title: 'Fibratos antagonista',
-                prop: 'antagonist_fibrates',
-                cols: 2,
-              },
-              {
-                title: 'Omega 3',
-                prop: 'omega3',
-                cols: 2,
-              },
-            ],
-          },
-          {
-            title: 'Tabaquismo',
-            item_prop: 'smoking',
-            form: [
-              {
-                title: 'Números de cigarros al día',
-                prop: 'cigarettes_per_day',
-                cols: 2,
-              },
-              {
-                title: 'Test de Fageroom',
-                prop: 'fageroom_test',
-                cols: 2,
-              },
-              {
-                title: 'Ha dejado de fumar alguna vez',
-                prop: 'no_smoking_frecuency',
-                select: true,
-                cols: 2,
-              },
-              {
-                title: 'Desea dejar de fumar',
-                select: true,
-                prop: 'no_smoking_wish',
-                cols: 2,
-              },
-              {
-                title: 'Breve consejería',
-                prop: 'short_advice',
-                textarea: true,
-                cols: 2,
-              },
-            ],
-          },
-        ],
+        loading: false,
         select: [
           {
             text: 'Sí',
@@ -364,13 +231,263 @@ let vm = new Vue({
           },
         ],
         form: {
-          hta: {},
-          dtm2: {},
-          dyslipidemia: {},
-          smoking: {},
-          emergency_hta_history: '',
-          emergency_diabetes_history: '',
+          history_content:{
+            diseases: {
+              hta:{
+                active: true,
+                diagnostic_date: '',
+                treatment: '',
+                iecas: {
+                  frecuency: '',
+                  dosis: '',
+                },
+                bra: {
+                  frecuency: '',
+                  dosis: '',
+                },
+                ca: {
+                  frecuency: '',
+                  dosis: '',
+                },
+
+                iecas: {
+                  frecuency: '',
+                  dosis: '',
+                },
+                bra: {
+                  frecuency: '',
+                  dosis: '',
+                },
+                diuretic: {
+                  frecuency: '',
+                  dosis: '',
+                },
+                block_beta: {
+                  frecuency: '',
+                  dosis: '',
+                },
+                block: {
+                  frecuency: '',
+                  dosis: '',
+                },
+              },
+              dtm2:{
+                active: true,
+                diagnostic_date: '',
+                treatment: '',
+                metformin: {
+                  frecuency: '',
+                  dosis: '',
+                },
+                insulin: {
+                  frecuency: '',
+                  dosis: '',
+                },
+                sulfonylureas: {
+                  frecuency: '',
+                  dosis: '',
+                },
+                inh_dpp: {
+                  frecuency: '',
+                  dosis: '',
+                },
+                i_slgt2: {
+                  frecuency: '',
+                  dosis: '',
+                },
+                gl: {
+                  frecuency: '',
+                  dosis: '',
+                },
+              },
+              dyslipidemia:{
+                active: true,
+                diagnostic_date: '',
+                treatment: '',
+                statins: {
+                  frecuency: '',
+                  dosis: '',
+                },
+                ezt: {
+                  frecuency: '',
+                  dosis: '',
+                },
+                fibratos: {
+                  frecuency: '',
+                  dosis: '',
+                },
+                omega3: {
+                  frecuency: '',
+                  dosis: '',
+                },
+                i_slgt2: {
+                  frecuency: '',
+                  dosis: '',
+                },
+                gl: {
+                  frecuency: '',
+                  dosis: '',
+                },
+                block_beta: {
+                  frecuency: '',
+                  dosis: '',
+                },
+                block: {
+                  frecuency: '',
+                  dosis: '',
+                },
+              },
+              smoking:{
+                active: true,
+                start_year: '',
+                quit_year: '',
+                cigarettes_per_day: '',
+                fageroom_test: '',
+                no_smoking_frecuency: '',
+                smoking_wish: '',
+                short_advice: '',
+              },
+            },
+            emergency_hta_history: '',
+            emergency_diabetes_history: '',
+            cardiovascular_diseases: {
+              ischemic_cardiopathy: {
+                im: '',
+                age: '',
+                angina: '',
+                chronic_crown_syndrome: '',
+                persist: '',
+                functional_class_canada: '',
+                revascularized: {
+                  active: 0,
+                  surgery: '',
+                  age: '',
+                  bridge: '',
+                  percutaneous: '',
+                  stent: '',
+                  medicated: '',
+                }
+              },
+              arritmia: {
+                type: '',
+                treatment: '',
+                anticoagulant: '',
+                anticoagulant_type: '',
+                dosis: '',
+                ablation: '',
+                age: '',
+                cdi_holder: '',
+              },
+              heart_failure: {
+                dx_age: '',
+                functional_class: '',
+                treatment: '',
+                dosis: '',
+              },
+              peripheral_artery_disease: {
+                intermittent_claudication: '',
+                functional_class: '',
+                treatment: '',
+              },
+            },
+            antiplatelet: {
+              active: '',
+              treatment: '',
+            },
+            physical_exams: {
+              general_aspect: '',
+              pvy: {
+                morphology_breastx: '',
+                cvy: '',
+              },
+              carotid_beats: '',
+              apex: '',
+              auscultation: '',
+              peripheral_pulses: '',
+              edema: '',
+            },
+            electro_cardiogram: {
+              rhythm: '',
+              detail: '',
+              axes: '',
+              diagnostic: '',
+            }
+          },
         }
+      },
+      patient_risk_factors: {
+        selectedForm: {
+
+        },
+        headers: [
+          { text: 'Factor de Riesgo', align: 'start', value: 'name' },
+          { text: 'Diagnóstico', value: 'diagnostic' },
+          { text: 'Comentario', value: 'comment' },
+        ],
+        risk_factors: 
+        [
+          {
+            name: 'HTA',
+            diagnostic: '',
+            comment: ''
+          },
+          {
+            name: 'DM',
+            diagnostic: '',
+            comment: ''
+          },
+          {
+            name: 'Pre DM',
+            diagnostic: '',
+            comment: ''
+          },
+          {
+            name: 'Dislipidemia',
+            diagnostic: '',
+            comment: ''
+          },
+          {
+            name: 'Tabaquismo',
+            diagnostic: '',
+            comment: ''
+          },
+          {
+            name: 'Obesidad',
+            diagnostic: '',
+            comment: ''
+          },
+          {
+            name: 'Sobre peso',
+            diagnostic: '',
+            comment: ''
+          },
+        ],
+        form_risk_factors: [
+          {
+            calc_name: 'FINDRISK',
+            findrisk_vars
+          },
+          {
+            calc_name: 'Riesgo 2013 AHA/ACC',
+            aha_acc_2013_vars
+          },
+          {
+            calc_name: 'Riesgo OMS/OPS',
+            oms_ops_vars
+          },
+          {
+            calc_name: 'CrCI Cockgroft/Gault',
+            crci_cockgroft_gault_vars
+          },
+          {
+            calc_name: 'Colesterol LDL',
+            colesterol_ldl_vars
+          },
+          {
+            calc_name: 'Inter Heart',
+            inter_heart_vars
+          },
+        ],
       },
       genders: [
         {
@@ -493,6 +610,22 @@ let vm = new Vue({
 
         })
       },
+
+      initializeHistory() {
+        var app = this
+        app.general_save = false
+        var url = api_url + 'history/get/'+app.editedItem.patient_id
+        app.$http.get(url).then( res => {
+          if (res.body.length != 0) {
+            if (res.body.history_content != null) {
+              app.patient_history.form.history_content = JSON.parse(res.body[0].history_content)
+            }
+          }
+        }, err => {
+
+        })
+      },
+
       editItem (item) {
         var app = this
         app.general_save = true
@@ -709,6 +842,21 @@ let vm = new Vue({
         })
       },
 
+      saveHistory () {
+        var app = this
+        app.patient_history.loading
+        var url = api_url + 'history/update'
+        app.patient_history.form.patient_id = app.editedItem.patient_id
+        app.$http.post(url, app.patient_history.form).then( res => {
+          app.patient_history.loading
+          if (res.body.status == "success") {
+            return true
+          }
+        }, err => {
+          app.patient_history.loading = false
+        })
+      },
+
       calcVitalSigns () {
         var app = this
         var results = {
@@ -800,7 +948,7 @@ let vm = new Vue({
       saveExam () {
         var app = this
         var obj = app.patient_laboratory_exams
-        var url = api_url + "medical-exams/create"
+        var url = api_url + "medical-exams/update"
         obj.editedItem.patient_id = app.editedItem.patient_id
         obj.editedItem.exam_id = obj.selectedExam.exam_id
 

@@ -17,7 +17,7 @@
 													        Signos Vitales
 													      </v-tab>
 
-													      <v-tab class="font-weight-bold" href="#tab-5">
+													      <v-tab class="font-weight-bold" href="#tab-5" @click="initializeHistory">
 													        Antecedentes
 													      </v-tab>
 

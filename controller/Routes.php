@@ -80,7 +80,16 @@ class Routes
 					case 'patients-management':
 						switch ($route[2]) {
 							case 'patients':
-								$scripts = [['name' => 'patients-management/patients']];
+								$scripts = [
+									['name' => 'patients-management/calculations/find-risk'],
+									['name' => 'patients-management/calculations/aha-acc-2013-risk'],
+									['name' => 'calculations/oms-ops-risk/risk_vars'],
+									['name' => 'patients-management/calculations/oms-ops-risk'],
+									['name' => 'patients-management/calculations/crci-cockgroft-gault'],
+									['name' => 'patients-management/calculations/colesterol-ldl'],
+									['name' => 'patients-management/calculations/inter-heart'],
+									['name' => 'patients-management/patients']
+								];
 								$content = new Template("patients-management/patients");
 								break;
 

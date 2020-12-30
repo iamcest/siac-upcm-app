@@ -24,6 +24,9 @@ a{
 h1, h2, h3 , h4, h5, h6, .v-application .text-h3, .v-application .text-h4{
 	font-weight: bold !important;
 }
+.table_headers_lg th span{
+  font-size: 12pt;
+}
 .font-weight-medium{
   font-weight: lighter !important;
 }
