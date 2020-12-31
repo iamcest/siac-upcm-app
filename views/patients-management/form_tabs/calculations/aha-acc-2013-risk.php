@@ -16,7 +16,7 @@
 
               <v-col cols="12" md="4">
                 <label>Género</label>
-                <v-select class="mt-3" v-model="patient_risk_factors.selectedForm.aha_acc_2013_vars.vars.gender" :items="patient_risk_factors.selectedForm.aha_acc_2013_vars.genders" item-text="gender" item-value="abbr" outlined required></v-select>
+                <v-select class="mt-3" v-model="patient_risk_factors.selectedForm.aha_acc_2013_vars.vars.gender" :items="genders" item-text="name" item-value="gender" outlined required></v-select>
               </v-col>
                          
               <v-col cols="12" md="4">
@@ -67,7 +67,12 @@
 
               <v-col cols="12" md="4" offset-md="4">
                 <label class="text-center d-flex justify-center">Resultado</label>
-                <v-text-field class="mt-3 result-box" outlined readonly required ></v-text-field>
+                <v-text-field class="mt-3 result-box" :value="patient_risk_factors.selectedForm.aha_acc_2013_vars.results" outlined readonly required ></v-text-field>
+              </v-col>
+              <v-col class="d-flex justify-center mt-n10" cols="12" md="4" offset-md="4">
+                <v-btn class="secondary white--text" v-on:click="patient_risk_factors.selectedForm.aha_acc_2013_vars.calc()">
+                  Calcular
+                </v-btn>
               </v-col>  
 
             </v-row>

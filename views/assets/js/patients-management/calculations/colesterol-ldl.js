@@ -1,7 +1,14 @@
 var colesterol_ldl_vars = {
+	results: '',
   vars: {
-    total_cholesterol: 0.00,
-    triglyceride_level: 0.00,
-    c_HDL: 0.00
+    total_cholesterol: '',
+    triglyceride_level: '',
+    c_HDL: ''
+  },
+
+  calc () {
+  	var app = this
+    app.results = parseInt(app.vars.total_cholesterol) - parseInt(app.vars.c_HDL)
+  	return app.results
   },
 }

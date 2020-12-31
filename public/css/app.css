@@ -48,6 +48,9 @@ h1, h2, h3 , h4, h5, h6, .v-application .text-h3, .v-application .text-h4{
 .v-input__prepend-outer{
   font-size: 14px;
 }
+.result-box input{
+  text-align: center;
+}
 .ql-image, .ql-video{
   display: none !important;
 }

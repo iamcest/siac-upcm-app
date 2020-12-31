@@ -1,4 +1,5 @@
 var inter_heart_vars = {
+  results: '',
   european_score: [
     {
       region: 'Sudeste asiático',
@@ -28,16 +29,6 @@ var inter_heart_vars = {
       region: 'Ámerica del Sur',
       factor: 0.7000000000000001
     },
-  ],
-  genders: [
-    {
-      gender: 'Masculino',
-      abbr: 'M'
-    },
-    {
-      gender: 'Femenino',
-      abbr: 'F'
-    }
   ],
   smoking_options: [
     {
@@ -177,5 +168,48 @@ var inter_heart_vars = {
     eat_fruits: 0,
     eat_vegetables: 0,
     eat_meat: 0,
+  },
+
+  calc () {
+    var region = this.vars.region
+    var age = this.ageScore()
+    var smoking = this.smokingScore()
+    var diabete = this.vars.diabetes
+    var hipertension = this.vars.hipertension
+    var parents_ha_history = this.vars.parents_ha_history
+    var waist_index = this.vars.waist_index
+    var stress_frecuency = this.vars.stress_frecuency
+    var free_time_activity = this.vars.free_time_activity
+    var salt_snack_food_daily = this.vars.salt_snack_food_daily
+    var fast_food_weekly = this.vars.fast_food_weekly
+    var eat_fruits = this.vars.eat_fruits
+    var eat_vegetables = this.vars.eat_vegetables
+    var eat_meat = this.vars.eat_meat
+
+    this.results = Math.round((
+      age + smoking + diabete + hipertension + parents_ha_history + 
+      waist_index + stress_frecuency + free_time_activity + salt_snack_food_daily + 
+      fast_food_weekly + eat_fruits + eat_vegetables + eat_meat / 13) * region)
+    return this.results
+  },
+
+  ageScore () {
+    var gender = this.vars.gender
+    var age = this.vars.age
+
+    if (gender == 'M' && age >= 55 || gender == 'F' && age == 65) 
+      return 2
+    return 0
+  },
+
+  smokingScore () {
+    var smoking = this.vars.smoking
+    var smoking_amount = this.vars.smoking_amount
+    if (smoking == 'Fumador actual') {
+      return smoking_amount
+    }
+    else{
+      return smoking
+    } 
   },
 }

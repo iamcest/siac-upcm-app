@@ -20,7 +20,7 @@
                                       <h4 class="text-center text-h5 grey--text text--darken-2">Seleccione la fórmula de cálculo de riesgo</h4>
                                     </v-col>
                                     <v-col class="px-6" cols="12">
-                                    <v-select v-model="patient_risk_factors.selectedForm" :items="patient_risk_factors.form_risk_factors" item-text="calc_name" return-object outlined dense></v-select>
+                                    <v-select v-model="patient_risk_factors.selectedForm" :items="patient_risk_factors.form_risk_factors" item-text="calc_name" placeholder="Seleccione la fórmula para el cálculo de riesgo" return-object outlined dense></v-select>
 
                                     </v-col>
                                     <!-- INSERTAR FORMULAS ACA MEDIANTE LA CLASE TEMPLATE -->

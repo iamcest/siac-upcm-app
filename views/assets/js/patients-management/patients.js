@@ -948,7 +948,7 @@ let vm = new Vue({
       saveExam () {
         var app = this
         var obj = app.patient_laboratory_exams
-        var url = api_url + "medical-exams/update"
+        var url = api_url + "medical-exams/create"
         obj.editedItem.patient_id = app.editedItem.patient_id
         obj.editedItem.exam_id = obj.selectedExam.exam_id
 
