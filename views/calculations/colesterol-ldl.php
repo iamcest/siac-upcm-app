@@ -15,10 +15,6 @@
           <v-form>
             <v-row class="px-16 mx-auto">
 
-              <v-col cols="12" md="12">
-                <label>Paciente (Opcional)</label>
-                <v-select class="mt-3" :items="patients" item-text="name" item-value="id" outlined ></v-select>
-              </v-col>
               <v-col cols="12" md="4">
                 <label>Colesterol total</label>
                 <v-text-field type="number" class="mt-3" v-model="vars.total_cholesterol" :counter="7" suffix="mg/dl" outlined required></v-text-field>

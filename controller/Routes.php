@@ -149,7 +149,7 @@ class Routes
 								break;
 
 							case 'crci-cockgroft-gault':
-								$scripts = [['name' => 'calculations/crci-cockgroft-gault']];
+								$scripts = [['name' => 'moment.min'], ['name' => 'calculations/crci-cockgroft-gault']];
 								$content = new Template("calculations/crci-cockgroft-gault");
 								break;
 
@@ -164,22 +164,22 @@ class Routes
 								break;
 
 							case 'inter-heart-risk':
-								$scripts = [['name' => 'calculations/inter-heart']];
+								$scripts = [['name' => 'moment.min'], ['name' => 'calculations/inter-heart']];
 								$content = new Template("calculations/inter-heart");
 								break;
 
 							case 'find-risk':
-								$scripts = [['name' => 'calculations/find-risk']];
+								$scripts = [['name' => 'moment.min'], ['name' => 'calculations/find-risk']];
 								$content = new Template("calculations/find-risk");
 								break;
 
 							case 'oms-ops-risk':
-								$scripts = [['name' => 'calculations/oms-ops-risk/risk_vars'], ['name' => 'calculations/oms-ops-risk/calc']];
+								$scripts = [['name' => 'moment.min'], ['name' => 'calculations/oms-ops-risk/risk_vars'], ['name' => 'calculations/oms-ops-risk/calc']];
 								$content = new Template("calculations/oms-ops-risk");
 								break;
 								
 							case 'aha-acc-2013-risk':
-								$scripts = [['name' => 'calculations/aha-acc-2013-risk']];
+								$scripts = [['name' => 'moment.min'], ['name' => 'calculations/aha-acc-2013-risk']];
 								$content = new Template("calculations/aha-acc-2013-risk");
 								break;	
 

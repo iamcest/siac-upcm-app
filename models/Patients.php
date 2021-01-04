@@ -26,6 +26,18 @@ class Patients
 		}
 		return $arr;
 	}
+
+	public function get_general_info($id) {
+		if ($id != 0) {
+			$sql = "SELECT CONCAT(first_name,' ', last_name) as full_name, birthdate, gender FROM {$this->table} WHERE patient_upcm = $id ";
+		}
+		$result = execute_query($sql);
+		$arr = [];
+		while ($row = $result->fetch_assoc()) {
+			$arr[] = $row;
+		}
+		return $arr;
+	}
 	public function create($data = [], $columns = []) {
 		if (empty($data)) return false;
 		$columns = implode(',',$columns);

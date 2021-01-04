@@ -20,11 +20,11 @@
                 <v-row>
                   <v-col cols="12" md="6">
                     <label for="">Edad</label>
-                    <v-text-field class="mt-3" v-model="patient_risk_factors.selectedForm.obj.vars.age" :counter="3" outlined required></v-text-field>
+                    <v-text-field class="mt-3" v-model="patient_risk_factors.selectedForm.obj.vars.age" :counter="3" disabled outlined required disabled></v-text-field>
                   </v-col>
                   <v-col cols="12" md="6">
                     <label for="">Género</label>
-                    <v-select class="mt-3" v-model="patient_risk_factors.selectedForm.obj.vars.gender" :items="genders" item-text="name" item-value="gender" outlined></v-select>
+                    <v-select class="mt-3" v-model="patient_risk_factors.selectedForm.obj.vars.gender" :items="genders" item-text="name" item-value="gender" outlined disabled></v-select>
                   </v-col>
                 </v-row>
                 <v-divider></v-divider>

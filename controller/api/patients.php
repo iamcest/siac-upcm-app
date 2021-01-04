@@ -17,6 +17,13 @@ switch ($method) {
 		$results = $patient->get($query);
 		echo json_encode($results > 0 ? $results : 'No se encontraron resultados');
 		break;
+
+	case 'get-patient-general-info':
+		if ($_SESSION['upcm_id'] == null || !isset($_SESSION['upcm_id'])) die(403);
+		$id = $_SESSION['upcm_id'];
+		$results = $patient->get_general_info($id);
+		echo json_encode($results > 0 ? $results : 'No se encontraron resultados');
+		break;
 	case 'create':
 		if (empty($data)) $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');;
 		$columns = ['first_name', 'last_name', 'document_id', 'document_type', 'birthdate', 'gender', 'address', 'email', 'patient_upcm'];
@@ -58,7 +65,7 @@ switch ($method) {
 		$file_name = 'siac_avatar_' .time() .'.' . end($ext);
 		if(!move_uploaded_file($_FILES["avatar"]["tmp_name"], DIRECTORY . "/public/img/avatars/" . $file_name)) $helper->response_message('Error', 'No se pudo guardar correctamente la imágen de perfil del paciente', 'error');
 		$result = $patient->update_avatar($id, $file_name);
-		$helper->response_message('Éxito', 'Tu imágen de perfil ha sido actualizada correctamente', 'success');
+		$helper->response_message('Éxito', 'La imágen del paciente ha sido actualizada correctamente', 'success');
 		break;
 
 }

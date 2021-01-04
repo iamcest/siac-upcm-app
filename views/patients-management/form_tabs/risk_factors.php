@@ -28,7 +28,7 @@
                                       <h4 class="text-center text-h5 grey--text text--darken-2">Seleccione la fórmula de cálculo de riesgo</h4>
                                     </v-col>
                                     <v-col class="px-6" cols="12">
-                                      <v-select v-model="patient_risk_factors.selectedForm" :items="patient_risk_factors.form_risk_factors" item-text="calc_name" placeholder="Seleccione la fórmula para el cálculo de riesgo" return-object outlined dense></v-select>
+                                      <v-select v-model="patient_risk_factors.selectedForm" :items="patient_risk_factors.form_risk_factors" item-text="calc_name" placeholder="Seleccione la fórmula para el cálculo de riesgo" @change="assignGeneralVars" return-object outlined dense></v-select>
                                     </v-col>
                                     <?php echo new Template('patients-management/form_tabs/calculations/aha-acc-2013-risk') ?>
                                     <?php echo new Template('patients-management/form_tabs/calculations/colesterol-ldl') ?>

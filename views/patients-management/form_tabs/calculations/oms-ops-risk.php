@@ -11,12 +11,12 @@
 
               <v-col cols="12" md="6">
                 <label>Edad</label>
-                <v-text-field class="mt-3" v-model="patient_risk_factors.selectedForm.obj.vars.age" :counter="3" outlined required ></v-text-field>
+                <v-text-field class="mt-3" v-model="patient_risk_factors.selectedForm.obj.vars.age" :counter="3" outlined required disabled></v-text-field>
               </v-col>
 
               <v-col cols="12" md="6">
                 <label>Género</label>
-                <v-select class="mt-3" v-model="patient_risk_factors.selectedForm.obj.vars.gender" :items="genders" item-text="name" item-value="gender" outlined required></v-select>
+                <v-select class="mt-3" v-model="patient_risk_factors.selectedForm.obj.vars.gender" :items="genders" item-text="name" item-value="gender" outlined required disabled></v-select>
               </v-col>
                          
               <v-col cols="12" md="6">

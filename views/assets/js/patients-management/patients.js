@@ -1046,7 +1046,13 @@ let vm = new Vue({
         }, err => {
 
         })
+      },
 
+      assignGeneralVars (item) {
+        var app = this
+        var age = moment(app.editedItem.birthdate, "YYYY-MM-DD").fromNow().split(" ")[0]
+        app.patient_risk_factors.selectedForm.obj.vars.age = age
+        app.patient_risk_factors.selectedForm.obj.vars.gender = app.editedItem.gender
       },
 
     }

@@ -11,12 +11,12 @@
 
               <v-col cols="12" md="6">
                 <label>Edad (años cumplidos)</label>
-                <v-text-field class="mt-3" v-model="patient_risk_factors.selectedForm.obj.vars.age" :counter="3" outlined required ></v-text-field>
+                <v-text-field class="mt-3" v-model="patient_risk_factors.selectedForm.obj.vars.age" :counter="3" outlined required disabled></v-text-field>
               </v-col>
 
               <v-col cols="12" md="6">
                 <label>índice de Masa corporal(kg/m2)</label>
-                <v-text-field class="mt-3" v-model="patient_risk_factors.selectedForm.obj.vars.bmi" hint="Ingrese la unidad en kg/m2" suffix="kg/m2" persistent-hint outlined required ></v-text-field>
+                <v-text-field class="mt-3" v-model="patient_risk_factors.selectedForm.obj.vars.bmi" hint="Ingrese la unidad en kg/m2" suffix="kg/m2" persistent-hint outlined required disabled></v-text-field>
               </v-col>    
 
               <v-col cols="12">

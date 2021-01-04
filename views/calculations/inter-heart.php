@@ -17,7 +17,7 @@
 
               <v-col cols="12" md="12">
                 <label>Paciente (Opcional)</label>
-                <v-select class="mt-3" :items="patients" item-text="name" item-value="id" outlined ></v-select>
+                <v-select class="mt-3" v-model="patient" :items="patients" item-text="full_name" @change="assignGeneralVars" return-object outlined></v-select>
                 <v-divider></v-divider>
               </v-col>               
 

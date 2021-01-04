@@ -7,17 +7,8 @@ let vm = new Vue({
       result: '',
       cholesterol: [],
       mp: [],
-      patients: 
-      [
-        {
-          name: 'John Doe',
-          id: 1
-        },
-        {
-          name: 'Sam Smith',
-          id: 2
-        }
-      ],
+      patient: {},
+      patients: [],
       genders: 
       [
         {
@@ -80,6 +71,15 @@ let vm = new Vue({
     created () {
       this.mpVals()
       this.cholesterolVals()
+      var app = this
+      var url = api_url + 'patients/get-patient-general-info'
+      app.loading = true
+      app.$http.get(url).then(res => {
+        app.loading = false
+        app.patients = res.body
+      }, err => {
+        app.loading = false
+      })
     },
 
     mounted () {
@@ -219,7 +219,14 @@ let vm = new Vue({
           val = {text: total, val: total}
           app.mp.push(val)
         }
-      }
+      },
+
+      assignGeneralVars () {
+        var app = this
+        var age = moment(app.patient.birthdate, "YYYY-MM-DD").fromNow().split(" ")[0]
+        app.vars.age = age
+        app.vars.gender = app.patient.gender
+      },
 
     },
 });

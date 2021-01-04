@@ -4,17 +4,8 @@ let vm = new Vue({
     el: '#siac-suite-container',
     data: {
       loading: false,
-      patients: 
-      [
-        {
-          name: 'John Doe',
-          id: 1
-        },
-        {
-          name: 'Sam Smith',
-          id: 2
-        }
-      ],
+      patient: {},
+      patients: [],
       vars: {
         height: 0.00,
         weight: 0.00
@@ -50,13 +41,25 @@ let vm = new Vue({
     },
 
     created () {
+      var app = this
+      var url = api_url + 'anthropometry/get-patient-general-info'
+      app.loading = true
+      app.$http.get(url).then(res => {
+        app.loading = false
+        app.patients = res.body
+      }, err => {
+        app.loading = false
+      })
     },
 
     mounted () {
     },
 
     methods: {
-      reserve () {
+      assignGeneralVars () {
+        var app = this
+        app.vars.weight = parseFloat(app.patient.weight)
+        app.vars.height = parseFloat(app.patient.height)
       },
     }
 });

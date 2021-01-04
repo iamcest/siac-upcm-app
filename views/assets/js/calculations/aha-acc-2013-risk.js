@@ -4,17 +4,8 @@ let vm = new Vue({
     el: '#siac-suite-container',
     data: {
       loading: false,
-      patients: 
-      [
-        {
-          name: 'John Doe',
-          id: 1
-        },
-        {
-          name: 'Sam Smith',
-          id: 2
-        }
-      ],
+      patient: {},
+      patients: [],
       genders: 
       [
         {
@@ -185,6 +176,15 @@ let vm = new Vue({
     },
 
     created () {
+      var app = this
+      var url = api_url + 'patients/get-patient-general-info'
+      app.loading = true
+      app.$http.get(url).then(res => {
+        app.loading = false
+        app.patients = res.body
+      }, err => {
+        app.loading = false
+      })
     },
 
     mounted () {
@@ -194,5 +194,13 @@ let vm = new Vue({
       sq (i) {
         return i * i;
       },
+
+      assignGeneralVars () {
+        var app = this
+        var age = moment(app.patient.birthdate, "YYYY-MM-DD").fromNow().split(" ")[0]
+        app.vars.age = age
+        app.vars.gender = app.patient.gender
+      },
+
     }
 });

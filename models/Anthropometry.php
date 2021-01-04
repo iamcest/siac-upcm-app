@@ -27,7 +27,18 @@ class Anthropometry
 	}
 	public function get_last(int $id = 0) {
 		if ($id == 0) return false;
-		$sql = "SELECT anthropometry_id, weight, height, abdominal_waist FROM {$this->table} WHERE patient_id = $id ORDER BY anthropometry_id DESC";
+		$sql = "SELECT anthropometry_id, weight, height, abdominal_waist FROM {$this->table} WHERE patient_id = $id ORDER BY anthropometry_id DESC LIMIT 1";
+		$result = execute_query($sql);
+		$arr = [];
+		while ($row = $result->fetch_assoc()) {
+			$arr[] = $row;
+		}
+		return $arr;
+	}
+
+	public function get_general_info($upcm_id) {
+		if ($upcm_id == 0) return false;
+		$sql = "SELECT CONCAT(first_name,' ', last_name) as full_name, birthdate, gender, weight, height, abdominal_waist FROM {$this->table} as pa RIGHT JOIN patients as p ON pa.patient_id = p.patient_id WHERE p.patient_upcm = $upcm_id AND pa.anthropometry_date = (SELECT MAX(anthropometry_date) FROM {$this->table} pa2 WHERE pa2.patient_id = p.patient_id) GROUP BY p.patient_id; ";
 		$result = execute_query($sql);
 		$arr = [];
 		while ($row = $result->fetch_assoc()) {

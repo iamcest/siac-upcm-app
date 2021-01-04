@@ -17,7 +17,7 @@
 
               <v-col cols="12" md="12">
                 <label>Paciente (Opcional)</label>
-                <v-select class="mt-3" :items="patients" item-text="name" item-value="id" outlined ></v-select>
+                <v-select class="mt-3" v-model="patient" :items="patients" item-text="full_name" @change="assignGeneralVars" return-object outlined></v-select>
               </v-col>
 
               <v-col cols="12" md="6">
@@ -32,7 +32,7 @@
 
               <v-col cols="12" md="6">
                 <label>Peso</label>
-                <v-text-field class="mt-3" v-model="vars.weight" :counter="7" outlined required ></v-text-field>
+                <v-text-field class="mt-3" v-model="vars.weight" :counter="7" suffix="kg" outlined required ></v-text-field>
               </v-col>
 
               <v-col cols="12" md="6">

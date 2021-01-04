@@ -23,6 +23,13 @@ switch ($method) {
 		echo json_encode($results > 0 ? $results[0] : 'No se encontraron resultados');
 		break;
 
+	case 'get-patient-general-info':
+		if ($_SESSION['upcm_id'] == null || !isset($_SESSION['upcm_id'])) die(403);
+		$id = $_SESSION['upcm_id'];
+		$results = $anthropometry->get_general_info($id);
+		echo json_encode($results > 0 ? $results : 'No se encontraron resultados');
+		break;
+		
 	case 'create':
 		if (empty($data)) $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');;
 		$columns = ['weight', 'height', 'abdominal_waist', 'patient_id'];
