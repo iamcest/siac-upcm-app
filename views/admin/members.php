@@ -149,7 +149,7 @@
                     </template>
                     <template v-slot:no-data>
                       <v-btn color="primary" @click="initialize" >
-                        Reestablecer
+                        Recargar
                       </v-btn>
                     </template>
                   </v-data-table>

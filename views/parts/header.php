@@ -9,7 +9,12 @@
           </v-col>
           <v-col cols="12" md="8" class="py-3 mt-n3 d-flex justify-end align-center">
             <v-avatar class="mr-2" size="3vw">
+              <?php if (!empty($_SESSION['avatar'])): ?>
               <img src="<?php echo SITE_URL ?>/public/img/avatars/<?php echo $_SESSION['avatar'] ?>">
+
+              <?php else: ?>
+              <v-icon style="font-size: 3vw">mdi-account-circle</v-icon>
+              <?php endif ?>
             </v-avatar>
             <?php echo $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
           </v-col>

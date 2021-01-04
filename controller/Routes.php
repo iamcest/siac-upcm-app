@@ -115,9 +115,8 @@ class Routes
 						break;
 					
 					case 'chat':
-						$base_asset = [['name' => 'chat/main']];
-						$scripts = [...$base_asset];
-						$styles = [...$base_asset];
+						$scripts = [['name' => 'chat/main']];
+						$styles = [['name' => 'chat/main']];
 						$content = new Template("chat/chat");
 						break;
 					

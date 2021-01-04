@@ -5,7 +5,7 @@
 * @var query
 */
 if (empty($method)) die('403');
-require_once("models/announcements.php");
+require_once("models/Announcements.php");
 
 $announcement = New Announcements();
 $helper = New Helper();

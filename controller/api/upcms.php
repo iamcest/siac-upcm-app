@@ -4,7 +4,7 @@
 * @var query
 */
 if (empty($method)) die('403');
-require_once("models/upcms.php");
+require_once("models/UPCMS.php");
 
 $upcm = New UPCMS();
 $helper = New Helper();

@@ -97,7 +97,7 @@
                     </template>
                     <template v-slot:no-data>
                       <v-btn color="primary" @click="initialize" >
-                        Reset
+                        Recargar
                       </v-btn>
                     </template>
                   </v-data-table>

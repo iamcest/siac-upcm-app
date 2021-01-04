@@ -4,7 +4,7 @@
 * @var query
 */
 if (empty($method)) die(403);
-require_once("models/history.php");
+require_once("models/History.php");
 
 $history = New PatientHistory();
 $helper = New Helper();

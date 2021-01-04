@@ -602,7 +602,9 @@ let vm = new Vue({
         app.general_save = false
         var url = api_url + 'anthropometry/get/'+app.editedItem.patient_id
         app.$http.get(url).then( res => {
-          app.patient_anthropometry = res.body[0]
+          if (res.body-length > 0) {
+            app.patient_anthropometry = res.body[0]            
+          }
         }, err => {
 
         })
