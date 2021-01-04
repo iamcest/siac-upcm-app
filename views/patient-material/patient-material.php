@@ -5,6 +5,7 @@
       <v-row>
         <?php echo new Template('parts/sidebar') ?>
         <v-col cols="12" md="9" lg="10" class="pt-16 px-md-8">
+          <?php echo new Template('parts/upcm_logo') ?>
           <v-row>
             <v-col cols="12" md="12">
               <h2 class="grey--text text--darken-1">Materiales para el paciente{{ isSelected ? ': ' + patient_fullname : '' }}</h2>

@@ -416,8 +416,13 @@ let vm = new Vue({
         }
       },
       patient_risk_factors: {
+        loading: false,
+        diagnostic_loading: false,
         selectedForm: {
-
+          calc_name: '',
+          obj: {
+            results: '',
+          }
         },
         headers: [
           { text: 'Factor de Riesgo', align: 'start', value: 'name' },
@@ -464,28 +469,34 @@ let vm = new Vue({
         ],
         form_risk_factors: [
           {
+            nomenclature: '',
             calc_name: 'FINDRISK',
-            findrisk_vars
+            obj: findrisk_vars
           },
           {
+            nomenclature: '%',
             calc_name: 'Riesgo 2013 AHA/ACC',
-            aha_acc_2013_vars
+            obj: aha_acc_2013_vars
           },
           {
+            nomenclature: '%',
             calc_name: 'Riesgo OMS/OPS',
-            oms_ops_vars
+            obj: oms_ops_vars
           },
           {
+            nomenclature: 'mL/min',
             calc_name: 'CrCI Cockgroft/Gault',
-            crci_cockgroft_gault_vars
+            obj: crci_cockgroft_gault_vars
           },
           {
+            nomenclature: 'mg/dl',
             calc_name: 'Colesterol LDL',
-            colesterol_ldl_vars
+            obj: colesterol_ldl_vars
           },
           {
+            nomenclature: '',
             calc_name: 'Inter Heart',
-            inter_heart_vars
+            obj: inter_heart_vars
           },
         ],
       },
@@ -497,20 +508,6 @@ let vm = new Vue({
         {
           name: 'Femenino',
           gender: 'F',
-        },
-      ],
-      communication_platforms: [
-        {
-          text: 'Whatsapp',
-          val: 'whatsapp',
-        },
-        {
-          text: 'Telegram',
-          val: 'telegram',
-        },
-        {
-          text: 'Mensaje de texto',
-          val: 'sms',
         },
       ],
       document_types: [
@@ -538,7 +535,7 @@ let vm = new Vue({
         return this.editedIndex === -1 ? 'Añadir nuevo paciente' : 'Editar ficha del paciente - N° de historia: ' + this.editedItem.patient_id
       },
       AppointmentFormTitle () {
-        const obj =this.patient_appointments;
+        const obj = this.patient_appointments
         return obj.editedIndex === -1 ? 'Añadir nueva cita' : 'Editar cita del paciente '
       }
     },
@@ -620,6 +617,20 @@ let vm = new Vue({
             if (res.body.history_content != null) {
               app.patient_history.form.history_content = JSON.parse(res.body[0].history_content)
             }
+          }
+        }, err => {
+
+        })
+      },
+
+      initializeFactorsRisk() {
+        var app = this
+        app.general_save = false
+        app.patient_risk_factors.selectedForm = {calc_name: '', obj: {results: ''}}
+        var url = api_url + 'patient-risk-factors-diagnostic/get/'+app.editedItem.patient_id
+        app.$http.get(url).then( res => {
+          if (res.body.length > 0) {
+            app.patient_risk_factors.risk_factors = JSON.parse(res.body[0].risk_factors.toString('uftf8'))
           }
         }, err => {
 
@@ -844,11 +855,49 @@ let vm = new Vue({
 
       saveHistory () {
         var app = this
-        app.patient_history.loading
+        app.patient_history.loading = true
         var url = api_url + 'history/update'
         app.patient_history.form.patient_id = app.editedItem.patient_id
         app.$http.post(url, app.patient_history.form).then( res => {
-          app.patient_history.loading
+          app.patient_history.loading = false
+          if (res.body.status == "success") {
+            return true
+          }
+        }, err => {
+          app.patient_history.loading = false
+        })
+      },
+
+      saveFactorRisk () {
+        var app = this
+        app.patient_risk_factors.loading = true
+        var url = api_url + 'patient-risk-factors/update'
+        var data = {
+          patient_id: app.editedItem.patient_id,
+          name: app.patient_risk_factors.selectedForm.calc_name,
+          results: app.patient_risk_factors.selectedForm.obj.results,
+          nomenclature: app.patient_risk_factors.selectedForm.obj.nomenclature,
+        }
+        app.$http.post(url, data).then( res => {
+          app.patient_risk_factors.risk_factor_loading = false
+          if (res.body.status == "success") {
+            return true
+          }
+        }, err => {
+          app.patient_history.loading = false
+        })
+      },
+
+      saveFactorRiskDiagnostic () {
+        var app = this
+        app.patient_risk_factors.diagnostic_loading = true
+        var url = api_url + 'patient-risk-factors-diagnostic/update'
+        data = {
+          patient_id: app.editedItem.patient_id,
+          risk_factors: app.patient_risk_factors.risk_factors
+        }
+        app.$http.post(url, data).then( res => {
+          app.patient_risk_factors.diagnostic_loading = false
           if (res.body.status == "success") {
             return true
           }

@@ -8,16 +8,17 @@ class Members
 {
 	private $table = "users";
 	private $contact_table = "users_contact";
+	private $upcms_table = "upcms";
 	private $id_column = "user_id";
 
 	function __construct() {
 	}
 	public function get(int $id = 0) {
 		if ($id != 0) {
-			$sql = "SELECT u.user_id AS user_id, first_name, last_name, email, gender, birthdate, user_type, rol, upcm_id, uc.telephone, uc.whatsapp AS whatsapp, uc.telegram AS telegram, uc.sms AS sms FROM " . $this->table. " as u INNER JOIN ". $this->contact_table. " as uc ON u.user_id = uc.user_id WHERE " . $this->id_column . " = $id";
+			$sql = "SELECT u.user_id AS user_id, first_name, last_name, email, gender, birthdate, user_type, rol, up.upcm_id, upcm_logo, uc.telephone, uc.whatsapp AS whatsapp, uc.telegram AS telegram, uc.sms AS sms FROM {$this->table} AS u INNER JOIN {$this->contact_table} AS uc ON u.user_id = uc.user_id INNER JOIN {$this->upcms_table} AS up ON u.upcm_id = up.upcm_id WHERE {$this->id_column} = $id";
 		}
 		else{
-			$sql = "SELECT u.user_id AS user_id, first_name, last_name, email, gender, birthdate, user_type, rol, upcm_id, uc.telephone, uc.whatsapp AS whatsapp, uc.telegram AS telegram, uc.sms AS sms FROM " . $this->table . " as u INNER JOIN ". $this->contact_table. " as uc ON u.user_id = uc.user_id";
+			$sql = "SELECT u.user_id AS user_id, first_name, last_name, email, gender, birthdate, user_type, rol, upcm_id, uc.telephone, uc.whatsapp AS whatsapp, uc.telegram AS telegram, uc.sms AS sms FROM {$this->table} AS u INNER JOIN {$this->contact_table} AS uc ON u.user_id = uc.user_id";
 		}
 		$result = execute_query($sql);
 		$arr = [];
@@ -52,6 +53,14 @@ class Members
 		if ($result) return $result->fetch_object();
 		return null;
 	}
+
+	public function get_upcm_logo($id) {
+		$sql = "SELECT upcm_logo FROM {$this->table} as u INNER JOIN {$this->upcms_table} AS up ON u.upcm_id = up.upcm_id WHERE {$this->id_column} = $id";
+		$result = execute_query($sql);
+		if ($result) return $result->fetch_object()->upcm_logo;
+		return null;
+	}
+
 	public function create($data = [], $columns = []) {
 		if (empty($data)) return false;
 		$columns = implode(',',$columns);

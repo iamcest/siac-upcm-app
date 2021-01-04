@@ -1,5 +1,6 @@
 var crci_cockgroft_gault_vars = {  
   results: '',
+  nomenclature: 'mL/min',
   vars: {
     age: 0,
     gender: '',

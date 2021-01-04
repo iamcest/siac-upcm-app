@@ -1,5 +1,6 @@
 var inter_heart_vars = {
   results: '',
+  nomenclature: '',
   european_score: [
     {
       region: 'Sudeste asiático',

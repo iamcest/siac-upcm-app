@@ -6,6 +6,7 @@
       <v-row>
         <?php echo new Template('parts/sidebar') ?>
         <v-col cols="12" md="9" lg="10" class="pt-16 pl-md-8">
+          <?php echo new Template('parts/upcm_logo') ?>
           <v-row>
             <v-col cols="12" md="12">
               <h2 class="text-center">varsuladora de Riesgo OMS / OPS</h2>

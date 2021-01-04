@@ -1,5 +1,6 @@
 var colesterol_ldl_vars = {
 	results: '',
+  nomenclature: 'mg/dl',
   vars: {
     total_cholesterol: '',
     triglyceride_level: '',

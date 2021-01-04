@@ -1,5 +1,6 @@
 var aha_acc_2013_vars = {
   results: '',
+  nomenclature: '%',
   race: 
   [
     {

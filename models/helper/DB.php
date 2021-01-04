@@ -48,7 +48,22 @@ if (!function_exists('executeQuery'))
 	  return $output;
 
 	}
-	 
+	function encode_items($array)
+	{
+	    foreach($array as $key => $value)
+	    {
+	        if(is_array($value))
+	        {
+	            $array[$key] = encode_items($value);
+	        }
+	        else
+	        {
+	            $array[$key] = mb_convert_encoding($value, 'Windows-1252', 'UTF-8');
+	        }
+	    }
+
+	    return $array;
+	}
 	function sanitize($input) {
 
 	  if (is_array($input)) {

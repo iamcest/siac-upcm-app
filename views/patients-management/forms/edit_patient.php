@@ -25,7 +25,7 @@
 													        Exámenes de <br>laboratorio
 													      </v-tab>
 
-													      <v-tab class="font-weight-bold" href="#tab-7">
+													      <v-tab class="font-weight-bold" href="#tab-7" @click="initializeFactorsRisk">
 													        Diagnósticos: <br>Factores de Riesgo
 													      </v-tab>
 													    </v-tabs>

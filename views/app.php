@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="ES">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?php echo $title; ?></title>
   <link rel="shortcut icon" href="public/favicon/favicon.ico">
   <link href="<?php echo SITE_URL ?>/public/css/material-design-icons.min.css" rel="stylesheet">
   <link href="<?php echo SITE_URL ?>/public/css/vuetify.min.css" rel="stylesheet">
-  <link href="<?php echo SITE_URL ?>/public/css/app.css" rel="stylesheet">
+  <link href="<?php echo SITE_URL ?>/public/css/app.min.css" rel="stylesheet">
   <?php if (!empty($data['styles'])): ?>
     <?php foreach ($data['styles'] as $style): ?>
   <link href="<?php echo SITE_URL ?>/views/assets/css/<?php echo $style['name']; ?>.css" rel="stylesheet">
@@ -33,10 +33,10 @@
       
     </v-app>
   </div>
-  <script src="<?php echo SITE_URL ?>/public/js/vue.js"></script>
-  <script src="<?php echo SITE_URL ?>/public/js/components/vuetify.js"></script>
+  <script src="<?php echo SITE_URL ?>/public/js/vue.min.js"></script>
+  <script src="<?php echo SITE_URL ?>/public/js/components/vuetify.min.js"></script>
   <script src="<?php echo SITE_URL ?>/public/js/components/vue-resource.min.js"></script>
-  <script src="<?php echo SITE_URL ?>/public/js/setup.js"></script>
+  <script src="<?php echo SITE_URL ?>/public/js/setup.min.js"></script>
   <?php if (!empty($data['scripts'])): ?>
     <?php foreach ($data['scripts'] as $script): ?>
   <script src="<?php echo SITE_URL ?>/views/assets/js/<?php echo $script['name'] ?>.js"></script>     

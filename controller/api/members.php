@@ -66,7 +66,6 @@ switch ($method) {
 		$email = clean_string($data['email']);
 		$password = md5(clean_string($data['password']));
 		$result = $member->check_user($email, $password);
-
 		if ($result != null) {
 			//We declare the session variables
 			$_SESSION['user_id'] = $result->user_id;
@@ -79,11 +78,12 @@ switch ($method) {
 			$_SESSION['user_type'] = $result->user_type;
 			$_SESSION['rol'] = $result->rol;
 			$_SESSION['upcm_id'] = $result->upcm_id;
+			if ($result->user_type !== 'administrador') $_SESSION['upcm_logo'] = $member->get_upcm_logo($result->user_id);
 			$_SESSION['telephone'] = $result->telephone;
 			$_SESSION['whatsapp'] = $result->whatsapp;
 			$_SESSION['telegram'] = $result->telegram;
 			$_SESSION['sms'] = $result->sms;
-			$_SESSION['redirect_url'] = $_SESSION['user_type'] == 'administrador' ? SITE_URL.'/admin' : SITE_URL.'/';
+			$_SESSION['redirect_url'] = $_SESSION['user_type'] == 'administrador' ? SITE_URL.'/admin/' : SITE_URL.'/';
 			$helper->response_message('Éxito', 'Has iniciado sesión correctamente, serás redirigido en unos momentos', 'success', $_SESSION['redirect_url']);	
 		}
 		else{

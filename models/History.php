@@ -30,7 +30,7 @@ class PatientHistory
 		if (empty($data)) return false;
 		$columns = implode(',',$columns);
 		extract($data);
-		$history_content = json_encode($history_content);
+		$history_content = json_encode(utf8_encode($history_content));
 		$sql = "INSERT INTO {$this->table} ($columns) VALUES('$history_content', $patient_id);";
 		$result = execute_query($sql);
 		return $result;
@@ -39,7 +39,7 @@ class PatientHistory
 	public function update($data = []) {
 		if (empty($data)) return false;
 		extract($data);
-		$history_content = json_encode($history_content);
+		$history_content = json_encode(utf8_encode($history_content));
 		$sql = "UPDATE {$this->table} SET history_content = '$history_content' WHERE patient_id = $patient_id";
 		$result = execute_query($sql);
 		return $result;

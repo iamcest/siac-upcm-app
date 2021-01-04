@@ -5,6 +5,7 @@
     	<v-row>
 	    	<?php echo new Template('parts/sidebar') ?>
     		<v-col cols="12" md="9" lg="10" class="pt-16 pl-md-8">
+          <?php echo new Template('parts/upcm_logo') ?>
     			<h2>Historial de cambios</h2>
                 <div class="mt-10">
                     <v-alert border="top" color="primary"  colored-border elevation="2" prominent>

@@ -5,6 +5,7 @@
       <v-row>
         <?php echo new Template('parts/sidebar') ?>
         <v-col cols="12" md="9" lg="10" class="pt-16 pl-md-8">
+          <?php echo new Template('parts/upcm_logo') ?>
           <v-row>
             <v-col cols="12" md="6" lg="5">
               <v-btn class="rounded-pill secondary white--text py-6 mb-sm-4 mb-lg-0" @click="editItem(defaultItem)"><v-icon>mdi-plus</v-icon> Añadir anuncio</v-btn>
@@ -121,7 +122,7 @@
 
           <v-row>
             <v-col cols="12" md="4" v-for="(item, index) in filterByDate" :key="item.announcement_id">
-              <v-card max-width="400" outlined >
+              <v-card class="flex d-flex flex-column" max-width="96%" outlined>
                 <v-card-title class="primary white--text d-block text-center">Anuncio</v-card-title>
                 <v-card-text class="pt-10">
                   <h5 class="text-h6 text-center">{{ item.title }}</h5>

@@ -131,12 +131,12 @@ let vm = new Vue({
       },
 
       loadCountries () {
-        this.$http.get('/public/js/countries.json').then(res => {
+        this.$http.get('/public/js/countries.min.json').then(res => {
           this.countries = res.body.countries
         }, err => {
 
         })
-        this.$http.get('/public/js/states.json').then(res => {
+        this.$http.get('/public/js/states.min.json').then(res => {
           this.states = res.body.states
         }, err => {
 

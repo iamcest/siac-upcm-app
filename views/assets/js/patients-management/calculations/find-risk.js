@@ -1,5 +1,6 @@
 var findrisk_vars = {
   results: '',
+  nomenclature: '',
   workout: [
     {text: 'Sí', val: 0}, 
     {text: 'No', val: 2}

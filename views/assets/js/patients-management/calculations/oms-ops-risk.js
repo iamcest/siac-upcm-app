@@ -29,6 +29,7 @@ function mpVals() {
 
 var oms_ops_vars = {
   results: '',
+  nomenclature: '%',
   cholesterol: cholesterolVals(),
   mp: mpVals(),
   risks: risks,
