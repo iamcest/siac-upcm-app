@@ -25,7 +25,7 @@ class Routes
 			$footer = false;
 			switch ($route[0]) {
 				case '':
-					if (!isset($_SESSION['user_id'])) header("Location: ".SITE_URL."/login");header("Locate");
+					if (!isset($_SESSION['user_id'])) header("Location: ".SITE_URL."/login");
 					$styles = [['name' => 'full-calendar-5.4.0.min']];
 					$scripts = [['name' => 'full-calendar-5.4.0.min'],['name' => 'full-calendar-5.4.0/lib/locales-all'], ['name' => 'dashboard']];
 					$content = new Template("home");
@@ -89,7 +89,7 @@ class Routes
 									['name' => 'patients-management/calculations/crci-cockgroft-gault.min'],
 									['name' => 'patients-management/calculations/colesterol-ldl.min'],
 									['name' => 'patients-management/calculations/inter-heart.min'],
-									['name' => 'patients-management/patients']
+									['name' => 'patients-management/patients.min']
 								];
 								$content = new Template("patients-management/patients");
 								break;

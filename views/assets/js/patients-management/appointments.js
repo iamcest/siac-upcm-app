@@ -10,10 +10,8 @@ let vm = new Vue({
     },
 
     created () {
-    },
-
-    mounted () {
-      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('siac-suite-container').style.display = 'inline'
+        document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
           themeSystem: 'Materia',
@@ -23,13 +21,12 @@ let vm = new Vue({
         });
         calendar.render();
       });
+
+    },
+
+    mounted () {
     },
 
     methods: {
-      reserve () {
-        this.loading = true
-
-        setTimeout(() => (this.loading = false), 2000)
-      },
-  	}
+    }
 });

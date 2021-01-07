@@ -1,4 +1,5 @@
 /*VUE INSTANCE*/
+moment.locale('es')
 let vm = new Vue({
     vuetify,
     el: '#siac-suite-container',
@@ -13,6 +14,8 @@ let vm = new Vue({
       exam_date_dialog: '',
       menu: '',
       tab: null,
+      view_tab: null,
+      view_dialog: false,
       dialog: false,
       dialogDelete: false,
       general_save: false,
@@ -26,6 +29,33 @@ let vm = new Vue({
         { text: 'Acciones', value: 'actions', align:'center', sortable: false },
       ],
       patients: [],
+      views: {
+        patient_appointments: {
+          headers: [
+            {text: 'Fecha de la cita', align: 'start', value: 'appointment_date' },
+            { text: 'Hora de la cita', value: 'appointment_time' },
+            { text: 'Doctor', value: 'full_name' },
+            { text: 'Tipo de cita', value: 'appointment_type' },
+            { text: 'Motivo de la cita', value: 'appointment_reason' },
+          ],
+        },
+        patient_anthropometry: {
+          headers: [
+            {text: 'Fecha', align: 'start', value: 'anthropometry_date' },
+            { text: 'Peso', value: 'weight' },
+            { text: 'Talla', value: 'height' },
+            { text: 'Cintura Abdominal', value: 'abdominal_waist' },
+            { text: 'índice Masa Corporal', value: 'bmi' },
+            { text: 'Superficie Corporal', value: 'corporal_surface' },
+          ],
+        },
+        patient_laboratory_exams: {
+          exam_headers: [
+            {text: 'Fecha del exámen', align: 'start', value: 'exam_date', width:"auto" },
+            { text: 'Resultado', value: 'results', width:"auto" },
+          ],
+        },
+      },
       patient_appointments: {
         dialog: false,
         dialogDelete: false,
@@ -57,6 +87,7 @@ let vm = new Vue({
         weight: '',
         height: '',
         abdominal_waist: '',
+        history: [],
       },
       patient_laboratory_exams: {
         laboratory_exam: false,
@@ -217,6 +248,15 @@ let vm = new Vue({
             },
           },
         ],
+        headers: [
+          {text: 'Fecha', align: 'center', value: 'take_date', width:"auto" },
+          { text: 'Frecuencia Cardiaca', align: 'center', value: 'heart_frecuency', width:"auto" },
+          { text: 'Presión Arterial del Brazo Derecho', align: 'center', value: 'pa_right', width:"auto" },
+          { text: 'Presión Arterial del Brazo Izquierdo', align: 'center', value: 'pa_left', width:"auto" },
+          { text: 'Frecuencia respiratoria', align: 'center', value: 'breathing_rate', width:"auto" },
+          { text: 'Temperatura (°C)', align: 'center', value: 'temperature', width:"auto" },
+        ],
+        records: [],
       },
       patient_history: {
         loading: false,
@@ -418,6 +458,7 @@ let vm = new Vue({
       patient_risk_factors: {
         loading: false,
         diagnostic_loading: false,
+        risk_factors_loaded: false,
         selectedForm: {
           calc_name: '',
           obj: {
@@ -428,6 +469,10 @@ let vm = new Vue({
           { text: 'Factor de Riesgo', align: 'start', value: 'name' },
           { text: 'Diagnóstico', value: 'diagnostic' },
           { text: 'Comentario', value: 'comment' },
+        ],
+        risk_factor_headers: [
+          { text: 'Fecha', align: 'start', value: 'risk_factor_date' },
+          { text: 'Resultado', value: 'results' },
         ],
         risk_factors: 
         [
@@ -474,12 +519,12 @@ let vm = new Vue({
             obj: findrisk_vars
           },
           {
-            nomenclature: '%',
+            nomenclature: '',
             calc_name: 'Riesgo 2013 AHA/ACC',
             obj: aha_acc_2013_vars
           },
           {
-            nomenclature: '%',
+            nomenclature: '',
             calc_name: 'Riesgo OMS/OPS',
             obj: oms_ops_vars
           },
@@ -499,6 +544,7 @@ let vm = new Vue({
             obj: inter_heart_vars
           },
         ],
+        risk_factors_list: [],
       },
       genders: [
         {
@@ -537,7 +583,7 @@ let vm = new Vue({
       AppointmentFormTitle () {
         const obj = this.patient_appointments
         return obj.editedIndex === -1 ? 'Añadir nueva cita' : 'Editar cita del paciente '
-      }
+      },
     },
 
     watch: {
@@ -602,8 +648,9 @@ let vm = new Vue({
         app.general_save = false
         var url = api_url + 'anthropometry/get/'+app.editedItem.patient_id
         app.$http.get(url).then( res => {
-          if (res.body-length > 0) {
+          if (res.body.length > 0) {
             app.patient_anthropometry = res.body[0]            
+            app.patient_anthropometry.history = res.body           
           }
         }, err => {
 
@@ -615,8 +662,8 @@ let vm = new Vue({
         app.general_save = false
         var url = api_url + 'history/get/'+app.editedItem.patient_id
         app.$http.get(url).then( res => {
-          if (res.body.length != 0) {
-            if (res.body.history_content != null) {
+          if (res.body.length > 0) {
+            if (res.body[0].history_content != null) {
               app.patient_history.form.history_content = JSON.parse(res.body[0].history_content)
             }
           }
@@ -625,14 +672,51 @@ let vm = new Vue({
         })
       },
 
-      initializeFactorsRisk() {
+      initializeFactorsRisk(get_risk_factors) {
         var app = this
         app.general_save = false
+        if (get_risk_factors) {
+          app.patient_risk_factors.risk_factors_loaded = true
+          var url = api_url + 'patient-risk-factors/get/'+app.editedItem.patient_id
+          app.$http.get(url).then( res => {
+            if (res.body.length > 0) {
+              app.patient_risk_factors.risk_factors_list = res.body
+              app.patient_risk_factors.risk_factors_loaded = false
+            }
+          }, err => {
+
+          })
+        }
         app.patient_risk_factors.selectedForm = {calc_name: '', obj: {results: ''}}
         var url = api_url + 'patient-risk-factors-diagnostic/get/'+app.editedItem.patient_id
         app.$http.get(url).then( res => {
           if (res.body.length > 0) {
             app.patient_risk_factors.risk_factors = JSON.parse(res.body[0].risk_factors.toString('uftf8'))
+          }
+        }, err => {
+
+        })
+      },
+
+      initializeVitalSigns () {
+        var app = this
+        app.general_save = false
+        var url = api_url + 'vital-signals/get/'+app.editedItem.patient_id
+        app.$http.get(url).then( res => {
+          app.patient_vital_signs.records = []
+          if (res.body.length > 0) {
+            var patient_records = []
+            app.patient_vital_signs.records = res.body.forEach((record) => {
+              var e = {
+                vital_signals_id: record.vital_signals_id,
+                sitting: JSON.parse(record.sitting),
+                lying_down: JSON.parse(record.lying_down),
+                standing: JSON.parse(record.standing),
+                take_date: record.take_date
+              }
+              patient_records.push(e)
+            })
+            app.patient_vital_signs.records = patient_records
           }
         }, err => {
 
@@ -646,6 +730,13 @@ let vm = new Vue({
         app.editedItem = Object.assign({}, item)
         app.dialog = true
       },
+
+      showItem (item) {
+        var app = this
+        app.editedItem = Object.assign({}, item)
+        app.view_dialog = true
+      },
+
       editAppointmentItem (item) {
         var obj = this.patient_appointments
         obj.editedIndex = obj.appointments.indexOf(item)
@@ -718,6 +809,14 @@ let vm = new Vue({
 
       close () {
         this.dialog = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+
+      closeView () {
+        this.view_dialog = false
         this.$nextTick(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
@@ -881,7 +980,7 @@ let vm = new Vue({
           nomenclature: app.patient_risk_factors.selectedForm.obj.nomenclature,
         }
         app.$http.post(url, data).then( res => {
-          app.patient_risk_factors.risk_factor_loading = false
+          app.patient_risk_factors.loading = false
           if (res.body.status == "success") {
             return true
           }
@@ -990,7 +1089,6 @@ let vm = new Vue({
         var url = api_url + 'vital-signals/create'
         results.patient_id = app.editedItem.patient_id
         app.$http.post(url, results).then( res => {
-          console.log(res.body)
         }, err => {
 
         })
@@ -1036,6 +1134,14 @@ let vm = new Vue({
         return results[0]['full_name'];
       },
 
+      getRiskFactorData (name) {
+        var obj = this.patient_risk_factors.risk_factors_list
+        var results = obj.filter( (risk_factor) => { 
+          return risk_factor.name == name;
+        });
+        return results;
+      },
+
       showExamResults (item) {
         var app = this
         var obj = app.patient_laboratory_exams
@@ -1052,10 +1158,53 @@ let vm = new Vue({
 
       assignGeneralVars (item) {
         var app = this
-        var age = moment(app.editedItem.birthdate, "YYYY-MM-DD").fromNow().split(" ")[0]
+        var age = moment(app.editedItem.birthdate, "YYYY-MM-DD").fromNow().split(" ")[1]
         app.patient_risk_factors.selectedForm.obj.vars.age = age
         app.patient_risk_factors.selectedForm.obj.vars.gender = app.editedItem.gender
       },
 
+      getBMI (weight, height) {
+        var height = Math.pow(height / 100, 2)
+        var result = Math.round(weight * 10 / height) / 10
+        if (result != NaN) {
+          result += ' kg/m2'
+        }
+        return result
+      },
+
+      getCS (weight, height) {
+        var fixed = 3600
+        var partial = Math.pow((height * weight / fixed), 0.5)
+        var result = Math.round(partial * 100) / 100
+        if (result != NaN) {
+          result += ' m2'
+        }
+        return result
+      },
+
+      getVitalSignalsAverage(item, arm) {
+        if (arm == "left") {
+          var tas = Math.round((parseInt(item.sitting.pa_left_arm2) + 
+          parseInt(item.lying_down.pa_left_arm1) + parseInt(item.standing.pa_left_arm1)) / 3)
+          var tad = Math.round((parseInt(item.sitting.pa_left_arm2) + 
+          parseInt(item.lying_down.pa_left_arm2) + parseInt(item.standing.pa_left_arm2)) / 3)
+          var pulse_pressure = tas - tad
+          var pam = Math.round(tad-(-(tas-tad)/3))
+          return {pulse_pressure: pulse_pressure, pam: pam}
+        }
+        else if (arm == "right") {
+          var tas = Math.round((parseInt(item.sitting.pa_right_arm2) + 
+          parseInt(item.lying_down.pa_right_arm1) + parseInt(item.standing.pa_right_arm1)) / 3)
+          var tad = Math.round((parseInt(item.sitting.pa_right_arm2) + 
+          parseInt(item.lying_down.pa_right_arm2) + parseInt(item.standing.pa_right_arm2)) / 3)
+          var pulse_pressure = tas - tad
+          var pam = Math.round(tad-(-(tas-tad)/3))
+          return {pulse_pressure: pulse_pressure, pam: pam}
+        }
+      },
+
+      fromNow (date) {
+        return moment(date).format('LL');
+      },
     }
 });

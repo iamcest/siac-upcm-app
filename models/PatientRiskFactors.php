@@ -4,20 +4,17 @@
  * 
  */
 
-class PatientHistory
+class PatientRiskFactors
 {
-	private $table = "patient_history";
-	private $id_column = "patient_id";
+	private $table = "patient_risk_factors";
+	private $id_patient_column = "patient_id";
+	private $id_column = "risk_factor_id";
 
 	function __construct() {
 	}
 	public function get(int $id = 0) {
-		if ($id != 0) {
-			$sql = "SELECT history_content, patient_id FROM {$this->table} WHERE {$this->id_column} = $id";
-		}
-		else{
-			$sql = "SELECT history_content, patient_id FROM {$this->table}";
-		}
+		if ($id == 0) return false;
+		$sql = "SELECT `name`, results, nomenclature, risk_factor_date FROM {$this->table} WHERE {$this->id_patient_column} = $id ORDER BY risk_factor_date DESC";
 		$result = execute_query($sql);
 		$arr = [];
 		while ($row = $result->fetch_assoc()) {
@@ -30,8 +27,7 @@ class PatientHistory
 		if (empty($data)) return false;
 		$columns = implode(',',$columns);
 		extract($data);
-		$history_content = json_encode($history_content);
-		$sql = "INSERT INTO {$this->table} ($columns) VALUES('$history_content', $patient_id);";
+		$sql = "INSERT INTO {$this->table} ($columns) VALUES('$name', '$results', '$nomenclature', $patient_id );";
 		$result = execute_query($sql);
 		return $result;
 	}
@@ -39,8 +35,7 @@ class PatientHistory
 	public function update($data = []) {
 		if (empty($data)) return false;
 		extract($data);
-		$history_content = json_encode($history_content);
-		$sql = "UPDATE {$this->table} SET history_content = '$history_content' WHERE patient_id = $patient_id";
+		$sql = "UPDATE {$this->table} SET results = '$results' WHERE risk_factor_id = $risk_factor_id AND patient_id = $patient_id";
 		$result = execute_query($sql);
 		return $result;
 	}

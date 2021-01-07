@@ -1,5 +1,5 @@
 
-													    <v-tabs v-model="tab" show-arrows fixed-tabs>
+													    <v-tabs class="patient-tabs" v-model="tab" show-arrows fixed-tabs>
 
 													      <v-tab class="font-weight-bold" href="#tab-1" @click="general_save = true">
 													        Información general

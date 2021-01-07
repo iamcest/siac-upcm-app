@@ -48,7 +48,7 @@ class Members
 		return $arr;
 	}
 	public function check_user($email, $password) {
-		$sql = "SELECT u.user_id AS user_id, avatar, first_name, last_name, email, gender, birthdate, user_type, rol, upcm_id, uc.telephone, uc.whatsapp AS whatsapp, uc.telegram AS telegram, uc.sms AS sms FROM {$this->table} as u INNER JOIN {$this->contact_table} as uc ON u.user_id = uc.user_id WHERE email = '$email' AND 'password' = '$password'";
+		$sql = "SELECT u.user_id AS user_id, avatar, first_name, last_name, email, gender, birthdate, user_type, rol, upcm_id, uc.telephone, uc.whatsapp AS whatsapp, uc.telegram AS telegram, uc.sms AS sms FROM {$this->table} as u LEFT JOIN {$this->contact_table} as uc ON u.user_id = uc.user_id WHERE email = '$email' AND `password` = '$password'";
 		$result = execute_query($sql);
 		if ($result) return $result->fetch_object();
 		return null;

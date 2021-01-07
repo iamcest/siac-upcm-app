@@ -16,7 +16,7 @@
                                                 <label class="black--text font-weight-bold">Fecha de diagnóstico:</label>
                                                 <v-text-field v-model="patient_history.form.history_content.diseases.dtm2.diagnostic_date" class="mt-3" outlined dense></v-text-field>
                                               </v-col>
-                                              <v-col cols="12 mt-n4">
+                                              <v-col cols="12 ">
                                                 <label class="black--text font-weight-bold">Tratamiento:</label>
                                                 <v-select v-model="patient_history.form.history_content.diseases.dtm2.treatment" class="mt-3" outlined dense></v-select>
                                               </v-col>
@@ -32,9 +32,9 @@
                                                   </template>
                                                 </v-text-field>
                                               </v-col>
-                                              <v-col cols="12 mt-n4">
-                                                <label class="black--text font-weight-bold">Frecuencia:</label>
-                                                <v-text-field v-model="patient_history.form.history_content.diseases.dtm2.metformin.frecuency" class="black-text" class="mt-3" outlined dense></v-text-field>
+                                              <v-col cols="12 ">
+                                                <label class="black--text font-weight-bold mb-3">Frecuencia:</label>
+                                                <v-text-field v-model="patient_history.form.history_content.diseases.dtm2.metformin.frecuency" class="black-text mt-3" outlined dense></v-text-field>
                                               </v-col>
                                             </v-row>
                                           </v-col>
@@ -48,9 +48,9 @@
                                                   </template>
                                                 </v-text-field>
                                               </v-col>
-                                              <v-col cols="12 mt-n4">
+                                              <v-col cols="12 ">
                                                 <label class="black--text font-weight-bold">Frecuencia:</label>
-                                                <v-text-field v-model="patient_history.form.history_content.diseases.dtm2.insulin.frecuency" class="black-text" class="mt-3" outlined dense></v-text-field>
+                                                <v-text-field v-model="patient_history.form.history_content.diseases.dtm2.insulin.frecuency" class="black-text mt-3" outlined dense></v-text-field>
                                               </v-col>
                                             </v-row>
                                           </v-col>
@@ -64,9 +64,9 @@
                                                   </template>
                                                 </v-text-field>
                                               </v-col>
-                                              <v-col cols="12 mt-n4">
+                                              <v-col cols="12 ">
                                                 <label class="black--text font-weight-bold">Frecuencia:</label>
-                                                <v-text-field v-model="patient_history.form.history_content.diseases.dtm2.sulfonylureas.frecuency" class="black-text" class="mt-3" outlined dense></v-text-field>
+                                                <v-text-field v-model="patient_history.form.history_content.diseases.dtm2.sulfonylureas.frecuency" class="black-text mt-3" outlined dense></v-text-field>
                                               </v-col>
                                             </v-row>
                                           </v-col>
@@ -80,25 +80,25 @@
                                                   </template>
                                                 </v-text-field>
                                               </v-col>
-                                              <v-col cols="12 mt-n4">
+                                              <v-col cols="12 ">
                                                 <label class="black--text font-weight-bold">Frecuencia:</label>
-                                                <v-text-field v-model="patient_history.form.history_content.diseases.dtm2.inh_dpp.frecuency" class="black-text" class="mt-3" outlined dense></v-text-field>
+                                                <v-text-field v-model="patient_history.form.history_content.diseases.dtm2.inh_dpp.frecuency" class="black-text mt-3" outlined dense></v-text-field>
                                               </v-col>
                                             </v-row>
                                           </v-col>
                                           <v-col cols="1">
                                             <v-row>
                                               <v-col cols="12">
-                                                <h3 class="font-weight-bold black--text text-center">I SLGT2</h3>
+                                                <h3 class="font-weight-bold black--text text-center mb-3">I SLGT2</h3>
                                                 <v-text-field v-model="patient_history.form.history_content.diseases.dtm2.i_slgt2.dosis" class="black-text" class="mt-3" outlined dense>
                                                   <template v-slot:prepend>
                                                     <span class="font-weight-bold">Dosis:</span>
                                                   </template>
                                                 </v-text-field>
                                               </v-col>
-                                              <v-col cols="12 mt-n4">
+                                              <v-col cols="12 ">
                                                 <label class="black--text font-weight-bold">Frecuencia:</label>
-                                                <v-text-field v-model="patient_history.form.history_content.diseases.dtm2.i_slgt2.frecuency" class="black-text" class="mt-3" outlined dense></v-text-field>
+                                                <v-text-field v-model="patient_history.form.history_content.diseases.dtm2.i_slgt2.frecuency" class="black-text mt-3" outlined dense></v-text-field>
                                               </v-col>
                                             </v-row>
                                           </v-col>
@@ -112,9 +112,9 @@
                                                   </template>
                                                 </v-text-field>
                                               </v-col>
-                                              <v-col cols="12 mt-n4">
+                                              <v-col cols="12 ">
                                                 <label class="black--text font-weight-bold">Frecuencia:</label>
-                                                <v-text-field v-model="patient_history.form.history_content.diseases.dtm2.gl.frecuency" class="black-text" class="mt-3" outlined dense></v-text-field>
+                                                <v-text-field v-model="patient_history.form.history_content.diseases.dtm2.gl.frecuency" class="black-text mt-3" outlined dense></v-text-field>
                                               </v-col>
                                             </v-row>
                                           </v-col>

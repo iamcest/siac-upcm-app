@@ -34,15 +34,15 @@
                                               </v-col>
                                               <v-col cols="12 mt-n4">
                                                 <label class="black--text font-weight-bold">Frecuencia:</label>
-                                                <v-text-field v-model="patient_history.form.history_content.diseases.hta.iecas.frecuency" class="black-text" class="mt-3" outlined dense></v-text-field>
+                                                <v-text-field v-model="patient_history.form.history_content.diseases.hta.iecas.frecuency" class="black-text mt-3" outlined dense></v-text-field>
                                               </v-col>
                                             </v-row>
                                           </v-col>
                                           <v-col cols="2">
                                             <v-row>
                                               <v-col cols="12">
-                                                <h3 class="font-weight-bold black--text text-center">BRA</h3>
-                                                <v-text-field v-model="patient_history.form.history_content.diseases.hta.bra.dosis" class="black-text" class="mt-3" outlined dense>
+                                                <h3 class="font-weight-bold black--text text-center mb-3">BRA</h3>
+                                                <v-text-field v-model="patient_history.form.history_content.diseases.hta.bra.dosis" class="black-text mt-3" outlined dense>
                                                   <template v-slot:prepend>
                                                     <span class="font-weight-bold">Dosis:</span>
                                                   </template>
@@ -50,7 +50,7 @@
                                               </v-col>
                                               <v-col cols="12 mt-n4">
                                                 <label class="black--text font-weight-bold">Frecuencia:</label>
-                                                <v-text-field v-model="patient_history.form.history_content.diseases.hta.bra.frecuency" class="black-text" class="mt-3" outlined dense></v-text-field>
+                                                <v-text-field v-model="patient_history.form.history_content.diseases.hta.bra.frecuency" class="black-text mt-3" outlined dense></v-text-field>
                                               </v-col>
                                             </v-row>
                                           </v-col>
@@ -66,14 +66,14 @@
                                               </v-col>
                                               <v-col cols="12 mt-n4">
                                                 <label class="black--text font-weight-bold">Frecuencia:</label>
-                                                <v-text-field v-model="patient_history.form.history_content.diseases.hta.ca.frecuency" class="black-text" class="mt-3" outlined dense></v-text-field>
+                                                <v-text-field v-model="patient_history.form.history_content.diseases.hta.ca.frecuency" class="black-text mt-3" outlined dense></v-text-field>
                                               </v-col>
                                             </v-row>
                                           </v-col>
                                           <v-col cols="2">
                                             <v-row>
                                               <v-col cols="12">
-                                                <h3 class="font-weight-bold black--text text-center">Ca</h3>
+                                                <h3 class="font-weight-bold black--text text-center">Diurético</h3>
                                                 <v-text-field v-model="patient_history.form.history_content.diseases.hta.diuretic.dosis" class="mt-3" outlined dense>
                                                   <template class="black-text" v-slot:prepend>
                                                     <span class="font-weight-bold">Dosis:</span>
@@ -82,7 +82,7 @@
                                               </v-col>
                                               <v-col cols="12 mt-n4">
                                                 <label class="black--text font-weight-bold">Frecuencia:</label>
-                                                <v-text-field v-model="patient_history.form.history_content.diseases.hta.diuretic.frecuency" class="black-text" class="mt-3" outlined dense></v-text-field>
+                                                <v-text-field v-model="patient_history.form.history_content.diseases.hta.diuretic.frecuency" class="black-text mt-3" outlined dense></v-text-field>
                                               </v-col>
                                             </v-row>
                                           </v-col>
@@ -98,14 +98,14 @@
                                               </v-col>
                                               <v-col cols="12 mt-n4">
                                                 <label class="black--text font-weight-bold">Frecuencia:</label>
-                                                <v-text-field v-model="patient_history.form.history_content.diseases.hta.block_beta.frecuency" class="black-text" class="mt-3" outlined dense></v-text-field>
+                                                <v-text-field v-model="patient_history.form.history_content.diseases.hta.block_beta.frecuency" class="black-text mt-3" outlined dense></v-text-field>
                                               </v-col>
                                             </v-row>
                                           </v-col>
                                           <v-col cols="1">
                                             <v-row>
                                               <v-col cols="12">
-                                                <h3 class="font-weight-bold black--text text-center">Bloq</h3>
+                                                <h3 class="font-weight-bold black--text text-center mb-3">Bloq</h3>
                                                 <v-text-field v-model="patient_history.form.history_content.diseases.hta.block.dosis" class="black-text" class="mt-3" outlined dense>
                                                   <template v-slot:prepend>
                                                     <span class="font-weight-bold">Dosis:</span>
@@ -114,7 +114,7 @@
                                               </v-col>
                                               <v-col cols="12 mt-n4">
                                                 <label class="black--text font-weight-bold">Frecuencia:</label>
-                                                <v-text-field v-model="patient_history.form.history_content.diseases.hta.block.frecuency" class="black-text" class="mt-3" outlined dense></v-text-field>
+                                                <v-text-field v-model="patient_history.form.history_content.diseases.hta.block.frecuency" class="black-text mt-3" outlined dense></v-text-field>
                                               </v-col>
                                             </v-row>
                                           </v-col>

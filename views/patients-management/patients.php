@@ -63,6 +63,37 @@
                           </v-btn>
                         </v-card-actions>
                       </v-card>
+                    </v-dialog>         
+                    <v-dialog v-model="view_dialog" max-width="98%" >
+                      <v-card>
+                        <v-toolbar elevation="0">
+                          <v-toolbar-title>Ficha del paciente</v-toolbar-title>
+                          <v-spacer></v-spacer>
+                          <v-toolbar-items>
+                          <v-btn icon dark @click="closeView">
+                            <v-icon color="grey">mdi-close</v-icon>
+                          </v-btn>
+                          </v-toolbar-items>
+                        </v-toolbar>
+                        
+                        <v-divider></v-divider>
+
+                        <v-card-text>
+                          <v-container fluid>
+                            <v-row>
+                              <v-col class="d-flex justify-center" cols="12">
+                                <v-icon class="avatar-image">mdi-account-circle</v-icon>
+                              </v-col>
+                              <v-col class="mt-n5" cols="12">
+                                <h5 class="text-center black--text text-h6">{{ editedItem.first_name }} {{ editedItem.last_name }}</h5>
+                              </v-col>
+                            </v-row>
+                            <v-row>
+                              <?php echo new Template('patients-management/forms/view_patient', Template::patient_tabs()) ?>
+                            </v-row>
+                          </v-container>
+                        </v-card-text>
+                      </v-card>
                     </v-dialog>
                     <v-dialog v-model="dialogDelete" max-width="1200px">
                       <v-card>
@@ -79,7 +110,7 @@
                 </template>
                 <template v-slot:item.actions="{ item }">
                   <v-row justify="center" align="center">
-                    <v-icon md class="" @click="editItem(item)" color="primary">
+                    <v-icon md class="" @click="showItem(item)" color="primary">
                       mdi-eye
                     </v-icon>
                     <v-icon md class="" @click="editItem(item)" color="#00BFA5">

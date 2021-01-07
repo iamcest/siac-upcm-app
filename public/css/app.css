@@ -24,6 +24,12 @@ a{
 h1, h2, h3 , h4, h5, h6, .v-application .text-h3, .v-application .text-h4{
 	font-weight: bold !important;
 }
+.border-right{
+  border-right: 1px solid lightgrey;
+}
+.loading {
+  display: none;
+}
 .table_headers_lg th span{
   font-size: 12pt;
 }
@@ -127,4 +133,21 @@ h1, h2, h3 , h4, h5, h6, .v-application .text-h3, .v-application .text-h4{
 /*PATIENTS SECTION*/
 .factor-risk-container{
   border: 1px solid lightgrey;
+}
+.factor-risk-column{
+  border-left: 1px solid lightgrey;
+}
+.patient-tabs .v-slide-group__content{
+  border-bottom: 1px solid lightgrey;
+}
+
+.patient-tabs .v-tab.v-tab--active{
+  border-top: 1px solid lightgrey;
+  border-left: 1px solid lightgrey;
+  border-right: 1px solid lightgrey;
+}
+.patient-tabs .v-tabs-slider-wrapper{
+  color: white !important;
+  height: 4px !important;
+  top: 45px !important;
 }

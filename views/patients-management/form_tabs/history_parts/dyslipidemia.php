@@ -16,7 +16,7 @@
                                                 <label class="black--text font-weight-bold">Fecha de diagnóstico:</label>
                                                 <v-text-field v-model="patient_history.form.history_content.diseases.dyslipidemia.diagnostic_date" class="mt-3" outlined dense></v-text-field>
                                               </v-col>
-                                              <v-col cols="12 mt-n4">
+                                              <v-col cols="12 ">
                                                 <label class="black--text font-weight-bold">Tratamiento:</label>
                                                 <v-select v-model="patient_history.form.history_content.diseases.dyslipidemia.treatment" class="mt-3" outlined dense></v-select>
                                               </v-col>
@@ -32,9 +32,9 @@
                                                   </template>
                                                 </v-text-field>
                                               </v-col>
-                                              <v-col cols="12 mt-n4">
+                                              <v-col cols="12 ">
                                                 <label class="black--text font-weight-bold">Frecuencia:</label>
-                                                <v-text-field v-model="patient_history.form.history_content.diseases.dyslipidemia.statins.frecuency" class="black-text" class="mt-3" outlined dense></v-text-field>
+                                                <v-text-field v-model="patient_history.form.history_content.diseases.dyslipidemia.statins.frecuency" class="black-text mt-3" outlined dense></v-text-field>
                                               </v-col>
                                             </v-row>
                                           </v-col>
@@ -48,9 +48,9 @@
                                                   </template>
                                                 </v-text-field>
                                               </v-col>
-                                              <v-col cols="12 mt-n4">
+                                              <v-col cols="12 ">
                                                 <label class="black--text font-weight-bold">Frecuencia:</label>
-                                                <v-text-field v-model="patient_history.form.history_content.diseases.dyslipidemia.ezt.frecuency" class="black-text" class="mt-3" outlined dense></v-text-field>
+                                                <v-text-field v-model="patient_history.form.history_content.diseases.dyslipidemia.ezt.frecuency" class="black-text mt-3" outlined dense></v-text-field>
                                               </v-col>
                                             </v-row>
                                           </v-col>
@@ -64,9 +64,9 @@
                                                   </template>
                                                 </v-text-field>
                                               </v-col>
-                                              <v-col cols="12 mt-n4">
+                                              <v-col cols="12 ">
                                                 <label class="black--text font-weight-bold">Frecuencia:</label>
-                                                <v-text-field v-model="patient_history.form.history_content.diseases.dyslipidemia.fibratos.frecuency" class="black-text" class="mt-3" outlined dense></v-text-field>
+                                                <v-text-field v-model="patient_history.form.history_content.diseases.dyslipidemia.fibratos.frecuency" class="black-text mt-3" outlined dense></v-text-field>
                                               </v-col>
                                             </v-row>
                                           </v-col>
@@ -80,9 +80,9 @@
                                                   </template>
                                                 </v-text-field>
                                               </v-col>
-                                              <v-col cols="12 mt-n4">
+                                              <v-col cols="12 ">
                                                 <label class="black--text font-weight-bold">Frecuencia:</label>
-                                                <v-text-field v-model="patient_history.form.history_content.diseases.dyslipidemia.omega3.frecuency" class="black-text" class="mt-3" outlined dense></v-text-field>
+                                                <v-text-field v-model="patient_history.form.history_content.diseases.dyslipidemia.omega3.frecuency" class="black-text mt-3" outlined dense></v-text-field>
                                               </v-col>
                                             </v-row>
                                           </v-col>

@@ -20,7 +20,7 @@ switch ($method) {
 		break;
 
 	case 'create':
-		if (empty($data)) $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');;
+		if (empty($data)) $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');
 		$columns = ['standing', 'lying_down', 'sitting', 'patient_id'];
 		$result = $vital_signals->create(sanitize($data), $columns);
 		$id = $result;

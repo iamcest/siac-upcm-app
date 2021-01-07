@@ -16,7 +16,7 @@
                                                 <label class="black--text font-weight-bold">Año de inicio aproximado:</label>
                                                 <v-text-field v-model="patient_history.form.history_content.diseases.smoking.start_year" class="mt-3" outlined dense></v-text-field>
                                               </v-col>
-                                              <v-col cols="12 mt-n4">
+                                              <v-col cols="12 ">
                                                 <label class="black--text font-weight-bold">Año de abandono:</label>
                                                 <v-text-field v-model="patient_history.form.history_content.diseases.smoking.quit_year" class="black--text font-weight-bold" class="mt-3" outlined dense></v-text-field>
                                               </v-col>

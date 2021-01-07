@@ -17,7 +17,7 @@
 </head>
 <body>
 
-  <div id="siac-suite-container">
+  <div id="siac-suite-container" style="display:none;">
     <v-app class="white">
       <?php if (!empty($data) AND !$data['header']): ?>
       <?php else: ?>

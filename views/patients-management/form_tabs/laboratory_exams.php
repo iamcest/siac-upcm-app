@@ -25,7 +25,7 @@
 
                                             </template>
                                             <template v-slot:no-data>
-                                              <v-btn color="primary" @click="initialize" >
+                                              <v-btn color="primary" @click="initializeExams" >
                                                 Recargar
                                               </v-btn>
                                             </template>
