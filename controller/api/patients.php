@@ -18,6 +18,13 @@ switch ($method) {
 		echo json_encode($results > 0 ? $results : 'No se encontraron resultados');
 		break;
 
+	case 'get-list':
+		if ($_SESSION['upcm_id'] == null || !isset($_SESSION['upcm_id'])) die(403);
+		$id = $_SESSION['upcm_id'];
+		$results = $patient->get_list($id);
+		echo json_encode($results > 0 ? $results : 'No se encontraron resultados');
+		break;
+
 	case 'get-patient-general-info':
 		if ($_SESSION['upcm_id'] == null || !isset($_SESSION['upcm_id'])) die(403);
 		$id = $_SESSION['upcm_id'];

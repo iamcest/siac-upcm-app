@@ -18,6 +18,12 @@ switch ($method) {
 		echo json_encode($results > 0 ? $results : 'No se encontraron resultados');
 		break;
 
+	case 'get-upcm-appointments':
+		if ($_SESSION['upcm_id'] == null OR !isset($_SESSION['upcm_id'])) die(403);
+		$results = $appointment->get_upcm_all(intval($_SESSION['upcm_id']));
+		echo json_encode($results > 0 ? $results : 'No se encontraron resultados');
+		break;
+
 	case 'create':
 		if (empty($data)) $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');;
 		$columns = ['appointment_reason', 'appointment_type', 'appointment_date', 'appointment_time', 'user_id', 'patient_id'];

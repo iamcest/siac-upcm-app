@@ -27,7 +27,7 @@ class Routes
 				case '':
 					if (!isset($_SESSION['user_id'])) header("Location: ".SITE_URL."/login");
 					$styles = [['name' => 'full-calendar-5.4.0.min']];
-					$scripts = [['name' => 'full-calendar-5.4.0.min'],['name' => 'full-calendar-5.4.0/lib/locales-all'], ['name' => 'dashboard']];
+					$scripts = [['name' => 'moment.min'], ['name' => 'full-calendar-5.4.0/lib/main.min'], ['name' => 'full-calendar-5.4.0/lib/locales/es'], ['name' => 'dashboard.min']];
 					$content = new Template("home");
 				break;
 				case 'admin':
@@ -73,7 +73,7 @@ class Routes
 	
 					case '':
 						$styles = [['name' => 'full-calendar-5.4.0.min']];
-						$scripts = [['name' => 'dashboard'], ['name' => 'full-calendar-5.4.0/lib/main.min']];
+						$scripts = [['name' => 'moment.min'], ['name' => 'full-calendar-5.4.0/lib/main.min'], ['name' => 'full-calendar-5.4.0/lib/locales/es'], ['name' => 'dashboard.min']];
 						$content = new Template("home");
 					break;
 
@@ -96,7 +96,7 @@ class Routes
 
 							case 'appointments':
 								$styles = [['name' => 'full-calendar-5.4.0.min']];
-								$scripts = [['name' => 'full-calendar-5.4.0/lib/main.min'], ['name' => 'full-calendar-5.4.0/lib/locales/es'], ['name' => 'patients-management/appointments']];
+								$scripts = [['name' => 'moment.min'], ['name' => 'full-calendar-5.4.0/lib/main.min'], ['name' => 'full-calendar-5.4.0/lib/locales/es'], ['name' => 'patients-management/appointments.min']];
 								$content = new Template("patients-management/appointments");
 								break;
 						}

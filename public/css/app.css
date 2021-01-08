@@ -99,6 +99,17 @@ h1, h2, h3 , h4, h5, h6, .v-application .text-h3, .v-application .text-h4{
   background-color: #76d7d7 !important;
   border: none !important;
 }
+.fc-v-event {
+  background-color: #76d7d7 !important;
+  border: 1px solid #76d7d7 !important; 
+}
+.fc-daygrid-event-dot{
+  border-color: grey !important;
+}
+.fc-next-button.fc-button.fc-button-primary, .fc-prev-button.fc-button.fc-button-primary {
+  padding-top: 2px !important;
+  padding-bottom: 9px !important;
+}
 .fc-toolbar-title, .fc-day, .fc-day-past{
   text-transform: uppercase;
 }
