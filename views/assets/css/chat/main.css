@@ -11,7 +11,7 @@
   /*background-color: #f2f2f2;*/
 }
 .files_container{
-	height: 46vh;
+	height: 50vh;
 	overflow-y: auto;
 }
 .profile-container, .chat-container{

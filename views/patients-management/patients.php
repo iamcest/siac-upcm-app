@@ -41,10 +41,7 @@
                           <v-container fluid>
                             <v-row>
                               <v-col class="d-flex justify-center" cols="12">
-                                  <v-icon class="avatar-image">mdi-account-circle</v-icon>
-                                </v-col>
-                                <v-col class="d-flex justify-center pt-0 my-0" cols="12">
-                                  <v-icon large color="#00BFA5">mdi-upload</v-icon>
+                                <v-icon class="avatar-image">mdi-account-circle</v-icon>
                               </v-col>
                             </v-row>
                             <v-row v-if="editedIndex === -1">

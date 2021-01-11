@@ -13,12 +13,12 @@
 			        <v-list-item-title class="text-h6">Grupos</v-list-item-title>
 			      </v-list-item-content>
 			      <v-list-item-action>
-              <v-icon large class="primary--text">mdi-plus</v-icon>
+              <v-icon large class="primary--text" @click="group_dialog = true">mdi-plus</v-icon>
              </v-list-item-action>
 			    </v-list-item>	
-			    <v-list-item v-for="i in 4">
+			    <v-list-item v-for="i in group_chats" @click="openGroupChat(i)">
 			      <v-list-item-content>
-			        <v-list-item-title class="subtitle-1 grey--text">Chat grupal {{ i }}</v-list-item-title>
+			        <v-list-item-title class="subtitle-1 grey--text">{{ i.group_name }}</v-list-item-title>
 			      </v-list-item-content>
 			    </v-list-item>
 
@@ -27,12 +27,12 @@
 			        <v-list-item-title class="text-h6">Miembros de la unidad</v-list-item-title>
 			      </v-list-item-content>			    
 			    </v-list-item>	
-			    <v-list-item v-for="i in 4">
+			    <v-list-item v-for="i in upcm_chats" @click="openChat(i)" v-if="i.user_id != uid">
 			      <v-list-item-content>
-			        <v-list-item-title class="subtitle-1 grey--text"><v-icon large>mdi-account-circle</v-icon> John Doe</v-list-item-title>
+			        <v-list-item-title class="subtitle-1 grey--text"><v-icon x-large v-if="i.avatar == '' || i.avatar == null">mdi-account-circle</v-icon> <v-avatar size="40" v-else><v-img :src="'<?php ECHO SITE_URL ?>/public/img/avatars/' + i.avatar"></v-img></v-avatar> {{ i.first_name }} {{ i.last_name }}</v-list-item-title>
 			      </v-list-item-content>
 			      <v-list-item-action>
-              <v-badge color="primary" content="6"></v-badge>
+              <v-badge color="primary"></v-badge>
              </v-list-item-action>
 			    </v-list-item>	
 
@@ -40,16 +40,18 @@
 			      <v-list-item-content>
 			        <v-list-item-title class="text-h6">Miembros de otras unidades</v-list-item-title>
 			      </v-list-item-content>
+			      <!--
 			      <v-list-item-action>
               <v-icon large class="primary--text">mdi-plus</v-icon>
-             </v-list-item-action>
+            </v-list-item-action>
+          -->
 			    </v-list-item>	
-			    <v-list-item v-for="i in 4">
+			    <v-list-item v-for="i in external_chats" @click="openChat(i)">
 			      <v-list-item-content>
-			        <v-list-item-title class="subtitle-1 grey--text"><v-icon large>mdi-account-circle</v-icon> John Doe</v-list-item-title>
+			        <v-list-item-title class="subtitle-1 grey--text"><v-icon x-large v-if="i.avatar == '' || i.avatar == null">mdi-account-circle</v-icon> <v-avatar size="40" v-else><v-img :src="'<?php ECHO SITE_URL ?>/public/img/avatars/' + i.avatar"></v-img></v-avatar> {{ i.first_name }} {{ i.last_name }}</v-list-item-title>
 			      </v-list-item-content>
 			      <v-list-item-action>
-              <v-badge color="primary" content="6"></v-badge>
+              <v-badge color="primary"></v-badge>
             </v-list-item-action>
 			    </v-list-item>			
     		</v-col>

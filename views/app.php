@@ -33,6 +33,9 @@
       
     </v-app>
   </div>
+  <script>
+    const uid = parseInt("<?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '' ?>") 
+  </script>
   <script src="<?php echo SITE_URL ?>/public/js/vue.min.js"></script>
   <script src="<?php echo SITE_URL ?>/public/js/components/vuetify.min.js"></script>
   <script src="<?php echo SITE_URL ?>/public/js/components/vue-resource.min.js"></script>

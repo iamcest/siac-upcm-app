@@ -26,7 +26,7 @@ switch ($method) {
 		if ($_FILES["image"]["error"] != 4) {
 			$ext = explode(".", $_FILES['image']['name']);
 			$file_name = 'siac_article_image_' .time() .'.' . end($ext);
-			if(!move_uploaded_file($_FILES["image"]["tmp_name"], DIRECTORY . "/public/img/articles/covers/" . $file_name)) $helper->response_message('Error', 'No se pudo correctamente la imágen del artículo', 'error');
+			if(!move_uploaded_file($_FILES["image"]["tmp_name"], DIRECTORY . "/public/img/articles/covers/" . $file_name)) $helper->response_message('Error', 'No se pudo guardar correctamente la imágen del artículo', 'error');
 			$data['image'] = $file_name;
 		}
 		$columns = ['image', 'title', 'content', 'description', 'user_id'];
