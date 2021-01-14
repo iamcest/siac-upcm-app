@@ -20,6 +20,13 @@ switch ($method) {
 		echo json_encode($results > 0 ? $results : []);
 		break;
 
+	case 'get-all-upcm-members':
+		if (!isset($_SESSION['user_id']) || !isset($_SESSION['upcm_id'])) die(403);
+		$columns = ['U.user_id', 'avatar', 'first_name', 'last_name', 'email', 'rol', 'telephone'];
+		$results = $chat->get_all_members($_SESSION['upcm_id'], $_SESSION['user_id'], $columns);
+		echo json_encode($results > 0 ? $results : []);
+		break;
+
 	case 'get-group-chats':
 		if (!isset($_SESSION['user_id'])) die(403);
 		$results = $chat->get_group_chats($query);
@@ -38,6 +45,13 @@ switch ($method) {
 		$results = $chat->get_messages($data['receiver'], $data['sender']);
 		echo json_encode($results > 0 ? $results : []);
 		break;	
+
+	case 'read-messages':
+		if (empty($data)) $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');
+		$result = $chat->mark_messages_seen(intval($data['receiver']), intval($data['sender']));
+		if (!$result) $helper->response_message('Error', '', 'error');
+		$helper->response_message('Éxito', '', 'success');
+		break;
 
 	case 'send-message':
 		if (empty($_POST)) $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');

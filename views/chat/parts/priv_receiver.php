@@ -43,6 +43,6 @@
                           </v-col>
                         </v-row>
                       </template>
-                      <p class="text-left grey--text text--lighten-1">{{ getTimeHour(msg.message_date + " " + msg.message_time) }}</p>
+                      <p class="text-left grey--text text--lighten-1">{{ getTimeHour(msg.message_date + " " + msg.message_time) }} <v-badge  class="d-flex align-end mr-2 mt-n2" color="primary" v-if="msg.seen == '0'" dot></v-badge></p>
                     </div>
                   </v-row>

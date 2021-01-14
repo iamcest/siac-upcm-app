@@ -10,9 +10,17 @@
   overflow-y: auto;
   /*background-color: #f2f2f2;*/
 }
+.files_container, .group_files_container, .member_list_container {
+  overflow-y: auto;
+}
 .files_container{
 	height: 50vh;
-	overflow-y: auto;
+}
+.group_files_container{
+  height: 42vh;
+}
+.member_list_container {
+ height: 8vh;
 }
 .profile-container, .chat-container{
 	border: 1px solid lightgrey;

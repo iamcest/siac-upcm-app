@@ -24,6 +24,12 @@ switch ($method) {
 		if (!isset($data['group_id'])) die(403);
 		$results = $group_chat->get_messages($data['group_id']);
 		echo json_encode($results > 0 ? $results : []);
+		break;
+
+	case 'get-members':
+		if (!isset($data['group_id'])) die(403);
+		$results = $group_chat->get_members($data['group_id']);
+		echo json_encode($results > 0 ? $results : []);
 		break;	
 
 	case 'create-group':
@@ -38,12 +44,12 @@ switch ($method) {
 				$add = $group_chat->add_member($id, $member['user_id'], 'miembro');
 			}
 		}
-		else if (!empty($data['external_members'])) {
+		else if (isset($data['external_members']) && !empty($data['external_members'])) {
 			foreach ($data['external_members'] as $member) {
 				$add = $group_chat->add_member($id, $member['user_id'], 'miembro');
 			}
 		}
-		$helper->response_message('Éxito', 'Se creó el grupo correctamente');
+		$helper->response_message('Éxito', 'Se creó el grupo correctamente', 'success', $id);
 		break;
 
 	case 'send-message':
@@ -64,9 +70,42 @@ switch ($method) {
 		$helper->response_message('Éxito', 'Se envió el mensaje correctamente', 'success', $data['file']);
 		break;	
 
+	case 'change-member-type':
+		if (empty($data)) $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');
+		$rol = $data['rol'] == 'administrador' ? 'miembro' : 'administrador';
+		$result = $group_chat->change_member_type(clean_string($data['group_id']), clean_string($data['user_id']), $rol);
+		if (!$result) $helper->response_message('Error', 'No se pudo cambiar los permisos del miembro', 'error');
+		$helper->response_message('Éxito', 'Se aplicaron los permisos al miembro correctamente');
+		break;
+
+	case 'edit-group-name':
+		if (empty($data)) $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');
+		$result = $group_chat->edit_name(clean_string($data['group_id']), clean_string($data['group_name']));
+		if (!$result) $helper->response_message('Error', 'No se pudo cambiar el nombre del grupo', 'error');
+		$helper->response_message('Éxito', 'Se cambió el nombre del grupo correctamente');
+		break;
+
+	case 'kick-member':
+		if (empty($data)) $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');
+		$id = intval($data['group_id']);
+		$user_id = intval($data['user_id']);
+		$result = $group_chat->delete_member($id,$user_id);
+		if (!$result) $helper->response_message('Error', 'No se pudo expulsar el miembro del grupo', 'error');
+		$helper->response_message('Éxito', 'Se expulsó el miembro del grupo correctamente');
+		break;
+
+	case 'leave':
+		if (empty($data)) $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');
+		$id = intval($data['group_id']);
+		$user_id = intval($data['user_id']);
+		$result = $group_chat->delete_member($id,$user_id);
+		if (!$result) $helper->response_message('Error', 'No se pudo salir del grupo correctamente', 'error');
+		$helper->response_message('Éxito', 'Saliste del grupo correctamente');
+		break;
+
 	case 'delete-group':
-		$id = intval($data['group_chat_id']);
-		$result = $group_chat->delete($id);
+		$id = intval($data['group_id']);
+		$result = $group_chat->delete(clean_string($id));
 		if (!$result) $helper->response_message('Error', 'No se pudo eliminar el mensaje correctamente', 'error');
 		$helper->response_message('Éxito', 'Se eliminó el mensaje correctamente');
 		break;

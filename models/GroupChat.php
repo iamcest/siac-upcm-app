@@ -10,7 +10,8 @@ class GroupChat
 	private $group_member_table = "group_members";
 	private $group_messages_table = "group_messages";
 	private $users = "users";
-	private $id_column = "message_id";
+	private $id_column = "group_id";
+	private $id_messages_column = "message_id";
 	private $user_id = "user_id";
 	private $upcm_id = "upcm_id";
 
@@ -30,6 +31,17 @@ class GroupChat
 	public function get_messages($group_id = 0) {
 		if ($group_id == 0) return false;
 		$sql = "SELECT file, message, message_date, group_message_id, message_time, sender, U.first_name, U.last_name FROM {$this->group_messages_table} GCM INNER JOIN {$this->users} U ON U.user_id = GCM.sender WHERE GCM.group_id = $group_id";
+		$result = execute_query($sql);
+		$arr = [];
+		while ($row = $result->fetch_assoc()) {
+			$arr[] = $row;
+		}
+		return $arr;
+	}
+
+	public function get_members($group_id) {
+		if ($group_id == 0) return false;
+		$sql = "SELECT U.user_id, avatar, first_name, last_name, GM.member_type FROM {$this->group_member_table} GM INNER JOIN {$this->users} U ON U.user_id = GM.user_id WHERE group_id = $group_id";
 		$result = execute_query($sql);
 		$arr = [];
 		while ($row = $result->fetch_assoc()) {
@@ -64,10 +76,32 @@ class GroupChat
 	public function edit($id, $data = [], $columns = []) {
 		if (empty($data) OR empty($id)) return false;
 		extract($data);
-		$sql = "UPDATE {$this->table} SET image = '$image', title = '$title', content = '$content', description = '$description' WHERE {$this->id_column} = $id;";
+		$sql = "UPDATE {$this->table} SET image = '$image', title = '$title', content = '$content', description = '$description' WHERE {$this->id_messages_column} = $id;";
 		$result = execute_query($sql);
 		return $result;
 	}
+
+	public function edit_name($group_id, $group_name) {
+		if (empty($group_id) OR empty($group_name)) return false;
+		$sql = "UPDATE {$this->table} SET group_name = '$group_name' WHERE {$this->id_column} = $group_id;";
+		$result = execute_query($sql);
+		return $result;
+	}
+
+	public function change_member_type($group_id, $user_id = [], $rol = '') {
+		if (empty($rol) OR $user_id == 0 OR $group_id == '') return false;
+		$sql = "UPDATE {$this->group_member_table} SET member_type = '$rol' WHERE user_id = $user_id AND group_id = $group_id";
+		$result = execute_query($sql);
+		return $result;
+	}
+
+	public function delete_member($group_id = 0, $user_id = 0) {
+		if ($group_id == 0 OR $user_id == 0) return false;
+		$sql = "DELETE FROM {$this->group_member_table} WHERE user_id = $user_id AND group_id = $group_id";
+		$result = execute_query($sql);
+		return $result;
+	}
+
 	public function delete($id) {
 		if (empty($id)) return false;
 		$sql = "DELETE FROM {$this->table} WHERE {$this->id_column} = $id;";

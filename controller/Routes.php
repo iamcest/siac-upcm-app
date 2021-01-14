@@ -115,7 +115,7 @@ class Routes
 						break;
 					
 					case 'chat':
-						$scripts = [['name' => 'viewer.min'], ['name' => 'moment.min'], ['name' => 'chat/main.min']];
+						$scripts = [['name' => 'lodash.min'], ['name' => 'viewer.min'], ['name' => 'moment.min'], ['name' => 'chat/main.min']];
 						$styles = [['name' => 'viewer.min'], ['name' => 'chat/main.min']];
 						$content = new Template("chat/chat");
 						break;
