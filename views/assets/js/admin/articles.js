@@ -123,7 +123,8 @@ let vm = new Vue({
           data.append('article_id', article.article_id);
           var url = api_url + 'articles/update'
           this.$http.post(url, data, { headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).then(res => {
-            if (res.body.status == "success") 
+            if (res.body.status == "success")
+              article.slug = res.body.data.slug
               Object.assign(app.articles[editedIndex], article)
           }, err => {
 
@@ -132,8 +133,14 @@ let vm = new Vue({
           var url = api_url + 'articles/create'
           this.$http.post(url, data).then(res => {
             if (res.body.status == "success") 
-              article.published_at = current_date
-              this.articles.push(article)
+              app.editedItem.title = article.title
+              app.editedItem.content = article.content
+              app.editedItem.description = article.description
+              app.editedItem.image = null
+              app.editedItem.published_at = current_date
+              app.editedItem.article_id = res.body.data.article_id
+              app.editedItem.slug = res.body.data.slug
+              this.articles.push(app.editedItem)
           }, err => {
 
           })

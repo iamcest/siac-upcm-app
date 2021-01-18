@@ -26,12 +26,14 @@ class Routes
 			switch ($route[0]) {
 				case '':
 					if (!isset($_SESSION['user_id'])) header("Location: ".SITE_URL."/login");
+					if (isset($_SESSION['user_id']) && $_SESSION['user_type'] == 'administrador') header("Location: ".SITE_URL."/admin/");
 					$styles = [['name' => 'full-calendar-5.4.0.min']];
 					$scripts = [['name' => 'moment.min'], ['name' => 'full-calendar-5.4.0/lib/main.min'], ['name' => 'full-calendar-5.4.0/lib/locales/es'], ['name' => 'dashboard.min']];
 					$content = new Template("home");
 				break;
 				case 'admin':
 					if (!isset($_SESSION['user_id'])) header("Location: ".SITE_URL."/login");
+					if (isset($_SESSION['user_id']) && $_SESSION['user_type'] == 'miembro' || $_SESSION['user_type'] == 'coordinador') header("Location: ".SITE_URL."/");
 					switch ($route[1]) {
 						case '':
 							$scripts = [['name' => 'admin/upcm']];
@@ -253,6 +255,16 @@ class Routes
 					$styles = [['name' => 'community']];
 					$content = new Template("community");
 					break;
+
+				case 'article':
+					if (isset($route[1])) {
+						require_once("models/Articles.php");
+						$scripts = [['name' => 'moment.min'], ['name' => 'article']];
+						$article = new Articles();
+						$vars = $article->get_article($route[1]);
+						$content = new Template("article", $vars);
+					}
+					break;
 					
 				case 'login':
 					$header = false;
@@ -272,7 +284,7 @@ class Routes
 			"header" => $header,
 			"styles" => $styles,
 			"scripts" => $scripts,
-			"footer" => $footer,
+			"footer" => $footer
 		]);
 		echo $view;
 	}

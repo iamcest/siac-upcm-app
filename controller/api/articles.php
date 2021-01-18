@@ -29,13 +29,14 @@ switch ($method) {
 			if(!move_uploaded_file($_FILES["image"]["tmp_name"], DIRECTORY . "/public/img/articles/covers/" . $file_name)) $helper->response_message('Error', 'No se pudo guardar correctamente la imágen del artículo', 'error');
 			$data['image'] = $file_name;
 		}
-		$columns = ['image', 'title', 'content', 'description', 'user_id'];
-		$result = $article->create(sanitize($data), $columns);
+		$columns = ['image', 'title', 'slug', 'content', 'description', 'user_id'];
+		$data['slug'] = $helper->convert_slug($data['title']);
+		$result = $article->create($data, $columns);
 		if (!$result) {
 			if (!empty($data['image'])) unlink(DIRECTORY . "/public/img/articles/covers/" .$data['image']);
 			$helper->response_message('Error', 'No se pudo registrar el artículo correctamente', 'error');
 		}
-		$helper->response_message('Éxito', 'Se registró el artículo correctamente');
+		$helper->response_message('Éxito', 'Se registró el artículo correctamente', 'success', ['article_id' => $result, 'slug' => $data['slug']]);
 		break;	
 
 	case 'update':
@@ -45,11 +46,11 @@ switch ($method) {
 		$data['image'] = null;
 		$current_image = $article->get($id, ['image']);
 		$current_image = $current_image[0]['image'];
-		if ($_FILES["image"]["error"] != 4) {
+		if (isset($_FILES["image"]) && $_FILES["image"]["error"] != 4) {
 			if ($_FILES['image']['name'] != $current_image) {
 				$ext = explode(".", $_FILES['image']['name']);
 				$file_name = 'siac_article_image_' .time() .'.' . end($ext);
-				if(!move_uploaded_file($_FILES["image"]["tmp_name"], DIRECTORY . "/public/img/articles/covers/" . $file_name)) $helper->response_message('Error', 'No se pudo correctamente la imágen del artículo', 'error');
+				if(!move_uploaded_file($_FILES["image"]["tmp_name"], DIRECTORY . "/public/img/articles/covers/" . $file_name)) $helper->response_message('Error', 'No se pudo subir correctamente la imágen del artículo', 'error');
 				if (!empty($current_image)) unlink(DIRECTORY . "/public/img/articles/covers/" . $current_image);
 				$data['image'] = $file_name;
 			}
@@ -57,9 +58,13 @@ switch ($method) {
 				$data['image'] = $current_image;
 			}
 		}
-		$result = $article->edit($id,sanitize($data));
+		else{
+			$data['image'] = $current_image;
+		}
+		$data['slug'] = $helper->convert_slug($data['title']);
+		$result = $article->edit($id, $data);
 		if (!$result) $helper->response_message('Error', 'no se pudo editar el artículo', 'error');
-		$helper->response_message('Éxito', 'Se editó el artículo correctamente');
+		$helper->response_message('Éxito', 'Se editó el artículo correctamente', 'success', ['slug' => $data['slug']]);
 		break;	
 
 	case 'delete':

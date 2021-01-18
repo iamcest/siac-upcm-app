@@ -15,8 +15,8 @@
 
                   <v-card-title class="grey--text grey-darken-1 font-weight-bold px-0">{{ article.title }}</v-card-title>
                   <v-card-text class="px-0 text-justify">
-                    <p class="grey--text grey-lighten-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga quasi eum at culpa cumque dicta quidem eligendi molestias quos! Voluptates dolorum consequatur earum aperiam reprehenderit quisquam animi maiores inventore ipsa.</p>
-                    <a href="<?php echo SITE_URL ?>/article/title"><p class="black--text font-weight-bold"><v-icon>mdi-arrow-right</v-icon> Leer más</p></a>
+                    <p class="grey--text grey-lighten-3">{{ article.description }}</p>
+                    <a :href="'<?php echo SITE_URL ?>/article/'+article.slug"><p class="black--text font-weight-bold"><v-icon>mdi-arrow-right</v-icon> Leer más</p></a>
                   </v-card-text>
                   <v-divider></v-divider>
 

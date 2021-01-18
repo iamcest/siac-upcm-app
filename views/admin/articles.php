@@ -82,9 +82,11 @@
                       </v-toolbar>
                     </template>
                     <template v-slot:item.actions="{ item }">
-                      <v-icon md @click="editItem(item)" color="#76d7d7">
-                        mdi-eye
-                      </v-icon>
+                      <a :href="'<?php SITE_URL ?>/article/'+item.slug" target="_blank">
+                        <v-icon md @click="editItem(item)" color="#76d7d7">
+                          mdi-eye
+                        </v-icon>
+                      </a>
                       <v-icon md @click="editItem(item)" color="#00BFA5">
                         mdi-pencil
                       </v-icon>
