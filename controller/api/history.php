@@ -5,7 +5,9 @@
 */
 if (empty($method)) die(403);
 require_once("models/History.php");
+require_once("models/ActionsRecord.php");
 
+$action = New ActionsRecord();
 $history = New PatientHistory();
 $helper = New Helper();
 
@@ -30,13 +32,7 @@ switch ($method) {
 			$result = $history->update($data);
 		}
 		if (!$result) $helper->response_message('Error', 'No se pudo actualizar los antecedentes correctamente', 'error');
+		$record_action = $action->create('actualizó los antecedentes del paciente', 'update', $_SESSION['user_id'], $data['patient_id'], $_SESSION['upcm_id'], ['action', 'action_type','user_id', 'patient_id','upcm_id']);
 		$helper->response_message('Éxito', 'Se actualizó los antecedentes correctamente');
 		break;
-
-	case 'delete':
-		$result = $history->delete(intval($data['patient_exam_id']));
-		if (!$result) $helper->response_message('Error', 'No se pudo eliminar los antecedentes correctamente', 'error');
-		$helper->response_message('Éxito', 'Se eliminaron los antecedentes correctamente');
-		break;
-
 }

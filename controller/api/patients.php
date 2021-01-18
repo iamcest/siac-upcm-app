@@ -5,8 +5,10 @@
 */
 if (empty($method)) die(403);
 require_once("models/Patients.php");
+require_once("models/ActionsRecord.php");
 
 $patient = New Patients();
+$action = New ActionsRecord();
 $helper = New Helper();
 
 $data = json_decode(file_get_contents("php://input"), true);
@@ -38,6 +40,7 @@ switch ($method) {
 		$result = $patient->create(sanitize($data), $columns);
 		$id = $result;
 		if (!$result) $helper->response_message('Error', 'No se pudo registrar el paciente correctamente', 'error');
+		$record_action = $action->create('añadió un nuevo paciente', 'create', $_SESSION['user_id'], $id, $_SESSION['upcm_id'], ['action', 'action_type','user_id', 'patient_id','upcm_id']);
 		$columns = ['patient_id', 'telephone', 'whatsapp', 'telegram', 'sms'];
 		$result = $patient->create_contact($id, sanitize($data), $columns);
 		if (!$result) {
@@ -51,6 +54,7 @@ switch ($method) {
 		$id = intval($data['patient_id']);
 		$result = $patient->edit($id,sanitize($data));
 		if (!$result) $helper->response_message('Error', 'No se pudo editar el paciente correctamente', 'error');
+		$record_action = $action->create('editó la información general del paciente', 'update', $_SESSION['user_id'], $id, $_SESSION['upcm_id'], ['action', 'action_type','user_id', 'patient_id','upcm_id']);
 		$result = $patient->edit_contact($id, sanitize($data));
 		if (!$result) {
 			$helper->response_message('Error', 'no se pudo editar la información de contacto del paciente', 'error');

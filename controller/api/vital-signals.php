@@ -5,7 +5,9 @@
 */
 if (empty($method)) die(403);
 require_once("models/VitalSignals.php");
+require_once("models/ActionsRecord.php");
 
+$action = New ActionsRecord();
 $vital_signals = New VitalSignals();
 $helper = New Helper();
 
@@ -25,13 +27,8 @@ switch ($method) {
 		$result = $vital_signals->create(sanitize($data), $columns);
 		$id = $result;
 		if (!$result) $helper->response_message('Error', 'No se pudo registrar los signos vitales correctamente', 'error');
+		$record_action = $action->create('actualizó los signos vitales del paciente', 'update', $_SESSION['user_id'], $data['patient_id'], $_SESSION['upcm_id'], ['action', 'action_type','user_id', 'patient_id','upcm_id']);
 		$helper->response_message('Éxito', 'Se registró los signos vitales correctamente');
 		break;	
-
-	case 'delete':
-		$result = $vital_signals->delete(intval($data['vital_signals_id']));
-		if (!$result) $helper->response_message('Error', 'No se pudo eliminar los signos vitales correctamente', 'error');
-		$helper->response_message('Éxito', 'Se eliminó los signos vitales correctamente');
-		break;
 
 }

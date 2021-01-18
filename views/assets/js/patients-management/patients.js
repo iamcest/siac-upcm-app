@@ -782,7 +782,7 @@ let vm = new Vue({
         var app = this
         var obj = app.patient_appointments
         var url = api_url + 'appointments/delete'
-        app.$http.post(url, {appointment_id: obj.editedItem.appointment_id}).then( res => {
+        app.$http.post(url, {appointment_id: obj.editedItem.appointment_id, patient_id: app.editedItem.patient_id}).then( res => {
           app.loading = false
           if (res.body.status == "success") {
             obj.appointments.splice(obj.editedIndex, 1)
@@ -797,6 +797,8 @@ let vm = new Vue({
         var app = this
         var obj = app.patient_laboratory_exams
         var url = api_url + 'medical-exams/delete'
+        obj.editedItem.exam_name = obj.selectedExam.name
+        obj.editedItem.patient_id = app.editedItem.patient_id
         app.$http.post(url, obj.editedItem).then(res => {
           if (res.body.status == 'success') {
             obj.exam_results.splice(obj.editedIndex, 1)
@@ -907,6 +909,7 @@ let vm = new Vue({
           app.$http.post(url, obj.editedItem).then( res => {
             app.loading = false
             if (res.body.status == "success") {
+              obj.editedItem.appointment_id = res.body.data
               Object.assign(obj.appointments[obj.editedIndex], obj.editedItem)
               app.closeAppointment()
               return true
@@ -1099,11 +1102,12 @@ let vm = new Vue({
         var obj = app.patient_laboratory_exams
         var url = api_url + "medical-exams/create"
         obj.editedItem.patient_id = app.editedItem.patient_id
+        obj.editedItem.exam_name = obj.selectedExam.name
         obj.editedItem.exam_id = obj.selectedExam.exam_id
 
         app.$http.post(url, obj.editedItem).then(res => {
           if (res.body.status == 'success') {
-            obj.editedItem.patient_exam_id = res.body.data.exam_id
+            obj.editedItem.patient_exam_id = res.body.data.patient_exam_id
             obj.exam_results.push(obj.editedItem)
             app.closeExam()
           }

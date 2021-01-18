@@ -5,7 +5,9 @@
 */
 if (empty($method)) die(403);
 require_once("models/Anthropometry.php");
+require_once("models/ActionsRecord.php");
 
+$action = New ActionsRecord();
 $anthropometry = New Anthropometry();
 $helper = New Helper();
 
@@ -36,13 +38,8 @@ switch ($method) {
 		$result = $anthropometry->create(sanitize($data), $columns);
 		$id = $result;
 		if (!$result) $helper->response_message('Error', 'No se pudo registrar la antropometría correctamente', 'error');
-		$helper->response_message('Éxito', 'Se registró la antropometría correctamente', 'success', ['anthropometrys_id' => $id]);
+		$record_action = $action->create('actualizó la antropometría del paciente', 'create', $_SESSION['user_id'], intval($data['patient_id']), $_SESSION['upcm_id'], ['action', 'action_type','user_id', 'patient_id','upcm_id']);
+		$helper->response_message('Éxito', 'Se registró la antropometría correctamente', 'success', ['anthropometry_id' => $id]);
 		break;	
-
-	case 'delete':
-		$result = $anthropometry->delete(intval($data['anthropometry_id']));
-		if (!$result) $helper->response_message('Error', 'No se pudo eliminar la antropometría correctamente', 'error');
-		$helper->response_message('Éxito', 'Se eliminó la antropometría correctamente');
-		break;
 
 }

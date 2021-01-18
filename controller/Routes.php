@@ -105,7 +105,7 @@ class Routes
 
 					case 'updates':
 						$styles = [['name' => 'updates']];
-						$scripts = [['name' => 'updates']];
+						$scripts = [['name' => 'moment.min'], ['name' => 'updates.min']];
 						$content = new Template("updates");
 						break;
 									

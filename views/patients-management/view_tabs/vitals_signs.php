@@ -1,6 +1,6 @@
                          
                                   <v-col cols="12">
-                                    <v-data-table :headers="patient_vital_signs.headers" :items="patient_vital_signs.records" sort-by="take_date" sort-desc="true" class="elevation-1 full-width">
+                                    <v-data-table :headers="patient_vital_signs.headers" :items="patient_vital_signs.records" sort-by="take_date" :sort-desc="true" class="elevation-1 full-width">
                                     	<template slot="item" slot-scope="props">
                                     		<tr class>
 	                                    		<td class="border-right text-center font-weight-bold" rowspan="6">{{ fromNow(props.item.take_date) }}</td>
