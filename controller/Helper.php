@@ -1,8 +1,9 @@
 <?php
 
- /**
-  * 
-  */
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
  class Helper 
  {
      function __construct()
@@ -70,6 +71,46 @@
         ];
         echo json_encode($res); 
         die();
+    }
+
+    public static function send_mail($subject, $recipients = [], $message = '', $respondTo = '', $file = []) {
+        $mail = new PHPMailer(true);
+        try {
+            //Server settings
+            $mail->isSMTP(); // Send using SMTP
+            $mail->Host       = EMAIL_HOST; // Set the SMTP server to send through
+            $mail->SMTPAuth   = true; // Enable SMTP authentication
+            $mail->Username   = EMAIL_ACCOUNT; // SMTP username
+            $mail->Password   = EMAIL_PASSWORD; // SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption
+            $mail->Port = 587; // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+
+            $mail->setFrom(EMAIL_ACCOUNT, 'Suite');
+
+            //Recipients
+            foreach ($recipients as $recipient) {
+                $mail->addAddress($recipient['email'], $recipient['full_name']);
+            }
+            // Content
+            $mail->isHTML(true); // Set email format to HTML
+            $mail->Subject = $subject; // Set Subject
+            $mail->Body    = $message; // Set body message
+
+            foreach ($file as $attachment) {
+                if ($attachment['name'] != '') {
+                    $mail->addAttachment($attachment['url'], $attachment['name']);
+                }
+                else {
+                    $mail->addAttachment($attachment['url']);            
+                }
+            }
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            return "No se pudo enviar el mensaje. Error generado: {$mail->ErrorInfo}";
+        }
+        return $mail;
     }
     public static function date_formated($date_parts = ['year' => '','mon' => '', 'mday' => '']){
         $date = getdate();

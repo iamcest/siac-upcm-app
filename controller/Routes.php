@@ -112,7 +112,7 @@ class Routes
 						break;
 									
 					case 'patient-material':
-						$scripts = [['name' => 'patient-material'], ['name' => 'vue-components/vue2-editor.min'] ];
+						$scripts = [['name' => 'moment.min'], ['name' => 'patient-material'], ['name' => 'vue-components/vue2-editor.min'] ];
 						$content = new Template("patient-material/patient-material");
 						break;
 					

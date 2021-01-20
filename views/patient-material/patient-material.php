@@ -8,16 +8,16 @@
           <?php echo new Template('parts/upcm_logo') ?>
           <v-row>
             <v-col cols="12" md="12">
-              <h2 class="grey--text text--darken-1">Materiales para el paciente{{ isSelected ? ': ' + patient_fullname : '' }}</h2>
+              <h2 class="grey--text text--darken-1">Materiales para el paciente{{ isSelected ? ': ' + patient.full_name : '' }}</h2>
             </v-col>
             
           </v-row>
           <v-row class="mt-6" v-if="!isSelected">
             <v-col cols="12">
-              <v-form>
+              <v-form @submit.prevent>
                 <v-row>
                   <v-col cols="12">
-                    <v-text-field v-model="search" label="Buscar el paciente" hint="Ingrese el nombre del paciente" outlined>
+                    <v-text-field v-model="search" label="Buscar el paciente" hint="Ingrese el nombre del paciente" @keyup.enter.prevent="searched = true" outlined>
                       <template v-slot:append-outer>
                         <v-btn class="primary white--text py-7 ml-n3 submit-button" v-on:click="searched = true">
                           <v-icon large>mdi-magnify</v-icon>
@@ -26,7 +26,7 @@
                     </v-text-field>
                   </v-col>
                   <v-col cols="12" v-if="searched">
-                    <v-select class="mt-3" v-model="patient_id" label="Seleccione el paciente" :items="searchPatient" item-text="full_name" item-value="id" v-on:change="isSelected = true" outlined></v-select>
+                    <v-select class="mt-3" v-model="patient" label="Seleccione el paciente" :items="searchPatient" item-text="full_name" item-value="id" v-on:change="isSelected = true" return-object outlined></v-select>
                   </v-col>
                 </v-row>
               </v-form>
@@ -66,7 +66,7 @@
                             <v-row >
                               <!---INSERT FORM HERE-->
                               <v-col class="d-flex justify-center" cols="12">
-                                <v-radio-group v-model="material_type" row>
+                                <v-radio-group v-model="editedItem.material_type" row>
                                   <v-radio label="Material personalizado" value="custom material"></v-radio>
                                   <v-radio label="Subir archivo" value="file upload"></v-radio>
                                 </v-radio-group>
@@ -86,7 +86,7 @@
                     <v-dialog v-model="materialFormDialog" max-width="90%" >
                       <v-card>
                         <v-toolbar class="mp-select-toolbar" elevation="0">
-                          <v-toolbar-title>Añadir material para el paciente: {{ patient_fullname }}</v-toolbar-title>
+                          <v-toolbar-title>Añadir material para el paciente: {{ patient.full_name }}</v-toolbar-title>
                           <v-spacer></v-spacer>
                           <v-toolbar-items>
                             <v-btn icon dark @click="materialFormDialog = false">
@@ -102,11 +102,11 @@
                               <!---INSERT FORM HERE-->
                               <v-col cols="12">
                                 <label class="black--text">Título</label>
-                                <v-text-field class="mt-3" v-model="title" outlined></v-text-field>
+                                <v-text-field class="mt-3" v-model="editedItem.title" outlined></v-text-field>
                               </v-col>
-                              <v-col cols="12" v-if="material_type == 'file upload'">
+                              <v-col cols="12" v-if="editedItem.material_type == 'file upload'">
                                 <label class="black--text">Archivo del material a enviar</label>
-                                <v-file-input prepend-icon="" show-size outlined>
+                                <v-file-input v-model="editedItem.file" prepend-icon="" show-size outlined>
                                   <template v-slot:append-outer>
                                     <v-btn class="primary white--text py-7 ml-n3 submit-button">
                                       Elegir
@@ -114,13 +114,13 @@
                                   </template>
                                 </v-file-input>                              
                               </v-col>
-                              <v-col cols="12" v-if="material_type == 'custom material'">
+                              <v-col cols="12" v-if="editedItem.material_type == 'custom material'">
                                 <label class="black--text">Contenido del material</label>
-                                <vue-editor class="mt-3" v-model="material_content" placeholder="Contenido del material que será enviado al paciente"/>
+                                <vue-editor class="mt-3" v-model="editedItem.content" placeholder="Contenido del material que será enviado al paciente"/>
                               </v-col>
                               <v-col cols="12">
                                 <label class="black--text">Contenido del mensaje (Opcional)</label>
-                                <vue-editor class="mt-3" v-model="message_content" placeholder="Contenido del mensaje a ser enviado en el correo"/>
+                                <vue-editor class="mt-3" v-model="editedItem.message" placeholder="Contenido del mensaje a ser enviado en el correo"/>
                               </v-col>
                             </v-row>
 
@@ -128,7 +128,7 @@
                         </v-card-text>
                         <v-card-actions class="px-6">
                           <v-spacer></v-spacer>
-                          <v-btn color="secondary white--text text-capitalize" block @click="save">
+                          <v-btn color="secondary white--text text-capitalize" block @click="save" :loading="material_loading">
                             Enviar
                           </v-btn>
                         </v-card-actions>
@@ -160,7 +160,7 @@
                 </template>
                 <template v-slot:no-data>
                   <v-btn color="primary" @click="initialize" >
-                    Reset
+                    Recargar
                   </v-btn>
                 </template>
               </v-data-table>   
