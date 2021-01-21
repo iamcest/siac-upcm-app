@@ -51,7 +51,7 @@ class Routes
 							break;
 
 						case 'announcements':
-							$scripts = [['name' => 'moment.min'], ['name' => 'vue-components/vue2-editor.min'], ['name' => 'admin/announcements']];
+							$scripts = [['name' => 'moment.min'], ['name' => 'vue-components/vue2-editor.min'], ['name' => 'admin/announcements.min']];
 							$content = new Template("admin/announcements");
 							break;
 
@@ -112,7 +112,7 @@ class Routes
 						break;
 									
 					case 'patient-material':
-						$scripts = [['name' => 'moment.min'], ['name' => 'patient-material'], ['name' => 'vue-components/vue2-editor.min'] ];
+						$scripts = [['name' => 'moment.min'], ['name' => 'patient-material.min'], ['name' => 'vue-components/vue2-editor.min'] ];
 						$content = new Template("patient-material/patient-material");
 						break;
 					
@@ -123,7 +123,7 @@ class Routes
 						break;
 					
 					case 'notifications':
-						$scripts = [['name' => 'moment.min'], ['name' => 'vue-components/vue2-editor.min'], ['name' => 'notifications']];
+						$scripts = [['name' => 'moment.min'], ['name' => 'vue-components/vue2-editor.min'], ['name' => 'notifications.min']];
 						$content = new Template("notifications");
 						break;
 					

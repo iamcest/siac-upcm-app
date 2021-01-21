@@ -5,11 +5,13 @@ let vm = new Vue({
     el: '#siac-suite-container',
     data: {
       loading: false,
+      join_loading: false,
       dialog: false,
       dialogDelete: false,
       viewDialog: false,
       all_announcements: true,
       user_id: -1,
+      uid: uid,
       editedIndex: -1,
       announcements: [],
       author: {},
@@ -60,6 +62,22 @@ let vm = new Vue({
         })
       },
 
+      joinChat (item) {
+        var app = this
+        app.join_loading = true
+        var url = api_url + 'group-chat/join-group'
+        var data = {group_id: app.author.group_chat, user_id: uid}
+        app.$http.post(url, data).then(res => {
+          app.join_loading = false
+          if (res.body.status == 'success') {
+            app.author.user_member = uid
+            window.open(window.location.origin+'/suite/chat/', '_blank');
+          }
+        }, err => {
+
+        })
+      },
+
       editItem (item) {
         this.editedIndex = this.announcements.indexOf(item)
         this.editedItem = Object.assign({}, item)
@@ -104,26 +122,35 @@ let vm = new Vue({
       save () {
         var app = this
         var editedIndex = app.editedIndex
-        var announcement = app.editedItem
-        if (this.editedIndex > -1) {
+        if (app.editedIndex > -1) {
           var url = api_url + 'announcements/update'
-          this.$http.post(url, announcement).then(res => {
-            Object.assign(app.announcements[editedIndex], announcement)
+          app.$http.post(url, announcement).then(res => {
+            Object.assign(app.announcements[editedIndex], app.editedItem)
+            app.close()
           }, err => {
-
+            app.close()
           })
         } else {
-          var url = api_url + 'announcements/create'
-          this.$http.post(url, announcement).then(res => {
-            announcement.published_at = moment()
-            announcement.user_id = res.body.data.user_id
-            announcement.announcement_id = res.body.data.announcement_id
-            this.announcements.push(announcement)
-          }, err => {
-
+          var url = api_url + 'group-chat/create-group'
+          app.$http.post(url, {group_name: app.editedItem.title}).then(res => {
+            if (res.body.status == "success") {
+              var group_id = res.body.data
+              var url = api_url + 'announcements/create'
+              app.editedItem.group_chat = group_id
+              app.$http.post(url, app.editedItem).then(res => {
+                if (res.body.status == "success") {
+                  app.editedItem.published_at = moment()
+                  app.editedItem.user_id = res.body.data.user_id
+                  app.editedItem.announcement_id = res.body.data.announcement_id
+                  app.announcements.push(app.editedItem)
+                }
+                app.close()
+              }, err => {
+                app.close()
+              })
+            }
           })
         }
-        this.close()
       },
 
       switchAnnouncenments(user) {
@@ -138,7 +165,8 @@ let vm = new Vue({
         var url = api_url + 'announcements/get-author'
         app.viewDialog = true
         app.editedItem = Object.assign({}, item)
-        app.$http.post(url, {announcement_id: item.announcement_id}).then(res => {
+        var data = {announcement_id: item.announcement_id, group_id: item.group_chat}
+        app.$http.post(url, data).then(res => {
           app.author = res.body;
         }, err => {
 

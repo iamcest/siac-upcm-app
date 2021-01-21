@@ -6,6 +6,7 @@
   <title><?php echo $title; ?></title>
   <link rel="shortcut icon" href="public/favicon/favicon.ico">
   <link href="<?php echo SITE_URL ?>/public/css/material-design-icons.min.css" rel="stylesheet">
+  <link href="<?php echo SITE_URL ?>/public/css/quill-editor.min.css" rel="stylesheet">
   <link href="<?php echo SITE_URL ?>/public/css/vuetify.min.css" rel="stylesheet">
   <link href="<?php echo SITE_URL ?>/public/css/app.min.css" rel="stylesheet">
   <?php if (!empty($data['styles'])): ?>

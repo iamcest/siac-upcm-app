@@ -34,7 +34,7 @@
           </v-row>
           <v-row v-if="isSelected">
             <v-col cols="12">
-              <v-data-table :headers="headers" :items="patients_material" sort-by="date" class="elevation-1" >
+              <v-data-table class="elevation-1" :headers="headers" :items="patients_material" sort-by="registered_at" sort-desc>
                 <template v-slot:top>
                   <v-toolbar flat>     
                     <v-spacer></v-spacer>           
@@ -42,7 +42,7 @@
                       <v-icon>mdi-magnify</v-icon>
                         Buscar otro paciente
                     </v-btn>
-                    <v-dialog v-model="dialog" max-width="50%" >
+                    <v-dialog v-model="dialog" max-width="50%">
                       <template v-slot:activator="{ on, attrs }">
                         <v-btn color="secondary" dark rounded class="mb-2" v-bind="attrs" v-on="on">
                           <v-icon>mdi-plus</v-icon>
@@ -83,6 +83,48 @@
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
+                    <v-dialog v-model="viewDialog" max-width="70%" @click:outside="closeViewDialog">
+                      <v-card>
+                        <v-toolbar class="mp-select-toolbar" elevation="0">
+                          <v-toolbar-title>{{ editedItem.title }}</v-toolbar-title>
+                          <v-spacer></v-spacer>
+                          <v-toolbar-items>
+                            <v-btn icon dark @click="closeViewDialog">
+                              <v-icon color="grey">mdi-close</v-icon>
+                            </v-btn>
+                          </v-toolbar-items>
+                        </v-toolbar>
+                        
+                        <v-card-text>
+                          <v-container fluid>
+
+                            <v-row >
+                              <!---INSERT FORM HERE-->
+                              <v-col cols="12">
+                                <h4 class="black--text">Título</h4>
+                                <br>
+                                {{ editedItem.title }}
+                              </v-col>
+                              <v-col cols="12" v-if="editedItem.content != ''">
+                                <h4 class="black--text">Contenido del material</h4>
+                                <br>
+                                <div class="ql-editor" v-html="editedItem.content">
+                                  
+                                </div>
+                              </v-col>
+                              <v-col cols="12" v-if="editedItem.message != ''">
+                                <h4 class="black--text">Contenido del mensaje</h4>
+                                <br>
+                                <div class="ql-editor" v-html="editedItem.message">
+                                  
+                                </div>
+                              </v-col>
+                            </v-row>
+
+                          </v-container>
+                        </v-card-text>
+                      </v-card>
+                    </v-dialog>
                     <v-dialog v-model="materialFormDialog" max-width="90%" >
                       <v-card>
                         <v-toolbar class="mp-select-toolbar" elevation="0">
@@ -102,25 +144,20 @@
                               <!---INSERT FORM HERE-->
                               <v-col cols="12">
                                 <label class="black--text">Título</label>
-                                <v-text-field class="mt-3" v-model="editedItem.title" outlined></v-text-field>
+                                <v-text-field class="mt-3" v-model="editedItem.title" outlined clearable></v-text-field>
                               </v-col>
                               <v-col cols="12" v-if="editedItem.material_type == 'file upload'">
                                 <label class="black--text">Archivo del material a enviar</label>
                                 <v-file-input v-model="editedItem.file" prepend-icon="" show-size outlined>
-                                  <template v-slot:append-outer>
-                                    <v-btn class="primary white--text py-7 ml-n3 submit-button">
-                                      Elegir
-                                    </v-btn>
-                                  </template>
                                 </v-file-input>                              
                               </v-col>
                               <v-col cols="12" v-if="editedItem.material_type == 'custom material'">
                                 <label class="black--text">Contenido del material</label>
-                                <vue-editor class="mt-3" v-model="editedItem.content" placeholder="Contenido del material que será enviado al paciente"/>
+                                <vue-editor id="editor1" class="mt-3" v-model="editedItem.content" placeholder="Contenido del material que será enviado al paciente" clearable/>
                               </v-col>
                               <v-col cols="12">
                                 <label class="black--text">Contenido del mensaje (Opcional)</label>
-                                <vue-editor class="mt-3" v-model="editedItem.message" placeholder="Contenido del mensaje a ser enviado en el correo"/>
+                                <vue-editor id="editor2" class="mt-3" v-model="editedItem.message" placeholder="Contenido del mensaje a ser enviado en el correo" clearable/>
                               </v-col>
                             </v-row>
 
@@ -149,7 +186,7 @@
                 </template>
                 <template v-slot:item.actions="{ item }">
                   <v-row justify="center" align="center">
-                    <v-icon md class="" @click="editItem(item)" color="primary">
+                    <v-icon md class="" @click="showItem(item)" color="primary">
                       mdi-eye
                     </v-icon>
                     <v-icon md @click="deleteItem(item)" color="#F44336">
@@ -163,7 +200,7 @@
                     Recargar
                   </v-btn>
                 </template>
-              </v-data-table>   
+              </v-data-table>
             </v-col>
           </v-row>
         </v-col>

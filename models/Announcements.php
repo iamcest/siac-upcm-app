@@ -29,7 +29,7 @@ class Announcements
 		if (empty($data) || empty($id)) return false;
 		$columns = implode(',',$columns);
 		extract($data);
-		$sql = "INSERT INTO {$this->table} ($columns) VALUES('$title', '$content', $id);";
+		$sql = "INSERT INTO {$this->table} ($columns) VALUES('$title', '$content', $id, $group_chat);";
 		$result = execute_query_return_id($sql);
 		return $result;
 	}
@@ -47,9 +47,9 @@ class Announcements
 		return $result;
 	}
 
-	public function get_author($id) {
+	public function get_author($id, $group_id, $user_id) {
 		if (empty($id)) return false;
-		$sql = "SELECT avatar, first_name, last_name, rol FROM {$this->table} AS a INNER JOIN users AS u ON a.user_id = u.user_id WHERE {$this->id_column} = $id;";
+		$sql = "SELECT avatar, first_name, last_name, rol, group_chat, (SELECT user_id FROM group_members GP WHERE GP.user_id = $user_id AND group_id = $group_id LIMIT 1) AS user_member FROM {$this->table} AS a INNER JOIN users AS u ON a.user_id = u.user_id WHERE {$this->id_column} = $id;";
 		$result = execute_query($sql);
 		$arr = [];
 		while ($row = $result->fetch_assoc()) {

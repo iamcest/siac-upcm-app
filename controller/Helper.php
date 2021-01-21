@@ -73,16 +73,21 @@ use PHPMailer\PHPMailer\Exception;
         die();
     }
 
-    public static function send_mail($subject, $recipients = [], $message = '', $respondTo = '', $file = []) {
+    public static function send_mail($subject, $recipients = [], $replyTo = [], $message = '', $respondTo = '', $file = []) {
         $mail = new PHPMailer(true);
         try {
             //Server settings
             $mail->isSMTP(); // Send using SMTP
             $mail->Host       = EMAIL_HOST; // Set the SMTP server to send through
-            $mail->SMTPAuth   = true; // Enable SMTP authentication
-            $mail->Username   = EMAIL_ACCOUNT; // SMTP username
-            $mail->Password   = EMAIL_PASSWORD; // SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption
+            $mail->SMTPAuth   = EMAIL_HOST == 'localhost' ? false : true; // Enable SMTP authentication
+            if (EMAIL_HOST == 'localhost') {
+                $mail->SMTPAutoTLS = false; 
+            }
+            else{
+                $mail->Username   = EMAIL_ACCOUNT; // SMTP username
+                $mail->Password   = EMAIL_PASSWORD; // SMTP password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption
+            }
             $mail->Port = 587; // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
 
@@ -92,10 +97,13 @@ use PHPMailer\PHPMailer\Exception;
             foreach ($recipients as $recipient) {
                 $mail->addAddress($recipient['email'], $recipient['full_name']);
             }
+            if (!empty($replyTo)) {
+                $mail->addReplyTo($replyTo['email'], $replyTo['full_name']);
+            }
             // Content
             $mail->isHTML(true); // Set email format to HTML
-            $mail->Subject = $subject; // Set Subject
-            $mail->Body    = $message; // Set body message
+            $mail->Subject = utf8_decode($subject); // Set Subject
+            $mail->Body    = utf8_decode($message); // Set body message
 
             foreach ($file as $attachment) {
                 if ($attachment['name'] != '') {

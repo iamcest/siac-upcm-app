@@ -12,7 +12,7 @@
             <v-col cols="6" offset-md="3">
         			<h1 class="text-center"><?php echo $data['title'] ?></h1>
             </v-col>
-            <v-col cols="6" offset-md="3">
+            <v-col class="ql-editor" cols="6" offset-md="3">
               <?php echo $data['content'] ?>
             </v-col>
           </v-row>

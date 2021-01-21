@@ -34,8 +34,7 @@
                       <v-col cols="12">
                         <h3 class="text-h5 text-center">{{ editedItem.title }}</h3>
                       </v-col>
-                      <v-col cols="12">
-                        {{ editedItem.content }}
+                      <v-col class="ql-editor" v-html="editedItem.content" cols="12">
                       </v-col>
                     </v-row>
                   </v-container>
@@ -62,10 +61,13 @@
                       <v-icon class="grey--text grey-lighten-1">mdi-timer</v-icon><span class="body-1 grey--text grey-lighten-1">{{ fromNow(editedItem.published_at) }}</span>
                     </v-col>
                     <v-col cols="12">
-                      <v-btn color="secondary white--text" block>
+                      <v-btn color="secondary" v-if="author.user_member == null" @click="joinChat" :loading="join_loading" block>
                         Unirse a la discusión
                       </v-btn>
-                    </v-col>   
+                      <v-btn class="white--text" color="#00BFA5" v-if="author.user_member == uid" block>
+                        Ya te has unido a esta discusión
+                      </v-btn>
+                    </v-col>
                   </v-row>
                 </v-card-actions>
               </v-card>
@@ -93,7 +95,7 @@
                       </v-col>
                       <v-col cols="12">
                         <label>Contenido</label>
-                        <vue-editor class="mt-3" v-model="editedItem.content" placeholder="Contenido del anuncio"/>
+                        <vue-editor class="mt-3" v-model="editedItem.content" placeholder="Contenido del anuncio"></vue-editor>
                       </v-col>
                     </v-row>
                   </v-container>

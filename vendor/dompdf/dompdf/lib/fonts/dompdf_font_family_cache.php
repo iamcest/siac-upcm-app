@@ -90,8 +90,8 @@
     'bold' => $fontDir . '/roboto-bold_fd07d89b19ff1de56e1d341daaa21df7',
   ),
   'gotham' => array(
-    'normal' => $fontDir . '/gotham-normal_a9aa1712054cb2ecb58f15c9ee19f3b9',
-    'bold' => $fontDir . '/gotham-bold_10525359bbea78874ba5c9cddf6661d2',
-    '500' => $fontDir . '/gotham-500_f1ab2680128866c6324654aee5e991a8',
+    'normal' => $fontDir . '/gotham-normal_129f3e1de25c8faef2e3897dc3dda04f',
+    'bold' => $fontDir . '/gotham-bold_6a8db9a4ac4be07e21b6abb5a030297b',
+    '500' => $fontDir . '/gotham-500_5fd8bee4cf174f8ca5f919e729ea00e4',
   ),
 ) ?>

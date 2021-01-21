@@ -134,9 +134,6 @@
                       </v-toolbar>
                     </template>
                     <template v-slot:item.actions="{ item }">
-                      <v-icon md @click="editItem(item)" color="#76d7d7">
-                        mdi-eye
-                      </v-icon>
                       <v-icon md @click="editItem(item)" color="#00BFA5">
                         mdi-pencil
                       </v-icon>

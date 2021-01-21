@@ -39,7 +39,7 @@ switch ($method) {
 		if (!$result) $helper->response_message('Error', 'No se pudo crear el grupo correctamente', 'error');
 		$id = $result;
 		$result = $group_chat->add_member($id, $_SESSION['user_id'], 'administrador');
-		if (!empty($data['members'])) {
+		if (isset($data['external_members']) && !empty($data['members'])) {
 			foreach ($data['members'] as $member) {
 				$add = $group_chat->add_member($id, $member['user_id'], 'miembro');
 			}
@@ -50,6 +50,15 @@ switch ($method) {
 			}
 		}
 		$helper->response_message('Éxito', 'Se creó el grupo correctamente', 'success', $id);
+		break;
+
+	case 'join-group':
+		if (empty($data)) $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');
+		$id = $data['group_id'];
+		$user_id = $data['user_id'];
+		$result = $group_chat->add_member($id, $_SESSION['user_id'], 'miembro');
+		if (!$result) $helper->response_message('Éxito', 'No se pudo añadir al grupo correctamente', 'error');
+		$helper->response_message('Éxito', 'Se añadió al grupo correctamente');
 		break;
 
 	case 'send-message':

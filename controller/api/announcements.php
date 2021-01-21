@@ -21,9 +21,9 @@ switch ($method) {
 
 	case 'create':
 		if (empty($data) or !isset($_SESSION['user_id'])) $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');
-		$columns = ['title', 'content', 'user_id'];
+		$columns = ['title', 'content', 'user_id', 'group_chat'];
 		$id = $_SESSION['user_id'];
-		$result = $announcement->create($id, sanitize($data), $columns);
+		$result = $announcement->create($id, $data, $columns);
 		if (!$result) $helper->response_message('Error', 'No se pudo registrar el anuncio correctamente', 'error');
 		$helper->response_message('Éxito', 'Se registró el anuncio correctamente', 'success', ['announcement_id' => $result, 'user_id' => $id]);
 		break;	
@@ -31,7 +31,7 @@ switch ($method) {
 	case 'update':
 		if (empty($data)) $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');
 		$id = intval($data['announcement_id']);
-		$result = $announcement->edit($id,sanitize($data));
+		$result = $announcement->edit($id, $data);
 		if (!$result) $helper->response_message('Error', 'no se pudo editar el anuncio', 'error');
 		$helper->response_message('Éxito', 'Se editó el anuncio correctamente');
 		break;	
@@ -44,7 +44,8 @@ switch ($method) {
 
 	case 'get-author':
 		if (empty($data['announcement_id'])) $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');
-		$result = $announcement->get_author(intval($data['announcement_id']));
+		if (!isset($_SESSION['user_id'])) die(403);
+		$result = $announcement->get_author(intval($data['announcement_id']), intval($data['group_id']), $_SESSION['user_id']);
 		echo json_encode($result > 0 ? $result[0] : 'No se encontraron resultados');
 		break;
 

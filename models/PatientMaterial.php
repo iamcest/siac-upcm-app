@@ -28,7 +28,7 @@ class PatientMaterial
 		if (empty($data)) return false;
 		$columns = implode(',',$columns);
 		extract($data);
-		$sql = "INSERT INTO {$this->table} ($columns) VALUES('$title', '$message', '$file', $patient_id);";
+		$sql = "INSERT INTO {$this->table} ($columns) VALUES('$title', '$content', '$message', '$material', '$file', $patient_id);";
 		$result = execute_query_return_id($sql);
 		return $result;
 	}

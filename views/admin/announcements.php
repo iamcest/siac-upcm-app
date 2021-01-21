@@ -7,8 +7,10 @@
         <v-col cols="12" md="9" lg="10" class="pt-16 pl-md-8">
           <v-row>
             <v-col cols="12" md="6" lg="5">
+              <?php if ($_SESSION['user_type'] != 'administrador'): ?>
               <v-btn class="rounded-pill secondary white--text py-6 mb-sm-4 mb-lg-0" @click="editItem(defaultItem)"><v-icon>mdi-plus</v-icon> Añadir anuncio</v-btn>
               <v-btn class="rounded-pill secondary white--text py-6" @click="switchAnnouncenments(<?php echo $_SESSION['user_id'] ?>)">{{ announcementBtnTitle }}</v-btn>
+              <?php endif ?>
             </v-col>
             <v-col cols="12" md="6" lg="5">
               <h2>Notificaciones</h2>
@@ -60,11 +62,16 @@
                     <v-col cols="12" md="12" class="py-3 mt-n3 d-flex justify-end">
                       <v-icon class="grey--text grey-lighten-1">mdi-timer</v-icon><span class="body-1 grey--text grey-lighten-1">{{ fromNow(editedItem.published_at) }}</span>
                     </v-col>
+                    <?php if ($_SESSION['user_type'] != 'administrador'): ?>
                     <v-col cols="12">
-                      <v-btn color="secondary white--text" block>
+                      <v-btn color="secondary" v-if="author.user_member == null" @click="joinChat" :loading="join_loading" block>
                         Unirse a la discusión
                       </v-btn>
-                    </v-col>   
+                      <v-btn class="white--text" color="#00BFA5" v-if="author.user_member == uid" block>
+                        Ya te has unido a esta discusión
+                      </v-btn>
+                    </v-col>
+                    <?php endif ?>
                   </v-row>
                 </v-card-actions>
               </v-card>
@@ -134,7 +141,7 @@
                 </v-card-actions>
                 <v-card-actions class="annoucement-info pb-1">
                   <div class="px-2">
-                    <v-icon class="green--text" @click="editItem(item)" v-if="item.user_id == <?php echo $_SESSION['user_id'] ?>">mdi-pencil</v-icon>
+                    <v-icon color="#00BFA5" @click="editItem(item)" v-if="item.user_id == <?php echo $_SESSION['user_id'] ?>">mdi-pencil</v-icon>
                     <v-icon class="red--text" @click="deleteItem(item)">mdi-trash-can</v-icon>
                     <span class="body-1 grey--text grey-lighten-1 float-right">{{ fromNow(item.published_at) }}</span>
                   </div>

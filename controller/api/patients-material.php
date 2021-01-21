@@ -28,7 +28,9 @@ switch ($method) {
 		$recipient = [
 			['email' => $data['email'],'full_name' => $data['full_name']]
 		];
+		$replyTo = ['email' => $_SESSION['email'], 'full_name' => $_SESSION['first_name'] . " " . $_SESSION['last_name']];
 		if ($data['material'] == 'custom material') {
+			set_time_limit(3600);
 			$dompdf = new Dompdf();
 			$options = $dompdf->getOptions();			
 			$options->setIsPhpEnabled(true);
@@ -43,24 +45,27 @@ switch ($method) {
 			$dompdf->set_paper('letter', 'landscape');
 			$dompdf->render();
 			$file_generated = file_put_contents($temp_dir, $dompdf->output());
-			$sendEmail = $helper->send_mail($data['title'], $recipient, Template::material_template($data), $_SESSION['email'], [['url' => $temp_dir, 'name' => $file_name]]);
+			$template = new Template('document_templates/email_material_template', $data);
+			$sendEmail = $helper->send_mail($data['title'], $recipient, $replyTo, $template, $_SESSION['email'], [['url' => $temp_dir, 'name' => $file_name]]);
 			unlink($temp_dir);
+			if (!$sendEmail) {$helper->response_message('Error', 'No se pudo enviar el material al correo del paciente', 'error', $sendEmail);}
 		}
 		else if($data['material'] == 'file upload') {
 			$file_name = '';
 			$temp_dir = '';
 			if ($_FILES["file"]["error"] != 4) {
 				$file_name = $_FILES['file']['name'];
-				$temp_dir = DIRECTORY . "/public/img/material/" . $file_name;
+				$temp_dir = DIRECTORY . "/public/material/" . $file_name;
 				move_uploaded_file($_FILES["file"]["tmp_name"], $temp_dir);
 				$data['file'] = $file_name;
 			}
 			$file = [['url' => $temp_dir, 'name' => $file_name]];
-			$sendEmail = $helper->send_mail($data['title'], $recipient, Template::material_template($data), $_SESSION['email'], $file);
+			$template = new Template('document_templates/email_material_template', $data);
+			$sendEmail = $helper->send_mail($data['title'], $recipient, $replyTo, $template, $_SESSION['email'], $file);
 			unlink($temp_dir);
 			if (!$sendEmail) $helper->response_message('Error', 'No se pudo enviar el material al correo del paciente', 'error', $sendEmail);
 		}
-		$columns = ['title', 'content', 'file', 'patient_id'];
+		$columns = ['title', 'content', 'message', 'material_type', 'file', 'patient_id'];
 		$result = $patient_material->create($data, $columns);
 		if (!$result) {
 			$helper->response_message('Error', 'No se pudo registrar el material correctamente', 'error');
