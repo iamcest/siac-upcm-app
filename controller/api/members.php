@@ -132,7 +132,7 @@ switch ($method) {
 				if ($value == "password") continue;
 				$_SESSION[$value] = $data[$value];
 		}
-		$helper->response_message('Éxito', 'Tu información ha sido actualizada correctamente', 'success');
+		$helper->response_message('Éxito', 'Tu información ha sido actualizada correctamente');
 		break;	
 
 	case 'update-member-avatar':
@@ -143,7 +143,7 @@ switch ($method) {
 		$file_name = 'siac_avatar_' .time() .'.' . end($ext);
 		if(!move_uploaded_file($_FILES["avatar"]["tmp_name"], DIRECTORY . "/public/img/avatars/" . $file_name)) $helper->response_message('Error', 'No se pudo guardar correctamente la imágen de perfil del miembro', 'error');
 		$result = $member->update_avatar($id, $file_name);
-		$helper->response_message('Éxito', 'Tu imágen de perfil ha sido actualizada correctamente', 'success');
+		$helper->response_message('Éxito', 'Tu imágen de perfil ha sido actualizada correctamente');
 		break;
 
 	case 'update-avatar':
@@ -156,6 +156,29 @@ switch ($method) {
 		$result = $member->update_avatar($id, $file_name);
 		$_SESSION['avatar'] = $file_name;
 		$helper->response_message('Éxito', 'Tu imágen de perfil ha sido actualizada correctamente', 'success');
+		break;
+
+	case 'ask-reset-password':
+		$email = $data['email'];
+		if (empty($email)) die(403);
+		$code = $helper->rand_string() . time();
+		$check_email = $member->email_exists($email, $code);
+		if (!$check_email) $helper->response_message('Error', 'El correo electrónico ingresado no pertenece a ningún usuario', 'error');
+		$template = new Template('document_templates/reset_email_template', ['email' => $email, 'code' => $code]);
+		$sendEmail = $helper->send_mail('Solicitud de reestablecimiento de contraseña', [['email' => $email, 'full_name' => '']], [], $template, []);
+		if (!$sendEmail) $helper->response_message('Error', 'No se pudo enviar el correo de reestablecimiento, intenta de nuevo.', 'error');
+		$result = $member->generate_reset_code($email, $code);
+		if (!$result) $helper->response_message('Error', 'No se pudo generar el código de reestablecimiento de la contraseña', 'error');
+		$helper->response_message('Éxito', 'Solicitud de reestablecimiento procesada correctamente, revisa tu bandeja de correo electrónico para continuar');
+		break;
+
+	case 'reset-password':
+		$code = $data['code'];
+		$password = md5(clean_string($data['password']));
+		if (empty($code)) die(403);
+		$result = $member->reset_password($code, $password);
+		if (!$result) $helper->response_message('Error', 'No se pudo reestablecer tu contraseña, el código no existe o ha expirado.', 'error');
+		$helper->response_message('Éxito', 'Tu contraseña ha sido reestablecida correctamente, intenta iniciar sesión nuevamente.');
 		break;
 
 	case 'logout':

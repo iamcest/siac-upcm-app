@@ -47,11 +47,31 @@ class Members
 		}
 		return $arr;
 	}
+
 	public function check_user($email, $password) {
 		$sql = "SELECT u.user_id AS user_id, avatar, first_name, last_name, email, gender, birthdate, user_type, rol, upcm_id, uc.telephone, uc.whatsapp AS whatsapp, uc.telegram AS telegram, uc.sms AS sms FROM {$this->table} as u LEFT JOIN {$this->contact_table} as uc ON u.user_id = uc.user_id WHERE email = '$email' AND `password` = '$password'";
 		$result = execute_query($sql);
 		if ($result) return $result->fetch_object();
 		return null;
+	}	
+
+	public function email_exists($email, $password) {
+		$sql = "SELECT user_id, email FROM {$this->table} WHERE email = '$email'";
+		$result = execute_query($sql)->fetch_object();
+		if (isset($result->user_id) && $result->user_id > 0) return true;
+		return false;
+	}
+
+	public function generate_reset_code($email, $code) {
+		$sql = "UPDATE {$this->table} SET `reset_code` = '$code' WHERE email = '$email'";
+		$result = execute_query($sql);
+		return $result;
+	}
+
+	public function reset_password($code, $password) {
+		$sql = "UPDATE {$this->table} SET `password` = '$password', `reset_code` = null WHERE reset_code = '$code'";
+		$result = execute_query($sql);
+		return $result;
 	}
 
 	public function get_upcm_logo($id) {

@@ -17,18 +17,19 @@
 
 					      <v-row>
 					        <v-col cols="12" md="12" >
-					        	<span>Correo electrónico</span>
-					          <v-text-field type="email" name="email" v-model="email" outlined required ></v-text-field>
+					        	<span class="text-center">Ingrese la contraseña nueva</span>
 
 					        	<label for="">Contraseña</label>
-					          <v-text-field type="password" name="password" v-model="password"  v-on:keyup.enter="login" outlined required ></v-text-field>
-					          <v-row class="d-flex justify-end mb-4">
-						          <v-btn  @click="dialog = true" text>¿Olvidaste tu contraseña?</v-btn>					          	
-					          </v-row>
+					          <v-text-field type="password" name="password" v-model="password" outlined required ></v-text-field>
+
+					        	<label for="">Confirmar contraseña</label>
+					          <v-text-field type="password" name="password_confirm" v-model="password_confirm" outlined required ></v-text-field>
 					          <div class="d-flex flex-column justify-space-between align-center mb-5">
-						          <v-btn class="grey white--text py-5" :loading="loading" :disabled="email == '' || password == ''" v-on:click="login" rounded>Iniciar Sesión</v-btn>
+						          <v-btn class="grey white--text py-5" :loading="loading" :disabled="password == '' || password_confirm == ''" v-on:click="resetPassword" rounded>Reestablecer contraseña</v-btn>
 						        </div>
-						        <?php echo new Template('components/password_reset') ?>
+						        <p class="text-center" color="red" v-if="valid_text != ''">
+						        	Ambas contraseñas deben ser iguales para continuar
+						        </p>
 						        <?php echo new Template('components/alert') ?>
 					        </v-col>
 

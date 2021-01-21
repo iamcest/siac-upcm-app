@@ -73,7 +73,7 @@ use PHPMailer\PHPMailer\Exception;
         die();
     }
 
-    public static function send_mail($subject, $recipients = [], $replyTo = [], $message = '', $respondTo = '', $file = []) {
+    public static function send_mail($subject, $recipients = [], $replyTo = [], $message = '', $file = []) {
         $mail = new PHPMailer(true);
         try {
             //Server settings
@@ -124,6 +124,16 @@ use PHPMailer\PHPMailer\Exception;
         $date = getdate();
         $current_date = $date['year']."-".$date['mon']."-".$date['mday'];
         return $current_date;
+    }
+    public static function rand_string() {
+        $input = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $input_length = strlen($input);
+        $random_string = '';
+        for($i = 0; $i < 16; $i++) {
+            $random_character = $input[mt_rand(0, $input_length - 1)];
+            $random_string .= $random_character;
+        }
+        return $random_string;
     }
 }
 

@@ -46,7 +46,7 @@ switch ($method) {
 			$dompdf->render();
 			$file_generated = file_put_contents($temp_dir, $dompdf->output());
 			$template = new Template('document_templates/email_material_template', $data);
-			$sendEmail = $helper->send_mail($data['title'], $recipient, $replyTo, $template, $_SESSION['email'], [['url' => $temp_dir, 'name' => $file_name]]);
+			$sendEmail = $helper->send_mail($data['title'], $recipient, $replyTo, $template, [['url' => $temp_dir, 'name' => $file_name]]);
 			unlink($temp_dir);
 			if (!$sendEmail) {$helper->response_message('Error', 'No se pudo enviar el material al correo del paciente', 'error', $sendEmail);}
 		}
@@ -61,7 +61,7 @@ switch ($method) {
 			}
 			$file = [['url' => $temp_dir, 'name' => $file_name]];
 			$template = new Template('document_templates/email_material_template', $data);
-			$sendEmail = $helper->send_mail($data['title'], $recipient, $replyTo, $template, $_SESSION['email'], $file);
+			$sendEmail = $helper->send_mail($data['title'], $recipient, $replyTo, $template, $file);
 			unlink($temp_dir);
 			if (!$sendEmail) $helper->response_message('Error', 'No se pudo enviar el material al correo del paciente', 'error', $sendEmail);
 		}

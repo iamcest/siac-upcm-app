@@ -273,6 +273,14 @@ class Routes
 					$footer = false;
 					$content = new Template("login");
 					break;
+
+				case 'reset':
+					$header = false;
+					$styles = [['name' =>'login']];
+					$scripts = [['name' => 'reset']];
+					$footer = false;
+					$content = new Template("reset");
+					break;
 			}
 			$this->render($content, $header, $footer, $styles, $scripts);
 		}
