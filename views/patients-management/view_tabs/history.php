@@ -23,7 +23,7 @@
                                         </v-row>
                                         <v-row>
                                           <v-col class="mt-6" cols="12">
-                                            <h3 class="text-h4 text-center black--text">Antecedentes de Enfermedades Cardiovasculares</h3>
+                                            <h3 class="text-h5 text-center black--text">Antecedentes de Enfermedades Cardiovasculares</h3>
                                           </v-col>
                                           <v-col class="pr-6" cols="6">
                                             <v-row>
@@ -239,7 +239,7 @@
                                           <v-col cols="3">
                                             <v-row>
                                               <v-col cols="12">
-                                                <h3 class="black--text text-h4">Toma antiplaquetarios</h3>
+                                                <h3 class="black--text text-h5">Toma antiplaquetarios</h3>
                                               </v-col>
                                             </v-row>
                                             <v-row class="factor-risk-container">
@@ -261,7 +261,7 @@
                                           <v-col class="pl-10" cols="9">
                                             <v-row>
                                               <v-col cols="12">
-                                                <h3 class="text-h4 text-center black--text font-weight-bold">Datos Significativos al Exámen Físico</h3>
+                                                <h3 class="text-h5 text-center black--text font-weight-bold">Datos Significativos al Exámen Físico</h3>
                                               </v-col>
                                             </v-row>
                                             <v-row class="factor-risk-container">
@@ -331,7 +331,7 @@
                                         <v-col class="factor-risk-container mt-10" cols="8" offset="2">
                                           <v-row>
                                             <v-col cols="12">
-                                              <h4 class="text-h4 text-center black--text font-weight-bold">Electro Cardiograma</h4>
+                                              <h4 class="text-h5 text-center black--text font-weight-bold">Electro Cardiograma</h4>
                                             </v-col>
                                             <v-col cols="4">
                                               <p class="black--text font-weight-bold">Ritmo: <span class="font-weight-light">{{ patient_history.form.history_content.electro_cardiogram.rhythm }}</span></p> 

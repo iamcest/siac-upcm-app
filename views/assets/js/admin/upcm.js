@@ -12,7 +12,7 @@ let vm = new Vue({
         { text: 'Provincia / País', value: 'location' },
         { text: 'Clave de certificación', value: 'upcm_key' },
         { text: 'Fecha de registro', value: 'upcm_registered' },
-        { text: 'Actions', value: 'actions', align:'center', sortable: false },
+        { text: 'Acciones', value: 'actions', align:'center', sortable: false },
       ],
       upcms: [],
       countries: [],

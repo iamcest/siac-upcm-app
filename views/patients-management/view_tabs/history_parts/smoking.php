@@ -2,7 +2,7 @@
                                       <v-col cols="12">
                                         <v-row class="d-flex justify-start">
                                           <v-col cols="2">
-                                            <h4 class="my-auto text-h5 font-weight-bold">Tabaquismo: <span v-if="patient_history.form.history_content.diseases.smoking.active">Sí</span>
+                                            <h4 class="my-auto text-h6 font-weight-bold">Tabaquismo: <span v-if="patient_history.form.history_content.diseases.smoking.active">Sí</span>
                                             <span v-else>No</span></h4>
                                           </v-col>
                                         </v-row>

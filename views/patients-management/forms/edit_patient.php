@@ -22,7 +22,7 @@
 													      </v-tab>
 
 													      <v-tab class="font-weight-bold" href="#tab-6" @click="initializeExams">
-													        Exámenes de <br>laboratorio
+													        Examenes de <br>laboratorio
 													      </v-tab>
 
 													      <v-tab class="font-weight-bold" href="#tab-7" @click="initializeFactorsRisk">

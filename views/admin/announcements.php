@@ -35,8 +35,7 @@
                       <v-col cols="12">
                         <h3 class="text-h5 text-center">{{ editedItem.title }}</h3>
                       </v-col>
-                      <v-col cols="12">
-                        {{ editedItem.content }}
+                      <v-col class="ql-editor" v-html="editedItem.content" cols="12">
                       </v-col>
                     </v-row>
                   </v-container>

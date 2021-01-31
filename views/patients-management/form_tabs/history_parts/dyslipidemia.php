@@ -1,10 +1,10 @@
-|
+
                                       <v-col cols="12">
                                         <v-row class="d-flex justify-start">
                                           <v-col cols="2">
                                             <v-select v-model="patient_history.form.history_content.diseases.dyslipidemia.active" :items="patient_history.select" item-text='text' item-value='value' outlined dense>
                                               <template v-slot:prepend>
-                                                <h4 class="my-auto text-h5 font-weight-bold">Dislipidemia:</h4>
+                                                <h4 class="my-auto text-h6 font-weight-bold">Dislipidemia:</h4>
                                               </template>
                                             </v-select>
                                           </v-col>

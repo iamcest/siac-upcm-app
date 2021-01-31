@@ -93,7 +93,7 @@
                 <v-toolbar-title class="font-weight-bold">Añadir cita</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-toolbar-items>
-                <v-btn icon dark @click="dialog = false">
+                <v-btn icon dark @click="create_dialog = false">
                   <v-icon color="grey">mdi-close</v-icon>
                 </v-btn>
                 </v-toolbar-items>

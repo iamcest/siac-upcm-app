@@ -4,7 +4,7 @@
                                           <v-col cols="2">
                                             <v-select v-model="patient_history.form.history_content.diseases.dtm2.active" :items="patient_history.select" item-text='text' item-value='value' outlined dense>
                                               <template v-slot:prepend>
-                                                <h4 class="my-auto text-h5 font-weight-bold">DTM2:</h4>
+                                                <h4 class="my-auto text-h6 font-weight-bold">DTM2:</h4>
                                               </template>
                                             </v-select>
                                           </v-col>

@@ -53,7 +53,7 @@
                                     <v-select class="mt-3" v-model="editedItem.country_selected" :items="countries" item-text="name" item-value="id" v-on:change="filterStates" outlined></v-select>
                                   </v-col>
                                   <v-col cols="12" sm="6" md="6">
-                                    <label>Provincia</label>
+                                    <label>Provincia o ciudad</label>
                                     <v-select class="mt-3" v-model="editedItem.state_selected" :items="country_states" item-text="name" item-value="id" v-on:change='getLocation' outlined></v-select>
                                   </v-col>
                                 </v-row>

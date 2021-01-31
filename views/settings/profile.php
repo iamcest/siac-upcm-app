@@ -13,17 +13,22 @@
             <v-col cols="12" md="12">
               <div class="d-flex justify-center">
                 <v-form>
-                  <v-avatar class="uploading-image d-block" v-if="!upload_button" size="7vw">
-                    <img :src="'<?php echo SITE_URL ?>/public/img/avatars/' + form.avatar" >
-                  </v-avatar>
-                  <v-avatar class="uploading-image d-block" v-if="upload_button" size="7vw">
-                    <img :src="previewImage">
-                    <img :src="form.avatar" >
-                  </v-avatar>
                   <v-row class="d-flex justify-center">
-                    <label for="avatar">
-                      <v-icon class="text-center success--text cursor-pointer">mdi-upload</v-icon>
-                      <input type="file" name="avatar" id="avatar" class="d-none" v-on:change="prevImage"/>  
+                    <v-avatar class="uploading-image d-block" v-if="!upload_button" size="7vw">
+                      <img :src="'<?php echo SITE_URL ?>/public/img/avatars/' + form.avatar" >
+                    </v-avatar>
+                    <v-avatar class="uploading-image d-block" v-if="upload_button" size="7vw">
+                      <img :src="previewImage">
+                      <img :src="form.avatar" >
+                    </v-avatar>
+                  </v-row>
+                  <v-row class="d-flex justify-center mt-2">
+                    <label class="d-flex justify-center" for="avatar">
+                      <p class="text-center cursor-pointer">
+                        <v-icon class="success--text">mdi-upload</v-icon>
+                        Subir foto de perfil
+                      </p>
+                      <input type="file" name="avatar" id="avatar" class="d-none" v-on:change="prevImage"/>
                     </label>
                   </v-row>
                   <v-row class="d-flex justify-center mt-4" v-if="upload_button">
