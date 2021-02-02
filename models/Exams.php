@@ -8,7 +8,9 @@ class PatientExams
 {
 	private $table = "patient_exams";
 	private $exams_table = "medicals_exams";
+	private $exam_files_table = "patient_exam_files";
 	private $id_column = "patient_exam_id";
+	private $id_file_column = "patient_exam_file_id";
 
 	function __construct() {
 	}
@@ -48,6 +50,17 @@ class PatientExams
 		return $arr;
 	}
 
+	public function get_exam_file_results(int $id = 0, $exam_id) {
+		if ($id == 0) return false;
+		$sql = "SELECT {$this->id_file_column}, file_result, exam_date FROM {$this->exam_files_table} WHERE patient_id = $id AND exam_id = $exam_id ORDER BY exam_date DESC";
+		$result = execute_query($sql);
+		$arr = [];
+		while ($row = $result->fetch_assoc()) {
+			$arr[] = $row;
+		}
+		return $arr;
+	}
+
 	public function get_last(int $id = 0) {
 		if ($id == 0) return false;
 		$sql = "SELECT {$this->id_column}, results, exam_date FROM {$this->table} WHERE patient_id = $id ORDER BY $id_column DESC";
@@ -58,6 +71,7 @@ class PatientExams
 		}
 		return $arr;
 	}
+
 	public function create($data = [], $columns = []) {
 		if (empty($data)) return false;
 		$columns = implode(',',$columns);
@@ -66,9 +80,26 @@ class PatientExams
 		$result = execute_query_return_id($sql);
 		return $result;
 	}
+
+	public function create_file($data = [], $columns = []) {
+		if (empty($data)) return false;
+		$columns = implode(',',$columns);
+		extract($data);
+		$sql = "INSERT INTO {$this->exam_files_table} ($columns) VALUES('$file_result', '$exam_date', $exam_id, $patient_id);";
+		$result = execute_query_return_id($sql);
+		return $result;
+	}
+
 	public function delete($id) {
 		if (empty($id)) return false;
-		$sql = "DELETE FROM {$this->table} WHERE {$this->id_column} = $id;";
+		$sql = "DELETE FROM {$this->table} WHERE {$this->id_column} = $id";
+		$result = execute_query($sql);
+		return $result;
+	}
+
+	public function delete_file($id) {
+		if (empty($id)) return false;
+		$sql = "DELETE FROM {$this->exam_files_table} WHERE {$this->id_file_column} = $id";
 		$result = execute_query($sql);
 		return $result;
 	}

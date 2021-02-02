@@ -16,6 +16,7 @@ let vm = new Vue({
       appointment_date_dialog: '',
       appointment_time_dialog: '',
       exam_date_dialog: '',
+      exam_file_date_dialog: '',
       menu: '',
       tab: null,
       view_tab: null,
@@ -58,6 +59,10 @@ let vm = new Vue({
             {text: 'Fecha del exámen', align: 'start', value: 'exam_date', width:"auto" },
             { text: 'Resultado', value: 'results', width:"auto" },
           ],
+          exam_file_headers: [
+            {text: 'Fecha', align: 'start', value: 'exam_date', width:"auto" },
+            { text: 'Archivo', align: 'center', value: 'file_result', width:"auto" },
+          ],
         },
       },
       patient_appointments: {
@@ -94,10 +99,13 @@ let vm = new Vue({
         history: [],
       },
       patient_laboratory_exams: {
+        add_file_loading: false,
         laboratory_exam: false,
         dialog: false,
         dialogDelete: false,
+        dialogFileDelete: false,
         modal: false,
+        file_modal: false,
         headers: [
           {text: 'Exámen de Laboratorio', align: 'start', value: 'name', width:"auto" },
           { text: 'Acción', value: 'action', width:"auto" },
@@ -112,12 +120,20 @@ let vm = new Vue({
           { text: 'Resultado', value: 'results', width:"auto" },
           { text: 'Acción', value: 'action', width:"auto" },
         ],
+        exam_files_headers: [
+          {text: 'Fecha', align: 'start', value: 'exam_date', width:"auto" },
+          { text: 'Archivo', value: 'file_result', width:"auto" },
+          { text: 'Acción', value: 'action', width:"auto" },
+        ],
+        exam_files: [],
         exam_results: [],
         exams: [],
         editedItem: {},
+        editedFileItem: {},
         defaultItem: {},
         selectedExam: {},
         editedIndex: -1,
+        editedFileIndex: -1,
       },
       patient_vital_signs: {
         default: {
@@ -768,6 +784,13 @@ let vm = new Vue({
         obj.dialogDelete = true
       },
 
+      deleteExamFileItem (item) {
+        var obj = this.patient_laboratory_exams
+        obj.dialogFileDelete = true
+        obj.editedFileIndex = obj.exam_files.indexOf(item)
+        obj.editedFileItem = Object.assign({}, item)
+      },
+
       deleteItemConfirm () {
         var app = this
         var url = api_url + 'patients/delete'
@@ -811,6 +834,22 @@ let vm = new Vue({
         }, err => {
           app.closeExamDelete()
         })
+      }, 
+
+      deleteExamFileItemConfirm () {
+        var app = this
+        var obj = app.patient_laboratory_exams
+        var url = api_url + 'medical-exams/delete-file'
+        obj.editedFileItem.patient_id = app.editedItem.patient_id
+        app.$http.post(url, obj.editedFileItem).then(res => {
+          if (res.body.status == 'success') {
+            obj.exam_files.splice(obj.editedFileIndex, 1)            
+          } 
+          app.closeFileExamDelete()
+          activateAlert(res.body.message, res.body.status)
+        }, err => {
+          app.closeFileExamDelete()
+        })
       },      
 
       close () {
@@ -846,6 +885,14 @@ let vm = new Vue({
         })
       },
 
+      closeFileExam () {
+        var obj = this.patient_laboratory_exams
+        this.$nextTick(() => {
+          obj.editedFileItem = Object.assign({}, this.defaultItem)
+          obj.editedFileIndex = -1
+        })
+      },
+
       closeDelete () {
         this.dialogDelete = false
         this.$nextTick(() => {
@@ -872,6 +919,16 @@ let vm = new Vue({
           obj.editedItem = Object.assign({}, this.defaultItem)
           obj.editedIndex = -1
         })
+      },
+
+      closeFileExamDelete () {
+
+        var obj = this.patient_laboratory_exams
+        this.$nextTick(() => {
+          obj.editedFileItem = Object.assign({}, this.defaultItem)
+          obj.editedFileIndex = -1
+        })
+        obj.dialogFileDelete = false
       },
 
       save () {
@@ -1002,7 +1059,6 @@ let vm = new Vue({
         })
       },
 
-
       saveExam () {
         var app = this
         var obj = app.patient_laboratory_exams
@@ -1019,6 +1075,33 @@ let vm = new Vue({
           app.closeExam()
         }, err => {
           app.closeExam()
+        })
+      },
+
+      saveFileExam () {
+        var app = this
+        var obj = app.patient_laboratory_exams
+        obj.add_file_loading = true
+        var url = api_url + "medical-exams/create-file"
+        let data = new FormData()
+        data.append('file_result', obj.editedFileItem.file_result)
+        data.append('exam_name', obj.selectedExam.name)
+        data.append('exam_date', obj.editedFileItem.exam_date)
+        data.append('patient_id', app.editedItem.patient_id)
+        data.append('exam_id', obj.selectedExam.exam_id)
+
+        app.$http.post(url, data).then(res => {
+          if (res.body.status == 'success') {
+            obj.editedFileItem.patient_exam_file_id = res.body.data.patient_exam_file_id
+            obj.editedFileItem.file_result = res.body.data.file_result
+            obj.exam_files.push(obj.editedFileItem)
+          }
+          activateAlert(res.body.message, res.body.status)
+          obj.add_file_loading = false
+          app.closeFileExam()
+        }, err => {
+          obj.add_file_loading = false
+          app.closeFileExam()
         })
       },
 
@@ -1140,6 +1223,11 @@ let vm = new Vue({
         return results;
       },
 
+      showExamInfo (item) {
+        this.showExamResults(item)
+        this.showFileExamResults(item)
+      },
+
       showExamResults (item) {
         var app = this
         var obj = app.patient_laboratory_exams
@@ -1149,6 +1237,20 @@ let vm = new Vue({
         var data = {exam_id: item.exam_id, patient_id : this.editedItem.patient_id}
         app.$http.post(url, data).then(res => {
           obj.exam_results = res.body
+        }, err => {
+
+        })
+      },
+
+      showFileExamResults (item) {
+        var app = this
+        var obj = app.patient_laboratory_exams
+        obj.laboratory_exam = true
+        obj.selectedExam = item
+        var url = api_url + "medical-exams/get-exam-files"
+        var data = {exam_id: item.exam_id, patient_id : this.editedItem.patient_id}
+        app.$http.post(url, data).then(res => {
+          obj.exam_files = res.body
         }, err => {
 
         })
