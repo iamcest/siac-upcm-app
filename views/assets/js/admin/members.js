@@ -4,6 +4,10 @@ let vm = new Vue({
     vuetify,
     el: '#siac-suite-container',
     data: {
+      barAlert: false,
+      barTimeout: 1000,
+      barMessage: '',
+      barType: '',
       loading: false,     
       dialog: false,
       dialogDelete: false,
@@ -96,8 +100,10 @@ let vm = new Vue({
         var id = this.editedItem.user_id;
         var url = api_url + 'members/delete'
         this.$http.post(url, {user_id: id}).then(res => {
-            this.members.splice(this.editedIndex, 1)
-            this.closeDelete()
+            if (res.body.status == 'success') 
+              this.members.splice(this.editedIndex, 1)
+              this.closeDelete()
+            activateAlert(res.body.message, res.body.status)
           }, err => {
           this.closeDelete()
         })
@@ -126,15 +132,20 @@ let vm = new Vue({
         if (this.editedIndex > -1) {
           var url = api_url + 'members/update'
           this.$http.post(url, member).then(res => {
-            Object.assign(app.members[editedIndex], member)
+            if (res.body.status == 'success') 
+              Object.assign(app.members[editedIndex], member)
+            activateAlert(res.body.message, res.body.status)
           }, err => {
 
           })
         } else {
           var url = api_url + 'members/create'
           this.$http.post(url, member).then(res => {
-            member.date = current_date
-            this.members.push(member)
+            if (res.body.status == 'success')
+              member.date = current_date
+              member.user_id = res.body.data.user_id
+              this.members.push(member)
+            activateAlert(res.body.message, res.body.status)
           }, err => {
 
           })

@@ -3,6 +3,10 @@ let vm = new Vue({
     vuetify,
     el: '#siac-suite-container',
     data: {
+      barAlert: false,
+      barTimeout: 1000,
+      barMessage: '',
+      barType: '',
       loading: false,
       image_loading: false,
       upload_button: false,
@@ -78,6 +82,7 @@ let vm = new Vue({
         data.append('avatar', app.form.avatar);
         app.$http.post(url, data).then(res => {
           app.image_loading = false
+          activateAlert(res.body.message, res.body.status)
         }, err => {
 
         })

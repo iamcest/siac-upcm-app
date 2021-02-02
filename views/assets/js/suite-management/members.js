@@ -3,6 +3,10 @@ let vm = new Vue({
     vuetify,
     el: '#siac-suite-container',
     data: {
+      barAlert: false,
+      barTimeout: 1000,
+      barMessage: '',
+      barType: '',
       dialog: false,
       image_loading: false,
       upload_button: false,
@@ -97,6 +101,7 @@ let vm = new Vue({
         this.$http.post(url, {user_id: id}).then(res => {
             this.members.splice(this.editedIndex, 1)
             this.closeDelete()
+            activateAlert(res.body.message, res.body.status)
           }, err => {
           this.closeDelete()
         })
@@ -140,6 +145,7 @@ let vm = new Vue({
         data.append('user_id', app.editedItem.user_id);
         app.$http.post(url, data).then(res => {
           app.image_loading = false
+          activateAlert(res.body.message, res.body.status)
         }, err => {
 
         })
@@ -150,11 +156,12 @@ let vm = new Vue({
         var member = app.editedItem
         var editedIndex = app.editedIndex
         var url = api_url + 'members/update'
-          app.$http.post(url, member).then(res => {
-            Object.assign(app.members[editedIndex], member)
-          }, err => {
+        app.$http.post(url, member).then(res => {
+          Object.assign(app.members[editedIndex], member)
+          activateAlert(res.body.message, res.body.status)
+        }, err => {
 
-          })
+        })
         this.close()
       },
     }

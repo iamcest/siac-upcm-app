@@ -4,7 +4,7 @@
               <v-container>
                 <v-row>
                   <v-col class="mt-4 px-0 ml-md-n2" cols="1" xs="2">
-                    <v-btn text @click="upload_file = true"><v-icon class="grey--text text--lighten-2" large>mdi-file-plus</v-icon></v-btn>
+                    <v-btn text @click="upload_file = true"><v-icon class="grey--text text--lighten-1" large>mdi-file-plus</v-icon></v-btn>
                   </v-col>
                   <v-col class="px-0" cols="11" xs="10">
                     <v-textarea no-resize rows="1" v-model="message" clearable @keypress.enter="sendMessage" :disabled="loading" filled no-resize>

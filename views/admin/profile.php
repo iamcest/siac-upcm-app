@@ -5,6 +5,7 @@
       <v-row>
         <?php echo new Template('admin/parts/sidebar') ?>
         <v-col cols="12" md="9" lg="10" class="pt-16 pl-md-8">
+          <?php echo new Template('components/snackbar') ?>
           <v-row>
             <v-col cols="12" md="12">
               <h2 class="text-center">Mi Perfil</h2>

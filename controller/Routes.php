@@ -36,17 +36,17 @@ class Routes
 					if (isset($_SESSION['user_id']) && $_SESSION['user_type'] == 'miembro' || $_SESSION['user_type'] == 'coordinador') header("Location: ".SITE_URL."/");
 					switch ($route[1]) {
 						case '':
-							$scripts = [['name' => 'admin/upcm']];
+							$scripts = [['name' => 'admin/upcm.min']];
 							$content = new Template("admin/upcm");
 							break;
 
 						case 'upcm':
-							$scripts = [['name' => 'admin/upcm']];
+							$scripts = [['name' => 'admin/upcm.min']];
 							$content = new Template("admin/upcm");
 							break;
 
 						case 'members':
-							$scripts = [['name' => 'admin/members']];
+							$scripts = [['name' => 'admin/members.min']];
 							$content = new Template("admin/members");
 							break;
 
@@ -61,7 +61,7 @@ class Routes
 							break;
 
 						case 'profile':
-							$scripts = [['name' => 'admin/profile']];
+							$scripts = [['name' => 'admin/profile.min']];
 							$content = new Template("admin/profile");
 							break;
 					}

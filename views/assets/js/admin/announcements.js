@@ -4,6 +4,10 @@ let vm = new Vue({
     vuetify,
     el: '#siac-suite-container',
     data: {
+      barAlert: false,
+      barTimeout: 1000,
+      barMessage: '',
+      barType: '',
       loading: false,
       join_loading: false,
       dialog: false,
@@ -96,8 +100,8 @@ let vm = new Vue({
           if (res.body.status == "success") 
             this.announcements.splice(this.editedIndex, 1)
             this.closeDelete()
-            
-          }, err => {
+          activateAlert(res.body.message, res.body.status)
+        }, err => {
           this.closeDelete()
         })
       }, 
@@ -124,7 +128,9 @@ let vm = new Vue({
         if (app.editedIndex > -1) {
           var url = api_url + 'announcements/update'
           app.$http.post(url, announcement).then(res => {
-            Object.assign(app.announcements[editedIndex], app.editedItem)
+            if (res.body.status == 'success') 
+              Object.assign(app.announcements[editedIndex], app.editedItem)
+            activateAlert(res.body.message, res.body.status)
           }, err => {
 
           })
@@ -140,6 +146,7 @@ let vm = new Vue({
                 app.editedItem.user_id = res.body.data.user_id
                 app.editedItem.announcement_id = res.body.data.announcement_id
                 app.announcements.push(app.editedItem)
+                activateAlert(res.body.message, res.body.status)
               }, err => {
 
               })

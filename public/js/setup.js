@@ -27,6 +27,17 @@ const theme_setup = {
     theme: {
         themes: theme_setup
     }
-};
+}
 
+function activateAlert(message, type) {
+    vm.$data.barTimeout = 4000
+    vm.$data.barAlert = true
+    vm.$data.barMessage = message
+    vm.$data.barType = type
+}
+function deactivateAlert() {
+    vm.$data.barAlert = false
+    vm.$data.barMessage = ''
+    vm.$data.barType = ''
+}
 const vuetify = new Vuetify(vuetify_opts);

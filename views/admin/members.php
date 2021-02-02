@@ -6,6 +6,7 @@
     	<v-row>
 	    	<?php echo new Template('admin/parts/sidebar') ?>
     		<v-col cols="12" md="9" lg="10" class="pt-16 pl-md-8">
+          <?php echo new Template('components/snackbar') ?>
     			<h2>Miembros</h2>
             <v-row class="mt-6">
                 <v-col cols="12">

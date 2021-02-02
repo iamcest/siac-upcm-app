@@ -4,6 +4,10 @@ let vm = new Vue({
     vuetify,
     el: '#siac-suite-container',
     data: {
+      barAlert: false,
+      barTimeout: 1000,
+      barMessage: '',
+      barType: '',
       empty_message: 'No hay datos disponibles',
       birthdate_modal: '',
       entry_date_modal: '',
@@ -769,10 +773,10 @@ let vm = new Vue({
         var url = api_url + 'patients/delete'
         app.$http.post(url, app.editedItem).then( res => {
           app.loading = false
-          if (res.body.status == "success") {
-              this.patients.splice(this.editedIndex, 1)
-              this.closeDelete()
-          }
+          if (res.body.status == "success") 
+            this.patients.splice(this.editedIndex, 1)
+            this.closeDelete()
+          activateAlert(res.body.message, res.body.status)
         }, err => {
 
         })
@@ -784,9 +788,9 @@ let vm = new Vue({
         var url = api_url + 'appointments/delete'
         app.$http.post(url, {appointment_id: obj.editedItem.appointment_id, patient_id: app.editedItem.patient_id}).then( res => {
           app.loading = false
-          if (res.body.status == "success") {
+          if (res.body.status == "success") 
             obj.appointments.splice(obj.editedIndex, 1)
-          }
+          activateAlert(res.body.message, res.body.status)
           app.closeAppointmentDelete()
         }, err => {
           app.closeAppointmentDelete()
@@ -800,10 +804,10 @@ let vm = new Vue({
         obj.editedItem.exam_name = obj.selectedExam.name
         obj.editedItem.patient_id = app.editedItem.patient_id
         app.$http.post(url, obj.editedItem).then(res => {
-          if (res.body.status == 'success') {
+          if (res.body.status == 'success') 
             obj.exam_results.splice(obj.editedIndex, 1)
-            app.closeExamDelete()
-          }
+          app.closeExamDelete()
+          activateAlert(res.body.message, res.body.status)
         }, err => {
           app.closeExamDelete()
         })
@@ -877,9 +881,9 @@ let vm = new Vue({
           var url = api_url + 'patients/update'
           app.$http.post(url, app.editedItem).then( res => {
             app.loading = false
-            if (res.body.status == "success") {
+            if (res.body.status == "success") 
               Object.assign(app.patients[app.editedIndex], app.editedItem)
-            }
+            activateAlert(res.body.message, res.body.status)
           }, err => {
 
           })
@@ -887,10 +891,10 @@ let vm = new Vue({
           var url = api_url + 'patients/create'
           app.$http.post(url, app.editedItem).then( res => {
             app.loading = false
-            if (res.body.status == "success") {
+            if (res.body.status == "success")
               app.editedItem.patient_id = res.body.data.patient_id
               app.patients.push(app.editedItem)
-            }
+            activateAlert(res.body.message, res.body.status)
           }, err => {
             app.loading = false
           })
@@ -908,12 +912,10 @@ let vm = new Vue({
           var url = api_url + 'appointments/update'
           app.$http.post(url, obj.editedItem).then( res => {
             app.loading = false
-            if (res.body.status == "success") {
-              obj.editedItem.appointment_id = res.body.data
+            if (res.body.status == "success")
+              obj.editedItem.appointment_id = res.body.data.appointment_id
               Object.assign(obj.appointments[obj.editedIndex], obj.editedItem)
-              app.closeAppointment()
-              return true
-            }
+            activateAlert(res.body.message, res.body.status)
             app.closeAppointment()
           }, err => {
             app.loading = false
@@ -923,12 +925,10 @@ let vm = new Vue({
           var url = api_url + 'appointments/create'
           app.$http.post(url, obj.editedItem).then( res => {
             app.loading = false
-            if (res.body.status == "success") {
+            if (res.body.status == "success")
               obj.editedItem.appointment_id = res.body.data.appointment_id
               obj.appointments.push(obj.editedItem)
-              app.closeAppointment()
-              return true
-            }
+            activateAlert(res.body.message, res.body.status)
             app.closeAppointment()
           }, err => {
             app.loading = false
@@ -949,9 +949,7 @@ let vm = new Vue({
         }
         app.$http.post(url, data).then( res => {
           app.loading = false
-          if (res.body.status == "success") {
-            return true
-          }
+          activateAlert(res.body.message, res.body.status)
         }, err => {
           app.loading = false
         })
@@ -964,9 +962,7 @@ let vm = new Vue({
         app.patient_history.form.patient_id = app.editedItem.patient_id
         app.$http.post(url, app.patient_history.form).then( res => {
           app.patient_history.loading = false
-          if (res.body.status == "success") {
-            return true
-          }
+          activateAlert(res.body.message, res.body.status)
         }, err => {
           app.patient_history.loading = false
         })
@@ -984,9 +980,7 @@ let vm = new Vue({
         }
         app.$http.post(url, data).then( res => {
           app.patient_risk_factors.loading = false
-          if (res.body.status == "success") {
-            return true
-          }
+          activateAlert(res.body.message, res.body.status)
         }, err => {
           app.patient_history.loading = false
         })
@@ -1002,11 +996,29 @@ let vm = new Vue({
         }
         app.$http.post(url, data).then( res => {
           app.patient_risk_factors.diagnostic_loading = false
-          if (res.body.status == "success") {
-            return true
-          }
+          activateAlert(res.body.message, res.body.status)
         }, err => {
           app.patient_history.loading = false
+        })
+      },
+
+
+      saveExam () {
+        var app = this
+        var obj = app.patient_laboratory_exams
+        var url = api_url + "medical-exams/create"
+        obj.editedItem.patient_id = app.editedItem.patient_id
+        obj.editedItem.exam_name = obj.selectedExam.name
+        obj.editedItem.exam_id = obj.selectedExam.exam_id
+
+        app.$http.post(url, obj.editedItem).then(res => {
+          if (res.body.status == 'success')
+            obj.editedItem.patient_exam_id = res.body.data.patient_exam_id
+            obj.exam_results.push(obj.editedItem)
+          activateAlert(res.body.message, res.body.status)
+          app.closeExam()
+        }, err => {
+          app.closeExam()
         })
       },
 
@@ -1092,27 +1104,9 @@ let vm = new Vue({
         var url = api_url + 'vital-signals/create'
         results.patient_id = app.editedItem.patient_id
         app.$http.post(url, results).then( res => {
+          activateAlert(res.body.message, res.body.status)
         }, err => {
 
-        })
-      },
-
-      saveExam () {
-        var app = this
-        var obj = app.patient_laboratory_exams
-        var url = api_url + "medical-exams/create"
-        obj.editedItem.patient_id = app.editedItem.patient_id
-        obj.editedItem.exam_name = obj.selectedExam.name
-        obj.editedItem.exam_id = obj.selectedExam.exam_id
-
-        app.$http.post(url, obj.editedItem).then(res => {
-          if (res.body.status == 'success') {
-            obj.editedItem.patient_exam_id = res.body.data.patient_exam_id
-            obj.exam_results.push(obj.editedItem)
-            app.closeExam()
-          }
-        }, err => {
-          app.closeExam()
         })
       },
 

@@ -3,6 +3,10 @@ let vm = new Vue({
     vuetify,
     el: '#siac-suite-container',
     data: {
+      barAlert: false,
+      barTimeout: 1000,
+      barMessage: '',
+      barType: '',
       loading: false,
       valid: false,     
       dialog: false,
@@ -82,8 +86,10 @@ let vm = new Vue({
         var id = this.editedItem.article_id;
         var url = api_url + 'articles/delete'
         this.$http.post(url, {article_id: id}).then(res => {
-            this.articles.splice(this.editedIndex, 1)
+            if (res.body.status == 'success') 
+              this.articles.splice(this.editedIndex, 1)              
             this.closeDelete()
+            activateAlert(res.body.message, res.body.status)
           }, err => {
           this.closeDelete()
         })
@@ -126,6 +132,7 @@ let vm = new Vue({
             if (res.body.status == "success")
               article.slug = res.body.data.slug
               Object.assign(app.articles[editedIndex], article)
+            activateAlert(res.body.message, res.body.status)
           }, err => {
 
           })
@@ -141,6 +148,7 @@ let vm = new Vue({
               app.editedItem.article_id = res.body.data.article_id
               app.editedItem.slug = res.body.data.slug
               this.articles.push(app.editedItem)
+            activateAlert(res.body.message, res.body.status)
           }, err => {
 
           })

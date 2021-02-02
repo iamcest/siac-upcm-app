@@ -43,11 +43,11 @@ switch ($method) {
 		$result = $member->create(sanitize($data), $columns);
 		if (!$result) $helper->response_message('Error', 'No se pudo registrar el miembro correctamente', 'error');
 		$columns = ['user_id', 'telephone', 'whatsapp', 'telegram', 'sms'];
-		$result = $member->create_contact($result, sanitize($data), $columns);
-		if (!$result) {
+		$contact = $member->create_contact($result, sanitize($data), $columns);
+		if (!$contact) {
 			$helper->response_message('Error', 'no se pudo registrar la información de contacto del miembro', 'error');
 		}
-		$helper->response_message('Éxito', 'Se registró el miembro correctamente');
+		$helper->response_message('Éxito', 'Se registró el miembro correctamente', 'success', ['user_id' => $result]);
 		break;	
 
 	case 'update':

@@ -6,6 +6,7 @@
         <?php echo new Template('parts/sidebar') ?>
         <v-col cols="12" md="9" lg="10" class="pt-16 pl-md-8">
           <?php echo new Template('parts/upcm_logo') ?>
+          <?php echo new Template('components/snackbar') ?>
           <v-row>
             <v-col cols="12" md="6" lg="5">
               <v-btn class="rounded-pill secondary white--text py-6 mb-sm-4 mb-lg-0" @click="editItem(defaultItem)"><v-icon>mdi-plus</v-icon> Añadir anuncio</v-btn>

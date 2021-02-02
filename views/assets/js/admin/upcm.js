@@ -3,7 +3,11 @@ let vm = new Vue({
     vuetify,
     el: '#siac-suite-container',
     data: {
-      loading: false,     
+      barAlert: false,
+      barTimeout: 1000,
+      barMessage: '',
+      barType: '',
+      loading: false,  
       dialog: false,
       dialogDelete: false,
       headers: [
@@ -53,7 +57,6 @@ let vm = new Vue({
       initialize () {
         var url = api_url + 'upcms/get'
         this.$http.get(url).then(res => {
-          console.log(res)
           this.upcms = res.body;
         }, err => {
 
@@ -79,7 +82,7 @@ let vm = new Vue({
           if (res.body.status == "success") 
             this.upcms.splice(this.editedIndex, 1)
             this.closeDelete()
-            
+          activateAlert(res.body.message, res.body.status)
           }, err => {
           this.closeDelete()
         })
@@ -108,21 +111,27 @@ let vm = new Vue({
         if (this.editedIndex > -1) {
           var url = api_url + 'upcms/update'
           this.$http.post(url, upcm).then(res => {
-            Object.assign(app.upcms[editedIndex], upcm)
+            if (res.body.status == 'success') 
+              Object.assign(app.upcms[editedIndex], upcm)
+            activateAlert(res.body.message, res.body.status)
+            this.close()
           }, err => {
-
+            this.close()
           })
         } else {
           var url = api_url + 'upcms/create'
           this.$http.post(url, upcm).then(res => {
-            upcm.upcm_registered = current_date
-            upcm.upcm_id = res.body.data
-            this.upcms.push(upcm)
+            if (res.body.status == 'success') {
+              upcm.upcm_registered = current_date
+              upcm.upcm_id = res.body.data
+              this.upcms.push(upcm)
+            }
+            activateAlert(res.body.message, res.body.status)
+            this.close()
           }, err => {
-
+            this.close()
           })
         }
-        this.close()
       },
 
       formatDate (d) {
@@ -175,6 +184,7 @@ let vm = new Vue({
       getLocation() {
         this.getCountryName();
         this.getStateName();
-      }
+      },
+
   	}
 });

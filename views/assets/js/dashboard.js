@@ -4,6 +4,10 @@ let vm = new Vue({
     vuetify,
     el: '#siac-suite-container',
     data: {
+      barAlert: false,
+      barTimeout: 1000,
+      barMessage: '',
+      barType: '',
       select: false,
       patient_select: false,
       loading: false,
@@ -225,11 +229,10 @@ let vm = new Vue({
         var url = api_url + 'appointments/create'
         app.$http.post(url, obj).then( res => {
           app.loading_form = false
-          if (res.body.status == "success") {
+          if (res.body.status == "success") 
             app.create_dialog = false
             app.initialize()
-            return true
-          }
+          activateAlert(res.body.message, res.body.status)
         }, err => {
           app.loading_form = false
         })
@@ -254,6 +257,7 @@ let vm = new Vue({
             app.form.patient_id = p.patient_id
             app.patient_dialog = false
           }
+          activateAlert(res.body.message, res.body.status)
         }, err => {
           app.patient_create_loading = false
         })
