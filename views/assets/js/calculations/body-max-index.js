@@ -5,10 +5,20 @@ let vm = new Vue({
     data: {
       loading: false,
       patient: {},
-      patients: [],
+      patients: [
+        {
+          full_name:"",
+          weight:"0",
+          height: "0",
+          weight_suffix: "kg",
+          height_suffix: "cm"
+        }
+      ],
       vars: {
         height: 0.00,
-        weight: 0.00
+        weight: 0.00,
+        height_suffix: "cm",
+        weight_suffix: "kg"
       },
       table: [
         {
@@ -31,13 +41,6 @@ let vm = new Vue({
     },
 
     computed: {
-      calc () {
-        if (this.vars.height != 0 && this.vars.weight != 0) 
-          var height = Math.pow(this.vars.height / 100, 2)
-          var weight = this.vars.weight
-          return Math.round(weight * 10 / height) / 10
-        return ''
-      }
     },
 
     created () {
@@ -46,7 +49,9 @@ let vm = new Vue({
       app.loading = true
       app.$http.get(url).then(res => {
         app.loading = false
-        app.patients = res.body
+        res.body.forEach( (e, i) => {
+          app.patients.push(e)
+        });
       }, err => {
         app.loading = false
       })
@@ -56,10 +61,25 @@ let vm = new Vue({
     },
 
     methods: {
+      calc (vars) {
+        if (vars.height != 0 && vars.weight != 0) {
+          weight = vars.w_suffix == 'lb' ? (vars.weight / 2.205) : vars.weight
+          height = vars.h_suffix == 'in' ? (vars.height * 2.54) : vars.height
+          height = Math.pow(height / 100, 2)
+          var result = Math.round(weight * 10 / height) / 10
+          if (typeof result != NaN) {
+            result += ' kg/m2'
+          }
+          return result
+        }
+      },
+
       assignGeneralVars () {
         var app = this
         app.vars.weight = parseFloat(app.patient.weight)
+        app.vars.weight_suffix = app.patient.weight_suffix
         app.vars.height = parseFloat(app.patient.height)
+        app.vars.height_suffix = app.patient.height_suffix
       },
     }
 });

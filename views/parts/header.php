@@ -10,17 +10,20 @@
               <?php if ($_SESSION['user_type'] == 'administrador'): ?>
               <a class="mr-5 secondary--text" href="<?php echo SITE_URL ?>/admin/">Panel</a>                
               <?php else: ?>
-              <a class="mr-5 secondary--text" href="<?php echo SITE_URL ?>/suite/">Suite</a>
+              <a class="mr-5 primary--text" href="<?php echo SITE_URL ?>/suite/"><?php echo $_SESSION['upcm_name'] ?></a>
               <?php endif ?>
-              <v-avatar class="mr-2" size="3vw">
-                <?php if (!empty($_SESSION['avatar'])): ?>
-                <img src="<?php echo SITE_URL ?>/public/img/avatars/<?php echo $_SESSION['avatar'] ?>">
+              <a class="secondary--text" href="<?php SITE_URL ?>/suite/settings/profile">
+                <v-avatar class="mr-2" size="3vw">
+                  <?php if (!empty($_SESSION['avatar'])): ?>
+                  <img src="<?php echo SITE_URL ?>/public/img/avatars/<?php echo $_SESSION['avatar'] ?>">
 
-                <?php else: ?>
-                <v-icon style="font-size: 3vw">mdi-account-circle</v-icon>
-                <?php endif ?>
-              </v-avatar>
+                  <?php else: ?>
+                  <v-icon style="font-size: 3vw">mdi-account-circle</v-icon>
+                  <?php endif ?>
+                </v-avatar>
               <?php echo $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
+              </a>
+              <a class="ml-5 red--text" href="<?php SITE_URL ?>/api/members/logout">Cerrar sesión</a>
             <?php endif ?>
           </v-col>
         </v-row>

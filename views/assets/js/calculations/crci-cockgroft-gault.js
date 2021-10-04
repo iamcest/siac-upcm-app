@@ -5,7 +5,15 @@ let vm = new Vue({
     data: {
       loading: false,
       patient: {},
-      patients: [],
+      patients: [
+        {
+          full_name: "",
+          birthdate: moment().format('YYYY-MM-DD'),
+          gender: "M",
+          weight: "0",
+          weight_suffix: "kg",
+        }
+      ],
       genders: 
       [
         {
@@ -21,6 +29,7 @@ let vm = new Vue({
         age: 0,
         gender: '',
         weight: 0.00,
+        weight_suffix: 'kg',
         creatinine_serum: 0.00,
       },
     },
@@ -29,7 +38,7 @@ let vm = new Vue({
       calc () {
         var age = this.vars.age
         var gender = this.vars.gender
-        var weight = this.vars.weight
+        weight = this.vars.weight_suffix == 'lb' ? (this.vars.weight / 2.205) : this.vars.weight
         var creatinine = this.vars.creatinine_serum
 
         if (gender == "F") {
@@ -49,11 +58,13 @@ let vm = new Vue({
 
     created () {
       var app = this
-      var url = api_url + 'patients/get-patient-general-info'
+      var url = api_url + 'anthropometry/get-patient-general-info'
       app.loading = true
       app.$http.get(url).then(res => {
         app.loading = false
-        app.patients = res.body
+        res.body.forEach( (e, i) => {
+          app.patients.push(e)
+        });
       }, err => {
         app.loading = false
       })
@@ -68,6 +79,8 @@ let vm = new Vue({
         var age = moment(app.patient.birthdate, "YYYY-MM-DD").fromNow().split(" ")[0]
         app.vars.age = age
         app.vars.gender = app.patient.gender
+        app.vars.weight = parseInt(app.patient.weight)
+        app.vars.weight_suffix = app.patient.weight_suffix
       },
     }
 });

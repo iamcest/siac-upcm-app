@@ -1,5 +1,8 @@
 /*VUE INSTANCE*/
 moment.locale('es')
+Vue.use(VueTelInputVuetify, {
+  vuetify,
+});
 let vm = new Vue({
     vuetify,
     el: '#siac-suite-container',
@@ -136,8 +139,8 @@ let vm = new Vue({
               appointments.push(appointment)
             });
             app.appointments = appointments
-            app.renderCalendar()
           }
+          app.renderCalendar()
         }, err => {
 
         })
@@ -148,7 +151,7 @@ let vm = new Vue({
         document.getElementById('siac-suite-container').style.display = 'inline'
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          eventClick: (info) => {
+          eventClick: info => {
             var props = info.event.extendedProps
             var item = {
               patient: info.event.title,
@@ -156,6 +159,10 @@ let vm = new Vue({
               props
             }
             app.appointmentDetails(item)
+          },
+          dateClick: info => {
+            app.form.appointment_date = info.dateStr
+            app.create_dialog = true
           },
           themeSystem: 'Materia',
           initialView: 'dayGridMonth',
@@ -257,6 +264,10 @@ let vm = new Vue({
         }, err => {
           app.patient_create_loading = false
         })
+      },
+
+      getTelephoneInput (text, data) {
+        this.patient.telephone = data.number.international
       },
 
       fromNow (date) {

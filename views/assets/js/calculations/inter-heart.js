@@ -217,12 +217,14 @@ let vm = new Vue({
         var eat_fruits = this.vars.eat_fruits
         var eat_vegetables = this.vars.eat_vegetables
         var eat_meat = this.vars.eat_meat
+        /*
         console.log([{region: region, age: age, smoking: smoking, diabete: diabete,
           hipertension: hipertension, parents_ha_history: parents_ha_history, waist_index: waist_index,
           stress_frecuency: stress_frecuency, free_time_activity: free_time_activity, 
           salt_snack_food_daily: salt_snack_food_daily, fast_food_weekly: fast_food_weekly,
           eat_fruits: eat_fruits, eat_vegetables: eat_vegetables, eat_meat: eat_meat 
         }])
+        */
         return Math.round((
           age + smoking + diabete + hipertension + parents_ha_history + 
           waist_index + stress_frecuency + free_time_activity + salt_snack_food_daily + 

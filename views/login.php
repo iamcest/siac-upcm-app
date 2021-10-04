@@ -13,6 +13,7 @@
 						      src="http://<?php echo $_SERVER['HTTP_HOST']; ?>/public/img/Logo.png"
 						    ></v-img>
 						  </div>
+							<h1 class="text-center text-h5 mt-4">Suite de Trabajo</h1>
 						  <v-form class="px-10">
 
 					      <v-row>
@@ -23,7 +24,7 @@
 					        	<label for="">Contraseña</label>
 					          <v-text-field type="password" name="password" v-model="password"  v-on:keyup.enter="login" outlined required ></v-text-field>
 					          <v-row class="d-flex justify-end mb-4">
-						          <v-btn  @click="dialog = true" text>¿Olvidaste tu contraseña?</v-btn>					          	
+						          <v-btn  @click="dialog = true" text>¿Olvidaste tu contraseña?</v-btn>
 					          </v-row>
 					          <div class="d-flex flex-column justify-space-between align-center mb-5">
 						          <v-btn class="grey white--text py-5" :loading="loading" :disabled="email == '' || password == ''" v-on:click="login" rounded>Iniciar Sesión</v-btn>

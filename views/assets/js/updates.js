@@ -5,7 +5,10 @@ let vm = new Vue({
     el: '#siac-suite-container',
     data: {
       loading: false,
-      updates: []
+      updates: [],
+      updates_filtered: [],
+      search_by: 'Doctor',
+      search: '',
     },
 
     computed: {
@@ -24,7 +27,13 @@ let vm = new Vue({
         var url = api_url + 'updates/get'
         app.$http.get(url).then( res => {
           if (res.body.length > 0) {
+            res.body.forEach((item, i) => {
+              item['doctor_full_name'] = item.doctor_first_name + ' ' + item.doctor_last_name
+              item['patient_full_name'] = item.patient_first_name + ' ' + item.patient_last_name
+            });
+
             app.updates = res.body
+            app.updates_filtered = res.body
           }
         }, err => {
 
@@ -35,9 +44,24 @@ let vm = new Vue({
         return moment(d).fromNow();
       },
 
+      filterUpdates () {
+        var app = this
+        var query = app.search
+        var search_by = app.search_by
+        var filtered = app.updates.filter( (el) => {
+          if (search_by == 'Doctor') {
+            return el.doctor_full_name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+          }
+          else if (search_by == 'Paciente') {
+            return el.patient_full_name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+          }
+        })
+        return app.updates_filtered = filtered
+      },
+
       getAlertClass (c) {
         if (c == 'update') {
-         return 'success' 
+         return 'success'
         }
         else if (c == 'delete') {
           return 'error'
@@ -45,7 +69,7 @@ let vm = new Vue({
         else {
           return 'primary'
         }
-      }
+      },
 
   	}
 });

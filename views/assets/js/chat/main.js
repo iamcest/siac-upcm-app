@@ -8,6 +8,8 @@ let vm = new Vue({
     search_member: '',
     search_external_member: '',
     is_opened: false,
+    getting_messages_loading: false,
+    privateMessagesInterval: '',
     group_dialog: false,
     dialog_kick: false,
     dialog_member_type: false,
@@ -22,7 +24,7 @@ let vm = new Vue({
     edit_group_name: false,
     user_group_admin: false,
     tab: null,
-    message: '',
+    message: ' ',
     file_media: null,
     files: [],
     chat: [],
@@ -57,22 +59,22 @@ let vm = new Vue({
   computed: {
   },
 
-  created () {
+  created() {
     this.initialize()
   },
 
-  mounted () {
+  mounted() {
   },
 
   methods: {
 
-    initialize () {
+    initialize() {
       this.getUPCMChats()
       this.getExternalChats()
       this.getGroupChats()
     },
 
-    getUPCMChats () {
+    getUPCMChats() {
       var app = this
       var url = api_url + "chat/get-upcm-chats"
       app.$http.get(url).then(res => {
@@ -96,7 +98,7 @@ let vm = new Vue({
       })
     },
 
-    getAllMembers () {
+    getAllMembers() {
       var app = this
       var url = api_url + "chat/get-all-upcm-members"
       app.dialog_add_external_member = true
@@ -124,7 +126,7 @@ let vm = new Vue({
       })
     },
 
-    getExternalChats () {
+    getExternalChats() {
       var app = this
       var url = api_url + "chat/get-external-upcm-chats"
       app.$http.get(url).then(res => {
@@ -136,7 +138,7 @@ let vm = new Vue({
       })
     },
 
-    getGroupChats () {
+    getGroupChats() {
       var app = this
       var url = api_url + "group-chat/get"
       app.$http.get(url).then(res => {
@@ -148,16 +150,16 @@ let vm = new Vue({
       })
     },
 
-    getGroupMembers () {
+    getGroupMembers() {
       var app = this
       var url = api_url + "group-chat/get-members"
-      var id = {group_id: app.opened_chat.group_id}
+      var id = { group_id: app.opened_chat.group_id }
       app.user_group_admin = false
       app.$http.post(url, id).then(res => {
         if (res.body.length > 0) {
           app.group_members = res.body
           res.body.forEach((e) => {
-            if (e.user_id == uid && e.member_type == 'administrador') 
+            if (e.user_id == uid && e.member_type == 'administrador')
               app.user_group_admin = true
           })
         }
@@ -166,47 +168,111 @@ let vm = new Vue({
       })
     },
 
-    getMessages () {
+    getMessages() {
       var app = this
       var url = api_url + "chat/get-messages"
-      data = {sender: app.opened_chat.user_id, receiver: uid}
+      data = { sender: app.opened_chat.user_id, receiver: uid }
       app.chat = []
+      app.getting_messages_loading = true
       app.$http.post(url, data).then(res => {
         if (res.body.length > 0) {
           app.chat = res.body
           app.chat_copy = app.filterMessagesByDate(res.body)
           app.markAsSeen(data)
         }
-        else{
+        else {
           app.chat = []
           app.chat_copy = []
         }
+        if (app.MessagesInterval != '') {
+          clearInterval(app.MessagesInterval)
+        }
+        (function () {
+          vm.getUnreadMessages()
+          vm.$data.MessagesInterval = setTimeout(arguments.callee, 2000);
+        })();
+        app.getting_messages_loading = false
       }, err => {
 
       })
     },
 
-    getGroupMessages () {
+    getGroupMessages() {
       var app = this
       var url = api_url + "group-chat/get-messages"
-      data = {group_id: app.opened_chat.group_id}
+      data = { group_id: app.opened_chat.group_id }
       app.chat = []
       app.$http.post(url, data).then(res => {
         if (res.body.length > 0) {
           app.chat = res.body
           app.chat_copy = app.filterMessagesByDate(res.body)
         }
-        else{
+        else {
           app.chat = []
           app.chat_copy = []
         }
         app.getGroupMembers()
+        if (app.MessagesInterval != '') {
+          clearInterval(app.MessagesInterval)
+        }
+        (function () {
+          vm.getUnreadMessages()
+          vm.$data.MessagesInterval = setTimeout(arguments.callee, 2000);
+        })();
+        app.getting_messages_loading = false
       }, err => {
 
       })
     },
 
-    saveGroup () {
+    getUnreadMessages() {
+      var app = this
+      if (!app.getting_messages_loading) {
+        if (app.private_chat) {
+          app.getting_messages_loading = true
+          var data = { sender: app.opened_chat.user_id, receiver: uid }
+          var url = api_url + "chat/get-unread-messages"
+          app.$http.post(url, data).then(res => {
+            if (res.body.length > 0) {
+              res.body.forEach( e => {
+                if (parseInt(e.receiver) == uid) {
+                  app.chat.push(e)
+                }
+              });
+              app.chat_copy = app.filterMessagesByDate(app.chat)
+              app.markAsSeen(data, true)
+            }
+            app.getting_messages_loading = false
+          }, err => {
+            app.getting_messages_loading = false
+          })
+        }
+        else if (!app.private_chat && app.opened_chat.hasOwnProperty('group_name')) {
+          var url = api_url + "group-chat/get-unread-messages"
+          var data = {
+            group_id: app.opened_chat.group_id,
+            sender: uid, 
+            date: app.chat[app.chat.length - 1].message_date,
+            time: app.chat[app.chat.length - 1].message_time,
+          }
+          app.$http.post(url, data).then(res => {
+            if (!app.getting_messages_loading) {
+              if (res.body.length > 0) {
+                res.body.forEach( e => {
+                  app.chat.push(e)
+                });
+                app.chat_copy = app.filterMessagesByDate(app.chat)
+              }
+              app.getting_messages_loading = false
+            }
+          }, err => {
+            app.getting_messages_loading = false
+          })
+        }
+      }
+    },
+
+    saveGroup() {
       var app = this
       var url = api_url + 'group-chat/create-group'
       if (app.group_form.group_name == '' || app.group_form.members.length == 0) {
@@ -228,11 +294,11 @@ let vm = new Vue({
       })
     },
 
-    saveGroupTitle () {
+    saveGroupTitle() {
       var app = this
       var data = {}
       var url = api_url + 'group-chat/edit-group-name'
-      data = {group_id: app.opened_chat.group_id, group_name: app.opened_chat.group_name_copy}
+      data = { group_id: app.opened_chat.group_id, group_name: app.opened_chat.group_name_copy }
       app.$http.post(url, data).then(res => {
         if (res.body.status == 'success') {
           app.opened_chat.group_name = data.group_name
@@ -241,15 +307,15 @@ let vm = new Vue({
         }
       }, err => {
 
-      })      
+      })
     },
-    
-    sendMessage () {
+
+    sendMessage() {
       var app = this
       var data = []
       var current_date = moment().format('YYYY-MM-DD')
       var current_time = moment().format("hh:mm:ss")
-      if (app.message == "" && !upload_file) 
+      if (app.message == "" && !upload_file)
         return false
       var raw = {
         receiver: app.opened_chat.user_id,
@@ -265,7 +331,7 @@ let vm = new Vue({
       data.append('message', app.message)
       data.append('file', app.file_media)
       var url = api_url + "chat/send-message"
-      app.$http.post(url, data).then( res => {
+      app.$http.post(url, data).then(res => {
         if (res.body.status == 'success') {
           raw.file = res.body.data
           app.file_media = null
@@ -280,13 +346,17 @@ let vm = new Vue({
       })
     },
 
-    markAsSeen (data, index) {
+    markAsSeen(data, noScroll = false) {
       var app = this
       var url = api_url + "chat/read-messages"
       app.$http.post(url, data).then(res => {
-        app.scrollChat()
+        if(!noScroll) {
+          app.scrollChat()
+        }
       }, err => {
-        app.scrollChat()
+        if(!noScroll) {
+          app.scrollChat()
+        }
       })
     },
 
@@ -295,7 +365,7 @@ let vm = new Vue({
       var data = []
       var current_date = moment().format('YYYY-MM-DD')
       var current_time = moment().format("hh:mm:ss")
-      if (app.message == "" && !upload_file) 
+      if (app.message == "" && !upload_file)
         return false
       var raw = {
         group_id: app.opened_chat.group_id,
@@ -311,9 +381,11 @@ let vm = new Vue({
       data.append('message', app.message)
       data.append('file', app.file_media)
       var url = api_url + "group-chat/send-message"
-      app.$http.post(url, data).then( res => {
+      app.$http.post(url, data).then(res => {
         if (res.body.status == 'success') {
-          raw.file = res.body.data
+          raw.file = res.body.data.file
+          raw.message_time = res.body.data.message_time
+          raw.message_date = res.body.data.message_date
           app.file_media = null
           app.loading = false
           app.upload_file = false
@@ -326,11 +398,11 @@ let vm = new Vue({
       })
     },
 
-    getTimeHour (d) {
+    getTimeHour(d) {
       return moment(d).format("h:mm")
     },
 
-    openChat (item) {
+    openChat(item) {
       var app = this
       app.opened_chat = Object.assign({}, item)
       app.dialog_add_external_member = false
@@ -339,7 +411,7 @@ let vm = new Vue({
       app.getMessages()
     },
 
-    openGroupChat (item) {
+    openGroupChat(item) {
       var app = this
       app.private_chat = false
       app.is_opened = true
@@ -349,17 +421,17 @@ let vm = new Vue({
       app.getGroupMessages()
     },
 
-    scrollChat () {
+    scrollChat() {
       var container = document.getElementById('chat_container')
       container.scroll(0, window.innerHeight * 4)
     },
 
-    getExt (file_name) {
+    getExt(file_name) {
       var ext = file_name.split('.')
       return ext[1]
     },
 
-    getExtIcon (file_name) {
+    getExtIcon(file_name) {
       var ext = file_name.split('.')
       var file_icon = ''
       switch (ext[1]) {
@@ -391,7 +463,7 @@ let vm = new Vue({
       return file_icon
     },
 
-    prevImage (src, title) {
+    prevImage(src, title) {
       if (!src) return false
       var image = new Image();
       var protocol = window.location.protocol;
@@ -404,7 +476,7 @@ let vm = new Vue({
         image.src = domain + "/public/media/group_chat/" + src;
       }
       var viewer = new Viewer(image, {
-        hidden: function() {
+        hidden: function () {
           viewer.destroy();
         },
         title: [1, (image, imageData) => title],
@@ -435,15 +507,15 @@ let vm = new Vue({
       });
     },
 
-    assign_member (item) {
+    assign_member(item) {
       var app = this
       app.member_index = app.group_members.indexOf(item)
       app.selected_member = Object.assign({}, item)
     },
 
-    deleteMember () {
+    deleteMember() {
       var app = this
-      var data = {group_id: app.opened_chat.group_id, user_id: app.selected_member.user_id}
+      var data = { group_id: app.opened_chat.group_id, user_id: app.selected_member.user_id }
       var url = api_url + 'group-chat/kick-member'
       app.$http.post(url, data).then(res => {
         if (res.body.status == 'success') {
@@ -455,9 +527,9 @@ let vm = new Vue({
       })
     },
 
-    deleteGroup () {
+    deleteGroup() {
       var app = this
-      var data = {group_id: app.opened_chat.group_id}
+      var data = { group_id: app.opened_chat.group_id }
       var url = api_url + 'group-chat/delete-group'
       app.$http.post(url, data).then(res => {
         if (res.body.status == 'success') {
@@ -470,9 +542,9 @@ let vm = new Vue({
       })
     },
 
-    leaveGroup () {
+    leaveGroup() {
       var app = this
-      var data = {group_id: app.opened_chat.group_id, user_id: uid}
+      var data = { group_id: app.opened_chat.group_id, user_id: uid }
       var url = api_url + 'group-chat/leave'
       app.$http.post(url, data).then(res => {
         if (res.body.status == 'success') {
@@ -485,19 +557,19 @@ let vm = new Vue({
       })
     },
 
-    openMemberTypeDialog (item) {
+    openMemberTypeDialog(item) {
       var app = this
       app.assign_member(item)
       app.dialog_member_type = true
     },
 
-    openKickDialog (item) {
+    openKickDialog(item) {
       var app = this
       app.assign_member(item)
       app.dialog_kick = true
     },
 
-    closeGroupDialog () {
+    closeGroupDialog() {
       var app = this
       app.dialog_delete_group = false
       app.group_index = -1
@@ -505,7 +577,7 @@ let vm = new Vue({
       app.group_members = []
     },
 
-    closeDialogs () {
+    closeDialogs() {
       var app = this
       app.dialog_kick = false
       app.dialog_member_type = false
@@ -513,9 +585,9 @@ let vm = new Vue({
       app.selected_member = Object.assign({}, {})
     },
 
-    changeMemberType () {
+    changeMemberType() {
       var app = this
-      var data = {group_id: app.opened_chat.group_id, user_id: app.selected_member.user_id, rol: app.selected_member.member_type}
+      var data = { group_id: app.opened_chat.group_id, user_id: app.selected_member.user_id, rol: app.selected_member.member_type }
       var url = api_url + 'group-chat/change-member-type'
       app.$http.post(url, data).then(res => {
         if (res.body.status == 'success') {
@@ -528,12 +600,12 @@ let vm = new Vue({
       })
     },
 
-    filterMessagesByDate (messages) {
+    filterMessagesByDate(messages) {
       var results = _.chain(messages).groupBy('message_date').value()
       return results
     },
 
-    formatDate (d) {
+    formatDate(d) {
       var format_date = moment(d).format('DD [de] MMMM')
       var date = moment(d).calendar().split(" ")
       if (date[0] == 'hoy' || date[0] == 'ayer') {

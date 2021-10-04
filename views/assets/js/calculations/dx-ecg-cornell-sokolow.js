@@ -5,7 +5,12 @@ let vm = new Vue({
     data: {
       loading: false,
       patient: {},
-      patients: [],
+      patients: [
+        {
+          full_name: "",
+          gender: "M",
+        }
+      ],
       genders: 
       [
         {
@@ -50,7 +55,9 @@ let vm = new Vue({
       app.loading = true
       app.$http.get(url).then(res => {
         app.loading = false
-        app.patients = res.body
+        res.body.forEach( (e, i) => {
+          app.patients.push(e)
+        });
       }, err => {
         app.loading = false
       })

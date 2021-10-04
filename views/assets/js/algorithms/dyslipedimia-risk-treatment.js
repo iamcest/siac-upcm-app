@@ -61,6 +61,7 @@ let vm = new Vue({
         app.pcsk9_item = false
 
         if (c_ldl >= 70) {
+          app.diagnostic = 'No óptimo'
           if (tg >= 200 && c_no_hdl >= 100) {
             app.treatment.active = true
             app.ao3_fibratos_item = true
@@ -68,7 +69,7 @@ let vm = new Vue({
           else {
             if (tg < 200 && c_no_hdl < 100) {
               app.treatment.active = true
-              app.pcsk9_item = true    
+              app.pcsk9_item = true
               app.ezt_item = true
             }
           }
@@ -77,9 +78,10 @@ let vm = new Vue({
           app.diagnostic = 'óptimo'
         }
         else if (c_ldl > 50 && c_ldl <= 70) {
+          app.diagnostic = 'No óptimo'
           if (tg >= 200 && c_no_hdl >= 100) {
             app.treatment.active = true
-            app.ao3_fibratos_item = true           
+            app.ao3_fibratos_item = true
           }
           else{
             if (tg > 0 && c_no_hdl > 0) {

@@ -21,12 +21,16 @@
 
               <v-col cols="12" md="6">
                 <label>Peso</label>
-                <v-text-field class="mt-3" v-model="patient_risk_factors.selectedForm.obj.vars.weight" :counter="7" suffix="kg" outlined required ></v-text-field>
+                <v-text-field class="mt-3 append-20" v-model="patient_risk_factors.selectedForm.obj.vars.weight" :counter="7" outlined disabled required>
+                  <template #append>
+                    <v-select v-model="patient_risk_factors.selectedForm.obj.vars.weight_suffix" class="p-0 m-0 mt-n1 mb-n4" :items="['kg', 'lb']" dense></v-select>
+                  </template>
+                </v-text-field>
               </v-col>
 
               <v-col cols="12" md="6">
                 <label>Suero de creatinina</label>
-                <v-text-field class="mt-3" v-model="patient_risk_factors.selectedForm.obj.vars.creatinine_serum" :counter="7" outlined required ></v-text-field>
+                <v-text-field class="mt-3" v-model="patient_risk_factors.selectedForm.obj.vars.creatinine_serum" :counter="7" suffix="mg/dl" outlined required ></v-text-field>
               </v-col>
 
               <v-col cols="12" md="4" offset-md="4">

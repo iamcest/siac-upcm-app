@@ -69,6 +69,9 @@ h1, h2, h3 , h4, h5, h6, .v-application .text-h3, .v-application .text-h4{
 .annoucement-info{
   display: inline !important;
 }
+.append-20 .v-input__append-inner {
+  width: 20%;
+}
 /*END*/
 .header{
   background-image: url(../img/login-bg.jpg);
@@ -167,4 +170,10 @@ h1, h2, h3 , h4, h5, h6, .v-application .text-h3, .v-application .text-h4{
   color: white !important;
   height: 4px !important;
   top: 45px !important;
+}
+
+@media only screen and ( max-width: 479px ) {
+  .whatsapp-platform .v-icon.v-icon, .telegram-platform .v-icon.v-icon, .sms-platform .v-icon.v-icon{
+    font-size: 5vw !important;
+  }
 }

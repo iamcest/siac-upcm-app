@@ -24,7 +24,8 @@ let vm = new Vue({
 
     computed: {
       calc () {
-        return parseInt(this.vars.total_cholesterol) - parseInt(this.vars.c_HDL)
+        return parseInt(this.vars.total_cholesterol) - parseInt(this.vars.c_HDL) 
+        - parseInt(this.vars.triglyceride_level / 5)
       }
     },
 

@@ -41,7 +41,7 @@ let vm = new Vue({
         var ampa_form = app.ampa_form
         var tracking = app.tracking
         var diagnostic = app.diagnostic
-        
+
         app.ampa_form = false
 
         if (pas < 130 && pad < 80) {
@@ -58,11 +58,11 @@ let vm = new Vue({
         else if (pas >= 130 && pas < 180 && pad >= 80 && pad < 110) {
           app.ampa_form = true
           ampa = ampa.split('/')
-          if (parseInt(ampa[0]) < 130 && parseInt(ampa[1]) < 80) {
+          if (parseInt(ampa[0]) <= 130 && parseInt(ampa[1]) <= 80) {
             app.diagnostic = 'Hipertensión de bata blanca'
             app.tracking = 'PA Casual cada 6 meses'
           }
-          else if (parseInt(ampa[0]) >= 130 && parseInt(ampa[1]) >= 80) {
+          else if (parseInt(ampa[0]) > 130 && parseInt(ampa[1]) > 80) {
             app.diagnostic = 'Hipertensión arterial'
             app.tracking = 'Iniciar tratamiento medicantoso'
             if (parseInt(ampa[0]) < 135 && parseInt(ampa[1]) < 85 && parseInt(ampa[0]) > 130 && parseInt(ampa[1]) > 80 ) {
@@ -70,7 +70,7 @@ let vm = new Vue({
             }
             else if (parseInt(ampa[0]) < 135 && parseInt(ampa[1]) < 85) {
               app.diagnostic += ' (Estadio 2)'
-            }            
+            }
           }
         }
       }

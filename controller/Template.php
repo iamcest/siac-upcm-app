@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ *
  */
 class Template
 {
@@ -14,9 +14,9 @@ class Template
 	}
 	public function __toString() {
 		return $this->content;
-	}	
+	}
 	static function patient_tabs() {
-		$tabs = ['tabs' => ['general_information', 'appointments', 'anthropometry', 'vitals_signs','history', 'laboratory_exams', 'risk_factors']];
+		$tabs = ['tabs' => ['general_information', 'appointments', 'history', 'anthropometry', 'vitals_signs', 'physical_exam', 'electro_cardiogram', 'echocardiogram', 'laboratory_exams', 'risk_factors', 'plan']];
  		return $tabs;
 	}
 }

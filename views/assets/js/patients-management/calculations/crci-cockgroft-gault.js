@@ -11,7 +11,7 @@ var crci_cockgroft_gault_vars = {
     var app = this
     var age = app.vars.age
     var gender = app.vars.gender
-    var weight = app.vars.weight
+    weight = this.vars.weight_suffix == 'lb' ? (this.vars.weight / 2.205) : this.vars.weight
     var creatinine = app.vars.creatinine_serum
 
     if (gender == "F") {

@@ -1,6 +1,11 @@
 /.phpintel
-SIAC Project.sublime-project
-SIAC Project.sublime-workspace
+*.sublime-workspace
+*.sublime-project
+*.code-workspace
 /config/global.php
 public/img
+public/media/
 sublimeAutoComplete.json
+public/exam-files/
+public/material/
+public/material-templates/

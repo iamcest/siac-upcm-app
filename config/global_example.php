@@ -17,7 +17,7 @@ define("DB_ENCODE","utf8");
 //Project Name
 define("PROJECT_NAME","PROJECT NAME");
 
-/*Development purpose*/
+/*Root Directory*/
 define("DIRECTORY","C:\Users/user_name\Desktop\App");
 
 //Check if current server has server ssl activated

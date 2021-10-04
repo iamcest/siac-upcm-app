@@ -6,10 +6,20 @@ let vm = new Vue({
       loading: false,
       patient: {},
       result: '',
-      patients: [],
+      patients: [
+        {
+          full_name:"",
+          weight:"0",
+          height: "0",
+          weight_suffix: "kg",
+          height_suffix: "cm"
+        }
+      ],
       vars: {
         height: 0.00,
-        weight: 0.00
+        weight: 0.00,
+        height_suffix: "cm",
+        weight_suffix: "kg"
       },
       table: [
         {
@@ -28,16 +38,6 @@ let vm = new Vue({
     },
 
     computed: {
-      calc () {
-        //Dubois Form
-        var fixed = 3600
-        if (this.vars.height != 0 && this.vars.weight != 0) 
-          var height = this.vars.height
-          var weight = this.vars.weight
-          var partial = Math.pow((height * weight / fixed), 0.5)
-          return Math.round(partial * 100) / 100
-        return ''
-      }
     },
 
     created () {
@@ -46,7 +46,9 @@ let vm = new Vue({
       app.loading = true
       app.$http.get(url).then(res => {
         app.loading = false
-        app.patients = res.body
+        res.body.forEach( (e, i) => {
+          app.patients.push(e)
+        });
       }, err => {
         app.loading = false
       })
@@ -56,10 +58,26 @@ let vm = new Vue({
     },
 
     methods: {
+      calc (vars) {
+        if (vars.height != 0 && vars.weight != 0) {
+          weight = vars.w_suffix == 'lb' ? (vars.weight / 2.205) : vars.weight
+          height = vars.h_suffix == 'in' ? (vars.height * 2.54) : vars.height
+          var fixed = 3600
+          var partial = Math.pow((height * weight / fixed), 0.5)
+          var result = Math.round(partial * 100) / 100
+          if (typeof result != NaN) {
+            result += ' m2'
+          }
+          return result
+        }
+      },
+      
       assignGeneralVars () {
         var app = this
         app.vars.weight = parseFloat(app.patient.weight)
+        app.vars.weight_suffix = app.patient.weight_suffix
         app.vars.height = parseFloat(app.patient.height)
+        app.vars.height_suffix = app.patient.height_suffix
       },
     }
 });
