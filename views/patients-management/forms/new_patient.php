@@ -18,11 +18,11 @@
 <v-col cols="12" sm="6">
     <label>Fecha de nacimiento</label>
     <v-dialog ref="birthdate_dialog" v-model="birthdate_modal" :return-value.sync="editedItem.birthdate" width="290px">
-        <template v-slot:activator="{ on, attrs }">
-            <v-text-field class="mt-3" v-model="editedItem.birthdate" append-icon="mdi-calendar" readonly v-bind="attrs"
+        <template #activator="{ on, attrs }">
+            <v-text-field class="mt-3" v-model="editedItem.birthdate" append-icon="mdi-calendar" @click="" readonly v-bind="attrs"
                 v-on="on" outlined></v-text-field>
         </template>
-        <v-date-picker v-model="editedItem.birthdate" locale="es" scrollable>
+        <v-date-picker v-model="editedItem.birthdate" ref="register_patient_bd" locale="es" activePicker="YEAR" scrollable>
             <v-spacer></v-spacer>
             <v-btn text color="primary" @click="birthdate_modal = false">
                 Cancel
@@ -76,7 +76,7 @@
     <label>Fecha de ingreso</label>
     <v-dialog ref="entry_date_dialog" v-model="entry_date_modal" :return-value.sync="editedItem.entry_date"
         width="290px">
-        <template v-slot:activator="{ on, attrs }">
+        <template #activator="{ on, attrs }">
             <v-text-field class="mt-3" v-model="editedItem.entry_date" append-icon="mdi-calendar" readonly
                 v-bind="attrs" v-on="on" outlined></v-text-field>
         </template>

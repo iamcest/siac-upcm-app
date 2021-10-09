@@ -2742,6 +2742,10 @@ let vm = new Vue({
       val || this.closeAppointmentDelete()
     },
 
+    birthdate_modal(val) {
+      val && this.$nextTick(() => (this.$refs.register_patient_bd.activePicker = 'YEAR'))
+    },
+
     ph_cd_heart_failure_dx_year_modal(val) {
       val && this.$nextTick(() => (this.$refs.cd_heart_failure_datepicker.activePicker = 'YEAR'))
     },

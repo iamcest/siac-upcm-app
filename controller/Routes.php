@@ -187,7 +187,7 @@ class Routes extends AccessControl
                                         ['name' => "$cf/colesterol-ldl.min", 'version' => '1.0.0'],
                                         ['name' => "$cf/inter-heart.min", 'version' => '1.0.0'],
                                         ['name' => "$cf/heart-risk-framingham.min", 'version' => '1.0.0'],
-                                        ['name' => 'patients-management/patients.min', 'version' => '1.12.3'],
+                                        ['name' => 'patients-management/patients.min', 'version' => '1.12.4'],
                                     ];
                                     $content = new Template("patients-management/patients", [
                                         'notifications' => $total_views,
