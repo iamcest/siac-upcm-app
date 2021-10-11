@@ -58,7 +58,7 @@
         </v-alert>
     </v-col>
 
-    <v-col cols="12" md="4" lg="3" xl="3">
+    <v-col cols="12" md="4" lg="3" xl="3" v-if="1 == 2">
         <v-alert color="info" icon="mdi-heart-pulse" border="left" outlined prominent>
             <b>Fumadores</b>
             <template v-if="!statistics.diseases.loading">

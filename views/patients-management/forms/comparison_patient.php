@@ -34,7 +34,7 @@
             Diagnósticos
         </v-tab>
 
-        <v-tab class="font-weight-bold" href="#tab-comparison-11" @click="initializeComparisonPlans" v-if="1 == 2">
+        <v-tab class="font-weight-bold" href="#tab-comparison-12" @click="initializeComparisonPlans" v-if="1 == 2">
             Plan
         </v-tab>
 

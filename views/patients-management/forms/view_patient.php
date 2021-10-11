@@ -42,7 +42,11 @@
             Diagnósticos
         </v-tab>
 
-        <v-tab class="font-weight-bold" href="#tab-view-11" @click="initializePlans">
+        <v-tab class="font-weight-bold" href="#tab-view-11" @click="initializeLifeStyle">
+            Estilo de vida
+        </v-tab>
+
+        <v-tab class="font-weight-bold" href="#tab-view-12" @click="initializePlans">
             Plan
         </v-tab>
 

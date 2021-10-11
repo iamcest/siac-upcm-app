@@ -1,47 +1,46 @@
 <v-col cols="12">
     <v-row class="d-flex justify-start">
         <v-col cols="6" md="4" lg="3">
-            <v-select v-model="patient_history.form.history_content.diseases.smoking.active"
-                :items="patient_history.select" item-text='text' item-value='value' outlined dense>
-                <template v-slot:prepend>
+            <v-select v-model="patient_life_style.editedItem.smoking.active" :items="patient_life_style.options.select" outlined dense>
+                <template #prepend>
                     <h4 class="my-auto text-h6 font-weight-bold">Tabaquismo:</h4>
                 </template>
             </v-select>
         </v-col>
     </v-row>
-    <v-row class="factor-risk-container mb-10" v-if="patient_history.form.history_content.diseases.smoking.active">
+    <v-row class="factor-risk-container mb-10" v-if="patient_life_style.editedItem.smoking.active">
         <v-col cols="6" md="4" lg="2">
             <v-row>
                 <v-col cols="12">
                     <label class="black--text font-weight-bold">Año de inicio aproximado:</label>
-                    <v-dialog ref="cd_hta_smoking_start_year_modal" v-model="ph_cd_hta_smoking_start_year_modal"
+                    <v-dialog ref="smoking_start_year_modal" v-model="smoking_start_year_modal"
                         width="290px">
-                        <template v-slot:activator="{ on, attrs }">
+                        <template #activator="{ on, attrs }">
                             <v-text-field class="mt-3"
-                                :value="getOnlyYear(patient_history.form.history_content.diseases.smoking.start_year)"
+                                :value="getOnlyYear(patient_life_style.editedItem.smoking.start_year)"
                                 append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" outlined dense>
                             </v-text-field>
                         </template>
-                        <v-date-picker ref="cd_hta_smoking_start_year_datepicker"
-                            v-model="patient_history.form.history_content.diseases.smoking.start_year"
-                            @input="$refs.cd_hta_smoking_start_year_modal.save(patient_history.form.history_content.diseases.smoking.start_year)"
+                        <v-date-picker ref="smoking_start_year_datepicker"
+                            v-model="patient_life_style.editedItem.smoking.start_year"
+                            @input="$refs.smoking_start_year_modal.save(patient_life_style.editedItem.smoking.start_year)"
                             locale="es" reactive no-title scrollable>
                         </v-date-picker>
                     </v-dialog>
                 </v-col>
                 <v-col cols="12 ">
                     <label class="black--text font-weight-bold">Año de abandono:</label>
-                    <v-dialog ref="cd_hta_smoking_quit_year_modal" v-model="ph_cd_hta_smoking_quit_year_modal"
+                    <v-dialog ref="smoking_quit_year_modal" v-model="smoking_quit_year_modal"
                         width="290px">
-                        <template v-slot:activator="{ on, attrs }">
+                        <template #activator="{ on, attrs }">
                             <v-text-field class="mt-3"
-                                :value="getOnlyYear(patient_history.form.history_content.diseases.smoking.quit_year)"
+                                :value="getOnlyYear(patient_life_style.editedItem.smoking.quit_year)"
                                 append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" outlined dense>
                             </v-text-field>
                         </template>
-                        <v-date-picker ref="cd_hta_smoking_quit_year_datepicker"
-                            v-model="patient_history.form.history_content.diseases.smoking.quit_year"
-                            @input="$refs.cd_hta_smoking_quit_year_modal.save(patient_history.form.history_content.diseases.smoking.quit_year)"
+                        <v-date-picker ref="smoking_quit_year_datepicker"
+                            v-model="patient_life_style.editedItem.smoking.quit_year"
+                            @input="$refs.smoking_quit_year_modal.save(patient_life_style.editedItem.smoking.quit_year)"
                             locale="es" reactive no-title scrollable>
                         </v-date-picker>
                     </v-dialog>
@@ -52,8 +51,8 @@
             <v-row>
                 <v-col cols="12">
                     <label class="black--text font-weight-bold">Número de cigarros al día</label>
-                    <v-text-field v-model="patient_history.form.history_content.diseases.smoking.cigarettes_per_day"
-                        class="mt-3" outlined dense>
+                    <v-text-field v-model="patient_life_style.editedItem.smoking.cigarettes_per_day" class="mt-3"
+                        outlined dense>
                     </v-text-field>
                 </v-col>
             </v-row>
@@ -62,22 +61,22 @@
             <v-row>
                 <v-col cols="12">
                     <label class="black--text font-weight-bold">Test de Fagerström</label>
-                    <v-text-field v-model="patient_history.form.history_content.diseases.smoking.fagerstrom_test"
-                        class="mt-3" :hint="getFagerStromScoreDescription(false)" persistent-hint outlined dense>
+                    <v-text-field v-model="patient_life_style.editedItem.smoking.fagerstrom_test" class="mt-3"
+                        :hint="getFagerStromScoreDescription(false)" persistent-hint outlined dense>
                         <template #append>
                             <v-btn class="mr-n3" color="primary" style="margin-top: -6.3px"
-                                @click="patient_history.calc.fagerstrom.form_dialog = true" dark>
+                                @click="patient_life_style.calc.fagerstrom.form_dialog = true" dark>
                                 TEST
                             </v-btn>
                         </template>
                     </v-text-field>
-                    <v-dialog v-model="patient_history.calc.fagerstrom.form_dialog">
+                    <v-dialog v-model="patient_life_style.calc.fagerstrom.form_dialog">
                         <v-card>
                             <v-toolbar elevation="0">
                                 <v-toolbar-title>Test de Fagerström</v-toolbar-title>
                                 <v-spacer></v-spacer>
                                 <v-toolbar-items>
-                                    <v-btn icon dark @click="patient_history.calc.fagerstrom.form_dialog = false">
+                                    <v-btn icon dark @click="patient_life_style.calc.fagerstrom.form_dialog = false">
                                         <v-icon color="grey">mdi-close</v-icon>
                                     </v-btn>
                                 </v-toolbar-items>
@@ -99,9 +98,8 @@
             <v-row>
                 <v-col cols="12">
                     <label class="black--text font-weight-bold">¿Ha dejado de fumar alguna vez?</label>
-                    <v-select class="mt-3"
-                        v-model="patient_history.form.history_content.diseases.smoking.no_smoking_frecuency"
-                        :items="patient_history.select" outlined dense></v-select>
+                    <v-select class="mt-3" v-model="patient_life_style.editedItem.smoking.no_smoking_frecuency"
+                        :items="patient_life_style.options.select" outlined dense></v-select>
                 </v-col>
             </v-row>
         </v-col>
@@ -109,21 +107,21 @@
             <v-row>
                 <v-col cols="12">
                     <label class="black--text font-weight-bold">¿Desea dejar de fumar?</label>
-                    <v-select class="mt-3" v-model="patient_history.form.history_content.diseases.smoking.smoking_wish"
-                        :items="patient_history.select" outlined dense></v-select>
+                    <v-select class="mt-3" v-model="patient_life_style.editedItem.smoking.smoking_wish"
+                        :items="patient_life_style.options.select" outlined dense></v-select>
                 </v-col>
-                <template v-if="patient_history.form.history_content.diseases.smoking.no_smoking_frecuency">
+                <template v-if="patient_life_style.editedItem.smoking.no_smoking_frecuency">
                     <v-col cols="12">
                         <label class="black--text font-weight-bold">Hace cuánto tiempo</label>
-                        <v-text-field class="mt-3"
-                            v-model="patient_history.form.history_content.diseases.smoking.last_time" outlined dense>
+                        <v-text-field class="mt-3" v-model="patient_life_style.editedItem.smoking.last_time" outlined
+                            dense>
                         </v-text-field>
                     </v-col>
                     <v-col cols="12" class="mt-n4">
                         <label class="black--text font-weight-bold">Cuántas veces</label>
                         <v-text-field type="number" class="mt-3"
-                            v-model="patient_history.form.history_content.diseases.smoking.how_many_times" outlined
-                            dense></v-text-field>
+                            v-model="patient_life_style.editedItem.smoking.how_many_times" outlined dense>
+                        </v-text-field>
                     </v-col>
                 </template>
             </v-row>
@@ -132,15 +130,14 @@
             <v-row>
                 <v-col cols="12">
                     <label class="black--text font-weight-bold">Breve consejería</label>
-                    <v-select class="mt-3"
-                        v-model="patient_history.form.history_content.diseases.smoking.short_advice.done"
-                        :items="patient_history.select" outlined dense></v-select>
+                    <v-select class="mt-3" v-model="patient_life_style.editedItem.smoking.short_advice.done"
+                        :items="patient_life_style.options.select" outlined dense></v-select>
                 </v-col>
-                <v-col cols="12" v-if="patient_history.form.history_content.diseases.smoking.short_advice.done">
+                <v-col cols="12" v-if="patient_life_style.editedItem.smoking.short_advice.done">
                     <label class="black--text font-weight-bold">Seleccione el material</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.smoking.short_advice.material"
-                        :items="filtered_templates" :loading="templates_loading" :item-text="item => {return item.material_name}"
-                        return-object outlined dense>
+                    <v-select v-model="patient_life_style.editedItem.smoking.short_advice.material"
+                        :items="filtered_templates" :loading="templates_loading"
+                        :item-text="item => {return item.material_name}" return-object outlined dense>
                         <template #prepend-item>
                             <v-list-item>
                                 <v-list-item-content>
@@ -155,24 +152,23 @@
             </v-row>
         </v-col>
     </v-row>
-    <v-row class="factor-risk-container mb-10" v-if="!patient_history.form.history_content.diseases.smoking.active">
+    <v-row class="factor-risk-container mb-10" v-if="!patient_life_style.editedItem.smoking.active">
         <v-col cols="6" md="4" lg="2">
             <label class="black--text font-weight-bold">¿Fumó alguna vez?</label>
-            <v-select class="mt-3" v-model="patient_history.form.history_content.diseases.smoking.did_smoke"
-                :items="patient_history.select" item-text='text' item-value='value' outlined dense></v-select>
+            <v-select class="mt-3" v-model="patient_life_style.editedItem.smoking.did_smoke"
+                :items="patient_life_style.options.select" outlined dense></v-select>
         </v-col>
-        <v-col cols="6" md="4" lg="2" v-if="patient_history.form.history_content.diseases.smoking.did_smoke">
+        <v-col cols="6" md="4" lg="2" v-if="patient_life_style.editedItem.smoking.did_smoke">
             <label class="black--text font-weight-bold">Año de abandono:</label>
-            <v-dialog ref="cd_hta_smoking_quit_year_modal" v-model="ph_cd_hta_smoking_quit_year_modal" width="290px">
-                <template v-slot:activator="{ on, attrs }">
-                    <v-text-field class="mt-3"
-                        :value="getOnlyYear(patient_history.form.history_content.diseases.smoking.quit_year)"
+            <v-dialog ref="smoking_quit_year_modal" v-model="smoking_quit_year_modal" width="290px">
+                <template #activator="{ on, attrs }">
+                    <v-text-field class="mt-3" :value="getOnlyYear(patient_life_style.editedItem.smoking.quit_year)"
                         append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" outlined dense>
                     </v-text-field>
                 </template>
-                <v-date-picker ref="cd_hta_smoking_quit_year_datepicker"
-                    v-model="patient_history.form.history_content.diseases.smoking.quit_year"
-                    @input="$refs.cd_hta_smoking_quit_year_modal.save(patient_history.form.history_content.diseases.smoking.quit_year)"
+                <v-date-picker ref="smoking_quit_year_datepicker"
+                    v-model="patient_life_style.editedItem.smoking.quit_year"
+                    @input="$refs.smoking_quit_year_modal.save(patient_life_style.editedItem.smoking.quit_year)"
                     locale="es" reactive no-title scrollable>
                 </v-date-picker>
             </v-dialog>

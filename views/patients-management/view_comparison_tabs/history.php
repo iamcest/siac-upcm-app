@@ -20,7 +20,6 @@
                     <?php echo new Template('patients-management/view_comparison_tabs/history_parts/current_patient/dtm2'); ?>
                     <?php echo new Template('patients-management/view_comparison_tabs/history_parts/current_patient/pre_dtm2'); ?>
                     <?php echo new Template('patients-management/view_comparison_tabs/history_parts/current_patient/dyslipidemia'); ?>
-                    <?php echo new Template('patients-management/view_comparison_tabs/history_parts/current_patient/smoking'); ?>
                     <v-row>
                         <v-col class="factor-risk-container px-4 py-4" cols="5">
                             <h5 class="text-h6 black--text font-weight-bold">Ha estado alguna vez hospitalizado por
@@ -123,7 +122,6 @@
                     <?php echo new Template('patients-management/view_comparison_tabs/history_parts/patient_to_compare/dtm2'); ?>
                     <?php echo new Template('patients-management/view_comparison_tabs/history_parts/patient_to_compare/pre_dtm2'); ?>
                     <?php echo new Template('patients-management/view_comparison_tabs/history_parts/patient_to_compare/dyslipidemia'); ?>
-                    <?php echo new Template('patients-management/view_comparison_tabs/history_parts/patient_to_compare/smoking'); ?>
                     <v-row>
                         <v-col class="factor-risk-container px-4 py-4" cols="5">
                             <h5 class="text-h6 black--text font-weight-bold">Ha estado alguna vez hospitalizado por

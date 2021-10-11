@@ -31,8 +31,8 @@ let vm = new Vue({
     ph_cd_ischemic_cardiopathy_scai_ua_year_modal: false,
     ph_cd_ischemic_cardiopathy_surgery_year_modal: false,
     ph_cd_ischemic_cardiopathy_percutaneous_year_modal: false,
-    ph_cd_hta_smoking_start_year_modal: false,
-    ph_cd_hta_smoking_quit_year_modal: false,
+    smoking_start_year_modal: false,
+    smoking_quit_year_modal: false,
     recipe_reports_dialog: false,
     historic_records_dialog: false,
     dialog: false,
@@ -266,10 +266,10 @@ let vm = new Vue({
         loading: false,
         monthly_data: {
           current_year: moment().format('YYYY'),
-          months: ['01','02','03','04','05','06','07','08','09','10','11','12',],
+          months: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12',],
           labels: [
-            'Enero', 'Febrero', 'Marzo', 
-            'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 
+            'Enero', 'Febrero', 'Marzo',
+            'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto',
             'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
           ],
           datasets: [
@@ -283,7 +283,7 @@ let vm = new Vue({
               backgroundColor: vuetify.preset.theme.themes.light.primary,
               data: []
             },
-            
+
             {
               label: 'Mujeres',
               backgroundColor: '#e91e63',
@@ -305,7 +305,7 @@ let vm = new Vue({
               backgroundColor: vuetify.preset.theme.themes.light.primary,
               data: []
             },
-            
+
             {
               label: 'Mujeres',
               backgroundColor: '#e91e63',
@@ -926,6 +926,162 @@ let vm = new Vue({
         },
       },
     },
+    patient_life_style: {
+      loading: false,
+      calc: {
+        fagerstrom: {
+          form_dialog: 0,
+          vars: {
+            input1: 0,
+            input2: 0,
+            input3: 0,
+            input4: 0,
+            input5: 0,
+            input6: 0,
+          },
+          options: {
+            input1: [
+              {
+                text: 'Hasta 5 minutos',
+                value: 3
+              },
+              {
+                text: 'De 6 a 30 minutos',
+                value: 2
+              },
+              {
+                text: 'De 31 a 60 minutos',
+                value: 1
+              },
+              {
+                text: 'Más de 60 minutos',
+                value: 0
+              },
+            ],
+            input3: [
+              {
+                text: 'El primero de la mañana',
+                value: 1
+              },
+              {
+                text: 'Cualquier otro',
+                value: 0
+              },
+            ],
+            input4: [
+              {
+                text: '31 o más cigarrillos',
+                value: 3
+              },
+              {
+                text: 'Entre 21 y 30 cigarrillos/día',
+                value: 2
+              },
+              {
+                text: 'Entre 11 y 20 cigarrillos/día',
+                value: 1
+              },
+              {
+                text: 'Menos de 10 cigarrillos/día',
+                value: 0
+              },
+            ],
+          },
+          result: 0,
+        }
+      },
+      options: {
+        select: [
+          {
+            text: 'Sí',
+            value: '1'
+          },
+          {
+            text: 'No',
+            value: '0'
+          },
+        ],
+        smoking_select: [
+          {
+            text: 'Sí',
+            value: 1
+          },
+          {
+            text: 'No',
+            value: 0
+          },
+        ],
+        exercises: {
+          type: ['Aeróbico', 'Resistencia'],
+          aerobic: ['Caminar', 'Correr', 'Trotar', 'Nadar', 'Bailar', 'Ciclismo', 'Yoga', 'Tenis'],
+          resistance: ['Pesas', 'Funcionales', 'Abdominales']
+        },
+        alcohol_consumption: ['1', '2 a 3', 'Más de 4']
+      },
+      items: [],
+      editedItem: {
+        physical_exercise: '0',
+        exercise_weekly_minutes: '1',
+        exercise: {
+          type: 'Aeróbico',
+          exercises: []
+        },
+        smoking: {
+          active: 0,
+          did_smoke: 0,
+          start_year: '',
+          quit_year: '',
+          cigarettes_per_day: '',
+          fagerstrom_test: '',
+          no_smoking_frecuency: 0,
+          last_time: '',
+          how_many_times: '',
+          smoking_wish: 0,
+          short_advice: {
+            done: 0,
+            material: {
+              material_id: '',
+              material_name: '',
+              source: '',
+              type: '',
+            }
+          },
+        },
+        alcohol_consumption: '0',
+        alcohol_daily_consumption: 0,
+      },
+      defaultItem: {
+        physical_exercise: '0',
+        exercise_weekly_minutes: 1,
+        exercise: {
+          type: 'Aeróbico',
+          exercises: []
+        },
+        smoking: {
+          active: 0,
+          did_smoke: 0,
+          start_year: '',
+          quit_year: '',
+          cigarettes_per_day: '',
+          fagerstrom_test: '',
+          no_smoking_frecuency: 0,
+          last_time: '',
+          how_many_times: '',
+          smoking_wish: 0,
+          short_advice: {
+            done: 0,
+            material: {
+              material_id: '',
+              material_name: '',
+              source: '',
+              type: '',
+            }
+          },
+        },
+        alcohol_consumption: '0',
+        alcohol_daily_consumption: 0,
+      },
+    },
     patient_electro_cardiogram: {
       loading: false,
       form_dialog: false,
@@ -937,27 +1093,27 @@ let vm = new Vue({
         qtc_list: [
           {
             text: 'RR',
-            value: 'rr'  
+            value: 'rr'
           },
           {
             text: 'QTc (Rautaharju)',
-            value: 'qtrau'  
+            value: 'qtrau'
           },
           {
             text: 'QTc (Bazett)',
-            value: 'qtbaz'  
+            value: 'qtbaz'
           },
           {
             text: 'QTc (Framingham)',
-            value: 'qtfra'  
+            value: 'qtfra'
           },
           {
             text: 'QTc (Friderica)',
-            value: 'qtfri'  
+            value: 'qtfri'
           },
           {
             text: 'QTC (Call)',
-            value: 'qtcal'  
+            value: 'qtcal'
           },
         ],
       },
@@ -1033,68 +1189,6 @@ let vm = new Vue({
       modals: {
         ischemic_cardiopathy: {
           current: 1
-        }
-      },
-      calc: {
-        fagerstrom: {
-          form_dialog: 0,
-          vars: {
-            input1: 0,
-            input2: 0,
-            input3: 0,
-            input4: 0,
-            input5: 0,
-            input6: 0,
-          },
-          options: {
-            input1: [
-              {
-                text: 'Hasta 5 minutos',
-                value: 3
-              },
-              {
-                text: 'De 6 a 30 minutos',
-                value: 2
-              },
-              {
-                text: 'De 31 a 60 minutos',
-                value: 1
-              },
-              {
-                text: 'Más de 60 minutos',
-                value: 0
-              },
-            ],
-            input3: [
-              {
-                text: 'El primero de la mañana',
-                value: 1
-              },
-              {
-                text: 'Cualquier otro',
-                value: 0
-              },
-            ],
-            input4: [
-              {
-                text: '31 o más cigarrillos',
-                value: 3
-              },
-              {
-                text: 'Entre 21 y 30 cigarrillos/día',
-                value: 2
-              },
-              {
-                text: 'Entre 11 y 20 cigarrillos/día',
-                value: 1
-              },
-              {
-                text: 'Menos de 10 cigarrillos/día',
-                value: 0
-              },
-            ],
-          },
-          result: 0,
         }
       },
       options: {
@@ -1577,27 +1671,6 @@ let vm = new Vue({
                 active: 0,
                 reason: '',
                 selected: [],
-              },
-            },
-            smoking: {
-              active: 0,
-              did_smoke: 0,
-              start_year: '',
-              quit_year: '',
-              cigarettes_per_day: '',
-              fagerstrom_test: '',
-              no_smoking_frecuency: 0,
-              last_time: '',
-              how_many_times: '',
-              smoking_wish: 0,
-              short_advice: {
-                done: 0,
-                material: {
-                  material_id: '',
-                  material_name: '',
-                  source: '',
-                  type: '',
-                }
               },
             },
           },
@@ -2177,27 +2250,6 @@ let vm = new Vue({
               selected: [],
             },
           },
-          smoking: {
-            active: 0,
-            did_smoke: 0,
-            start_year: '',
-            quit_year: '',
-            cigarettes_per_day: '',
-            fagerstrom_test: '',
-            no_smoking_frecuency: 0,
-            last_time: '',
-            how_many_times: '',
-            smoking_wish: 0,
-            short_advice: {
-              done: 0,
-              material: {
-                material_id: '',
-                material_name: '',
-                source: '',
-                type: '',
-              }
-            },
-          },
         },
         emergency_hta_history: 0,
         emergency_diabetes_history: 0,
@@ -2769,12 +2821,12 @@ let vm = new Vue({
       val && this.$nextTick(() => (this.$refs.cd_ischemic_cardiopathy_scai_ua_datepicker.activePicker = 'YEAR'))
     },
 
-    ph_cd_hta_smoking_start_year_modal(val) {
-      val && this.$nextTick(() => (this.$refs.cd_hta_smoking_start_year_datepicker.activePicker = 'YEAR'))
+    smoking_start_year_modal(val) {
+      val && this.$nextTick(() => (this.$refs.smoking_start_year_datepicker.activePicker = 'YEAR'))
     },
 
-    ph_cd_hta_smoking_quit_year_modal(val) {
-      val && this.$nextTick(() => (this.$refs.cd_hta_smoking_quit_year_datepicker.activePicker = 'YEAR'))
+    smoking_quit_year_modal(val) {
+      val && this.$nextTick(() => (this.$refs.smoking_quit_year_datepicker.activePicker = 'YEAR'))
     },
 
     ph_cd_ischemic_cardiopathy_surgery_year_modal(val) {
@@ -2798,7 +2850,7 @@ let vm = new Vue({
       var url = api_url + 'patients/get'
       var app = this
       app.$http.get(url).then(res => {
-        res.body.forEach( e => {
+        res.body.forEach(e => {
           if (Array.isArray(e.meta)) {
             e.meta = {}
           }
@@ -3324,6 +3376,31 @@ let vm = new Vue({
       })
     },
 
+    initializeLifeStyle() {
+      var app = this
+      var obj = app.patient_life_style
+      obj.loading = true
+      obj.editedItem = Object.assign({}, obj.defaultItem)
+      var url = api_url + 'patient-life-style/get/' + app.editedItem.patient_id
+      app.$http.get(url).then(res => {
+        obj.loading = false
+        if (res.body.length > 0) {
+          var items = []
+          res.body.forEach((e, i) => {
+            e.exercise = JSON.parse(e.exercise)
+            e.smoking = JSON.parse(e.smoking)
+            items.push(e)
+            if (parseInt(e.appointment_id) == parseInt(app.patient_appointments.current_appointment.appointment_id)) {
+              obj.editedItem = e
+            }
+          });
+          obj.items = items
+        }
+      }, err => {
+        obj.loading = false
+      })
+    },
+
     initializePlans() {
       var app = this
       var obj = app.patient_plan
@@ -3646,32 +3723,32 @@ let vm = new Vue({
       for (var i = 0; i < 8; i++) {
         app.statistics.chart.weekly_data.labels[i] = moment(app.statistics.chart.weekly_data.current_day).subtract(7 - i, 'days').format('MM-DD')
       }
-      app.statistics.chart.weekly_data.labels.forEach( (e, i) => {
-        var filtered_date = app.patients.filter( p => {
+      app.statistics.chart.weekly_data.labels.forEach((e, i) => {
+        var filtered_date = app.patients.filter(p => {
           return p.entry_date == moment().format('YYYY-') + e
         });
         app.statistics.chart.weekly_data.datasets[0].data[i] = filtered_date.length
-        app.statistics.chart.weekly_data.datasets[1].data[i] = filtered_date.filter( f => {
+        app.statistics.chart.weekly_data.datasets[1].data[i] = filtered_date.filter(f => {
           return f.gender == 'M'
         }).length
-        app.statistics.chart.weekly_data.datasets[2].data[i] = filtered_date.filter( f => {
+        app.statistics.chart.weekly_data.datasets[2].data[i] = filtered_date.filter(f => {
           return f.gender == 'F'
         }).length
-        
+
       })
 
-      app.statistics.chart.monthly_data.months.forEach( (e, i) => {
-        var filtered_month = app.patients.filter( p => {
+      app.statistics.chart.monthly_data.months.forEach((e, i) => {
+        var filtered_month = app.patients.filter(p => {
           return p.entry_date.includes(moment().format('YYYY-') + e)
         });
         app.statistics.chart.monthly_data.datasets[0].data[i] = filtered_month.length
-        app.statistics.chart.monthly_data.datasets[1].data[i] = filtered_month.filter( f => {
+        app.statistics.chart.monthly_data.datasets[1].data[i] = filtered_month.filter(f => {
           return f.gender == 'M'
         }).length
-        app.statistics.chart.monthly_data.datasets[2].data[i] = filtered_month.filter( f => {
+        app.statistics.chart.monthly_data.datasets[2].data[i] = filtered_month.filter(f => {
           return f.gender == 'F'
         }).length
-        
+
       })
 
       app.statistics.chart.loading = false
@@ -4561,6 +4638,26 @@ let vm = new Vue({
       })
     },
 
+    saveLifeStyle() {
+      var app = this
+      var obj = app.patient_life_style
+      var url = api_url + "patient-life-style/update"
+      obj.save_loading = true
+      obj.editedItem.patient_id = app.editedItem.patient_id
+      obj.editedItem.appointment_id = app.patient_appointments.current_appointment.appointment_id
+
+      app.$http.post(url, obj.editedItem).then(res => {
+        obj.save_loading = false
+        if (res.body.status == 'success') {
+          obj.tab = 'tab-12'
+        }
+        activateAlert(res.body.message, res.body.status)
+      }, err => {
+        obj.save_loading = false
+        activateAlert('Error inesperado, intente de nuevo', 'error')
+      })
+    },
+
     savePlan() {
       var app = this
       var obj = app.patient_plan
@@ -5181,7 +5278,7 @@ let vm = new Vue({
 
     fagerstromTest() {
       var app = this
-      var fagerstrom = app.patient_history.calc.fagerstrom
+      var fagerstrom = app.patient_life_style.calc.fagerstrom
       var vars = fagerstrom.vars
 
       var result = vars.input1 + vars.input2 + vars.input3 + vars.input4 + vars.input5 + vars.input6
@@ -5192,7 +5289,7 @@ let vm = new Vue({
 
     getFagerStromScoreDescription(calc) {
       var app = this
-      var fagerstrom_result = calc ? parseInt(app.patient_history.calc.fagerstrom.result) : parseInt(app.patient_history.form.history_content.diseases.smoking.fagerstrom_test)
+      var fagerstrom_result = calc ? parseInt(app.patient_life_style.calc.fagerstrom.result) : parseInt(app.patient_life_style.editedItem.smoking.fagerstrom_test)
       var description = ''
 
       if (fagerstrom_result == '') {

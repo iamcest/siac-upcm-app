@@ -12,7 +12,6 @@
             <?php echo new Template('patients-management/view_tabs/history_parts/dtm2'); ?>
             <?php echo new Template('patients-management/view_tabs/history_parts/pre_dtm2'); ?>
             <?php echo new Template('patients-management/view_tabs/history_parts/dyslipidemia'); ?>
-            <?php echo new Template('patients-management/view_tabs/history_parts/smoking'); ?>
             <v-row>
                 <v-col class="factor-risk-container px-4 py-4" cols="5">
                     <h5 class="text-h6 black--text font-weight-bold">Ha estado alguna vez
