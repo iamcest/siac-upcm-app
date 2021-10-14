@@ -31,6 +31,7 @@ let vm = new Vue({
     ph_cd_ischemic_cardiopathy_scai_ua_year_modal: false,
     ph_cd_ischemic_cardiopathy_surgery_year_modal: false,
     ph_cd_ischemic_cardiopathy_percutaneous_year_modal: false,
+    ph_polipildora_date_modal: false,
     smoking_start_year_modal: false,
     smoking_quit_year_modal: false,
     recipe_reports_dialog: false,
@@ -1209,7 +1210,13 @@ let vm = new Vue({
         },
         electro_cardiogram: {
           rhythm: ['Sinusal', 'No sinusal']
-        }
+        },
+        family: ['Padre', 'Madre', 'Hermano', 'Hermana'],
+        diseases: [
+          'HTA', 'DMt2', 'Dislipidemia',
+          'enfermedad arterial coronaria precoz (hombres < 55, mujeres < 65)',
+          'Muerte súbita', 'hipercolesterolemia familiar homocigótica'
+        ],
       },
       select: [
         {
@@ -1250,6 +1257,7 @@ let vm = new Vue({
       items: [],
       form: {
         history_content: {
+          family_history: [],
           diseases: {
             hta: {
               treatments_list: {
@@ -1609,7 +1617,13 @@ let vm = new Vue({
                 polipildora:
                   [
                     'Aspirina', 'Estatina', 'Betabloqueante',
-                    'Diurético', 'IECA', 'BRA', 'Calcioantagonista'
+                    'Diurético', 'IECA', 'BRA', 'Calcioantagonista',
+                    'AAS/Estatina/IECA', 'AAS/Estatina/IECA/Diurético', 'Antagonistas del calcio/Estatina/IECA'
+                  ],
+                polipildora_reason:
+                  [
+                    'Controlar los factores de riesgo', 'Evitar eventos recurrentes',
+                    'Disminuir polimedicación', 'Mejorar adherencia'
                   ],
                 omega3: ['EPA', 'EPA-DHA'],
                 ipcsk9: [],
@@ -1669,6 +1683,7 @@ let vm = new Vue({
               },
               polipildora: {
                 active: 0,
+                date: moment().format('YYYY-MM-DD'),
                 reason: '',
                 selected: [],
               },
@@ -1829,6 +1844,7 @@ let vm = new Vue({
         },
       },
       defaultItem: {
+        family_history: [],
         diseases: {
           hta: {
             treatments_list: {
@@ -2186,7 +2202,13 @@ let vm = new Vue({
               polipildora:
                 [
                   'Aspirina', 'Estatina', 'Betabloqueante',
-                  'Diurético', 'IECA', 'BRA', 'Calcioantagonista'
+                  'Diurético', 'IECA', 'BRA', 'Calcioantagonista',
+                  'AAS/Estatina/IECA', 'AAS/Estatina/IECA/Diurético', 'Antagonistas del calcio/Estatina/IECA'
+                ],
+              polipildora_reason:
+                [
+                  'Controlar los factores de riesgo', 'Evitar eventos recurrentes',
+                  'Disminuir polimedicación', 'Mejorar adherencia'
                 ],
               omega3: ['EPA', 'EPA-DHA'],
               ipcsk9: [],
@@ -2246,7 +2268,8 @@ let vm = new Vue({
             },
             polipildora: {
               active: 0,
-              reason: '',
+              date: moment().format('YYYY-MM-DD'),
+              reason: [],
               selected: [],
             },
           },

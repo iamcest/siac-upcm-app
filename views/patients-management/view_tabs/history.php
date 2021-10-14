@@ -12,6 +12,7 @@
             <?php echo new Template('patients-management/view_tabs/history_parts/dtm2'); ?>
             <?php echo new Template('patients-management/view_tabs/history_parts/pre_dtm2'); ?>
             <?php echo new Template('patients-management/view_tabs/history_parts/dyslipidemia'); ?>
+            <?php echo new Template('patients-management/view_tabs/history_parts/family-history'); ?>
             <v-row>
                 <v-col class="factor-risk-container px-4 py-4" cols="5">
                     <h5 class="text-h6 black--text font-weight-bold">Ha estado alguna vez
@@ -42,21 +43,21 @@
                         Cardiovasculares</h3>
                 </v-col>
                 <v-col class="pr-6" cols="12">
-                    <?php echo new Template('patients-management/view_tabs/cardiovascular_diseases/ischemic_cardiopathy') ?>
+                    <?php echo new Template('patients-management/view_tabs/history_parts/cardiovascular_diseases/ischemic_cardiopathy') ?>
                 </v-col>
                 <v-col class="pr-6 pl-3 col col-8" cols="12">
-                    <?php echo new Template('patients-management/view_tabs/cardiovascular_diseases/arritmia') ?>
+                    <?php echo new Template('patients-management/view_tabs/history_parts/cardiovascular_diseases/arritmia') ?>
                 </v-col>
 
             </v-row>
 
             <v-row>
                 <v-col class="pr-6" cols="12" md="6">
-                    <?php echo new Template('patients-management/view_tabs/cardiovascular_diseases/heart_failure') ?>
+                    <?php echo new Template('patients-management/view_tabs/history_parts/cardiovascular_diseases/heart_failure') ?>
                 </v-col>
 
                 <v-col class="pl-6" cols="12" md="6">
-                    <?php echo new Template('patients-management/view_tabs/cardiovascular_diseases/peripheral_artery') ?>
+                    <?php echo new Template('patients-management/view_tabs/history_parts/cardiovascular_diseases/peripheral_artery') ?>
                 </v-col>
             </v-row>
 

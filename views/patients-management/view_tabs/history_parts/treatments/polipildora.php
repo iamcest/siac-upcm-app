@@ -17,17 +17,26 @@
                             </template>
                         </h3>
                         <br>
-                        <p class="font-weight-bold black--text text-center"
-                            v-if="patient_history.form.history_content.diseases.dyslipidemia.polipildora.active"
-                            v-for="item in patient_history.form.history_content.diseases.dyslipidemia.polipildora.selected">
-                            -{{item}}
-                        </p>
-                        <p class="font-weight-bold black--text text-center"
-                            v-if="patient_history.form.history_content.diseases.dyslipidemia.polipildora.reason != ''">
-                            <b>Razón:</b>
-                            <br>
-                            {{ patient_history.form.history_content.diseases.dyslipidemia.polipildora.reason }}
-                        </p>
+                        <template v-if="patient_history.form.history_content.diseases.dyslipidemia.polipildora.active">
+                            <p class="black--text text-center font-weight-black">
+                                Fecha de inicio: {{ patient_history.form.history_content.diseases.dyslipidemia.polipildora.date }}
+                            </p>
+
+                            <p class="black--text text-center"
+                                v-for="item in patient_history.form.history_content.diseases.dyslipidemia.polipildora.selected">
+                                -{{item}}
+                            </p>
+
+                            <p class="font-weight-bold black--text text-center"
+                                v-if="patient_history.form.history_content.diseases.dyslipidemia.polipildora.reason.length > 0">
+                                <b>Razón:</b>
+                                <br>
+                            <p class="font-weight-normal black--text text-center"
+                                v-for="item in patient_history.form.history_content.diseases.dyslipidemia.polipildora.reason">
+                                -{{item}}
+                            </p>
+                            </p>
+                        </template>
                 </v-row>
             </v-col>
         </v-row>
