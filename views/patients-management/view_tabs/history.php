@@ -62,8 +62,12 @@
             </v-row>
 
             <v-row>
-                <v-col cols="12" md="6" offset-md="3">
+                <v-col class="pr-md-6" cols="12" md="6">
                     <?php echo new Template('patients-management/view_tabs/history_parts/cronic_kidney_disease') ?>
+                </v-col>
+
+                <v-col class="pl-md-6" cols="12" md="6">
+                    <?php echo new Template('patients-management/view_tabs/history_parts/cerebrovascular-disease') ?>
                 </v-col>
             </v-row>
 

@@ -5,16 +5,16 @@
 </v-row>
 <v-row class="factor-risk-container">
   <v-col cols="12">
-    <label class="font-weight-bold black--text">Estadío: {{ patient_history.form.history_content.cronic_kidney_disease.stadium }} </label>
+    <span class="font-weight-bold black--text">Estadío: {{ patient_history.form.history_content.cronic_kidney_disease.stadium }} </span>
   </v-col>
   <v-col cols="12" class="mt-n4">
-    <label class="font-weight-bold black--text">Diálisis:
+    <span class="font-weight-bold black--text">Diálisis:
       <template v-if="patient_history.form.history_content.cronic_kidney_disease.dialysis">
         Sí
       </template>
       <template v-else>
         No
       </template>
-    </label>
+    </span>
   </v-col>
 </v-row>

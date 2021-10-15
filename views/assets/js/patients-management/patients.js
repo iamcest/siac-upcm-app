@@ -34,6 +34,7 @@ let vm = new Vue({
     ph_polipildora_date_modal: false,
     smoking_start_year_modal: false,
     smoking_quit_year_modal: false,
+    cv_disease_year_modal: false,
     recipe_reports_dialog: false,
     historic_records_dialog: false,
     dialog: false,
@@ -1841,6 +1842,12 @@ let vm = new Vue({
               },
             },
           },
+          cerebrovascular_disease: {
+            active: 0,
+            year: moment().format('YYYY-MM-DD'),
+            type: 'Isquémico',
+            ischemic_type: '',
+          },
         },
       },
       defaultItem: {
@@ -2433,6 +2440,12 @@ let vm = new Vue({
             },
           },
         },
+        cerebrovascular_disease: {
+          active: 0,
+          year: moment().format('YYYY-MM-DD'),
+          type: 'Isquémico',
+          ischemic_type: '',
+        },
       },
     },
     patient_risk_factors: {
@@ -2859,6 +2872,11 @@ let vm = new Vue({
     ph_cd_ischemic_cardiopathy_percutaneous_year_modal(val) {
       val && this.$nextTick(() => (this.$refs.cd_ischemic_cardiopathy_percutaneous_year_datepicker.activePicker = 'YEAR'))
     },
+
+    cv_disease_year_modal(val) {
+      val && this.$nextTick(() => (this.$refs.cv_disease_year_datepicker.activePicker = 'YEAR'))
+    },
+
   },
 
   created() {
