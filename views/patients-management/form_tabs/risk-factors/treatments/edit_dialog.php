@@ -16,13 +16,13 @@
             <v-container fluid>
                 <template v-if="patient_risk_factors.rf.treatment_selected.name != ''">
                     <template v-if="patient_risk_factors.rf.treatment_selected.name == 'HTA'">
-                        <?php echo new Template('patients-management/form_tabs/history_parts/treatments/hta') ?>
+                        <?php echo new Template('patients-management/form_tabs/history-parts/treatments/hta') ?>
                     </template>
                     <template v-if="patient_risk_factors.rf.treatment_selected.name == 'Dislipidemia'">
-                        <?php echo new Template('patients-management/form_tabs/history_parts/treatments/dyslipidemia') ?>
+                        <?php echo new Template('patients-management/form_tabs/history-parts/treatments/dyslipidemia') ?>
                     </template>
                     <template v-if="patient_risk_factors.rf.treatment_selected.name == 'DMt2'">
-                        <?php echo new Template('patients-management/form_tabs/history_parts/treatments/dtm2') ?>
+                        <?php echo new Template('patients-management/form_tabs/history-parts/treatments/dtm2') ?>
                     </template>
                     <v-col cols="12">
                         <v-btn color="secondary white--text" block @click="saveHistory(false)"

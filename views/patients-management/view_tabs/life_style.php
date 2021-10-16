@@ -76,5 +76,5 @@
     <v-col cols="12">
         <v-divider></v-divider>
     </v-col>
-    <?php echo new Template('patients-management/view_tabs/life_style/smoking') ?>
+    <?php echo new Template('patients-management/view_tabs/life-style/smoking') ?>
 </v-row>
