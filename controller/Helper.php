@@ -16,6 +16,16 @@ class Helper
         return "rgba(" . rand(0, 255) . ", " . rand(50, 255) . ", " . rand(10, 255) . ", " . $opacity . ")";
     }
 
+    public static function convert_first_letter_uppercase($string) 
+    {
+        $strings = explode('-', $string);
+        $string = '';
+        foreach ($strings as $str) {
+            $string .= ucfirst($str);
+        }
+        return $string;
+    }
+
     public static function convert_slug($text)
     {
         $table = array(
@@ -100,12 +110,14 @@ class Helper
         }
         return $mail;
     }
+
     public static function date_formated($date_parts = ['year' => '', 'mon' => '', 'mday' => ''])
     {
         $date = getdate();
         $current_date = $date['year'] . "-" . $date['mon'] . "-" . $date['mday'];
         return $current_date;
     }
+
     public static function rand_string($length = 16)
     {
         $input = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -117,6 +129,7 @@ class Helper
         }
         return $random_string;
     }
+
     public static function encrypt($string = '')
     {
         if (empty($string)) {
@@ -126,6 +139,7 @@ class Helper
         $key = Key::loadFromAsciiSafeString(ENCRYPT_KEY);
         return Crypto::encrypt($string, $key);
     }
+
     public static function decrypt($string = '')
     {
         if (empty($string)) {
