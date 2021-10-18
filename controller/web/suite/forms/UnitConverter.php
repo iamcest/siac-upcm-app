@@ -10,7 +10,7 @@ class UnitConverter extends Routes
         $suite = new SuiteSection();
         !$this->has_access('calculations_and_algorithms_access') ? header("Location: " . SITE_URL . "/") : '';
         $this->scripts = [
-            ['name' => 'calculations/unit-converter', 'version' => '1.0.0'],
+            ['name' => 'calculations/unit-converter', 'version' => '1.0.1'],
         ];
         $this->content = new Template("calculations/unit-converter", [
             'notifications' => $suite->total_views, 'access' => $this->get_permissions(),

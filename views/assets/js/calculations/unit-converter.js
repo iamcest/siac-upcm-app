@@ -28,11 +28,11 @@ let vm = new Vue({
         },
         {
           text: 'HDL y LDL: Convertir mmol/l a mg/dl',
-          val: '/ 39',
+          val: ' * 39',
         },
         {
           text: 'HDL y LDL: Convertir mg/dl a mmol/l',
-          val: ' * 39',
+          val: ' / 39',
         },
         {
           text: 'TRIGLICERIDOS: Convertir mmol/l a mg/dl',
