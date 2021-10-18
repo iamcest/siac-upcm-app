@@ -35,6 +35,7 @@ let vm = new Vue({
     smoking_start_year_modal: false,
     smoking_quit_year_modal: false,
     cv_disease_year_modal: false,
+    arritmia_year_modal: false,
     recipe_reports_dialog: false,
     historic_records_dialog: false,
     dialog: false,
@@ -64,6 +65,7 @@ let vm = new Vue({
     menu: '',
     patients_search: '',
     template_search: '',
+    ref_index: 0,
     templates: [],
     filtered_templates: [],
     templates_loading: false,
@@ -1694,11 +1696,7 @@ let vm = new Vue({
           emergency_diabetes_history: 0,
           cardiovascular_diseases: {
             ischemic_cardiopathy: {
-              has_im: 0,
-              age: '',
-              angina: 0,
-              chronic_crown_syndrome: '',
-              persist: '',
+              active: 0,
               revascularized: {
                 active: 0,
                 surgery: {
@@ -1731,16 +1729,21 @@ let vm = new Vue({
               },
             },
             arritmia: {
-              type: '',
-              treatment: 0,
-              treatment_type: '',
-              treatments: [''],
-              dosis: '',
-              daily_dosis: '',
-              ablation: 0,
-              ablation_age: '',
-              cdi_holder: 0,
-              cdi_age: '',
+              active: 0,
+              items: [
+                {
+                  type: '',
+                  treatment: 0,
+                  treatment_type: '',
+                  treatments: [''],
+                  dosis: '',
+                  daily_dosis: '',
+                  ablation: 0,
+                  ablation_age: '',
+                  cdi_holder: 0,
+                  cdi_age: '',
+                }
+              ]
             },
             heart_failure: {
               active: 0,
@@ -1821,32 +1824,19 @@ let vm = new Vue({
             },
           },
           cronic_kidney_disease: {
+            active: 0,
             stadium: '',
             dialysis: 0,
-            treatments: {
-              aspirin: {
-                active: 0,
-                dosis: ''
-              },
-              clopidogrel: {
-                active: 0,
-                dosis: ''
-              },
-              ticagrelor: {
-                active: 0,
-                dosis: ''
-              },
-              prasugel: {
-                active: 0,
-                dosis: ''
-              },
-            },
           },
           cerebrovascular_disease: {
             active: 0,
-            year: moment().format('YYYY-MM-DD'),
-            type: 'Isquémico',
-            ischemic_type: '',
+            items: [
+              {
+                year: moment().format('YYYY-MM-DD'),
+                type: 'Isquémico',
+                ischemic_type: '',
+              }
+            ],
           },
         },
       },
@@ -2285,11 +2275,7 @@ let vm = new Vue({
         emergency_diabetes_history: 0,
         cardiovascular_diseases: {
           ischemic_cardiopathy: {
-            has_im: 0,
-            age: '',
-            angina: 0,
-            chronic_crown_syndrome: '',
-            persist: '',
+            active: 0,
             revascularized: {
               active: 0,
               surgery: {
@@ -2329,16 +2315,21 @@ let vm = new Vue({
             },
           },
           arritmia: {
-            type: '',
-            treatment: 0,
-            treatment_type: '',
-            treatments: [''],
-            dosis: '',
-            daily_dosis: '',
-            ablation: 0,
-            ablation_age: '',
-            cdi_holder: 0,
-            cdi_age: '',
+            active: 0,
+            items: [
+              {
+                type: '',
+                treatment: 0,
+                treatment_type: '',
+                treatments: [''],
+                dosis: '',
+                daily_dosis: '',
+                ablation: 0,
+                ablation_age: '',
+                cdi_holder: 0,
+                cdi_age: '',
+              }
+            ]
           },
           heart_failure: {
             active: 0,
@@ -2419,32 +2410,19 @@ let vm = new Vue({
           },
         },
         cronic_kidney_disease: {
+          active: 0,
           stadium: '',
           dialysis: 0,
-          treatments: {
-            aspirin: {
-              active: 0,
-              dosis: ''
-            },
-            clopidogrel: {
-              active: 0,
-              dosis: ''
-            },
-            ticagrelor: {
-              active: 0,
-              dosis: ''
-            },
-            prasugel: {
-              active: 0,
-              dosis: ''
-            },
-          },
         },
         cerebrovascular_disease: {
           active: 0,
-          year: moment().format('YYYY-MM-DD'),
-          type: 'Isquémico',
-          ischemic_type: '',
+          items: [
+            {
+              year: moment().format('YYYY-MM-DD'),
+              type: 'Isquémico',
+              ischemic_type: '',
+            }
+          ],
         },
       },
     },
@@ -2843,14 +2821,14 @@ let vm = new Vue({
     },
 
     ph_cd_ischemic_cardiopathy_sca_im_year_modal(val) {
-      val && this.$nextTick(() => (this.$refs.cd_ischemic_cardiopathy_sca_im_datepicker[this.patient_history.modals.ischemic_cardiopathy.current].activePicker = 'YEAR'))
+      val && this.$nextTick(() => (this.$refs.cd_ischemic_cardiopathy_sca_im_datepicker[this.ref_index].activePicker = 'YEAR'))
     },
 
     ph_cd_ischemic_cardiopathy_sca_ua_year_modal(val) {
-      val && this.$nextTick(() => (this.$refs.cd_ischemic_cardiopathy_sca_ua_datepicker[this.patient_history.modals.ischemic_cardiopathy.current].activePicker = 'YEAR'))
+      val && this.$nextTick(() => (this.$refs.cd_ischemic_cardiopathy_sca_ua_datepicker[this.ref_index].activePicker = 'YEAR'))
     },
     ph_cd_ischemic_cardiopathy_scai_ua_year_modal(val) {
-      val && this.$nextTick(() => (this.$refs.cd_ischemic_cardiopathy_sca_ua_datepicker[this.patient_history.modals.ischemic_cardiopathy.current].activePicker = 'YEAR'))
+      val && this.$nextTick(() => (this.$refs.cd_ischemic_cardiopathy_sca_ua_datepicker[this.ref_index].activePicker = 'YEAR'))
     },
 
     ph_cd_ischemic_cardiopathy_scai_ua_year_modal(val) {
@@ -2874,7 +2852,11 @@ let vm = new Vue({
     },
 
     cv_disease_year_modal(val) {
-      val && this.$nextTick(() => (this.$refs.cv_disease_year_datepicker.activePicker = 'YEAR'))
+      val && this.$nextTick(() => (this.$refs.cv_disease_year_datepicker[this.ref_index].activePicker = 'YEAR'))
+    },
+
+    arritmia_year_modal(val) {
+      val && this.$nextTick(() => (this.$refs.arritmia_year_datepicker[this.ref_index].activePicker = 'YEAR'))
     },
 
   },

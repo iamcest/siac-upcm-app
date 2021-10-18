@@ -4,9 +4,10 @@
             <v-col cols="12">
                 <h3 class="text-center black--text">Enfermedad Arterial Periférica</h3>
             </v-col>
-            <v-col class="px-2" cols="12">
+            <v-col class="px-4" cols="12">
                 <v-row>
                     <v-col cols="12">
+                        <label class="font-weight-bold black--text">Padece esta enfermedad:</label>
                         <v-select
                             v-model="patient_history.form.history_content.cardiovascular_diseases.peripheral_artery_disease.active"
                             :items="patient_history.select" class="mt-3" outlined dense>

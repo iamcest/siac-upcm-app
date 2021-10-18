@@ -4,9 +4,9 @@
             <v-col cols="12">
                 <h3 class="text-center black--text">Enfermedad Arterial Periférica</h3>
             </v-col>
-            <v-col class="px-2" cols="12">
+            <v-col class="px-4" cols="12">
                 <v-row>
-                    <v-col cols="12">
+                    <v-col cols="12" md="6">
                         <span class="black--text font-weight-bold">
                             <template
                                 v-if="patient_history.form.history_content.cardiovascular_diseases.peripheral_artery_disease.active">
@@ -17,7 +17,7 @@
                             </template>
                         </span>
                     </v-col>
-                    <v-col cols="12"
+                    <v-col cols="12" md="6"
                         v-if="patient_history.form.history_content.cardiovascular_diseases.peripheral_artery_disease.active">
                         <span class="black--text font-weight-bold">Territorio:
                             {{ patient_history.form.history_content.cardiovascular_diseases.peripheral_artery_disease.territory }}

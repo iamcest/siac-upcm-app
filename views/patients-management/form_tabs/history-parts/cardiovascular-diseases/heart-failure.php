@@ -7,6 +7,7 @@
             <v-col class="px-4" cols="12">
                 <v-row>
                     <v-col cols="12">
+                    <label class="font-weight-bold black--text">Padece esta enfermedad:</label>
                         <v-select
                             v-model="patient_history.form.history_content.cardiovascular_diseases.heart_failure.active"
                             :items="patient_history.select" placeholder="Seleccione una opción" class="mt-3" outlined
