@@ -1,12 +1,12 @@
 <v-row class="d-flex justify-center">
     <v-col cols="12">
         <h3 class="text-h5 text-center">
-            Enfermedades
+            Diagnósticos
         </h3>
     </v-col>
     <v-col cols="12" md="4" lg="3" xl="3">
         <v-alert color="info" icon="mdi-heart-pulse" border="left" outlined prominent>
-            <b>Hipertensos</b>
+            <b>Hipertensión</b>
             <template v-if="!statistics.diseases.loading">
                 <br>
                 Total: {{ statistics.diseases.hta.controlled + statistics.diseases.hta.no_controlled }}
@@ -24,7 +24,7 @@
 
     <v-col cols="12" md="4" lg="3" xl="3">
         <v-alert color="info" icon="mdi-heart-pulse" border="left" outlined prominent>
-            <b>Diabéticos</b>
+            <b>Diabetes</b>
             <template v-if="!statistics.diseases.loading">
                 <br>
                 Total: {{ statistics.diseases.dmt2.controlled + statistics.diseases.dmt2.no_controlled }}

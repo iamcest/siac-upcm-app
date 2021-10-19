@@ -8,6 +8,9 @@ let vm = new Vue({
     el: '#siac-suite-container',
     data: {
       select: false,
+      barAlert: false,
+      barMessage: '',
+      barTimeout: 3000,
       patient_select: false,
       loading: false,
       loading_form: false,
@@ -76,7 +79,10 @@ let vm = new Vue({
         whatsapp: '0',
         telegram: '0',
         sms: '0',
-        entry_date: ''
+        entry_date: '',
+        meta: {
+
+        },
       },
       patient_default: {
         first_name: '',
@@ -91,9 +97,22 @@ let vm = new Vue({
         whatsapp: '0',
         telegram: '0',
         sms: '0',
-        entry_date: ''        
+        entry_date: '',
+        meta: {
+
+        }    
       },
       form: {
+        appointment_id: '',
+        patient_id: '',
+        doctor: '',
+        appointment_reason: '',
+        appointment_type: '',
+        appointment_date: '',
+        appointment_time: '',
+      },
+      form_default: {
+        appointment_id: '',
         patient_id: '',
         doctor: '',
         appointment_reason: '',
@@ -105,6 +124,9 @@ let vm = new Vue({
     },
 
     computed: {
+      FormTitle () {
+        return this.form.appointment_id != '' ? 'Editar cita' : 'Añadir cita'
+      }
     },
 
     created () {
@@ -214,6 +236,10 @@ let vm = new Vue({
           })
       },
 
+      getTelephoneInput (text, data) {
+        this.patient.telephone = data.number.international
+      },
+
       searchPatients(e) {
         var app = this
         if (!app.search) {
@@ -230,16 +256,37 @@ let vm = new Vue({
         var obj = app.form
         app.loading_form = true
         var url = api_url + 'appointments/create'
-        app.$http.post(url, obj).then( res => {
-          app.loading_form = false
-          if (res.body.status == "success") {
-            app.create_dialog = false
-            app.initialize()
-            return true
-          }
-        }, err => {
-          app.loading_form = false
-        })
+        if (obj.appointment_id != '') {
+          url = api_url + 'appointments/update'
+          app.$http.post(url, obj).then( res => {
+            app.loading_form = false
+            if (res.body.status == "success") {
+              app.edit_dialog = false
+              app.barAlert = true
+              app.barMessage = res.body.message
+              app.appointment_selected.props = Object.assign({}, obj)
+              obj = Object.assign({}, app.form_default)
+              app.closeEditDialog()
+              app.initialize()
+            }
+          }, err => {
+            app.loading_form = false
+          })
+        }
+        else {
+          app.$http.post(url, obj).then( res => {
+            app.loading_form = false
+            if (res.body.status == "success") {
+              app.create_dialog = false
+              app.barAlert = true
+              app.barMessage = res.body.message
+              app.initialize()
+              obj = Object.assign(app.form_default)
+            }
+          }, err => {
+            app.loading_form = false
+          })
+        }
       },
 
       savePatient () {
@@ -266,8 +313,16 @@ let vm = new Vue({
         })
       },
 
-      getTelephoneInput (text, data) {
-        this.patient.telephone = data.number.international
+      editDialog() {
+        var app = this
+        app.form = Object.assign({}, app.appointment_selected.props)
+        app.create_dialog = true
+      },
+
+      closeEditDialog() {
+        var app = this
+        app.form = Object.assign({}, app.form_default)
+        app.create_dialog = false
       },
 
       fromNow (date) {

@@ -1025,7 +1025,7 @@ let vm = new Vue({
       items: [],
       editedItem: {
         physical_exercise: '0',
-        exercise_weekly_minutes: '1',
+        exercise_weekly_minutes: 30,
         exercise: {
           type: 'Aeróbico',
           exercises: []
@@ -1056,7 +1056,7 @@ let vm = new Vue({
       },
       defaultItem: {
         physical_exercise: '0',
-        exercise_weekly_minutes: 1,
+        exercise_weekly_minutes: 30,
         exercise: {
           type: 'Aeróbico',
           exercises: []
@@ -1217,8 +1217,8 @@ let vm = new Vue({
         family: ['Padre', 'Madre', 'Hermano', 'Hermana'],
         diseases: [
           'HTA', 'DMt2', 'Dislipidemia',
-          'enfermedad arterial coronaria precoz (hombres < 55, mujeres < 65)',
-          'Muerte súbita', 'hipercolesterolemia familiar homocigótica'
+          'Enfermedad arterial coronaria precoz (hombres < 55, mujeres < 65)',
+          'Muerte súbita', 'Hipercolesterolemia familiar homocigótica'
         ],
       },
       select: [
@@ -3832,8 +3832,6 @@ let vm = new Vue({
         controlled: 0,
         no_controlled: 0
       }
-      var smoking_average = 0
-
       app.statistics.diseases.loading = true
       var url = api_url + 'history/get-by-list'
 
@@ -3843,8 +3841,6 @@ let vm = new Vue({
           var hta = e.history_content.hta
           var dyslipidemia = e.history_content.dyslipidemia
           var dmt2 = e.history_content.dtm2
-          var smoking = e.history_content.smoking
-
           if (hta.active) {
             if (hta.controlled) {
               hta_average.controlled = hta_average.controlled + 1
@@ -3869,17 +3865,11 @@ let vm = new Vue({
             }
           }
 
-          if (smoking.active) {
-            smoking_average = smoking_average + 1
-          }
-
         })
 
         app.statistics.diseases.hta = hta_average
         app.statistics.diseases.dyslipidemia = dyslipidemia_average
         app.statistics.diseases.dmt2 = dmt2_average
-        app.statistics.diseases.smoking = smoking_average
-
         app.statistics.diseases.histories = res.body
 
         app.statistics.diseases.loading = false

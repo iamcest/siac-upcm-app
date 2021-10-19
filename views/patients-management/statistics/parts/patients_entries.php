@@ -1,7 +1,7 @@
 <v-row class="d-flex justify-center">
     <v-col cols="12">
         <h3 class="text-h5 text-center">
-            Pacientes Ingresados
+            Pacientes Atendidos
         </h3>
     </v-col>
     <v-col cols="12" md="6" v-show="!statistics.chart.loading">

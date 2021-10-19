@@ -19,14 +19,7 @@
                     </span>
                 </span>
             </v-col>
-            <template v-if="patient_life_style.editedItem.physical_exercise">
-                <v-col cols="12" md="6" lg="4">
-                    <span class="font-weight-bold">Minutos a la semana:
-                        <span class="black--text">
-                            {{ patient_life_style.editedItem.exercise_weekly_minutes }}
-                        </span>
-                    </span>
-                </v-col>
+            <template v-if="parseInt(patient_life_style.editedItem.physical_exercise)">
                 <v-col cols="12" md="6" lg="4">
                     <span class="font-weight-bold">Tipo de ejercicio:
                         <span class="black--text">
@@ -44,6 +37,13 @@
                         </template>
                     </span>
                 </v-col>
+                <v-col cols="12" md="6" lg="4">
+                    <span class="font-weight-bold">Minutos a la semana:
+                        <span class="black--text">
+                            {{ patient_life_style.editedItem.exercise_weekly_minutes }}
+                        </span>
+                    </span>
+                </v-col>
             </template>
         </v-row>
     </v-col>
@@ -53,7 +53,7 @@
     <v-col cols="12">
         <v-row>
             <v-col cols="12" md="6" lg="4">
-                <span class="font-weight-bold">Ejercicio físico:
+                <span class="font-weight-bold">Consumo de alcohol:
                     <span class="black--text">
                         <template v-if="patient_life_style.editedItem.alcohol_consumption">
                             Sí
@@ -65,7 +65,7 @@
                 </span>
             </v-col>
             <v-col cols="12" md="6" lg="4" v-if="parseInt(patient_life_style.editedItem.alcohol_consumption)">
-                <span class="font-weight-bold">Minutos a la semana:
+                <span class="font-weight-bold">Cantidad diaria:
                     <span class="black--text">
                         {{ patient_life_style.editedItem.alcohol_daily_consumption }}
                     </span>

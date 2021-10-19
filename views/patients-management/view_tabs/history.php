@@ -12,7 +12,6 @@
             <?php echo new Template('patients-management/view_tabs/history-parts/dtm2'); ?>
             <?php echo new Template('patients-management/view_tabs/history-parts/pre-dtm2'); ?>
             <?php echo new Template('patients-management/view_tabs/history-parts/dyslipidemia'); ?>
-            <?php echo new Template('patients-management/view_tabs/history-parts/family-history'); ?>
             <v-row>
                 <v-col class="py-4 pr-0 pr-md-3 pl-0" cols="12" md="6">
                     <v-card class="px-4 py-6">
@@ -39,7 +38,7 @@
                     </v-card>
                 </v-col>
             </v-row>
-
+            <?php echo new Template('patients-management/view_tabs/history-parts/family-history'); ?>
             <v-row class="my-8">
                 <v-card width="100%" elevation="20">
                     <v-row>

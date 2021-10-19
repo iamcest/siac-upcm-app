@@ -14,7 +14,7 @@ class Appointments extends Routes
             ['name' => 'lib/full-calendar-5.4.0/lib/main.min'],
             ['name' => 'lib/full-calendar-5.4.0/lib/locales/es'],
             ['name' => 'vue-components/vue-tel-input-vuetify.min'],
-            ['name' => 'patients-management/appointments.min', 'version' => '1.0.0'],
+            ['name' => 'patients-management/appointments.min', 'version' => '1.0.1'],
         ];
         $this->content = new Template("patients-management/appointments", [
             'notifications' => $suite->total_views,

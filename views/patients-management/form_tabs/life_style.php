@@ -9,13 +9,7 @@
                             :items="patient_life_style.options.select" outlined dense>
                         </v-select>
                     </v-col>
-                    <template v-if="patient_life_style.editedItem.physical_exercise">
-                        <v-col cols="12" md="6" lg="4">
-                            <label class="black--text font-weight-bold">Minutos a la semana</label>
-                            <v-text-field type="number" v-model="patient_life_style.editedItem.exercise_weekly_minutes"
-                                outlined dense>
-                            </v-text-field>
-                        </v-col>
+                    <template v-if="parseInt(patient_life_style.editedItem.physical_exercise)">
                         <v-col cols="12" md="6" lg="4">
                             <label class="black--text font-weight-bold">Tipo de ejercicio</label>
                             <v-select v-model="patient_life_style.editedItem.exercise.type"
@@ -35,6 +29,12 @@
                             <v-select v-model="patient_life_style.editedItem.exercise.exercises"
                                 :items="patient_life_style.options.exercises.resistance" multiple outlined dense>
                             </v-select>
+                        </v-col>
+                        <v-col cols="12" md="6" lg="4">
+                            <label class="black--text font-weight-bold">Minutos a la semana</label>
+                            <v-text-field type="number" v-model="patient_life_style.editedItem.exercise_weekly_minutes"
+                                outlined dense>
+                            </v-text-field>
                         </v-col>
                     </template>
                 </v-row>
