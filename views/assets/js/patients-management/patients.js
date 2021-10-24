@@ -283,16 +283,15 @@ let vm = new Vue({
               data: []
             },
             {
+              label: 'Mujeres',
+              backgroundColor: '#e91e63',
+              data: []
+            },
+            {
               label: 'Hombres',
               backgroundColor: vuetify.preset.theme.themes.light.primary,
               data: []
             },
-
-            {
-              label: 'Mujeres',
-              backgroundColor: '#e91e63',
-              data: []
-            }
           ]
         },
         weekly_data: {
@@ -305,16 +304,15 @@ let vm = new Vue({
               data: []
             },
             {
+              label: 'Mujeres',
+              backgroundColor: '#e91e63',
+              data: []
+            },
+            {
               label: 'Hombres',
               backgroundColor: vuetify.preset.theme.themes.light.primary,
               data: []
             },
-
-            {
-              label: 'Mujeres',
-              backgroundColor: '#e91e63',
-              data: []
-            }
           ]
         },
       }
