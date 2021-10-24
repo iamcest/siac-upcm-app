@@ -8,7 +8,7 @@
             </v-select>
         </v-col>
     </v-row>
-    <v-row class="factor-risk-container mb-10" v-if="patient_life_style.editedItem.smoking.active">
+    <v-row class="factor-risk-container mb-10" v-if="parseInt(patient_life_style.editedItem.smoking.active)">
         <v-col cols="6" md="4" lg="2">
             <v-row>
                 <v-col cols="12">
@@ -28,7 +28,8 @@
                         </v-date-picker>
                     </v-dialog>
                 </v-col>
-                <v-col cols="12 ">
+                <v-col cols="12" v-if="!parseInt(patient_life_style.editedItem.smoking.active) 
+                || parseInt(patient_life_style.editedItem.smoking.active) && parseInt(patient_life_style.editedItem.smoking.no_smoking_frecuency)">
                     <label class="black--text font-weight-bold">Año de abandono:</label>
                     <v-dialog ref="smoking_quit_year_modal" v-model="smoking_quit_year_modal"
                         width="290px">
@@ -152,13 +153,13 @@
             </v-row>
         </v-col>
     </v-row>
-    <v-row class="factor-risk-container mb-10" v-if="!patient_life_style.editedItem.smoking.active">
+    <v-row class="factor-risk-container mb-10" v-if="!parseInt(patient_life_style.editedItem.smoking.active)">
         <v-col cols="6" md="4" lg="2">
             <label class="black--text font-weight-bold">¿Fumó alguna vez?</label>
             <v-select class="mt-3" v-model="patient_life_style.editedItem.smoking.did_smoke"
                 :items="patient_life_style.options.select" outlined dense></v-select>
         </v-col>
-        <v-col cols="6" md="4" lg="2" v-if="patient_life_style.editedItem.smoking.did_smoke">
+        <v-col cols="6" md="4" lg="2" v-if="parseInt(patient_life_style.editedItem.smoking.did_smoke)">
             <label class="black--text font-weight-bold">Año de abandono:</label>
             <v-dialog ref="smoking_quit_year_modal" v-model="smoking_quit_year_modal" width="290px">
                 <template #activator="{ on, attrs }">

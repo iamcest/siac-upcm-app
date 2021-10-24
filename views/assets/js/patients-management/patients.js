@@ -1031,16 +1031,16 @@ let vm = new Vue({
           exercises: []
         },
         smoking: {
-          active: 0,
-          did_smoke: 0,
+          active: '1',
+          did_smoke: '0',
           start_year: '',
           quit_year: '',
           cigarettes_per_day: '',
           fagerstrom_test: '',
-          no_smoking_frecuency: 0,
+          no_smoking_frecuency: '0',
           last_time: '',
           how_many_times: '',
-          smoking_wish: 0,
+          smoking_wish: '0',
           short_advice: {
             done: 0,
             material: {
@@ -1062,8 +1062,8 @@ let vm = new Vue({
           exercises: []
         },
         smoking: {
-          active: 0,
-          did_smoke: 0,
+          active: '0',
+          did_smoke: '0',
           start_year: '',
           quit_year: '',
           cigarettes_per_day: '',

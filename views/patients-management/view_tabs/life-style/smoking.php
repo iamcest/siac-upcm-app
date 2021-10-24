@@ -13,14 +13,16 @@
             </h4>
         </v-col>
     </v-row>
-    <v-row class="mb-10" v-if="patient_life_style.editedItem.smoking.active">
+    <v-row class="mb-10" v-if="parseInt(patient_life_style.editedItem.smoking.active)">
         <v-col cols="6" md="4" lg="2">
             <v-row>
                 <v-col cols="12">
                     <span class="black--text font-weight-bold">Año de inicio aproximado:
                         {{ getOnlyYear(patient_life_style.editedItem.smoking.start_year) }} </span>
                 </v-col>
-                <v-col cols="12 ">
+                <v-col cols="12"
+                    v-if="!parseInt(patient_life_style.editedItem.smoking.active)
+                || parseInt(patient_life_style.editedItem.smoking.active) && parseInt(patient_life_style.editedItem.smoking.no_smoking_frecuency)">
                     <span class="black--text font-weight-bold">Año de abandono:
                         {{ getOnlyYear(patient_life_style.editedItem.smoking.quit_year) }} </span>
                 </v-col>
@@ -96,7 +98,7 @@
                     </span>
                 </v-col>
                 <v-col cols="12"
-                    v-if="patient_life_style.editedItem.smoking.short_advice.done 
+                    v-if="patient_life_style.editedItem.smoking.short_advice.done
                                               && patient_life_style.editedItem.smoking.short_advice.material.material_name !== ''">
                     <span class="black--text font-weight-bold">Material seleccionado:
                         {{ patient_life_style.editedItem.smoking.short_advice.material.material_name }}
@@ -116,7 +118,7 @@
                 </template>
             </span>
         </v-col>
-        <v-col cols="6" md="4" lg="2" v-if="patient_life_style.editedItem.smoking.did_smoke">
+        <v-col cols="6" md="4" lg="2" v-if="parseInt(patient_life_style.editedItem.smoking.did_smoke)">
             <span class="black--text font-weight-bold">Año de abandono:
                 {{ getOnlyYear(patient_life_style.editedItem.smoking.quit_year) }} </span>
         </v-col>
