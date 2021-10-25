@@ -1,4 +1,14 @@
 {
+    "name": "roineradrianza/siac-upcm-app",
+    "description": "Management of patients with cardiological diseases",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Roiner Adrianza",
+            "email": "roineradrianzap@gmail.com"
+        }
+    ],
+    "license": "",
     "require": {
         "defuse/php-encryption": "^2.2",
         "phpmailer/phpmailer": "^6.2",
