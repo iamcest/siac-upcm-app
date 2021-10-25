@@ -877,6 +877,9 @@ let vm = new Vue({
           active: 0,
           range: ''
         },
+        aai: {
+          range: 0
+        },
       },
       defaultItem: {
         general_aspect: '',
@@ -925,6 +928,9 @@ let vm = new Vue({
         edema: {
           active: 0,
           range: ''
+        },
+        aai: {
+          range: 0
         },
       },
     },

@@ -25,5 +25,6 @@
     <?php echo new Template('patients-management/view_tabs/physical-exam/auscultation') ?>
     <?php echo new Template('patients-management/view_tabs/physical-exam/peripheral-pulses') ?>
     <?php echo new Template('patients-management/view_tabs/physical-exam/edema') ?>
+    <?php echo new Template('patients-management/view_tabs/physical-exam/ankle-arm-index') ?>
 
 </v-row>

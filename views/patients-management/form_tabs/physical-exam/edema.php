@@ -31,5 +31,8 @@
                 </template>
             </v-row>
         </v-col>
+        <v-col cols="12">
+            <v-divider></v-divider>
+        </v-col>
     </v-row>
 </v-col>
