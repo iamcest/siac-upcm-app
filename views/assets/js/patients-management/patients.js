@@ -1028,6 +1028,10 @@ let vm = new Vue({
       },
       items: [],
       editedItem: {
+        sedentary: '1',
+        sedentary_material: {
+          material_name: ''
+        },
         physical_exercise: '0',
         exercise_weekly_minutes: 30,
         exercise: {
@@ -1060,6 +1064,10 @@ let vm = new Vue({
         alcohol_daily_consumption: 0,
       },
       defaultItem: {
+        sedentary: '1',
+        sedentary_material: {
+          material_name: '',
+        },
         physical_exercise: '0',
         exercise_weekly_minutes: 30,
         exercise: {
@@ -3418,6 +3426,7 @@ let vm = new Vue({
           res.body.forEach((e, i) => {
             e.exercise = JSON.parse(e.exercise)
             e.smoking = JSON.parse(e.smoking)
+            e.sedentary_material = JSON.parse(e.sedentary_material)
             items.push(e)
             if (parseInt(e.appointment_id) == parseInt(app.patient_appointments.current_appointment.appointment_id)) {
               obj.editedItem = e

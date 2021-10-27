@@ -1,5 +1,5 @@
 <v-row class="full-width">
-    <?php if (!empty($can_manage_suite) || !empty($access['patient_management_access']['sections'][0]['permissions']['update'])): ?>
+    <?php if (!empty($can_manage_suite) || !empty($access['patient_management_access']['sections'][0]['permissions']['update'])) : ?>
     <v-col class="d-flex justify-end" cols="12">
         <v-btn color="#00BFA5" @click="editedIndex = editedViewIndex;dialog = true; view_dialog = false;tab = 'tab-11'"
             dark>Editar</v-btn>
@@ -7,6 +7,26 @@
     <?php endif ?>
     <v-col cols="12">
         <v-row>
+            <v-col cols="12">
+                <v-row>
+                    <v-col cols="12" md="6" lg="4"><span class="font-weight-bold">Sendetario:
+                            <span class="black--text">
+                                <template v-if="patient_life_style.editedItem.sedentary">
+                                    Sí
+                                </template>
+                                <template v-else>
+                                    No
+                                </template>
+                            </span>
+                        </span>
+                    </v-col>
+                    <v-col cols="12" md="6" lg="4" v-if="parseInt(patient_life_style.editedItem.sedentary)">
+                        <span class="black--text font-weight-bold">Plan de actividad física:
+                            {{ patient_life_style.editedItem.sedentary_material.material_name }}
+                        </span>
+                    </v-col>
+                </v-row>
+            </v-col>
             <v-col cols="12" md="6" lg="4">
                 <span class="font-weight-bold">Ejercicio físico:
                     <span class="black--text">
@@ -23,34 +43,29 @@
                 <v-col cols="12" md="6" lg="4">
                     <span class="font-weight-bold">Tipo de ejercicio:
                         <br>
-                        <template v-for="exercise_type, i in patient_life_style.editedItem.exercise.type" :key="i">
-                            <span class="black--text">
-                                - {{ exercise_type }} <br>
-                            </span>
-                        </template>
+                        <span class="black--text"
+                            v-for="(exercise_type, i) in patient_life_style.editedItem.exercise.type" :key="i">
+                            - {{ exercise_type }} <br>
+                        </span>
                     </span>
                 </v-col>
                 <v-col cols="12" md="6" lg="4" v-if="patient_life_style.editedItem.exercise.type.includes('Aeróbico')">
                     <span class="font-weight-bold">Ejercicios aeróbicos:
                         <br>
-                        <template v-for="exercise, i in patient_life_style.editedItem.exercise.aerobic_exercises"
-                            :key="i">
-                            <span class="black--text">
-                                - {{ exercise }} <br>
-                            </span>
-                        </template>
+                        <span class="black--text"
+                            v-for="(exercise, i) in patient_life_style.editedItem.exercise.aerobic_exercises" :key="i">
+                            - {{ exercise }} <br>
+                        </span>
                     </span>
                 </v-col>
                 <v-col cols="12" md="6" lg="4"
                     v-if="patient_life_style.editedItem.exercise.type.includes('Resistencia')">
                     <span class="font-weight-bold">Ejercicios de resistencia:
                         <br>
-                        <template v-for="exercise, i in patient_life_style.editedItem.exercise.resistance_exercises"
-                            :key="i">
-                            <span class="black--text">
-                                - {{ exercise }} <br>
-                            </span>
-                        </template>
+                        <span class="black--text"
+                            v-for="exercise, i in patient_life_style.editedItem.exercise.resistance_exercises" :key="i">
+                            - {{ exercise }} <br>
+                        </span>
                     </span>
                 </v-col>
                 <v-col cols="12" md="6" lg="4">

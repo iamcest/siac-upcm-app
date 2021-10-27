@@ -1,12 +1,40 @@
 <v-row class="full-width">
-    <v-col class="mb-n10" cols="12">
-        <v-row>
+
+        <v-row class="px-4">
             <v-col cols="12">
                 <v-row>
+                    <v-col cols="12">
+                        <v-row>
+                            <v-col cols="12" md="6" lg="4">
+                                <label class="black--text font-weight-bold">Sedentario</label>
+                                <v-select v-model="patient_life_style.editedItem.sedentary"
+                                    :items="patient_life_style.options.select" outlined dense>
+                                </v-select>
+                            </v-col>
+                            <v-col cols="12" md="6" lg="4" v-if="parseInt(patient_life_style.editedItem.sedentary)">
+                                <label class="black--text font-weight-bold">Plan de actividad física</label>
+                                <v-select v-model="patient_life_style.editedItem.sedentary_material"
+                                    :items="filtered_templates" :loading="templates_loading"
+                                    :item-text="item => {return item.material_name}" return-object outlined dense>
+                                    <template #prepend-item>
+                                        <v-list-item>
+                                            <v-list-item-content>
+                                                <v-text-field v-model="template_search" placeholder="Buscar material"
+                                                    @input="searchTemplate" outlined></v-text-field>
+                                            </v-list-item-content>
+                                        </v-list-item>
+                                        <v-divider></v-divider>
+                                    </template>
+                                </v-select>
+                            </v-col>
+                        </v-row>
+                    </v-col>
                     <v-col cols="12" md="6" lg="4">
                         <label class="black--text font-weight-bold">Ejercicio físico</label>
                         <v-select v-model="patient_life_style.editedItem.physical_exercise"
-                            :items="patient_life_style.options.select" outlined dense>
+                            :items="patient_life_style.options.select"
+                            @change="parseInt(patient_life_style.editedItem.physical_exercise)
+                            ? patient_life_style.editedItem.sedentary = '0': patient_life_style.editedItem.sedentary = '1'" outlined dense>
                         </v-select>
                     </v-col>
                     <template v-if="parseInt(patient_life_style.editedItem.physical_exercise)">
@@ -16,7 +44,8 @@
                                 :items="patient_life_style.options.exercises.type" multiple outlined dense>
                             </v-select>
                         </v-col>
-                        <v-col cols="12" md="6" lg="4" v-if="patient_life_style.editedItem.exercise.type.includes('Aeróbico')">
+                        <v-col cols="12" md="6" lg="4"
+                            v-if="patient_life_style.editedItem.exercise.type.includes('Aeróbico')">
                             <label class="black--text font-weight-bold">Ejercicios aeróbicos</label>
                             <v-select v-model="patient_life_style.editedItem.exercise.aerobic_exercises"
                                 :items="patient_life_style.options.exercises.aerobic" multiple outlined dense>
@@ -66,6 +95,5 @@
                 </v-btn>
             </v-col>
         </v-row>
-    </v-col>
 
 </v-row>
