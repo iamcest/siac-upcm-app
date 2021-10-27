@@ -13,20 +13,19 @@
                         <v-col cols="12" md="6" lg="4">
                             <label class="black--text font-weight-bold">Tipo de ejercicio</label>
                             <v-select v-model="patient_life_style.editedItem.exercise.type"
-                                :items="patient_life_style.options.exercises.type"
-                                @change="patient_life_style.editedItem.exercise.exercises = []" outlined dense>
+                                :items="patient_life_style.options.exercises.type" multiple outlined dense>
                             </v-select>
                         </v-col>
-                        <v-col cols="12" md="6" lg="4" v-if="patient_life_style.editedItem.exercise.type == 'Aeróbico'">
-                            <label class="black--text font-weight-bold">Ejercicios</label>
-                            <v-select v-model="patient_life_style.editedItem.exercise.exercises"
+                        <v-col cols="12" md="6" lg="4" v-if="patient_life_style.editedItem.exercise.type.includes('Aeróbico')">
+                            <label class="black--text font-weight-bold">Ejercicios aeróbicos</label>
+                            <v-select v-model="patient_life_style.editedItem.exercise.aerobic_exercises"
                                 :items="patient_life_style.options.exercises.aerobic" multiple outlined dense>
                             </v-select>
                         </v-col>
                         <v-col cols="12" md="6" lg="4"
-                            v-else-if="patient_life_style.editedItem.exercise.type == 'Resistencia'">
-                            <label class="black--text font-weight-bold">Ejercicios</label>
-                            <v-select v-model="patient_life_style.editedItem.exercise.exercises"
+                            v-if="patient_life_style.editedItem.exercise.type.includes('Resistencia')">
+                            <label class="black--text font-weight-bold">Ejercicios de resistencia</label>
+                            <v-select v-model="patient_life_style.editedItem.exercise.resistance_exercises"
                                 :items="patient_life_style.options.exercises.resistance" multiple outlined dense>
                             </v-select>
                         </v-col>

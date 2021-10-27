@@ -1031,8 +1031,9 @@ let vm = new Vue({
         physical_exercise: '0',
         exercise_weekly_minutes: 30,
         exercise: {
-          type: 'Aeróbico',
-          exercises: []
+          type: [],
+          aerobic_exercises: [],
+          resistance_exercises: [],
         },
         smoking: {
           active: '1',
@@ -1062,8 +1063,9 @@ let vm = new Vue({
         physical_exercise: '0',
         exercise_weekly_minutes: 30,
         exercise: {
-          type: 'Aeróbico',
-          exercises: []
+          type: [],
+          aerobic_exercises: [],
+          resistance_exercises: [],
         },
         smoking: {
           active: '0',
@@ -1222,7 +1224,7 @@ let vm = new Vue({
         diseases: [
           'HTA', 'DMt2', 'Dislipidemia',
           'Enfermedad arterial coronaria precoz (hombres < 55, mujeres < 65)',
-          'Muerte súbita', 'Hipercolesterolemia familiar homocigótica'
+          'Muerte súbita', 'Hipercolesterolemia familiar homocigótica', 'ICTUS'
         ],
       },
       select: [

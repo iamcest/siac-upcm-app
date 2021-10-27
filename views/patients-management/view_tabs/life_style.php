@@ -22,15 +22,31 @@
             <template v-if="parseInt(patient_life_style.editedItem.physical_exercise)">
                 <v-col cols="12" md="6" lg="4">
                     <span class="font-weight-bold">Tipo de ejercicio:
-                        <span class="black--text">
-                            {{ patient_life_style.editedItem.exercise.type }}
-                        </span>
+                        <br>
+                        <template v-for="exercise_type, i in patient_life_style.editedItem.exercise.type" :key="i">
+                            <span class="black--text">
+                                - {{ exercise_type }} <br>
+                            </span>
+                        </template>
                     </span>
                 </v-col>
-                <v-col cols="12" md="6" lg="4" v-if="patient_life_style.editedItem.exercise.exercises.length > 0">
-                    <span class="font-weight-bold">Ejercicios:
+                <v-col cols="12" md="6" lg="4" v-if="patient_life_style.editedItem.exercise.type.includes('Aeróbico')">
+                    <span class="font-weight-bold">Ejercicios aeróbicos:
                         <br>
-                        <template v-for="exercise in patient_life_style.editedItem.exercise.exercises">
+                        <template v-for="exercise, i in patient_life_style.editedItem.exercise.aerobic_exercises"
+                            :key="i">
+                            <span class="black--text">
+                                - {{ exercise }} <br>
+                            </span>
+                        </template>
+                    </span>
+                </v-col>
+                <v-col cols="12" md="6" lg="4"
+                    v-if="patient_life_style.editedItem.exercise.type.includes('Resistencia')">
+                    <span class="font-weight-bold">Ejercicios de resistencia:
+                        <br>
+                        <template v-for="exercise, i in patient_life_style.editedItem.exercise.resistance_exercises"
+                            :key="i">
                             <span class="black--text">
                                 - {{ exercise }} <br>
                             </span>
