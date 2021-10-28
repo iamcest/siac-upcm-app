@@ -223,6 +223,9 @@ let vm = new Vue({
           controlled: 0,
           no_controlled: 0
         },
+        obesity: {
+          total: 120
+        },
         smoking: 0,
       },
       laboratory_exam: {
@@ -3796,10 +3799,12 @@ let vm = new Vue({
 
     loadAnthropometryStatistics() {
       var app = this
+      var obesity = app.statistics.diseases.obesity
       var count = 0
       var weight_average = 0
       var height_average = 0
       var abdominal_waist_average = 0
+      obesity.total = 0
 
       app.statistics.anthropometry.loading = true
       var url = api_url + 'anthropometry/get-by-list'
@@ -3811,6 +3816,7 @@ let vm = new Vue({
           var abdominal_waist = e.abdominal_waist_suffix == 'in' ? parseFloat(abdominal_waist / 2.54).toFixed(2) : parseFloat(e.abdominal_waist).toFixed(2)
           if (weight > 0 || height > 0) {
             count = count + 1
+            app.getBMI(weight, height, 'kg', 'cm').replace(' kg/m2', '') >= 30 ? obesity.total++ : ''
             weight_average = weight_average + parseFloat(weight)
             height_average = height_average + parseFloat(height)
             abdominal_waist_average = abdominal_waist_average + parseFloat(abdominal_waist)

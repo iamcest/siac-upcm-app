@@ -58,6 +58,23 @@
         </v-alert>
     </v-col>
 
+    <v-col cols="12" md="4" lg="3" xl="3">
+        <v-alert color="info" icon="mdi-heart-pulse" border="left" outlined prominent>
+            <b>Obesidad</b>
+            <template v-if="!statistics.diseases.loading">
+                <br>
+                Total: {{ statistics.diseases.obesity.total }}
+                <br>
+                <br>
+                <br>
+            </template>
+            <template v-else>
+                <br>
+                <v-btn color="info" :loading="true" text small fab></v-btn>
+            </template>
+        </v-alert>
+    </v-col>
+
     <v-col cols="12" md="4" lg="3" xl="3" v-if="1 == 2">
         <v-alert color="info" icon="mdi-heart-pulse" border="left" outlined prominent>
             <b>Fumadores</b>
