@@ -8,6 +8,8 @@ Year of development: **2020-2021**.
 
 This is a project developed for the [SIAC (Interamerican Society of Cardiology)](http://www.siacardio.com/), to promote the UPCMS (Cardiometabolic Prevention Units) in LATAM whose mission is to implement improvements in the prevention of cardiovascular diseases to reduce the incapacities/deaths caused by them in the population.
 
+For more information on the project, please refer to the following article: [UPCM cardiometabolic prevention units](http://www.siacardio.com/novedades/institucional/upcm/)
+
 ## Languages/Technologies used:
 
 - PHP.
@@ -58,7 +60,7 @@ Año de desarrollo: **2020-2021**.
 
 Este es un proyecto desarrollado para la [SIAC (Sociedad Interamericana de Cardiología)](http://www.siacardio.com/), con el propósito de fomentar las UPCMS (Unidades de Prevención Cardiometabólicas) en LATAM cuyo objetivo es el de implementar mejoras en la prevención de las enfermedades cardiovasculares para disminuir la incapacidades/fallecimientos causadas por ellas en la población.
 
-For more information on the project, please refer to the following article: [UPCM cardiometabolic prevention units](http://www.siacardio.com/novedades/institucional/upcm/)
+Para más información sobre el proyecto, consulte el siguiente artículo: [Unidades de prevención cardiometabólica de la UPCM](http://www.siacardio.com/novedades/institucional/upcm/)
 
 ## Lenguajes/Tecnologías usadas:
 
