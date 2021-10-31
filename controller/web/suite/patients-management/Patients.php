@@ -23,7 +23,7 @@ class Patients extends Routes
             ['name' => "$cf/colesterol-ldl.min", 'version' => '1.0.0'],
             ['name' => "$cf/inter-heart.min", 'version' => '1.0.0'],
             ['name' => "$cf/heart-risk-framingham.min", 'version' => '1.0.0'],
-            ['name' => 'patients-management/patients.min', 'version' => '1.13.3'],
+            ['name' => 'patients-management/patients.min', 'version' => '1.13.4'],
         ];
         $this->content = new Template("patients-management/patients", [
             'notifications' => $suite->total_views,

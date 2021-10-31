@@ -14,11 +14,12 @@
 
         <v-card-text>
             <v-container fluid>
-                <?php echo new Template('patients-management/statistics/parts/patients_entries') ?>
+                <?php echo new Template('patients-management/statistics/parts/patients-entries') ?>
                 <?php echo new Template('patients-management/statistics/parts/general') ?>
                 <?php echo new Template('patients-management/statistics/parts/anthropometry') ?>
+                <?php echo new Template('patients-management/statistics/parts/life-style') ?>
                 <?php echo new Template('patients-management/statistics/parts/diseases') ?>
-                <?php echo new Template('patients-management/statistics/parts/laboratory_exams') ?>
+                <?php echo new Template('patients-management/statistics/parts/laboratory-exams') ?>
             </v-container>
         </v-card-text>
     </v-card>

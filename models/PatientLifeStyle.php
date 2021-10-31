@@ -27,6 +27,21 @@ class PatientLifeStyle
         return $arr;
     }
 
+    public function get_last($id = 0)
+    {
+        if (empty($id)) {
+            return [];
+        }
+
+        $sql = "SELECT * FROM {$this->table} WHERE patient_id = $id ORDER BY appointment_id DESC LIMIT 1";
+        $result = execute_query($sql);
+        $arr = [];
+        while ($row = $result->fetch_assoc()) {
+            $arr[] = $row;
+        }
+        return $arr;
+    }
+    
     public function update($data = [])
     {
         if (empty($data)) {

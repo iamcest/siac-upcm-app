@@ -24,6 +24,20 @@ switch ($method) {
         echo json_encode($results);
         break;
 
+    case 'get-by-list':
+        if (empty($data)) {
+            die(403);
+        }
+        $patients_life_style = [];
+        foreach ($data as $patient_item) {
+            $results = $patient_life_style->get_last($patient_item['patient_id']);
+            if (count($results) > 0) {
+                $patients_life_style[] = $results[0];
+            }
+        }
+        echo json_encode($patients_life_style);
+        break;
+
     case 'update':
         if (empty($data)) {
             $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');

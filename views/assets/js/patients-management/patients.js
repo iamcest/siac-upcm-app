@@ -208,6 +208,27 @@ let vm = new Vue({
         cs: 0,
         bmi: 0
       },
+      life_style: {
+        loading: false,
+        items: [],
+        smoking: {
+          active: 0,
+          inactive: 0
+        },
+        alcohol_consumption: {
+          active: 0,
+          inactive: 0
+        },
+        sedentary: {
+          active: 0,
+          inactive: 0
+        },
+        exercises: {
+          aerobics: 0,
+          resistance: 0,
+          time_weekly_avg: 0
+        }
+      },
       diseases: {
         loading: false,
         histories: [],
@@ -3838,6 +3859,38 @@ let vm = new Vue({
 
     },
 
+    loadLifeStyleStatistics() {
+      var app = this
+      var life_style = app.statistics.life_style
+      var exercise_weekly_minutes_count = 0
+      var exercise_weekly_minutes_total = 0
+
+      life_style.loading = true
+      var url = api_url + 'patient-life-style/get-by-list'
+
+      app.$http.post(url, app.patients).then(res => {
+        res.body.forEach(e => {
+          e.exercise = JSON.parse(e.exercise)
+          e.smoking = JSON.parse(e.smoking)
+          parseInt(e.smoking.active) ? life_style.smoking.active++ : life_style.smoking.inactive++
+          parseInt(e.alcohol_consumption) ? life_style.alcohol_consumption.active++ : life_style.alcohol_consumption.inactive++
+          parseInt(e.sedentary) ? life_style.sedentary.active++ : life_style.sedentary.inactive++
+          e.exercise.type.includes('Aeróbico') ? life_style.exercises.aerobics++ : ''
+          e.exercise.type.includes('Resistencia') ? life_style.exercises.resistance++ : ''
+          if (!parseInt(e.sendetary) && parseInt(e.exercise_weekly_minutes) > 0) {
+            exercise_weekly_minutes_count = exercise_weekly_minutes_count + 1
+            exercise_weekly_minutes_total = exercise_weekly_minutes_total + parseInt(e.exercise_weekly_minutes)
+          }
+        })
+        exercise_weekly_minutes_count > 0 ? life_style.exercises.time_weekly_avg =
+        Math.round(exercise_weekly_minutes_total / exercise_weekly_minutes_count) : ''
+        life_style.loading = false
+      }, err => {
+        life_style.loading = false
+      })
+
+    },
+
     loadDiseasesStatistics() {
       var app = this
 
@@ -3934,6 +3987,7 @@ let vm = new Vue({
       this.loadPatientsEntryStatistics()
       this.loadGeneralStatistics()
       this.loadAnthropometryStatistics()
+      this.loadLifeStyleStatistics()
       this.loadDiseasesStatistics()
       this.loadLaboratoryExamsStatistics()
     },
