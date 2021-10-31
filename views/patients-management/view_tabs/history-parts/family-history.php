@@ -5,6 +5,6 @@
                 Antecedentes familiares
             </h3>
         </v-col>
-        <?php echo new Template('patients-management/view_tabs/history_parts/family-history/family') ?>
+        <?php echo new Template('patients-management/view_tabs/history-parts/family-history/family') ?>
     </v-row>
 </v-col>
