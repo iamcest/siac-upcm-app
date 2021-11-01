@@ -72,7 +72,7 @@
     <v-tab-item transition="scroll-y-reverse-transition" :value="'tab-<?php echo $i;?>'">
         <v-container fluid>
 
-            <v-row>
+            <v-row v-if="tab == 'tab-<?php echo $i;?>'">
                 <?php echo new Template('patients-management/form_tabs/'. $tab_item) ?>
             </v-row>
 

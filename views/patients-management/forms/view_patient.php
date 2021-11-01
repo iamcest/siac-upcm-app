@@ -60,7 +60,7 @@
     <v-tab-item transition="scroll-y-reverse-transition" :value="'tab-view-<?php echo $i;?>'">
         <v-container fluid>
 
-            <v-row>
+            <v-row v-if="view_tab == 'tab-view-<?php echo $i;?>'">
                 <?php echo new Template('patients-management/view_tabs/'. $tab_item, ['access' => $access]) ?>
             </v-row>
 

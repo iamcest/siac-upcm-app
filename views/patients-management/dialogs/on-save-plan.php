@@ -1,5 +1,5 @@
 <v-dialog v-model="finishOptionsDialog" max-width="75%">
-  <v-card>
+  <v-card v-if="finishOptionsDialog">
     <v-toolbar elevation="0">
       <v-toolbar-title>Antes de finalizar...</v-toolbar-title>
       <v-spacer></v-spacer>

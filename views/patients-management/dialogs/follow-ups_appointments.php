@@ -1,5 +1,5 @@
 <v-dialog v-model="FollowUpAppointmentsDialog" max-width="400px">
-  <v-card>
+  <v-card v-if="FollowUpAppointmentsDialog">
     <v-toolbar elevation="0">
       <v-toolbar-title>Seleccione una cita</v-toolbar-title>
       <v-spacer></v-spacer>

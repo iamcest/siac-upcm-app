@@ -1,5 +1,5 @@
 <v-dialog v-model="viewPatientsComparisonDialog">
-    <v-card>
+    <v-card v-if="viewPatientsComparisonDialog">
         <v-toolbar elevation="0">
             <v-toolbar-title>Comparación entre pacientes</v-toolbar-title>
             <v-spacer></v-spacer>
