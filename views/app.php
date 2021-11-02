@@ -44,6 +44,7 @@
     <script src="<?php echo SITE_URL ?>/public/js/components/vuetify.min.js"></script>
     <script src="<?php echo SITE_URL ?>/public/js/components/vue-resource.min.js"></script>
     <script src="<?php echo SITE_URL ?>/public/js/setup.min.js"></script>
+    <script src="<?php echo SITE_URL ?>/public/js/Classes/http.min.js"></script>
     <?php if (!empty($data['scripts'])): ?>
     <?php foreach ($data['scripts'] as $script): ?>
     <script src="<?php echo SITE_URL ?>/views/assets/js/<?php echo $script['name'] ?>.js<?php echo !empty($script['version']) ? "?v={$script['version']}" : '' ?>">

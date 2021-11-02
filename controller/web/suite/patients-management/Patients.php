@@ -9,9 +9,14 @@ class Patients extends Routes
         $suite = new SuiteSection();
         !$this->has_access('patient_management_access') ? header("Location: " . SITE_URL . "/") : '';
         $cf = 'patients-management/calculations';
-        $this->styles = [['name' => 'patient-management']];
+        $this->styles = [
+            ['name' => 'patient-management'],
+            ['name' => 'full-calendar-5.4.0.min']
+        ];
         $this->scripts = [
             ['name' => 'lib/moment.min'],
+            ['name' => 'lib/full-calendar-5.4.0/lib/main.min'],
+            ['name' => 'lib/full-calendar-5.4.0/lib/locales/es'],
             ['name' => 'vue-components/vue-tel-input-vuetify.min'],
             ['name' => 'lib/charts.min'],
             ['name' => 'vue-components/vue-chart.min'],
@@ -23,7 +28,8 @@ class Patients extends Routes
             ['name' => "$cf/colesterol-ldl.min", 'version' => '1.0.0'],
             ['name' => "$cf/inter-heart.min", 'version' => '1.0.0'],
             ['name' => "$cf/heart-risk-framingham.min", 'version' => '1.0.0'],
-            ['name' => 'patients-management/patients.min', 'version' => '1.13.4'],
+            ['name' => "patients-management/Classes/AppointmentCalendar.min", 'version' => '1.0.0'],
+            ['name' => 'patients-management/patients.min', 'version' => '1.13.5'],
         ];
         $this->content = new Template("patients-management/patients", [
             'notifications' => $suite->total_views,

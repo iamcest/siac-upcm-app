@@ -24,6 +24,7 @@ let vm = new Vue({
     view_comparison_tab: null,
     view_dialog: false,
     view_comparison_dialog: false,
+    appointment_dialog: false,
     ph_cd_heart_failure_dx_year_modal: false,
     ph_cd_ischemic_cardiopathy_sca_year_modal: false,
     ph_cd_ischemic_cardiopathy_sca_im_year_modal: false,
@@ -69,6 +70,7 @@ let vm = new Vue({
     templates: [],
     filtered_templates: [],
     templates_loading: false,
+    appointment_calendar: new AppointmentCalendar(),
     comparison: {
       active: 0,
       external_loading: false,
@@ -3001,7 +3003,7 @@ let vm = new Vue({
       })
     },
 
-    initializeAppointments() {
+    initializeAppointments(appointment_id) {
       var app = this
       app.general_save = false
       app.getDoctors()
@@ -3013,15 +3015,19 @@ let vm = new Vue({
           app.patient_appointments.appointments = res.body
           if (res.body.length > 0) {
             var obj = app.patient_appointments
+            var filtered_appointment = appointment_id !== undefined ? 
+            obj.appointments.find(e => e.appointment_id == appointment_id) : {}
             var total_length = obj.appointments.length
-            var current_appointment_i = obj.appointments[total_length - 1]
+            var current_appointment_i = Object.keys(filtered_appointment).length > 0 ? filtered_appointment : obj.appointments[total_length - 1]
             current_appointment_i.patient_id = app.editedItem.patient_id
             if (total_length > 1) {
-              var previous_appointment_i = total_length > 1 ? obj.appointments[total_length - 2] : {}
+              var previous_appointment_i = Object.keys(filtered_appointment).length > 0 && obj.appointments.indexOf(filtered_appointment) !== 0  ? 
+              obj.appointments[obj.appointments.indexOf(filtered_appointment) - 1] : obj.appointments[total_length - 2]
               previous_appointment_i.patient_id = app.editedItem.patient_id
               app.patient_appointments.previous_appointment = previous_appointment_i
             }
-            app.patient_appointments.current_appointment = current_appointment_i
+            app.patient_appointments.current_appointment = appointment_id !== undefined ? 
+            obj.appointments.find(e => e.appointment_id == appointment_id) : current_appointment_i
           }
         }, err => {
 

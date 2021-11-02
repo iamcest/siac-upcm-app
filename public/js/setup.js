@@ -23,7 +23,8 @@ const theme_setup = {
 };
 
 /*VUE PLUGINS*/
-/*VUETIFY OPTIONS AND SET UP*/ const vuetify_opts = {
+/*VUETIFY OPTIONS AND SET UP*/ 
+const vuetify_opts = {
     theme: {
         themes: theme_setup
     }
