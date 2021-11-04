@@ -27,7 +27,9 @@
                                     </v-col>
                                     <v-col cols="6" v-if="item.has_treatment == 'Sí'">
                                         <template
-                                            v-if="item.name == 'HTA' || item.name == 'Dislipidemia' || item.name == 'DMt2'">
+                                            v-if="item.name == 'HTA' 
+                    || item.name == 'Dislipidemia' || item.name == 'DMt2' 
+                    || item.name == 'Cardiopatía Isquémica' || item.name == 'Insuficiencia Cardíaca'  || item.name == 'Pre DMt2'">
                                             <v-btn color="primary" class="mt-6" @click="patient_risk_factors.rf.treatment_selected = item;
                             patient_risk_factors.rf.treatment_dialog = true">Editar
                                             </v-btn>
@@ -38,8 +40,8 @@
                                             </template>
                                             <template v-else>
                                                 <v-text-field class="mt-6" v-model="item.comment"
-                                                    placeholder="especifique el tratamiento" hint="Tratamiento" persistent-hint outlined
-                                                    dense></v-text-field>
+                                                    placeholder="especifique el tratamiento" hint="Tratamiento"
+                                                    persistent-hint outlined dense></v-text-field>
                                             </template>
                                         </template>
                                     </v-col>

@@ -11,7 +11,9 @@
             sort-by="name" class="elevation-1 table_headers_lg">
             <template #item.comment='{ item }'>
                 {{ item.comment }}
-                <template v-if="item.name == 'HTA' || item.name == 'Dislipidemia' || item.name == 'DMt2'">
+                <template v-if="item.name == 'HTA' 
+                    || item.name == 'Dislipidemia' || item.name == 'DMt2' 
+                    || item.name == 'Cardiopatía Isquémica' || item.name == 'Insuficiencia Cardíaca'  || item.name == 'Pre DMt2'">
                     <template v-if="item.diagnostic == 'Sí' && item.has_treatment == 'Sí'">
                         <v-btn color="primary" @click="patient_risk_factors.rf.treatment_selected = item;
                             patient_risk_factors.rf.treatment_view_dialog = true">Ver

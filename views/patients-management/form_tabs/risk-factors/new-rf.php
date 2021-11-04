@@ -1,7 +1,7 @@
 <v-col cols="12">
     <?php echo new Template('patients-management/form_tabs/risk-factors/treatments/edit_dialog') ?>
     <v-data-table :headers="patient_risk_factors.headers" :items="patient_risk_factors.rf.risk_factors"
-        class="elevation-1 full-width table_headers_lg">
+        :loading="patient_risk_factors.loading" class="elevation-1 full-width table_headers_lg">
         <template #top>
             <v-row>
                 <v-col class="pl-7" cols="11">
@@ -19,7 +19,10 @@
                     </v-select>
                 </v-col>
                 <v-col cols="6" v-if="item.has_treatment == 'Sí'">
-                    <template v-if="item.name == 'HTA' || item.name == 'Dislipidemia' || item.name == 'DMt2'">
+                    <template
+                        v-if="item.name == 'HTA' 
+                    || item.name == 'Dislipidemia' || item.name == 'DMt2' 
+                    || item.name == 'Cardiopatía Isquémica' || item.name == 'Insuficiencia Cardíaca'  || item.name == 'Pre DMt2'">
                         <template
                             v-if="patient_risk_factors.risk_factors_diagnostics.length > 0 && item.same_treatment == ''">
                             <p class="text-center">¿Desea mantener el mismo tratamiento?</p>
@@ -32,7 +35,8 @@
                         <template
                             v-else-if="patient_risk_factors.risk_factors_diagnostics.length > 0 || item.same_treatment == 'No'">
                             <v-btn color="primary" class="mt-6" @click="patient_risk_factors.rf.treatment_selected = item;
-                            patient_risk_factors.rf.treatment_dialog = true" v-if="item.same_treatment == '' || item.same_treatment == 'No'">Editar</v-btn>
+                            patient_risk_factors.rf.treatment_dialog = true"
+                                v-if="item.same_treatment == '' || item.same_treatment == 'No'">Editar</v-btn>
                         </template>
                         <template v-else>
                             <v-btn color="primary" class="mt-6" @click="patient_risk_factors.rf.treatment_selected = item;

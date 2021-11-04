@@ -3499,36 +3499,37 @@ let vm = new Vue({
 
     initializeFactorsRisk(get_risk_factors) {
       var app = this
-      app.general_save = false
+      var obj = app.patient_risk_factors
+      obj.loading = true
       var data = {
         patient_id: app.editedItem.patient_id,
         current_appointment: app.patient_appointments.current_appointment.appointment_id,
         previous_appointment: app.patient_appointments.previous_appointment.appointment_id
       }
       if (get_risk_factors) {
-        app.patient_risk_factors.risk_factors_list.current_list = []
-        app.patient_risk_factors.risk_factors_list.previous_list = []
-        app.patient_risk_factors.risk_factors_loaded = true
+        obj.risk_factors_list.current_list = []
+        obj.risk_factors_list.previous_list = []
+        obj.risk_factors_loaded = true
         var url = api_url + 'patient-risk-factors/get/'
         app.$http.post(url, data).then(res => {
-          app.patient_risk_factors.risk_factors_list.current_list = res.body.hasOwnProperty('current_list')
+          obj.risk_factors_list.current_list = res.body.hasOwnProperty('current_list')
             ? res.body.current_list : []
-          app.patient_risk_factors.risk_factors_list.previous_list = res.body.hasOwnProperty('previous_list')
+          obj.risk_factors_list.previous_list = res.body.hasOwnProperty('previous_list')
             ? res.body.previous_list : []
           /*
           if (res.body.hasOwnProperty('current_risk_factors_diagnostics')) {
-            app.patient_risk_factors.risk_factors_list = res.body
+            obj.risk_factors_list = res.body
           }
           */
-          app.patient_risk_factors.risk_factors_loaded = false
+          obj.risk_factors_loaded = false
         }, err => {
-
+  
         })
       }
-      app.patient_risk_factors.selectedForm = { calc_name: '', obj: { results: '' } }
+      obj.selectedForm = { calc_name: '', obj: { results: '' } }
       var url = api_url + 'patient-risk-factors-diagnostic/get/'
-      app.patient_risk_factors.risk_factors = Object.assign({}, app.patient_risk_factors.defaultItems.risk_factors)
-      app.patient_risk_factors.risk_factors_diagnostics = []
+      obj.risk_factors = Object.assign({}, obj.defaultItems.risk_factors)
+      obj.risk_factors_diagnostics = []
       app.$http.post(url, data).then(res => {
         if (res.body.hasOwnProperty('current_risk_factors_diagnostics') &&
           res.body.current_risk_factors_diagnostics.hasOwnProperty('risk_factors')) {
@@ -3537,17 +3538,16 @@ let vm = new Vue({
           var rf = res.body.current_risk_factors_diagnostics
           rf.patient_id = data.patient_id
           rf.appointment_id = data.current_appointment
-          app.patient_risk_factors.rf.appointment_id = rf.appointment_id
-          app.patient_risk_factors.rf.risk_factors = rf.risk_factors
-          app.patient_risk_factors.rf.created_at = rf.created_at
-          app.patient_risk_factors.rf.updated_at = rf.updated_at
+          obj.rf.appointment_id = rf.appointment_id
+          obj.rf.risk_factors = rf.risk_factors
+          obj.rf.created_at = rf.created_at
+          obj.rf.updated_at = rf.updated_at
         }
         else {
           var history = app.patient_history.form.history_content
-          app.patient_risk_factors.rf.risk_factors.forEach(e => {
+          obj.rf.risk_factors.forEach(e => {
             if (e.name == 'HTA') {
               e.diagnostic = parseInt(history.diseases.hta.active) ? 'Sí' : 'No'
-
             }
             else if (e.name == 'Dislipidemia') {
               e.diagnostic = parseInt(history.diseases.dyslipidemia.active) ? 'Sí' : 'No'
@@ -3557,9 +3557,6 @@ let vm = new Vue({
             }
             else if (e.name == 'DMt2') {
               e.diagnostic = parseInt(history.diseases.dtm2.active) ? 'Sí' : 'No'
-            }
-            else if (e.name == 'Tabaquismo') {
-              e.diagnostic = parseInt(history.diseases.smoking.active) ? 'Sí' : 'No'
             }
             else if (e.name == 'Cardiopatía Isquémica') {
               e.diagnostic = parseInt(history.cardiovascular_diseases.ischemic_cardiopathy.sca.active) ? 'Sí' : 'No'
@@ -3583,10 +3580,11 @@ let vm = new Vue({
             item.risk_factors = JSON.parse(item.risk_factors)
             items.push(item)
           })
-          app.patient_risk_factors.risk_factors_diagnostics = items
+          obj.risk_factors_diagnostics = items
         }
+        obj.loading = false
       }, err => {
-
+  
       })
     },
 
@@ -5585,10 +5583,10 @@ let vm = new Vue({
 
       if (obj.rf.hasOwnProperty('created_at') && obj.risk_factors_diagnostics.length > 1) {
         var index = obj.risk_factors_diagnostics.length
-        var diagnostic = obj.risk_factors_diagnostics[index - 2]
-          .risk_factors.find((e) => {
-            return e.name == name
-          })
+        var diagnostic_index = obj.rf.hasOwnProperty('created_at') ? index - 2 : index - 1
+        var diagnostic= obj.risk_factors_diagnostics[diagnostic_index].risk_factors.find((e) => {
+          return e.name == name
+        })
         if (diagnostic !== undefined &&
           diagnostic.diagnostic == 'Sí' &&
           diagnostic.has_treatment == 'Sí') {
@@ -5598,21 +5596,7 @@ let vm = new Vue({
           return ''
         }
       }
-      else {
-        var index = obj.risk_factors_diagnostics.length
-        diagnostic = obj.risk_factors_diagnostics[index - 1]
-          .risk_factors.find((e) => {
-            return e.name == name
-          })
-        if (diagnostic !== undefined &&
-          diagnostic.diagnostic == 'Sí' &&
-          diagnostic.has_treatment == 'Sí') {
-          return diagnostic.comment
-        }
-        else {
-          return ''
-        }
-      }
+      return ''
     },
 
     hasPreviousFRTreatment(name) {
@@ -5620,35 +5604,18 @@ let vm = new Vue({
       var obj = app.patient_risk_factors
 
       if (app.patient_appointments.previous_appointment.hasOwnProperty('appointment_id')) {
-        if (obj.rf.hasOwnProperty('created_at') && obj.risk_factors_diagnostics.length > 1) {
+        if (obj.risk_factors_diagnostics.length > 1) {
           var index = obj.risk_factors_diagnostics.length
-          var diagnostic = obj.risk_factors_diagnostics[index - 2]
-            .risk_factors.find((e) => {
-              return e.name == name
-            })
+          var diagnostic_index = obj.rf.hasOwnProperty('created_at') ? index - 2 : index - 1
+          var diagnostic= obj.risk_factors_diagnostics[diagnostic_index].risk_factors.find((e) => {
+            return e.name == name
+          })
           if (diagnostic !== undefined &&
             diagnostic.diagnostic == 'Sí' &&
             diagnostic.has_treatment == 'Sí') {
             return true
           }
-          else {
-            return false
-          }
-        }
-        else {
-          var index = obj.risk_factors_diagnostics.length
-          diagnostic = obj.risk_factors_diagnostics[index - 1]
-            .risk_factors.find((e) => {
-              return e.name == name
-            })
-          if (diagnostic !== undefined &&
-            diagnostic.diagnostic == 'Sí' &&
-            diagnostic.has_treatment == 'Sí') {
-            return true
-          }
-          else {
-            return false
-          }
+          return false
         }
       }
       else {
