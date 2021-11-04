@@ -1303,341 +1303,16 @@ let vm = new Vue({
           family_history: [],
           diseases: {
             hta: {
-              treatments_list: {
-                iecas:
-                  [
-                    'Benazepril', 'Captopril', 'Cilazapril',
-                    'Enalapril', 'Espirapril', 'Fosinopril', 'Lisinopril',
-                    'Imidapril', 'Moexipril', 'Perindopril', 'Quinapril',
-                    'Ramipril', 'Espirapril', 'Trandolapril', 'Zofenopril'
-                  ],
-                bra:
-                  [
-                    'Candesartan', 'Eprosartan',
-                    'Irbesartan', 'Losartan', 'Olmesartan medoxomilo',
-                    'Telmisartan', 'Valsartan'
-                  ],
-                diuretic:
-                  [
-                    { header: 'Tiazidas y similares' },
-                    { name: 'Clorotiazida', group: 'Group 1' },
-                    { name: 'Clortalidona', group: 'Group 1' },
-                    { name: 'Hidroclorotiazida', group: 'Group 1' },
-                    { name: 'Metolazona', group: 'Group 1' },
-                    { divider: true },
-                    { header: 'Asa' },
-                    { name: 'Azetazolamida', group: 'Group 2' },
-                    { name: 'Bumetamida', group: 'Group 2' },
-                    { name: 'Furosemida', group: 'Group 2' },
-                    { name: 'Torsemida', group: 'Group 2' },
-                    { divider: true },
-                    { header: 'Ahorradores de potasio' },
-                    { name: 'Metolazona', group: 'Group 3' },
-                    { name: 'Espironolactona', group: 'Group 3' },
-                    { name: 'Triametereno', group: 'Group 3' },
-                    { divider: true },
-                    { header: 'Otros' },
-                  ],
-                fdc:
-                  [
-                    { header: 'Calcioantagonistas y diuréticos' },
-                    { name: 'Amlodipina + indapamida', group: 'Group 1' },
-                    { name: 'Amlodipina + hidroclorotiazida', group: 'Group 1' },
-                    { divider: true },
-                    { name: 'IECAS + diuréticos' },
-                    { name: 'IECAS + calcioantagonitas' },
-                    { name: 'IECAS + betabloqueantes' },
-                    { name: 'Betabloqueante + diurético' },
-                    { name: 'Betabloqueante + calcioantagonista' },
-                    { name: 'BRA + diurético + calcioantagonista ' }
-                  ],
-                ca:
-                  [
-                    'Amlodipina', 'Felodipina', 'Isradipina',
-                    'Nicardipina', 'Nifedipina', 'Nifedipina OROS',
-                    'Nimodipina', 'Nisoldipina', 'Lacidipina',
-                    'Manidipina', 'Barnidipina', 'Lecardipina',
-                    'Clevadipina', 'Verapamilo', 'Diltiazem'
-                  ],
-                ir:
-                  [
-                    'Candesartan', 'Eprosartan',
-                    'Irbesartan', 'Losartan', 'Olmesartan medoxomilo',
-                    'Telmisartan', 'Valsartan'
-                  ],
-                block_beta:
-                  [
-                    'Atenolol', 'Bisoprolol', 'Carvedilol',
-                    'Metoprolol', 'Nebivolol', 'Torsemida'
-                  ],
-                arni:
-                  [
-                    'Sacubitril / Valsartan'
-                  ],
-                ant_mineralocorticoids:
-                  [
-                    'Espironolactona', 'Esplerenona'
-                  ],
-              },
-              secondary_effects: {
-                iecas: ['Tos', 'Edema', 'Angio neurótico'],
-                bra: ['Tos', 'Edema', 'Angio neurótico'],
-                ca: ['Cefalea', 'Edema'],
-                diuretic: [
-                  'Transtornos HE', 'Hiperglicemia',
-                  'Bradicardia', 'Disfunción eréctil'
-                ],
-                ir: ['Tos', 'Edema', 'Angio neurótico'],
-                block_beta: [
-                  'Bradicardia',
-                  'Disfunción eréctil',
-                  'Broncoespasmo'
-                ],
-                arni: [],
-                ant_mineralocorticoids: [],
-              },
               active: 0,
               controlled: 0,
               detected_previously: 1,
               diagnostic_date: '',
-              iecas: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              bra: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              ca: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              ir: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              diuretic: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              arni: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              ant_mineralocorticoids: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              fdc: {
-                active: 0,
-                selected: [],
-              },
-              block_beta: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              block: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
             },
             dtm2: {
-              treatments_list: {
-                metformin: [],
-                insulin: [
-                  'Rápida (regular)', 'Intermedia: NPH'
-                ],
-                a_insulin: [
-                  'Aspart', 'Degludec', 'Detemir',
-                  'Glargina', 'Glulisina', 'Lispro',
-                  'NPA', 'NPL'
-                ],
-                antiplatelet_agents: [
-                  'Aspirina', 'Clopidogrel', 'Prasugrel',
-                  'Ticagrelor'
-                ],
-                oral_anticoagulants: [
-                  'Apixaban', 'Dabigatran', 'Rivaroxaban',
-                  'Warfarina'
-                ],
-                insulin_mixtures: ['Rápida + NPH', 'Aspart + NPA', 'Lispro – NPL',],
-                metformin: [],
-                sulfonylureas: [
-                  'Glibenclamida (gliburida)', 'Glipizida', 'Gliclazida',
-                  'Gliclazida retard', 'Glimepirida', 'Glisentida'
-                ],
-                glinidas: ['Repaglinida'],
-                pioglitazona: [],
-                inh_dpp: [
-                  'Sitagliptina', 'Vildagliptina', 'Saxagliptina',
-                  'Linagliptina', 'Alogliptina'
-                ],
-                i_slgt2: [
-                  'Dapaglifozina', 'Canaglifozina', 'Empaglifozina'
-                ],
-                gl: [
-                  'Exenatide', 'Exenatide LAR', 'Lixisenatide',
-                  'Liraglutide', 'Dulaglutide'
-                ],
-                fdc:
-                  [
-                    { name: 'Metformina + Sulfonilúreas' },
-                    { name: 'Metformina + I DPP-4' },
-                  ],
-              },
               active: 0,
               controlled: 0,
               detected_previously: 1,
               diagnostic_date: '',
-              secondary_effects: {
-                metformin: ['Trastornos digestivos'],
-                insulin: [],
-                a_insulin: ['Hipoglicemia'],
-                sulfonylureas: ['Hipoglicemia'],
-                glinidas: ['Hipoglicemia'],
-                pioglitazona: [],
-                inh_dpp: [],
-                i_slgt2: [],
-                gl: [],
-                antiplatelet_agents: [
-                  'Alergias',
-                  'Hemorragias digestivas',
-                  'Hematomas',
-                ],
-                oral_anticoagulants: [],
-              },
-              metformin: {
-                active: 0,
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              insulin: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              a_insulin: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              antiplatelet_agents: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              oral_anticoagulants: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              insulin_mixtures: {
-                selected: [],
-              },
-              sulfonylureas: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              glinidas: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              pioglitazona: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              inh_dpp: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              i_slgt2: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              gl: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-              },
-              fdc: {
-                active: 0,
-                selected: [],
-              },
             },
             pre_dtm2: {
               active: 0,
@@ -1646,90 +1321,11 @@ let vm = new Vue({
               diagnostic_date: '',
             },
             dyslipidemia: {
-              treatments_list: {
-                statins:
-                  [
-                    'Atorvastatina', 'Lovastatina', 'Simvastatina',
-                    'Pitavastatina', 'Pravastatina', 'Rosuvastatina ',
-                  ],
-                ezt: [],
-                fibratos:
-                  [
-                    'Gembribrozil', 'Bezafibrato', 'Fenofibrato'
-                  ],
-                polipildora:
-                  [
-                    'Aspirina', 'Estatina', 'Betabloqueante',
-                    'Diurético', 'IECA', 'BRA', 'Calcioantagonista',
-                    'AAS/Estatina/IECA', 'AAS/Estatina/IECA/Diurético', 'Antagonistas del calcio/Estatina/IECA'
-                  ],
-                polipildora_reason:
-                  [
-                    'Controlar los factores de riesgo', 'Evitar eventos recurrentes',
-                    'Disminuir polimedicación', 'Mejorar adherencia'
-                  ],
-                omega3: ['EPA', 'EPA-DHA'],
-                ipcsk9: [],
-              },
               active: 0,
               controlled: 0,
               detected_previously: 1,
               diagnostic_date: '',
               treatment: '',
-              secondary_effects: {
-                statins: ['Dolores musculares'],
-                ezt: ['Dolores musculares'],
-                fibratos: ['Dolores musculares'],
-                omega3: [],
-                ipcsk9: [],
-              },
-              statins: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              ezt: {
-                active: 0,
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              fibratos: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              omega3: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              ipcsk9: {
-                treatment: '',
-                frecuency: '',
-                dosis: '',
-                daily_dosis: '',
-                has_secondary_effects: 0,
-                secondary_effects: ''
-              },
-              polipildora: {
-                active: 0,
-                date: moment().format('YYYY-MM-DD'),
-                reason: '',
-                selected: [],
-              },
             },
           },
           emergency_hta_history: 0,
@@ -1842,27 +1438,6 @@ let vm = new Vue({
               territory: '',
             },
           },
-          antiplatelet: {
-            active: 0,
-            treatments: {
-              aspirin: {
-                active: 0,
-                dosis: ''
-              },
-              clopidogrel: {
-                active: 0,
-                dosis: ''
-              },
-              ticagrelor: {
-                active: 0,
-                dosis: ''
-              },
-              prasugel: {
-                active: 0,
-                dosis: ''
-              },
-            },
-          },
           cronic_kidney_disease: {
             active: 0,
             stadium: '',
@@ -1878,345 +1453,442 @@ let vm = new Vue({
               }
             ],
           },
+          treatments: {
+            antihypertensives: {
+              treatments_list: {
+                iecas:
+                  [
+                    'Benazepril', 'Captopril', 'Cilazapril',
+                    'Enalapril', 'Espirapril', 'Fosinopril', 'Lisinopril',
+                    'Imidapril', 'Moexipril', 'Perindopril', 'Quinapril',
+                    'Ramipril', 'Espirapril', 'Trandolapril', 'Zofenopril'
+                  ],
+                bra:
+                  [
+                    'Candesartan', 'Eprosartan',
+                    'Irbesartan', 'Losartan', 'Olmesartan medoxomilo',
+                    'Telmisartan', 'Valsartan'
+                  ],
+                diuretic:
+                  [
+                    { header: 'Tiazidas y similares' },
+                    { name: 'Clorotiazida', group: 'Group 1' },
+                    { name: 'Clortalidona', group: 'Group 1' },
+                    { name: 'Hidroclorotiazida', group: 'Group 1' },
+                    { name: 'Metolazona', group: 'Group 1' },
+                    { divider: true },
+                    { header: 'Asa' },
+                    { name: 'Azetazolamida', group: 'Group 2' },
+                    { name: 'Bumetamida', group: 'Group 2' },
+                    { name: 'Furosemida', group: 'Group 2' },
+                    { name: 'Torsemida', group: 'Group 2' },
+                    { divider: true },
+                    { header: 'Ahorradores de potasio' },
+                    { name: 'Metolazona', group: 'Group 3' },
+                    { name: 'Espironolactona', group: 'Group 3' },
+                    { name: 'Triametereno', group: 'Group 3' },
+                    { divider: true },
+                    { header: 'Otros' },
+                  ],
+                ca:
+                  [
+                    'Amlodipina', 'Felodipina', 'Isradipina',
+                    'Nicardipina', 'Nifedipina', 'Nifedipina OROS',
+                    'Nimodipina', 'Nisoldipina', 'Lacidipina',
+                    'Manidipina', 'Barnidipina', 'Lecardipina',
+                    'Clevadipina', 'Verapamilo', 'Diltiazem'
+                  ],
+                ir: [
+                  'Candesartan', 'Eprosartan',
+                  'Irbesartan', 'Losartan', 'Olmesartan medoxomilo',
+                  'Telmisartan', 'Valsartan'
+                ],
+                block_beta:
+                  [
+                    'Atenolol', 'Bisoprolol', 'Carvedilol',
+                    'Metoprolol', 'Nebivolol', 'Torsemida'
+                  ],
+                arni:
+                  [
+                    'Sacubitril / Valsartan'
+                  ],
+                fdc:
+                  [
+                    { header: 'Calcioantagonistas y diuréticos' },
+                    { name: 'Amlodipina + indapamida', group: 'Group 1' },
+                    { name: 'Amlodipina + hidroclorotiazida', group: 'Group 1' },
+                    { divider: true },
+                    { name: 'IECAS + diuréticos' },
+                    { name: 'IECAS + calcioantagonitas' },
+                    { name: 'IECAS + betabloqueantes' },
+                    { name: 'Betabloqueante + diurético' },
+                    { name: 'Betabloqueante + calcioantagonista' },
+                    { name: 'BRA + diurético + calcioantagonista ' }
+                  ],
+                ant_mineralocorticoids:
+                  [
+                    'Espironolactona', 'Esplerenona'
+                  ],
+              },
+              secondary_effects: {
+                iecas: ['Tos', 'Edema', 'Angio neurótico'],
+                bra: ['Tos', 'Edema', 'Angio neurótico'],
+                ca: ['Cefalea', 'Edema'],
+                diuretic: [
+                  'Transtornos HE', 'Hiperglicemia',
+                  'Bradicardia', 'Disfunción eréctil'
+                ],
+                ir: ['Tos', 'Edema', 'Angio neurótico'],
+                block_beta: [
+                  'Bradicardia',
+                  'Disfunción eréctil',
+                  'Broncoespasmo'
+                ],
+                arni: [],
+                ant_mineralocorticoids: [],
+              },
+              iecas: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              bra: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              ca: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              ir: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              diuretic: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              arni: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              ant_mineralocorticoids: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              fdc: {
+                active: 0,
+                selected: [],
+              },
+              block_beta: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              block: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+            },
+            antidiabetics: {
+              treatments_list: {
+                metformin: [],
+                insulin: [
+                  'Rápida (regular)', 'Intermedia: NPH'
+                ],
+                a_insulin: [
+                  'Aspart', 'Degludec', 'Detemir',
+                  'Glargina', 'Glulisina', 'Lispro',
+                  'NPA', 'NPL'
+                ],
+                insulin_mixtures: ['Rápida + NPH', 'Aspart + NPA', 'Lispro – NPL',],
+                metformin: [],
+                sulfonylureas: [
+                  'Glibenclamida (gliburida)', 'Glipizida', 'Gliclazida',
+                  'Gliclazida retard', 'Glimepirida', 'Glisentida'
+                ],
+                glinidas: ['Repaglinida'],
+                pioglitazona: [],
+                inh_dpp: [
+                  'Sitagliptina', 'Vildagliptina', 'Saxagliptina',
+                  'Linagliptina', 'Alogliptina'
+                ],
+                i_slgt2: [
+                  'Dapaglifozina', 'Canaglifozina', 'Empaglifozina'
+                ],
+                gl: [
+                  'Exenatide', 'Exenatide LAR', 'Lixisenatide',
+                  'Liraglutide', 'Dulaglutide'
+                ],
+                fdc: [
+                  { name: 'Metformina + Sulfonilúreas' },
+                  { name: 'Metformina + I DPP-4' },
+                ],
+              },
+              secondary_effects: {
+                metformin: ['Trastornos digestivos'],
+                insulin: [],
+                a_insulin: ['Hipoglicemia'],
+                sulfonylureas: ['Hipoglicemia'],
+                glinidas: ['Hipoglicemia'],
+                pioglitazona: [],
+                inh_dpp: [],
+                i_slgt2: [],
+                gl: [],
+              },
+              metformin: {
+                active: 0,
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              insulin: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              a_insulin: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              insulin_mixtures: {
+                selected: [],
+              },
+              sulfonylureas: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              glinidas: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              pioglitazona: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              inh_dpp: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              i_slgt2: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              gl: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              fdc: {
+                active: 0,
+                selected: [],
+              },
+            },
+            antithrombotics: {
+              treatments_list: {
+                antiplatelet_agents: [
+                  'Aspirina', 'Clopidogrel', 'Prasugrel',
+                  'Ticagrelor'
+                ],
+                oral_anticoagulants: [
+                  'Apixaban', 'Dabigatran', 'Rivaroxaban',
+                  'Warfarina'
+                ],
+              },
+              secondary_effects: {
+                antiplatelet_agents: [
+                  'Alergias',
+                  'Hemorragias digestivas',
+                  'Hematomas',
+                ]
+              },
+              antiplatelet_agents: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              oral_anticoagulants: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+            },
+            hypolipidemic: {
+              treatments_list: {
+                statins:
+                  [
+                    'Atorvastatina', 'Lovastatina', 'Simvastatina',
+                    'Pitavastatina', 'Pravastatina', 'Rosuvastatina ',
+                  ],
+                ezt: [],
+                fibratos:
+                  [
+                    'Gembribrozil', 'Bezafibrato', 'Fenofibrato'
+                  ],
+                omega3: ['EPA', 'EPA-DHA'],
+                ipcsk9: [],
+              },
+              secondary_effects: {
+                statins: ['Dolores musculares'],
+                ezt: ['Dolores musculares'],
+                fibratos: ['Dolores musculares'],
+                omega3: [],
+                ipcsk9: [],
+              },
+              statins: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              ezt: {
+                active: 0,
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              fibratos: {
+                active: 0,
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              omega3: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+              ipcsk9: {
+                treatment: '',
+                frecuency: '',
+                dosis: '',
+                daily_dosis: '',
+                has_secondary_effects: 0,
+                secondary_effects: ''
+              },
+            },
+            polipildora: {
+              treatments_list: {
+                polipildora:
+                  [
+                    'Aspirina', 'Estatina', 'Betabloqueante',
+                    'Diurético', 'IECA', 'BRA', 'Calcioantagonista',
+                    'AAS/Estatina/IECA', 'AAS/Estatina/IECA/Diurético', 'Antagonistas del calcio/Estatina/IECA'
+                  ],
+                polipildora_reason:
+                  [
+                    'Controlar los factores de riesgo', 'Evitar eventos recurrentes',
+                    'Disminuir polimedicación', 'Mejorar adherencia'
+                  ],
+              },
+              active: 0,
+              date: moment().format('YYYY-MM-DD'),
+              reason: [],
+              selected: [],
+            },
+          }
         },
+
       },
       defaultItem: {
         family_history: [],
         diseases: {
           hta: {
-            treatments_list: {
-              iecas:
-                [
-                  'Benazepril', 'Captopril', 'Cilazapril',
-                  'Enalapril', 'Espirapril', 'Fosinopril', 'Lisinopril',
-                  'Imidapril', 'Moexipril', 'Perindopril', 'Quinapril',
-                  'Ramipril', 'Espirapril', 'Trandolapril', 'Zofenopril'
-                ],
-              bra:
-                [
-                  'Candesartan', 'Eprosartan',
-                  'Irbesartan', 'Losartan', 'Olmesartan medoxomilo',
-                  'Telmisartan', 'Valsartan'
-                ],
-              diuretic:
-                [
-                  { header: 'Tiazidas y similares' },
-                  { name: 'Clorotiazida', group: 'Group 1' },
-                  { name: 'Clortalidona', group: 'Group 1' },
-                  { name: 'Hidroclorotiazida', group: 'Group 1' },
-                  { name: 'Metolazona', group: 'Group 1' },
-                  { divider: true },
-                  { header: 'Asa' },
-                  { name: 'Azetazolamida', group: 'Group 2' },
-                  { name: 'Bumetamida', group: 'Group 2' },
-                  { name: 'Furosemida', group: 'Group 2' },
-                  { name: 'Torsemida', group: 'Group 2' },
-                  { divider: true },
-                  { header: 'Ahorradores de potasio' },
-                  { name: 'Metolazona', group: 'Group 3' },
-                  { name: 'Espironolactona', group: 'Group 3' },
-                  { name: 'Triametereno', group: 'Group 3' },
-                  { divider: true },
-                  { header: 'Otros' },
-                ],
-              fdc:
-                [
-                  { header: 'Calcioantagonistas y diuréticos' },
-                  { name: 'Amlodipina + indapamida', group: 'Group 1' },
-                  { name: 'Amlodipina + hidroclorotiazida', group: 'Group 1' },
-                  { divider: true },
-                  { name: 'IECAS + diuréticos' },
-                  { name: 'IECAS + calcioantagonitas' },
-                  { name: 'IECAS + betabloqueantes' },
-                  { name: 'Betabloqueante + diurético' },
-                  { name: 'Betabloqueante + calcioantagonista' },
-                  { name: 'BRA + diurético + calcioantagonista ' }
-                ],
-              ca:
-                [
-                  'Amlodipina', 'Felodipina', 'Isradipina',
-                  'Nicardipina', 'Nifedipina', 'Nifedipina OROS',
-                  'Nimodipina', 'Nisoldipina', 'Lacidipina',
-                  'Manidipina', 'Barnidipina', 'Lecardipina',
-                  'Clevadipina', 'Verapamilo', 'Diltiazem'
-                ],
-              ir: [
-                'Candesartan', 'Eprosartan',
-                'Irbesartan', 'Losartan', 'Olmesartan medoxomilo',
-                'Telmisartan', 'Valsartan'
-              ],
-              block_beta:
-                [
-                  'Atenolol', 'Bisoprolol', 'Carvedilol',
-                  'Metoprolol', 'Nebivolol', 'Torsemida'
-                ],
-              arni:
-                [
-                  'Sacubitril / Valsartan'
-                ],
-              ant_mineralocorticoids:
-                [
-                  'Espironolactona', 'Esplerenona'
-                ],
-            },
-            secondary_effects: {
-              iecas: ['Tos', 'Edema', 'Angio neurótico'],
-              bra: ['Tos', 'Edema', 'Angio neurótico'],
-              ca: ['Cefalea', 'Edema'],
-              diuretic: [
-                'Transtornos HE', 'Hiperglicemia',
-                'Bradicardia', 'Disfunción eréctil'
-              ],
-              ir: ['Tos', 'Edema', 'Angio neurótico'],
-              block_beta: [
-                'Bradicardia',
-                'Disfunción eréctil',
-                'Broncoespasmo'
-              ],
-              arni: [],
-              ant_mineralocorticoids: [],
-            },
             active: 0,
             controlled: 0,
             detected_previously: 1,
             diagnostic_date: '',
-            iecas: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            bra: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            ca: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            ir: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            diuretic: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            arni: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            ant_mineralocorticoids: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            fdc: {
-              active: 0,
-              selected: [],
-            },
-            block_beta: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            block: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
           },
           dtm2: {
-            treatments_list: {
-              metformin: [],
-              insulin: [
-                'Rápida (regular)', 'Intermedia: NPH'
-              ],
-              a_insulin: [
-                'Aspart', 'Degludec', 'Detemir',
-                'Glargina', 'Glulisina', 'Lispro',
-                'NPA', 'NPL'
-              ],
-              antiplatelet_agents: [
-                'Aspirina', 'Clopidogrel', 'Prasugrel',
-                'Ticagrelor'
-              ],
-              oral_anticoagulants: [
-                'Apixaban', 'Dabigatran', 'Rivaroxaban',
-                'Warfarina'
-              ],
-              insulin_mixtures: ['Rápida + NPH', 'Aspart + NPA', 'Lispro – NPL',],
-              metformin: [],
-              sulfonylureas: [
-                'Glibenclamida (gliburida)', 'Glipizida', 'Gliclazida',
-                'Gliclazida retard', 'Glimepirida', 'Glisentida'
-              ],
-              glinidas: ['Repaglinida'],
-              pioglitazona: [],
-              inh_dpp: [
-                'Sitagliptina', 'Vildagliptina', 'Saxagliptina',
-                'Linagliptina', 'Alogliptina'
-              ],
-              i_slgt2: [
-                'Dapaglifozina', 'Canaglifozina', 'Empaglifozina'
-              ],
-              gl: [
-                'Exenatide', 'Exenatide LAR', 'Lixisenatide',
-                'Liraglutide', 'Dulaglutide'
-              ],
-              fdc: [
-                { name: 'Metformina + Sulfonilúreas' },
-                { name: 'Metformina + I DPP-4' },
-              ],
-            },
             active: 0,
             controlled: 0,
             detected_previously: 1,
             diagnostic_date: '',
-            secondary_effects: {
-              metformin: ['Trastornos digestivos'],
-              insulin: [],
-              a_insulin: ['Hipoglicemia'],
-              sulfonylureas: ['Hipoglicemia'],
-              glinidas: ['Hipoglicemia'],
-              pioglitazona: [],
-              inh_dpp: [],
-              i_slgt2: [],
-              gl: [],
-              antiplatelet_agents: [
-                'Alergias',
-                'Hemorragias digestivas',
-                'Hematomas',
-              ],
-              oral_anticoagulants: [],
-            },
-            metformin: {
-              active: 0,
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            insulin: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            a_insulin: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            antiplatelet_agents: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            oral_anticoagulants: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            insulin_mixtures: {
-              selected: [],
-            },
-            sulfonylureas: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            glinidas: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            pioglitazona: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            inh_dpp: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            i_slgt2: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            gl: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-            },
-            fdc: {
-              active: 0,
-              selected: [],
-            },
           },
           pre_dtm2: {
             active: 0,
@@ -2225,90 +1897,13 @@ let vm = new Vue({
             diagnostic_date: '',
           },
           dyslipidemia: {
-            treatments_list: {
-              statins:
-                [
-                  'Atorvastatina', 'Lovastatina', 'Simvastatina',
-                  'Pitavastatina', 'Pravastatina', 'Rosuvastatina ',
-                ],
-              ezt: [],
-              fibratos:
-                [
-                  'Gembribrozil', 'Bezafibrato', 'Fenofibrato'
-                ],
-              polipildora:
-                [
-                  'Aspirina', 'Estatina', 'Betabloqueante',
-                  'Diurético', 'IECA', 'BRA', 'Calcioantagonista',
-                  'AAS/Estatina/IECA', 'AAS/Estatina/IECA/Diurético', 'Antagonistas del calcio/Estatina/IECA'
-                ],
-              polipildora_reason:
-                [
-                  'Controlar los factores de riesgo', 'Evitar eventos recurrentes',
-                  'Disminuir polimedicación', 'Mejorar adherencia'
-                ],
-              omega3: ['EPA', 'EPA-DHA'],
-              ipcsk9: [],
-            },
+
             active: 0,
             controlled: 0,
             detected_previously: 1,
             diagnostic_date: '',
             treatment: '',
-            secondary_effects: {
-              statins: ['Dolores musculares'],
-              ezt: ['Dolores musculares'],
-              fibratos: ['Dolores musculares'],
-              omega3: [],
-              ipcsk9: [],
-            },
-            statins: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            ezt: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            fibratos: {
-              active: 0,
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            omega3: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            ipcsk9: {
-              treatment: '',
-              frecuency: '',
-              dosis: '',
-              daily_dosis: '',
-              has_secondary_effects: 0,
-              secondary_effects: ''
-            },
-            polipildora: {
-              active: 0,
-              date: moment().format('YYYY-MM-DD'),
-              reason: [],
-              selected: [],
-            },
+
           },
         },
         emergency_hta_history: 0,
@@ -2428,27 +2023,6 @@ let vm = new Vue({
             territory: '',
           },
         },
-        antiplatelet: {
-          active: 0,
-          treatments: {
-            aspirin: {
-              active: 0,
-              dosis: ''
-            },
-            clopidogrel: {
-              active: 0,
-              dosis: ''
-            },
-            ticagrelor: {
-              active: 0,
-              dosis: ''
-            },
-            prasugel: {
-              active: 0,
-              dosis: ''
-            },
-          },
-        },
         cronic_kidney_disease: {
           active: 0,
           stadium: '',
@@ -2464,6 +2038,401 @@ let vm = new Vue({
             }
           ],
         },
+        treatments: {
+          antihypertensives: {
+            treatments_list: {
+              iecas:
+                [
+                  'Benazepril', 'Captopril', 'Cilazapril',
+                  'Enalapril', 'Espirapril', 'Fosinopril', 'Lisinopril',
+                  'Imidapril', 'Moexipril', 'Perindopril', 'Quinapril',
+                  'Ramipril', 'Espirapril', 'Trandolapril', 'Zofenopril'
+                ],
+              bra:
+                [
+                  'Candesartan', 'Eprosartan',
+                  'Irbesartan', 'Losartan', 'Olmesartan medoxomilo',
+                  'Telmisartan', 'Valsartan'
+                ],
+              diuretic:
+                [
+                  { header: 'Tiazidas y similares' },
+                  { name: 'Clorotiazida', group: 'Group 1' },
+                  { name: 'Clortalidona', group: 'Group 1' },
+                  { name: 'Hidroclorotiazida', group: 'Group 1' },
+                  { name: 'Metolazona', group: 'Group 1' },
+                  { divider: true },
+                  { header: 'Asa' },
+                  { name: 'Azetazolamida', group: 'Group 2' },
+                  { name: 'Bumetamida', group: 'Group 2' },
+                  { name: 'Furosemida', group: 'Group 2' },
+                  { name: 'Torsemida', group: 'Group 2' },
+                  { divider: true },
+                  { header: 'Ahorradores de potasio' },
+                  { name: 'Metolazona', group: 'Group 3' },
+                  { name: 'Espironolactona', group: 'Group 3' },
+                  { name: 'Triametereno', group: 'Group 3' },
+                  { divider: true },
+                  { header: 'Otros' },
+                ],
+              ca:
+                [
+                  'Amlodipina', 'Felodipina', 'Isradipina',
+                  'Nicardipina', 'Nifedipina', 'Nifedipina OROS',
+                  'Nimodipina', 'Nisoldipina', 'Lacidipina',
+                  'Manidipina', 'Barnidipina', 'Lecardipina',
+                  'Clevadipina', 'Verapamilo', 'Diltiazem'
+                ],
+              ir: [
+                'Candesartan', 'Eprosartan',
+                'Irbesartan', 'Losartan', 'Olmesartan medoxomilo',
+                'Telmisartan', 'Valsartan'
+              ],
+              block_beta:
+                [
+                  'Atenolol', 'Bisoprolol', 'Carvedilol',
+                  'Metoprolol', 'Nebivolol', 'Torsemida'
+                ],
+              arni:
+                [
+                  'Sacubitril / Valsartan'
+                ],
+              fdc:
+                [
+                  { header: 'Calcioantagonistas y diuréticos' },
+                  { name: 'Amlodipina + indapamida', group: 'Group 1' },
+                  { name: 'Amlodipina + hidroclorotiazida', group: 'Group 1' },
+                  { divider: true },
+                  { name: 'IECAS + diuréticos' },
+                  { name: 'IECAS + calcioantagonitas' },
+                  { name: 'IECAS + betabloqueantes' },
+                  { name: 'Betabloqueante + diurético' },
+                  { name: 'Betabloqueante + calcioantagonista' },
+                  { name: 'BRA + diurético + calcioantagonista ' }
+                ],
+              ant_mineralocorticoids:
+                [
+                  'Espironolactona', 'Esplerenona'
+                ],
+            },
+            secondary_effects: {
+              iecas: ['Tos', 'Edema', 'Angio neurótico'],
+              bra: ['Tos', 'Edema', 'Angio neurótico'],
+              ca: ['Cefalea', 'Edema'],
+              diuretic: [
+                'Transtornos HE', 'Hiperglicemia',
+                'Bradicardia', 'Disfunción eréctil'
+              ],
+              ir: ['Tos', 'Edema', 'Angio neurótico'],
+              block_beta: [
+                'Bradicardia',
+                'Disfunción eréctil',
+                'Broncoespasmo'
+              ],
+              arni: [],
+              ant_mineralocorticoids: [],
+            },
+            iecas: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            bra: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            ca: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            ir: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            diuretic: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            arni: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            ant_mineralocorticoids: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            fdc: {
+              active: 0,
+              selected: [],
+            },
+            block_beta: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            block: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+          },
+          antidiabetics: {
+            treatments_list: {
+              metformin: [],
+              insulin: [
+                'Rápida (regular)', 'Intermedia: NPH'
+              ],
+              a_insulin: [
+                'Aspart', 'Degludec', 'Detemir',
+                'Glargina', 'Glulisina', 'Lispro',
+                'NPA', 'NPL'
+              ],
+              insulin_mixtures: ['Rápida + NPH', 'Aspart + NPA', 'Lispro – NPL',],
+              metformin: [],
+              sulfonylureas: [
+                'Glibenclamida (gliburida)', 'Glipizida', 'Gliclazida',
+                'Gliclazida retard', 'Glimepirida', 'Glisentida'
+              ],
+              glinidas: ['Repaglinida'],
+              pioglitazona: [],
+              inh_dpp: [
+                'Sitagliptina', 'Vildagliptina', 'Saxagliptina',
+                'Linagliptina', 'Alogliptina'
+              ],
+              i_slgt2: [
+                'Dapaglifozina', 'Canaglifozina', 'Empaglifozina'
+              ],
+              gl: [
+                'Exenatide', 'Exenatide LAR', 'Lixisenatide',
+                'Liraglutide', 'Dulaglutide'
+              ],
+              fdc: [
+                { name: 'Metformina + Sulfonilúreas' },
+                { name: 'Metformina + I DPP-4' },
+              ],
+            },
+            secondary_effects: {
+              metformin: ['Trastornos digestivos'],
+              insulin: [],
+              a_insulin: ['Hipoglicemia'],
+              sulfonylureas: ['Hipoglicemia'],
+              glinidas: ['Hipoglicemia'],
+              pioglitazona: [],
+              inh_dpp: [],
+              i_slgt2: [],
+              gl: [],
+            },
+            metformin: {
+              active: 0,
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            insulin: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            a_insulin: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            insulin_mixtures: {
+              selected: [],
+            },
+            sulfonylureas: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            glinidas: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            pioglitazona: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            inh_dpp: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            i_slgt2: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            gl: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            fdc: {
+              active: 0,
+              selected: [],
+            },
+          },
+          antithrombotics: {
+            treatments_list: {
+              antiplatelet_agents: [
+                'Aspirina', 'Clopidogrel', 'Prasugrel',
+                'Ticagrelor'
+              ],
+              oral_anticoagulants: [
+                'Apixaban', 'Dabigatran', 'Rivaroxaban',
+                'Warfarina'
+              ],
+            },
+            secondary_effects: {
+              antiplatelet_agents: [
+                'Alergias',
+                'Hemorragias digestivas',
+                'Hematomas',
+              ]
+            },
+            antiplatelet_agents: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            oral_anticoagulants: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+          },
+          hypolipidemic: {
+            treatments_list: {
+              statins:
+                [
+                  'Atorvastatina', 'Lovastatina', 'Simvastatina',
+                  'Pitavastatina', 'Pravastatina', 'Rosuvastatina ',
+                ],
+              ezt: [],
+              fibratos:
+                [
+                  'Gembribrozil', 'Bezafibrato', 'Fenofibrato'
+                ],
+              omega3: ['EPA', 'EPA-DHA'],
+              ipcsk9: [],
+            },
+            secondary_effects: {
+              statins: ['Dolores musculares'],
+              ezt: ['Dolores musculares'],
+              fibratos: ['Dolores musculares'],
+              omega3: [],
+              ipcsk9: [],
+            },
+            statins: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            ezt: {
+              active: 0,
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            fibratos: {
+              active: 0,
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            omega3: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+            ipcsk9: {
+              treatment: '',
+              frecuency: '',
+              dosis: '',
+              has_secondary_effects: 0,
+              secondary_effects: ''
+            },
+          },
+          polipildora: {
+            treatments_list: {
+              polipildora:
+                [
+                  'Aspirina', 'Estatina', 'Betabloqueante',
+                  'Diurético', 'IECA', 'BRA', 'Calcioantagonista',
+                  'AAS/Estatina/IECA', 'AAS/Estatina/IECA/Diurético', 'Antagonistas del calcio/Estatina/IECA'
+                ],
+              polipildora_reason:
+                [
+                  'Controlar los factores de riesgo', 'Evitar eventos recurrentes',
+                  'Disminuir polimedicación', 'Mejorar adherencia'
+                ],
+            },
+            active: 0,
+            date: moment().format('YYYY-MM-DD'),
+            reason: [],
+            selected: [],
+          },
+        }
       },
     },
     patient_risk_factors: {
@@ -3015,19 +2984,19 @@ let vm = new Vue({
           app.patient_appointments.appointments = res.body
           if (res.body.length > 0) {
             var obj = app.patient_appointments
-            var filtered_appointment = appointment_id !== undefined ? 
-            obj.appointments.find(e => e.appointment_id == appointment_id) : {}
+            var filtered_appointment = appointment_id !== undefined ?
+              obj.appointments.find(e => e.appointment_id == appointment_id) : {}
             var total_length = obj.appointments.length
             var current_appointment_i = Object.keys(filtered_appointment).length > 0 ? filtered_appointment : obj.appointments[total_length - 1]
             current_appointment_i.patient_id = app.editedItem.patient_id
             if (total_length > 1) {
-              var previous_appointment_i = Object.keys(filtered_appointment).length > 0 && obj.appointments.indexOf(filtered_appointment) !== 0  ? 
-              obj.appointments[obj.appointments.indexOf(filtered_appointment) - 1] : obj.appointments[total_length - 2]
+              var previous_appointment_i = Object.keys(filtered_appointment).length > 0 && obj.appointments.indexOf(filtered_appointment) !== 0 ?
+                obj.appointments[obj.appointments.indexOf(filtered_appointment) - 1] : obj.appointments[total_length - 2]
               previous_appointment_i.patient_id = app.editedItem.patient_id
               app.patient_appointments.previous_appointment = previous_appointment_i
             }
-            app.patient_appointments.current_appointment = appointment_id !== undefined ? 
-            obj.appointments.find(e => e.appointment_id == appointment_id) : current_appointment_i
+            app.patient_appointments.current_appointment = appointment_id !== undefined ?
+              obj.appointments.find(e => e.appointment_id == appointment_id) : current_appointment_i
           }
         }, err => {
 
@@ -3523,7 +3492,7 @@ let vm = new Vue({
           */
           obj.risk_factors_loaded = false
         }, err => {
-  
+
         })
       }
       obj.selectedForm = { calc_name: '', obj: { results: '' } }
@@ -3584,7 +3553,7 @@ let vm = new Vue({
         }
         obj.loading = false
       }, err => {
-  
+
       })
     },
 
@@ -3887,7 +3856,7 @@ let vm = new Vue({
           }
         })
         exercise_weekly_minutes_count > 0 ? life_style.exercises.time_weekly_avg =
-        Math.round(exercise_weekly_minutes_total / exercise_weekly_minutes_count) : ''
+          Math.round(exercise_weekly_minutes_total / exercise_weekly_minutes_count) : ''
         life_style.loading = false
       }, err => {
         life_style.loading = false
@@ -4000,11 +3969,82 @@ let vm = new Vue({
       var app = this
       if (app.recipes.editedIndex == -1) {
         var items = []
+        var keys = [
+          {
+            name: 'HTA',
+            key: 'antihypertensives'
+          },
+
+          {
+            name: 'Cardiopatía Isquémica',
+            key: 'antithrombotics'
+          },
+
+          {
+            name: 'Insuficiencia Cardíaca',
+            key: 'antihypertensives'
+          },
+
+          {
+            name: 'Dislipidemia',
+            key: 'hypolipidemic'
+          },
+
+          {
+            name: 'DMt2',
+            key: 'antidiabetics'
+          },
+
+          {
+            name: 'Pre DMt2',
+            key: 'antidiabetics'
+          },
+        ]
+        var treatments = [
+          {
+            name: 'antihypertensives',
+            imported: false,
+          },
+
+          {
+            name: 'antithrombotics',
+            imported: false,
+          },
+
+          {
+            name: 'hypolipidemic',
+            imported: false,
+          },
+
+          {
+            name: 'antidiabetics',
+            imported: false,
+          },
+        ]
         app.patient_risk_factors.rf.risk_factors.forEach(e => {
-          console.log(e)
           if (e.diagnostic == 'Sí') {
-            var item = { diagnostic: e.name, treatment_goal: '' }
-            items.push(item)
+            items.push({ diagnostic: e.name, treatment_goal: '' })
+            var key = keys.find(item => item.name == e.name)
+            if (key !== undefined) {
+              var treatment = app.patient_history.form.history_content.treatments[key.key]
+              treatment_imported = treatments.find(item => item.name == key.key)
+              treatment_imported_index = treatments.indexOf(treatment_imported)
+              if (!treatment_imported.imported) {
+                Object.entries(treatment).forEach(item => {
+                  item[0] == 'metformin' && item[1].active ? item[1].treatment = 'Metformina' : '';
+                  item[0] == 'ezt' && item[1].active ? item[1].treatment = 'EZT' : '';
+                  item[1].hasOwnProperty('treatment') && item[1].treatment !== '' ? app.recipes.editedItem.instructions.push(
+                    {
+                      dosis: item[1].dosis,
+                      observations: "",
+                      schedule: `${item[1].frecuency} dosis diarias`,
+                      treatment: item[1].treatment
+                    }
+                  ) : ''
+                })
+                treatments[treatment_imported_index].imported = true
+              }
+            }
           }
         });
         app.recipes.editedItem.diagnostics = items
@@ -4016,10 +4056,7 @@ let vm = new Vue({
       if (app.reports.editedIndex == -1) {
         var items = []
         app.patient_risk_factors.rf.risk_factors.forEach(e => {
-          if (e.diagnostic == 'Sí') {
-            var item = e.name
-            items.push(item)
-          }
+          e.diagnostic == 'Sí' ? items.push(e.name) : ''
         })
         app.reports.editedItem.meta.diagnostics = items
       }
@@ -5584,7 +5621,7 @@ let vm = new Vue({
       if (obj.rf.hasOwnProperty('created_at') && obj.risk_factors_diagnostics.length > 1) {
         var index = obj.risk_factors_diagnostics.length
         var diagnostic_index = obj.rf.hasOwnProperty('created_at') ? index - 2 : index - 1
-        var diagnostic= obj.risk_factors_diagnostics[diagnostic_index].risk_factors.find((e) => {
+        var diagnostic = obj.risk_factors_diagnostics[diagnostic_index].risk_factors.find((e) => {
           return e.name == name
         })
         if (diagnostic !== undefined &&
@@ -5607,7 +5644,7 @@ let vm = new Vue({
         if (obj.risk_factors_diagnostics.length > 1) {
           var index = obj.risk_factors_diagnostics.length
           var diagnostic_index = obj.rf.hasOwnProperty('created_at') ? index - 2 : index - 1
-          var diagnostic= obj.risk_factors_diagnostics[diagnostic_index].risk_factors.find((e) => {
+          var diagnostic = obj.risk_factors_diagnostics[diagnostic_index].risk_factors.find((e) => {
             return e.name == name
           })
           if (diagnostic !== undefined &&
@@ -6457,15 +6494,15 @@ let vm = new Vue({
               if (patient_selected !== undefined && patient_to_compare !== undefined) {
                 if (params.hasOwnProperty('dosis')) {
                   var current_dosis = patient_selected.history_content.
-                    diseases[params.treatment.disease]
+                    treatments[params.treatment.group]
                   [params.treatment.treatment].dosis != '' ? parseInt(patient_selected.history_content.
-                    diseases[params.treatment.disease]
+                    treatments[params.treatment.group]
                   [params.treatment.treatment].dosis) : 0
 
                   var previous_dosis = patient_to_compare.history_content.
-                    diseases[params.treatment.disease]
+                    treatments[params.treatment.group]
                   [params.treatment.treatment].dosis != '' ? parseFloat(patient_to_compare.history_content.
-                    diseases[params.treatment.disease]
+                    treatments[params.treatment.group]
                   [params.treatment.treatment].dosis) : 0
 
                   var dosis_numeric_difference = current_dosis - previous_dosis
@@ -6482,11 +6519,11 @@ let vm = new Vue({
 
                 else if (params.hasOwnProperty('daily_dosis')) {
                   var current_dd = parseInt(patient_selected.history_content.
-                    diseases[params.treatment.disease]
+                    treatments[params.treatment.group]
                   [params.treatment.treatment].daily_dosis)
 
                   var previous_dd = parseFloat(patient_to_compare.history_content.
-                    diseases[params.treatment.disease]
+                    treatments[params.treatment.group]
                   [params.treatment.treatment].daily_dosis)
 
                   var dd_numeric_difference = current_dd - previous_dd
@@ -6513,6 +6550,7 @@ let vm = new Vue({
           }
           else {
             if (appointment.previous_appointment.hasOwnProperty('appointment_id')) {
+              var obj = app.patient_history
               var previous_ph = obj.items.find(
                 (e) => {
                   return e.appointment_id == appointment.previous_appointment.appointment_id
@@ -6525,15 +6563,15 @@ let vm = new Vue({
 
                 if (params.hasOwnProperty('dosis')) {
                   var current_dosis = obj.form.history_content.
-                    diseases[params.treatment.disease]
+                    treatments[params.treatment.group]
                   [params.treatment.treatment].dosis != '' ? parseInt(obj.form.history_content.
-                    diseases[params.treatment.disease]
+                    treatments[params.treatment.group]
                   [params.treatment.treatment].dosis) : 0
 
                   var previous_dosis = previous_ph.history_content.
-                    diseases[params.treatment.disease]
+                    treatments[params.treatment.group]
                   [params.treatment.treatment].dosis != '' ? parseFloat(previous_ph.history_content.
-                    diseases[params.treatment.disease]
+                    treatments[params.treatment.group]
                   [params.treatment.treatment].dosis) : 0
 
                   var dosis_difference = {
@@ -6547,11 +6585,11 @@ let vm = new Vue({
 
                 else if (params.hasOwnProperty('daily_dosis')) {
                   var current_dd = parseInt(obj.form.history_content.
-                    diseases[params.treatment.disease]
+                    treatments[params.treatment.group]
                   [params.treatment.treatment].daily_dosis)
 
                   var previous_dd = parseFloat(previous_ph.history_content.
-                    diseases[params.treatment.disease]
+                    treatments[params.treatment.group]
                   [params.treatment.treatment].daily_dosis)
 
                   var dd_difference = {
