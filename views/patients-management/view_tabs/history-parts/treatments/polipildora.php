@@ -10,7 +10,7 @@
                         <v-col cols="12">
                             <h3 class="font-weight-bold black--text text-center">Es candidato:
                                 <template
-                                    v-if="patient_history.form.history_content.diseases.dyslipidemia.polipildora.active">
+                                    v-if="patient_history.form.history_content.treatments.polipildora.active">
                                     Sí
                                 </template>
                                 <template v-else>
@@ -19,23 +19,23 @@
                             </h3>
                             <br>
                             <template
-                                v-if="patient_history.form.history_content.diseases.dyslipidemia.polipildora.active">
+                                v-if="patient_history.form.history_content.treatments.polipildora.active">
                                 <p class="black--text text-center font-weight-black">
                                     Fecha de inicio:
-                                    {{ patient_history.form.history_content.diseases.dyslipidemia.polipildora.date }}
+                                    {{ patient_history.form.history_content.treatments.polipildora.date }}
                                 </p>
 
                                 <p class="black--text text-center"
-                                    v-for="item in patient_history.form.history_content.diseases.dyslipidemia.polipildora.selected">
+                                    v-for="item in patient_history.form.history_content.treatments.polipildora.selected">
                                     -{{item}}
                                 </p>
 
                                 <p class="font-weight-bold black--text text-center"
-                                    v-if="patient_history.form.history_content.diseases.dyslipidemia.polipildora.reason.length > 0">
+                                    v-if="patient_history.form.history_content.treatments.polipildora.reason.length > 0">
                                     <b>Razón:</b>
                                     <br>
                                 <p class="font-weight-normal black--text text-center"
-                                    v-for="item in patient_history.form.history_content.diseases.dyslipidemia.polipildora.reason">
+                                    v-for="item in patient_history.form.history_content.treatments.polipildora.reason">
                                     -{{item}}
                                 </p>
                                 </p>

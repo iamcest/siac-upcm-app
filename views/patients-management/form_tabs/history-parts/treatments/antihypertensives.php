@@ -8,8 +8,8 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">IECAS</h3>
                     <label class="black--text font-weight-bold">Tratamiento:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.iecas.treatment"
-                        :items="patient_history.form.history_content.diseases.hta.treatments_list.iecas" class="mt-3"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.iecas.treatment"
+                        :items="patient_history.form.history_content.treatments.antihypertensives.treatments_list.iecas" class="mt-3"
                         outlined dense>
                         <template #prepend-item>
                             <v-list-item>
@@ -19,7 +19,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.hta_iecas_treatment.internalValue, patient_history.form.history_content.diseases.hta.treatments_list.iecas)">
+                                @click="addItemToArray($refs.hta_iecas_treatment.internalValue, patient_history.form.history_content.treatments.antihypertensives.treatments_list.iecas)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -28,7 +28,7 @@
                     </v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
-                    <v-text-field v-model="patient_history.form.history_content.diseases.hta.iecas.dosis" class="mt-3"
+                    <v-text-field v-model="patient_history.form.history_content.treatments.antihypertensives.iecas.dosis" class="mt-3"
                         outlined dense>
                         <template #prepend>
                             <span class="font-weight-bold">Dosis diarias:</span>
@@ -37,27 +37,27 @@
                     <v-row class="d-flex justify-center"
                         v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                         <v-badge color="primary"
-                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'hta', treatment: 'iecas'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'hta', treatment: 'iecas'  }}).dosis.percent)) + '%)'">
+                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antihypertensives', treatment: 'iecas'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antihypertensives', treatment: 'iecas'  }}).dosis.percent)) + '%)'">
                         </v-badge>
                     </v-row>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Frecuencia:</label>
                     <v-select :items="patient_history.options.treatment_frecuency"
-                        v-model="patient_history.form.history_content.diseases.hta.iecas.frecuency"
+                        v-model="patient_history.form.history_content.treatments.antihypertensives.iecas.frecuency"
                         class="black-text mt-3" outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Reacciones adversas:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.iecas.has_secondary_effects"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.iecas.has_secondary_effects"
                         class="black-text mt-3" :items="patient_history.select" outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="patient_history.form.history_content.diseases.hta.iecas.has_secondary_effects">
+                    v-if="patient_history.form.history_content.treatments.antihypertensives.iecas.has_secondary_effects">
                     <label class="black--text font-weight-bold">Tipo de reacción:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.iecas.secondary_effects"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.iecas.secondary_effects"
                         class="black-text mt-3"
-                        :items="patient_history.form.history_content.diseases.hta.secondary_effects.iecas" outlined
+                        :items="patient_history.form.history_content.treatments.antihypertensives.secondary_effects.iecas" outlined
                         dense>
                         <template #prepend-item>
                             <v-list-item>
@@ -67,7 +67,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.hta_iecas_se.internalValue, patient_history.form.history_content.diseases.hta.secondary_effects.iecas)">
+                                @click="addItemToArray($refs.hta_iecas_se.internalValue, patient_history.form.history_content.treatments.antihypertensives.secondary_effects.iecas)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -76,7 +76,7 @@
                     </v-select>
                 </v-col>
                 <v-col class="mt-n8" cols="12"
-                    v-if="patient_history.form.history_content.diseases.hta.iecas.treatment !== '' && editedItem.gender == 'F'">
+                    v-if="patient_history.form.history_content.treatments.antihypertensives.iecas.treatment !== '' && editedItem.gender == 'F'">
                     <v-alert border="bottom" type="warning" elevation="2" colored-border>
                         Asegúrese que la paciente no esté embarazada o no lo tiene planificado.
                     </v-alert>
@@ -88,8 +88,8 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">BRA</h3>
                     <label class="black--text font-weight-bold">Tratamiento:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.bra.treatment"
-                        :items="patient_history.form.history_content.diseases.hta.treatments_list.bra" class="mt-3"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.bra.treatment"
+                        :items="patient_history.form.history_content.treatments.antihypertensives.treatments_list.bra" class="mt-3"
                         outlined dense>
                         <template #prepend-item>
                             <v-list-item>
@@ -99,7 +99,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.hta_bra_treatment.internalValue, patient_history.form.history_content.diseases.hta.treatments_list.bra)">
+                                @click="addItemToArray($refs.hta_bra_treatment.internalValue, patient_history.form.history_content.treatments.antihypertensives.treatments_list.bra)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -108,7 +108,7 @@
                     </v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
-                    <v-text-field v-model="patient_history.form.history_content.diseases.hta.bra.dosis"
+                    <v-text-field v-model="patient_history.form.history_content.treatments.antihypertensives.bra.dosis"
                         class="black-text mt-3" outlined dense>
                         <template #prepend>
                             <span class="font-weight-bold">Dosis diarias:</span>
@@ -117,27 +117,27 @@
                     <v-row class="d-flex justify-center"
                         v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                         <v-badge color="primary"
-                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'hta', treatment: 'bra'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'hta', treatment: 'bra'  }}).dosis.percent)) + '%)'">
+                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antihypertensives', treatment: 'bra'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antihypertensives', treatment: 'bra'  }}).dosis.percent)) + '%)'">
                         </v-badge>
                     </v-row>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Frecuencia:</label>
                     <v-select :items="patient_history.options.treatment_frecuency"
-                        v-model="patient_history.form.history_content.diseases.hta.bra.frecuency"
+                        v-model="patient_history.form.history_content.treatments.antihypertensives.bra.frecuency"
                         class="black-text mt-3" outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Reacciones adversas:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.bra.has_secondary_effects"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.bra.has_secondary_effects"
                         class="black-text mt-3" :items="patient_history.select" outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="patient_history.form.history_content.diseases.hta.bra.has_secondary_effects">
+                    v-if="patient_history.form.history_content.treatments.antihypertensives.bra.has_secondary_effects">
                     <label class="black--text font-weight-bold">Tipo de reacción:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.bra.secondary_effects"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.bra.secondary_effects"
                         class="black-text mt-3"
-                        :items="patient_history.form.history_content.diseases.hta.secondary_effects.bra" outlined dense>
+                        :items="patient_history.form.history_content.treatments.antihypertensives.secondary_effects.bra" outlined dense>
                         <template #prepend-item>
                             <v-list-item>
                                 <v-list-item-content>
@@ -146,7 +146,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.hta_bra_se.internalValue, patient_history.form.history_content.diseases.hta.secondary_effects.bra)">
+                                @click="addItemToArray($refs.hta_bra_se.internalValue, patient_history.form.history_content.treatments.antihypertensives.secondary_effects.bra)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -155,7 +155,7 @@
                     </v-select>
                 </v-col>
                 <v-col class="mt-n8" cols="12"
-                    v-if="patient_history.form.history_content.diseases.hta.bra.treatment !== '' && editedItem.gender == 'F'">
+                    v-if="patient_history.form.history_content.treatments.antihypertensives.bra.treatment !== '' && editedItem.gender == 'F'">
                     <v-alert border="bottom" type="warning" elevation="2" colored-border>
                         Asegúrese que la paciente no esté embarazada o no lo tiene planificado.
                     </v-alert>
@@ -167,8 +167,8 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Ca antagonista</h3>
                     <label class="black--text font-weight-bold">Tratamiento:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.ca.treatment"
-                        :items="patient_history.form.history_content.diseases.hta.treatments_list.ca" class="mt-3"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.ca.treatment"
+                        :items="patient_history.form.history_content.treatments.antihypertensives.treatments_list.ca" class="mt-3"
                         outlined dense>
                         <template #prepend-item>
                             <v-list-item>
@@ -178,7 +178,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.hta_ca_treatment.internalValue, patient_history.form.history_content.diseases.hta.treatments_list.ca)">
+                                @click="addItemToArray($refs.hta_ca_treatment.internalValue, patient_history.form.history_content.treatments.antihypertensives.treatments_list.ca)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -187,7 +187,7 @@
                     </v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
-                    <v-text-field v-model="patient_history.form.history_content.diseases.hta.ca.dosis" class="mt-3"
+                    <v-text-field v-model="patient_history.form.history_content.treatments.antihypertensives.ca.dosis" class="mt-3"
                         outlined dense>
                         <template class="black-text" #prepend>
                             <span class="font-weight-bold">Dosis diarias:</span>
@@ -196,27 +196,27 @@
                     <v-row class="d-flex justify-center"
                         v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                         <v-badge color="primary"
-                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'hta', treatment: 'ca'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'hta', treatment: 'ca'  }}).dosis.percent)) + '%)'">
+                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antihypertensives', treatment: 'ca'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antihypertensives', treatment: 'ca'  }}).dosis.percent)) + '%)'">
                         </v-badge>
                     </v-row>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Frecuencia:</label>
                     <v-select :items="patient_history.options.treatment_frecuency"
-                        v-model="patient_history.form.history_content.diseases.hta.ca.frecuency" class="black-text mt-3"
+                        v-model="patient_history.form.history_content.treatments.antihypertensives.ca.frecuency" class="black-text mt-3"
                         outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Reacciones adversas:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.ca.has_secondary_effects"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.ca.has_secondary_effects"
                         class="black-text mt-3" :items="patient_history.select" outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="patient_history.form.history_content.diseases.hta.ca.has_secondary_effects">
+                    v-if="patient_history.form.history_content.treatments.antihypertensives.ca.has_secondary_effects">
                     <label class="black--text font-weight-bold">Tipo de reacción:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.ca.secondary_effects"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.ca.secondary_effects"
                         class="black-text mt-3"
-                        :items="patient_history.form.history_content.diseases.hta.secondary_effects.ca" outlined dense>
+                        :items="patient_history.form.history_content.treatments.antihypertensives.secondary_effects.ca" outlined dense>
                         <template #prepend-item>
                             <v-list-item>
                                 <v-list-item-content>
@@ -225,7 +225,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.hta_ca_se.internalValue, patient_history.form.history_content.diseases.hta.secondary_effects.ca)">
+                                @click="addItemToArray($refs.hta_ca_se.internalValue, patient_history.form.history_content.treatments.antihypertensives.secondary_effects.ca)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -240,8 +240,8 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Diurético</h3>
                     <label class="black--text font-weight-bold">Tratamiento:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.diuretic.treatment"
-                        :items="patient_history.form.history_content.diseases.hta.treatments_list.diuretic"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.diuretic.treatment"
+                        :items="patient_history.form.history_content.treatments.antihypertensives.treatments_list.diuretic"
                         item-text="name" item-value="name" class="mt-3" outlined dense>
                         <template #prepend-item>
                             <v-list-item>
@@ -252,7 +252,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addObjectToArray($refs.hta_diuretic_treatment.internalValue, patient_history.form.history_content.diseases.hta.treatments_list.diuretic)">
+                                @click="addObjectToArray($refs.hta_diuretic_treatment.internalValue, patient_history.form.history_content.treatments.antihypertensives.treatments_list.diuretic)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -272,7 +272,7 @@
                     </v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
-                    <v-text-field v-model="patient_history.form.history_content.diseases.hta.diuretic.dosis"
+                    <v-text-field v-model="patient_history.form.history_content.treatments.antihypertensives.diuretic.dosis"
                         class="mt-3" outlined dense>
                         <template class="black-text" #prepend>
                             <span class="font-weight-bold">Dosis diarias:</span>
@@ -281,27 +281,27 @@
                     <v-row class="d-flex justify-center"
                         v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                         <v-badge color="primary"
-                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'hta', treatment: 'diuretic'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'hta', treatment: 'diuretic'  }}).dosis.percent)) + '%)'">
+                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antihypertensives', treatment: 'diuretic'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antihypertensives', treatment: 'diuretic'  }}).dosis.percent)) + '%)'">
                         </v-badge>
                     </v-row>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Frecuencia:</label>
                     <v-select :items="patient_history.options.treatment_frecuency"
-                        v-model="patient_history.form.history_content.diseases.hta.diuretic.frecuency"
+                        v-model="patient_history.form.history_content.treatments.antihypertensives.diuretic.frecuency"
                         class="black-text mt-3" outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Reacciones adversas:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.diuretic.has_secondary_effects"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.diuretic.has_secondary_effects"
                         class="black-text mt-3" :items="patient_history.select" outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="patient_history.form.history_content.diseases.hta.diuretic.has_secondary_effects">
+                    v-if="patient_history.form.history_content.treatments.antihypertensives.diuretic.has_secondary_effects">
                     <label class="black--text font-weight-bold">Tipo de reacción:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.diuretic.secondary_effects"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.diuretic.secondary_effects"
                         class="black-text mt-3"
-                        :items="patient_history.form.history_content.diseases.hta.secondary_effects.diuretic" outlined
+                        :items="patient_history.form.history_content.treatments.antihypertensives.secondary_effects.diuretic" outlined
                         dense>
                         <template #prepend-item>
                             <v-list-item>
@@ -311,7 +311,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.hta_diuretic_se.internalValue, patient_history.form.history_content.diseases.hta.secondary_effects.diuretic)">
+                                @click="addItemToArray($refs.hta_diuretic_se.internalValue, patient_history.form.history_content.treatments.antihypertensives.secondary_effects.diuretic)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -326,8 +326,8 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Inhibidores Renina</h3>
                     <label class="black--text font-weight-bold">Tratamiento:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.ir.treatment"
-                        :items="patient_history.form.history_content.diseases.hta.treatments_list.ir" class="mt-3"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.ir.treatment"
+                        :items="patient_history.form.history_content.treatments.antihypertensives.treatments_list.ir" class="mt-3"
                         outlined dense>
                         <template #prepend-item>
                             <v-list-item>
@@ -337,7 +337,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.hta_ir_treatment.internalValue, patient_history.form.history_content.diseases.hta.treatments_list.ir)">
+                                @click="addItemToArray($refs.hta_ir_treatment.internalValue, patient_history.form.history_content.treatments.antihypertensives.treatments_list.ir)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -346,7 +346,7 @@
                     </v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
-                    <v-text-field v-model="patient_history.form.history_content.diseases.hta.ir.dosis" class="mt-3"
+                    <v-text-field v-model="patient_history.form.history_content.treatments.antihypertensives.ir.dosis" class="mt-3"
                         outlined dense>
                         <template class="black-text" #prepend>
                             <span class="font-weight-bold">Dosis diarias:</span>
@@ -355,27 +355,27 @@
                     <v-row class="d-flex justify-center"
                         v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                         <v-badge color="primary"
-                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'hta', treatment: 'ir'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'hta', treatment: 'ir'  }}).dosis.percent)) + '%)'">
+                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antihypertensives', treatment: 'ir'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antihypertensives', treatment: 'ir'  }}).dosis.percent)) + '%)'">
                         </v-badge>
                     </v-row>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Frecuencia:</label>
                     <v-select :items="patient_history.options.treatment_frecuency"
-                        v-model="patient_history.form.history_content.diseases.hta.ir.frecuency" class="black-text mt-3"
+                        v-model="patient_history.form.history_content.treatments.antihypertensives.ir.frecuency" class="black-text mt-3"
                         outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Reacciones adversas:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.ir.has_secondary_effects"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.ir.has_secondary_effects"
                         class="black-text mt-3" :items="patient_history.select" outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="patient_history.form.history_content.diseases.hta.ir.has_secondary_effects">
+                    v-if="patient_history.form.history_content.treatments.antihypertensives.ir.has_secondary_effects">
                     <label class="black--text font-weight-bold">Tipo de reacción:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.ir.secondary_effects"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.ir.secondary_effects"
                         class="black-text mt-3"
-                        :items="patient_history.form.history_content.diseases.hta.secondary_effects.ir" outlined dense>
+                        :items="patient_history.form.history_content.treatments.antihypertensives.secondary_effects.ir" outlined dense>
                         <template #prepend-item>
                             <v-list-item>
                                 <v-list-item-content>
@@ -384,7 +384,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.hta_ir_se.internalValue, patient_history.form.history_content.diseases.hta.secondary_effects.ir)">
+                                @click="addItemToArray($refs.hta_ir_se.internalValue, patient_history.form.history_content.treatments.antihypertensives.secondary_effects.ir)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -393,7 +393,7 @@
                     </v-select>
                 </v-col>
                 <v-col class="mt-n8" cols="12"
-                    v-if="patient_history.form.history_content.diseases.hta.ir.treatment !== '' && editedItem.gender == 'F'">
+                    v-if="patient_history.form.history_content.treatments.antihypertensives.ir.treatment !== '' && editedItem.gender == 'F'">
                     <v-alert border="bottom" type="warning" elevation="2" colored-border>
                         Asegúrese que la paciente no esté embarazada o no lo tiene planificado.
                     </v-alert>
@@ -405,8 +405,8 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Beta bloq</h3>
                     <label class="black--text font-weight-bold">Tratamiento:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.block_beta.treatment"
-                        :items="patient_history.form.history_content.diseases.hta.treatments_list.block_beta"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.block_beta.treatment"
+                        :items="patient_history.form.history_content.treatments.antihypertensives.treatments_list.block_beta"
                         class="mt-3" outlined dense>
                         <template #prepend-item>
                             <v-list-item>
@@ -417,7 +417,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.hta_block_beta_treatment.internalValue, patient_history.form.history_content.diseases.hta.treatments_list.block_beta)">
+                                @click="addItemToArray($refs.hta_block_beta_treatment.internalValue, patient_history.form.history_content.treatments.antihypertensives.treatments_list.block_beta)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -426,7 +426,7 @@
                     </v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
-                    <v-text-field v-model="patient_history.form.history_content.diseases.hta.block_beta.dosis"
+                    <v-text-field v-model="patient_history.form.history_content.treatments.antihypertensives.block_beta.dosis"
                         class="mt-3" outlined dense>
                         <template class="black-text" #prepend>
                             <span class="font-weight-bold">Dosis diarias:</span>
@@ -435,29 +435,29 @@
                     <v-row class="d-flex justify-center"
                         v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                         <v-badge color="primary"
-                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'hta', treatment: 'block_beta'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'hta', treatment: 'block_beta'  }}).dosis.percent)) + '%)'">
+                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antihypertensives', treatment: 'block_beta'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antihypertensives', treatment: 'block_beta'  }}).dosis.percent)) + '%)'">
                         </v-badge>
                     </v-row>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Frecuencia:</label>
                     <v-select :items="patient_history.options.treatment_frecuency"
-                        v-model="patient_history.form.history_content.diseases.hta.block_beta.frecuency" class="mt-3"
+                        v-model="patient_history.form.history_content.treatments.antihypertensives.block_beta.frecuency" class="mt-3"
                         outlined dense>
                         </v-text-field>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Reacciones adversas:</label>
                     <v-select
-                        v-model="patient_history.form.history_content.diseases.hta.block_beta.has_secondary_effects"
+                        v-model="patient_history.form.history_content.treatments.antihypertensives.block_beta.has_secondary_effects"
                         class="black-text mt-3" :items="patient_history.select" outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="patient_history.form.history_content.diseases.hta.block_beta.has_secondary_effects">
+                    v-if="patient_history.form.history_content.treatments.antihypertensives.block_beta.has_secondary_effects">
                     <label class="black--text font-weight-bold">Tipo de reacción:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.block_beta.secondary_effects"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.block_beta.secondary_effects"
                         class="black-text mt-3"
-                        :items="patient_history.form.history_content.diseases.hta.secondary_effects.block_beta" outlined
+                        :items="patient_history.form.history_content.treatments.antihypertensives.secondary_effects.block_beta" outlined
                         dense>
                         <template #prepend-item>
                             <v-list-item>
@@ -467,7 +467,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.hta_block_beta_se.internalValue, patient_history.form.history_content.diseases.hta.secondary_effects.block_beta)">
+                                @click="addItemToArray($refs.hta_block_beta_se.internalValue, patient_history.form.history_content.treatments.antihypertensives.secondary_effects.block_beta)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -482,8 +482,8 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">ARNI</h3>
                     <label class="black--text font-weight-bold">Tratamiento:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.arni.treatment"
-                        :items="patient_history.form.history_content.diseases.hta.treatments_list.arni" class="mt-3"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.arni.treatment"
+                        :items="patient_history.form.history_content.treatments.antihypertensives.treatments_list.arni" class="mt-3"
                         outlined dense>
                         <template #prepend-item>
                             <v-list-item>
@@ -493,7 +493,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.hta_arni_treatment.internalValue, patient_history.form.history_content.diseases.hta.treatments_list.arni)">
+                                @click="addItemToArray($refs.hta_arni_treatment.internalValue, patient_history.form.history_content.treatments.antihypertensives.treatments_list.arni)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -502,7 +502,7 @@
                     </v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
-                    <v-text-field v-model="patient_history.form.history_content.diseases.hta.arni.dosis" class="mt-3"
+                    <v-text-field v-model="patient_history.form.history_content.treatments.antihypertensives.arni.dosis" class="mt-3"
                         outlined dense>
                         <template #prepend>
                             <span class="font-weight-bold">Dosis diarias:</span>
@@ -511,27 +511,27 @@
                     <v-row class="d-flex justify-center"
                         v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                         <v-badge color="primary"
-                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'hta', treatment: 'arni'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'hta', treatment: 'arni'  }}).dosis.percent)) + '%)'">
+                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antihypertensives', treatment: 'arni'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antihypertensives', treatment: 'arni'  }}).dosis.percent)) + '%)'">
                         </v-badge>
                     </v-row>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Frecuencia:</label>
                     <v-select :items="patient_history.options.treatment_frecuency"
-                        v-model="patient_history.form.history_content.diseases.hta.arni.frecuency"
+                        v-model="patient_history.form.history_content.treatments.antihypertensives.arni.frecuency"
                         class="black-text mt-3" outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Reacciones adversas:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.arni.has_secondary_effects"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.arni.has_secondary_effects"
                         class="black-text mt-3" :items="patient_history.select" outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="patient_history.form.history_content.diseases.hta.arni.has_secondary_effects">
+                    v-if="patient_history.form.history_content.treatments.antihypertensives.arni.has_secondary_effects">
                     <label class="black--text font-weight-bold">Tipo de reacción:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.hta.arni.secondary_effects"
+                    <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.arni.secondary_effects"
                         class="black-text mt-3"
-                        :items="patient_history.form.history_content.diseases.hta.secondary_effects.arni" outlined
+                        :items="patient_history.form.history_content.treatments.antihypertensives.secondary_effects.arni" outlined
                         dense>
                         <template #prepend-item>
                             <v-list-item>
@@ -541,7 +541,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.hta_arni_se.internalValue, patient_history.form.history_content.diseases.hta.secondary_effects.arni)">
+                                @click="addItemToArray($refs.hta_arni_se.internalValue, patient_history.form.history_content.treatments.antihypertensives.secondary_effects.arni)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -550,7 +550,7 @@
                     </v-select>
                 </v-col>
                 <v-col class="mt-n8" cols="12"
-                    v-if="patient_history.form.history_content.diseases.hta.arni.treatment !== '' && editedItem.gender == 'F'">
+                    v-if="patient_history.form.history_content.treatments.antihypertensives.arni.treatment !== '' && editedItem.gender == 'F'">
                     <v-alert border="bottom" type="warning" elevation="2" colored-border>
                         Asegúrese que la paciente no esté embarazada o no lo tiene planificado.
                     </v-alert>
@@ -563,8 +563,8 @@
                     <h3 class="font-weight-bold black--text text-center">Ant. MINERALOCORTICOIDES</h3>
                     <label class="black--text font-weight-bold">Tratamiento:</label>
                     <v-select
-                        v-model="patient_history.form.history_content.diseases.hta.ant_mineralocorticoids.treatment"
-                        :items="patient_history.form.history_content.diseases.hta.treatments_list.ant_mineralocorticoids"
+                        v-model="patient_history.form.history_content.treatments.antihypertensives.ant_mineralocorticoids.treatment"
+                        :items="patient_history.form.history_content.treatments.antihypertensives.treatments_list.ant_mineralocorticoids"
                         class="mt-3" outlined dense>
                         <template #prepend-item>
                             <v-list-item>
@@ -574,7 +574,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.hta_ant_mineralocorticoids_treatment.internalValue, patient_history.form.history_content.diseases.hta.treatments_list.ant_mineralocorticoids)">
+                                @click="addItemToArray($refs.hta_ant_mineralocorticoids_treatment.internalValue, patient_history.form.history_content.treatments.antihypertensives.treatments_list.ant_mineralocorticoids)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -584,7 +584,7 @@
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <v-text-field
-                        v-model="patient_history.form.history_content.diseases.hta.ant_mineralocorticoids.dosis"
+                        v-model="patient_history.form.history_content.treatments.antihypertensives.ant_mineralocorticoids.dosis"
                         class="mt-3" outlined dense>
                         <template #prepend>
                             <span class="font-weight-bold">Dosis diarias:</span>
@@ -593,29 +593,29 @@
                     <v-row class="d-flex justify-center"
                         v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                         <v-badge color="primary"
-                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'hta', treatment: 'ant_mineralocorticoids'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'hta', treatment: 'ant_mineralocorticoids'  }}).dosis.percent)) + '%)'">
+                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antihypertensives', treatment: 'ant_mineralocorticoids'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antihypertensives', treatment: 'ant_mineralocorticoids'  }}).dosis.percent)) + '%)'">
                         </v-badge>
                     </v-row>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Frecuencia:</label>
                     <v-select :items="patient_history.options.treatment_frecuency"
-                        v-model="patient_history.form.history_content.diseases.hta.ant_mineralocorticoids.frecuency"
+                        v-model="patient_history.form.history_content.treatments.antihypertensives.ant_mineralocorticoids.frecuency"
                         class="black-text mt-3" outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Reacciones adversas:</label>
                     <v-select
-                        v-model="patient_history.form.history_content.diseases.hta.ant_mineralocorticoids.has_secondary_effects"
+                        v-model="patient_history.form.history_content.treatments.antihypertensives.ant_mineralocorticoids.has_secondary_effects"
                         class="black-text mt-3" :items="patient_history.select" outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="patient_history.form.history_content.diseases.hta.ant_mineralocorticoids.has_secondary_effects">
+                    v-if="patient_history.form.history_content.treatments.antihypertensives.ant_mineralocorticoids.has_secondary_effects">
                     <label class="black--text font-weight-bold">Tipo de reacción:</label>
                     <v-select
-                        v-model="patient_history.form.history_content.diseases.hta.ant_mineralocorticoids.secondary_effects"
+                        v-model="patient_history.form.history_content.treatments.antihypertensives.ant_mineralocorticoids.secondary_effects"
                         class="black-text mt-3"
-                        :items="patient_history.form.history_content.diseases.hta.secondary_effects.ant_mineralocorticoids"
+                        :items="patient_history.form.history_content.treatments.antihypertensives.secondary_effects.ant_mineralocorticoids"
                         outlined dense>
                         <template #prepend-item>
                             <v-list-item>
@@ -625,7 +625,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.hta_ant_mineralocorticoids_se.internalValue, patient_history.form.history_content.diseases.hta.secondary_effects.ant_mineralocorticoids)">
+                                @click="addItemToArray($refs.hta_ant_mineralocorticoids_se.internalValue, patient_history.form.history_content.treatments.antihypertensives.secondary_effects.ant_mineralocorticoids)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -634,7 +634,7 @@
                     </v-select>
                 </v-col>
                 <v-col class="mt-n8" cols="12"
-                    v-if="patient_history.form.history_content.diseases.hta.ant_mineralocorticoids.treatment !== '' && editedItem.gender == 'F'">
+                    v-if="patient_history.form.history_content.treatments.antihypertensives.ant_mineralocorticoids.treatment !== '' && editedItem.gender == 'F'">
                     <v-alert border="bottom" type="warning" elevation="2" colored-border>
                         Asegúrese que la paciente no esté embarazada o no lo tiene planificado.
                     </v-alert>
@@ -648,14 +648,14 @@
                         <h3 class="font-weight-bold black--text text-center">¿El paciente tiene indicada una combinación
                             fija de
                             los medicamentos seleccionados?</h3>
-                        <v-select v-model="patient_history.form.history_content.diseases.hta.fdc.active"
+                        <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.fdc.active"
                             :items="patient_history.select" class="mt-3" outlined dense>
                         </v-select>
                     </v-col>
-                    <v-col cols="12" v-if="patient_history.form.history_content.diseases.hta.fdc.active">
+                    <v-col cols="12" v-if="patient_history.form.history_content.treatments.antihypertensives.fdc.active">
                         <label class="black--text font-weight-bold">Combinaciones a dosis fijas</label>
-                        <v-select v-model="patient_history.form.history_content.diseases.hta.fdc.selected"
-                            :items="patient_history.form.history_content.diseases.hta.treatments_list.fdc"
+                        <v-select v-model="patient_history.form.history_content.treatments.antihypertensives.fdc.selected"
+                            :items="patient_history.form.history_content.treatments.antihypertensives.treatments_list.fdc"
                             ref="hta_fdc_select" item-text="name" item-value="name" class="mt-3" multiple outlined
                             dense>
                             <template #prepend-item>
@@ -670,7 +670,7 @@
                                     </v-list-item-content>
                                 </v-list-item>
                                 <v-btn class="mt-n6" color="primary" text
-                                    @click="addItemToArray({name: $refs.hta_fdc_treatment.internalValue}, patient_history.form.history_content.diseases.hta.treatments_list.fdc)">
+                                    @click="addItemToArray({name: $refs.hta_fdc_treatment.internalValue}, patient_history.form.history_content.treatments.antihypertensives.treatments_list.fdc)">
                                     <v-icon>mdi-plus-circle</v-icon>
                                     Añadir
                                 </v-btn>

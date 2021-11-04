@@ -8,10 +8,10 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Antiagregantes plaquetarios</h3>
                     <label class="black--text font-weight-bold">Tratamiento:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.dtm2.antiplatelet_agents.treatment"
-                        :items="patient_history.form.history_content.diseases.dtm2.treatments_list.antiplatelet_agents"
-                        class="mt-3" @change=" () => patient_history.form.history_content.diseases.dtm2.antiplatelet_agents.treatment == 'Ticagrelor' ?
-                    patient_history.form.history_content.diseases.dtm2.secondary_effects.antiplatelet_agents.push('Disneas', 'Pausas') : patient_history.form.history_content.diseases.dtm2.secondary_effects.antiplatelet_agents = [
+                    <v-select v-model="patient_history.form.history_content.treatments.antithrombotics.antiplatelet_agents.treatment"
+                        :items="patient_history.form.history_content.treatments.antithrombotics.treatments_list.antiplatelet_agents"
+                        class="mt-3" @change=" () => patient_history.form.history_content.treatments.antithrombotics.antiplatelet_agents.treatment == 'Ticagrelor' ?
+                    patient_history.form.history_content.treatments.antithrombotics.secondary_effects.antiplatelet_agents.push('Disneas', 'Pausas') : patient_history.form.history_content.treatments.antithrombotics.secondary_effects.antiplatelet_agents = [
                         'Alergias',
                         'Hemorragias digestivas',
                         'Hematomas',    
@@ -24,7 +24,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.dtm2_antiplatelet_agents_treatment.internalValue, patient_history.form.history_content.diseases.dtm2.treatments_list.antiplatelet_agents)">
+                                @click="addItemToArray($refs.dtm2_antiplatelet_agents_treatment.internalValue, patient_history.form.history_content.treatments.antithrombotics.treatments_list.antiplatelet_agents)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -33,7 +33,7 @@
                     </v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
-                    <v-text-field v-model="patient_history.form.history_content.diseases.dtm2.antiplatelet_agents.dosis"
+                    <v-text-field v-model="patient_history.form.history_content.treatments.antithrombotics.antiplatelet_agents.dosis"
                         class="mt-3" outlined dense>
                         <template class="black-text" #prepend>
                             <span class="font-weight-bold">Dosis diarias:</span>
@@ -42,29 +42,29 @@
                     <v-row class="d-flex justify-center"
                         v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                         <v-badge color="primary"
-                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'antiplatelet_agents'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'antiplatelet_agents'  }}).dosis.percent)) + '%)'">
+                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antithrombotics', treatment: 'antiplatelet_agents'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antithrombotics', treatment: 'antiplatelet_agents'  }}).dosis.percent)) + '%)'">
                         </v-badge>
                     </v-row>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Frecuencia:</label>
                     <v-select :items="patient_history.options.treatment_frecuency"
-                        v-model="patient_history.form.history_content.diseases.dtm2.antiplatelet_agents.frecuency"
+                        v-model="patient_history.form.history_content.treatments.antithrombotics.antiplatelet_agents.frecuency"
                         class="black-text mt-3" outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Reacciones adversas:</label>
                     <v-select
-                        v-model="patient_history.form.history_content.diseases.dtm2.antiplatelet_agents.has_secondary_effects"
+                        v-model="patient_history.form.history_content.treatments.antithrombotics.antiplatelet_agents.has_secondary_effects"
                         class="black-text mt-3" :items="patient_history.select" outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="patient_history.form.history_content.diseases.dtm2.antiplatelet_agents.has_secondary_effects">
+                    v-if="patient_history.form.history_content.treatments.antithrombotics.antiplatelet_agents.has_secondary_effects">
                     <label class="black--text font-weight-bold">Tipo de reacción:</label>
                     <v-select
-                        v-model="patient_history.form.history_content.diseases.dtm2.antiplatelet_agents.secondary_effects"
+                        v-model="patient_history.form.history_content.treatments.antithrombotics.antiplatelet_agents.secondary_effects"
                         class="black-text mt-3"
-                        :items="patient_history.form.history_content.diseases.dtm2.secondary_effects.antiplatelet_agents"
+                        :items="patient_history.form.history_content.treatments.antithrombotics.secondary_effects.antiplatelet_agents"
                         outlined dense>
                         <template #prepend-item>
                             <v-list-item>
@@ -74,7 +74,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.dtm2_antiplatelet_agents_se.internalValue, patient_history.form.history_content.diseases.dtm2.secondary_effects.antiplatelet_agents)">
+                                @click="addItemToArray($refs.dtm2_antiplatelet_agents_se.internalValue, patient_history.form.history_content.treatments.antithrombotics.secondary_effects.antiplatelet_agents)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -89,8 +89,8 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Anticoagulantes Orales</h3>
                     <label class="black--text font-weight-bold">Tratamiento:</label>
-                    <v-select v-model="patient_history.form.history_content.diseases.dtm2.oral_anticoagulants.treatment"
-                        :items="patient_history.form.history_content.diseases.dtm2.treatments_list.oral_anticoagulants"
+                    <v-select v-model="patient_history.form.history_content.treatments.antithrombotics.oral_anticoagulants.treatment"
+                        :items="patient_history.form.history_content.treatments.antithrombotics.treatments_list.oral_anticoagulants"
                         class="mt-3" outlined dense>
                         <template #prepend-item>
                             <v-list-item>
@@ -100,7 +100,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.dtm2_oral_anticoagulants_treatment.internalValue, patient_history.form.history_content.diseases.dtm2.treatments_list.oral_anticoagulants)">
+                                @click="addItemToArray($refs.dtm2_oral_anticoagulants_treatment.internalValue, patient_history.form.history_content.treatments.antithrombotics.treatments_list.oral_anticoagulants)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>
@@ -109,7 +109,7 @@
                     </v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
-                    <v-text-field v-model="patient_history.form.history_content.diseases.dtm2.oral_anticoagulants.dosis"
+                    <v-text-field v-model="patient_history.form.history_content.treatments.antithrombotics.oral_anticoagulants.dosis"
                         class="mt-3" outlined dense>
                         <template class="black-text" #prepend>
                             <span class="font-weight-bold">Dosis diarias:</span>
@@ -118,29 +118,29 @@
                     <v-row class="d-flex justify-center"
                         v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                         <v-badge color="primary"
-                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'oral_anticoagulants'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'oral_anticoagulants'  }}).dosis.percent)) + '%)'">
+                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antithrombotics', treatment: 'oral_anticoagulants'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antithrombotics', treatment: 'oral_anticoagulants'  }}).dosis.percent)) + '%)'">
                         </v-badge>
                     </v-row>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Frecuencia:</label>
                     <v-select :items="patient_history.options.treatment_frecuency"
-                        v-model="patient_history.form.history_content.diseases.dtm2.oral_anticoagulants.frecuency"
+                        v-model="patient_history.form.history_content.treatments.antithrombotics.oral_anticoagulants.frecuency"
                         class="black-text mt-3" outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Reacciones adversas:</label>
                     <v-select
-                        v-model="patient_history.form.history_content.diseases.dtm2.oral_anticoagulants.has_secondary_effects"
+                        v-model="patient_history.form.history_content.treatments.antithrombotics.oral_anticoagulants.has_secondary_effects"
                         class="black-text mt-3" :items="patient_history.select" outlined dense></v-select>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="patient_history.form.history_content.diseases.dtm2.oral_anticoagulants.has_secondary_effects">
+                    v-if="patient_history.form.history_content.treatments.antithrombotics.oral_anticoagulants.has_secondary_effects">
                     <label class="black--text font-weight-bold">Tipo de reacción:</label>
                     <v-select
-                        v-model="patient_history.form.history_content.diseases.dtm2.oral_anticoagulants.secondary_effects"
+                        v-model="patient_history.form.history_content.treatments.antithrombotics.oral_anticoagulants.secondary_effects"
                         class="black-text mt-3"
-                        :items=" patient_history.form.history_content.diseases.dtm2.secondary_effects.oral_anticoagulants"
+                        :items=" patient_history.form.history_content.treatments.antithrombotics.secondary_effects.oral_anticoagulants"
                         outlined dense>
                         <template #prepend-item>
                             <v-list-item>
@@ -150,7 +150,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-btn class="mt-n6" color="primary" text
-                                @click="addItemToArray($refs.dtm2_oral_anticoagulants_se.internalValue, patient_history.form.history_content.diseases.dtm2.secondary_effects.oral_anticoagulants)">
+                                @click="addItemToArray($refs.dtm2_oral_anticoagulants_se.internalValue, patient_history.form.history_content.treatments.antithrombotics.secondary_effects.oral_anticoagulants)">
                                 <v-icon>mdi-plus-circle</v-icon>
                                 Añadir
                             </v-btn>

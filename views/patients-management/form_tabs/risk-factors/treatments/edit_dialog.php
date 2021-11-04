@@ -18,13 +18,13 @@
                 <template v-if="patient_risk_factors.rf.treatment_selected.name != ''">
                     <template
                         v-if="patient_risk_factors.rf.treatment_selected.name == 'HTA' || patient_risk_factors.rf.treatment_selected.name == 'Insuficiencia Cardíaca'">
-                        <?php echo new Template('patients-management/form_tabs/history-parts/treatments/hta') ?>
+                        <?php echo new Template('patients-management/form_tabs/history-parts/treatments/antidiabetics') ?>
                     </template>
                     <template v-else-if="patient_risk_factors.rf.treatment_selected.name == 'Dislipidemia'">
-                        <?php echo new Template('patients-management/form_tabs/history-parts/treatments/dyslipidemia') ?>
+                        <?php echo new Template('patients-management/form_tabs/history-parts/treatments/hypolipidemic') ?>
                     </template>
                     <template v-else-if="patient_risk_factors.rf.treatment_selected.name == 'DMt2'">
-                        <?php echo new Template('patients-management/form_tabs/history-parts/treatments/dtm2') ?>
+                        <?php echo new Template('patients-management/form_tabs/history-parts/treatments/antidiabetics') ?>
                     </template>
                     <template v-else-if="patient_risk_factors.rf.treatment_selected.name == 'Pre DMt2'">
                         <?php echo new Template('patients-management/form_tabs/history-parts/treatments/pre-dtm2') ?>

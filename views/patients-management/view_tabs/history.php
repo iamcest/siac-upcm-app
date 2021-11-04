@@ -84,16 +84,16 @@
                     <?php echo new Template('patients-management/view_tabs/history-parts/treatments/polipildora') ?>
                 </v-col>
                 <v-col class="pr-6" cols="12">
-                    <?php echo new Template('patients-management/view_tabs/history-parts/treatments/hta') ?>
+                    <?php echo new Template('patients-management/view_tabs/history-parts/treatments/antihypertensives') ?>
                 </v-col>
                 <v-col class="pr-6" cols="12">
-                    <?php echo new Template('patients-management/view_tabs/history-parts/treatments/dtm2') ?>
+                    <?php echo new Template('patients-management/view_tabs/history-parts/treatments/antidiabetics') ?>
                 </v-col>
                 <v-col class="pr-6" cols="12">
                     <?php echo new Template('patients-management/view_tabs/history-parts/treatments/antithrombotics') ?>
                 </v-col>
                 <v-col class="pr-6" cols="12">
-                    <?php echo new Template('patients-management/view_tabs/history-parts/treatments/dyslipidemia') ?>
+                    <?php echo new Template('patients-management/view_tabs/history-parts/treatments/hypolipidemic') ?>
                 </v-col>
             </v-row>
 

@@ -8,7 +8,7 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Metformina</h3>
                     <span class="black--text font-weight-bold">
-                        <template v-if="patient_history.form.history_content.diseases.dtm2.metformin.active">
+                        <template v-if="patient_history.form.history_content.treatments.antidiabetics.metformin.active">
                             Sí
                         </template>
                         <template v-else>
@@ -16,25 +16,25 @@
                         </template>
                     </span>
                 </v-col>
-                <template v-if="patient_history.form.history_content.diseases.dtm2.metformin.active">
+                <template v-if="patient_history.form.history_content.treatments.antidiabetics.metformin.active">
                     <v-col class="mt-n4" cols="12">
                         <span class="black--text font-weight-bold">Dosis diarias:
-                            {{ patient_history.form.history_content.diseases.dtm2.metformin.dosis}}</span>
+                            {{ patient_history.form.history_content.treatments.antidiabetics.metformin.dosis}}</span>
                         <template
                             v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                             <v-badge color="primary"
-                                :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'metformin'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'metformin'  }}).dosis.percent)) + '%)'">
+                                :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antidiabetics', treatment: 'metformin'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antidiabetics', treatment: 'metformin'  }}).dosis.percent)) + '%)'">
                             </v-badge>
                         </template>
                     </v-col>
                     <v-col class="mt-n4" cols="12">
                         <span class="black--text font-weight-bold mb-3">Frecuencia:
-                            {{ patient_history.form.history_content.diseases.dtm2.metformin.frecuency }}</span>
+                            {{ patient_history.form.history_content.treatments.antidiabetics.metformin.frecuency }}</span>
                     </v-col>
                     <v-col class="mt-n4" cols="12">
                         <span class="black--text font-weight-bold">Reacciones adversas:
                             <template
-                                v-if="patient_history.form.history_content.diseases.dtm2.metformin.has_secondary_effects">
+                                v-if="patient_history.form.history_content.treatments.antidiabetics.metformin.has_secondary_effects">
                                 Sí
                             </template>
                             <template v-else>
@@ -43,9 +43,9 @@
                         </span>
                     </v-col>
                     <v-col class="mt-n4" cols="12"
-                        v-if="patient_history.form.history_content.diseases.dtm2.metformin.has_secondary_effects">
+                        v-if="patient_history.form.history_content.treatments.antidiabetics.metformin.has_secondary_effects">
                         <span class="black--text font-weight-bold">Tipo de reacción:
-                            {{ patient_history.form.history_content.diseases.dtm2.metformin.secondary_effects }}</span>
+                            {{ patient_history.form.history_content.treatments.antidiabetics.metformin.secondary_effects }}</span>
                     </v-col>
                 </template>
             </v-row>
@@ -55,26 +55,26 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Insulina</h3>
                     <span class="black--text font-weight-bold">
-                        {{ patient_history.form.history_content.diseases.dtm2.insulin.treatment }}</span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.insulin.treatment }}</span>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Dosis diarias:
-                        {{ patient_history.form.history_content.diseases.dtm2.insulin.dosis}} UI </span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.insulin.dosis}} UI </span>
                     <template
                         v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                         <v-badge color="primary"
-                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'insulin'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'insulin'  }}).dosis.percent)) + '%)'">
+                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antidiabetics', treatment: 'insulin'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antidiabetics', treatment: 'insulin'  }}).dosis.percent)) + '%)'">
                         </v-badge>
                     </template>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Frecuencia:
-                        {{ patient_history.form.history_content.diseases.dtm2.insulin.frecuency }} </span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.insulin.frecuency }} </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Reacciones adversas:
                         <template
-                            v-if="patient_history.form.history_content.diseases.dtm2.insulin.has_secondary_effects">
+                            v-if="patient_history.form.history_content.treatments.antidiabetics.insulin.has_secondary_effects">
                             Sí
                         </template>
                         <template v-else>
@@ -83,9 +83,9 @@
                     </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="patient_history.form.history_content.diseases.dtm2.insulin.has_secondary_effects">
+                    v-if="patient_history.form.history_content.treatments.antidiabetics.insulin.has_secondary_effects">
                     <span class="black--text font-weight-bold">Tipo de reacción:
-                        {{ patient_history.form.history_content.diseases.dtm2.insulin.secondary_effects }} </span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.insulin.secondary_effects }} </span>
                 </v-col>
             </v-row>
         </v-col>
@@ -94,26 +94,26 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Análogos de insulina</h3>
                     <span class="black--text font-weight-bold">
-                        {{ patient_history.form.history_content.diseases.dtm2.a_insulin.treatment }} </span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.a_insulin.treatment }} </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Dosis diarias:
-                        {{ patient_history.form.history_content.diseases.dtm2.a_insulin.dosis}} </span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.a_insulin.dosis}} </span>
                     <template
                         v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                         <v-badge color="primary"
-                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'a_insulin'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'a_insulin'  }}).dosis.percent)) + '%)'">
+                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antidiabetics', treatment: 'a_insulin'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antidiabetics', treatment: 'a_insulin'  }}).dosis.percent)) + '%)'">
                         </v-badge>
                     </template>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Frecuencia:
-                        {{ patient_history.form.history_content.diseases.dtm2.a_insulin.frecuency }} </span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.a_insulin.frecuency }} </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Reacciones adversas:
                         <template
-                            v-if="patient_history.form.history_content.diseases.dtm2.a_insulin.has_secondary_effects">
+                            v-if="patient_history.form.history_content.treatments.antidiabetics.a_insulin.has_secondary_effects">
                             Sí
                         </template>
                         <template v-else>
@@ -122,9 +122,9 @@
                     </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="patient_history.form.history_content.diseases.dtm2.a_insulin.has_secondary_effects">
+                    v-if="patient_history.form.history_content.treatments.antidiabetics.a_insulin.has_secondary_effects">
                     <span class="black--text font-weight-bold">Tipo de reacción:
-                        {{ patient_history.form.history_content.diseases.dtm2.a_insulin.secondary_effects }}</span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.a_insulin.secondary_effects }}</span>
                 </v-col>
             </v-row>
         </v-col>
@@ -133,7 +133,7 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Mezclas de insulina</h3>
                     <p class="font-weight-bold black--text text-center"
-                        v-for="item in patient_history.form.history_content.diseases.dtm2.insulin_mixtures.selected">
+                        v-for="item in patient_history.form.history_content.treatments.antidiabetics.insulin_mixtures.selected">
                         {{ item }}
                     </p>
                 </v-col>
@@ -144,26 +144,26 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Sulfonilúreas</h3>
                     <span class="black--text font-weight-bold">
-                        {{ patient_history.form.history_content.diseases.dtm2.sulfonylureas.treatment }} </span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.sulfonylureas.treatment }} </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Dosis diarias:
-                        {{ patient_history.form.history_content.diseases.dtm2.sulfonylureas.dosis}}</span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.sulfonylureas.dosis}}</span>
                     <template
                         v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                         <v-badge color="primary"
-                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'sulfonylureas'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'sulfonylureas'  }}).dosis.percent)) + '%)'">
+                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antidiabetics', treatment: 'sulfonylureas'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antidiabetics', treatment: 'sulfonylureas'  }}).dosis.percent)) + '%)'">
                         </v-badge>
                     </template>
                 </v-col>
                 <v-col class="mt-n4" cols="12 ">
                     <span class="black--text font-weight-bold">Frecuencia:
-                        {{ patient_history.form.history_content.diseases.dtm2.sulfonylureas.frecuency }} </span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.sulfonylureas.frecuency }} </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Reacciones adversas:
                         <template
-                            v-if="patient_history.form.history_content.diseases.dtm2.sulfonylureas.has_secondary_effects">
+                            v-if="patient_history.form.history_content.treatments.antidiabetics.sulfonylureas.has_secondary_effects">
                             Sí
                         </template>
                         <template v-else>
@@ -172,9 +172,9 @@
                     </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="patient_history.form.history_content.diseases.dtm2.sulfonylureas.has_secondary_effects">
+                    v-if="patient_history.form.history_content.treatments.antidiabetics.sulfonylureas.has_secondary_effects">
                     <span class="black--text font-weight-bold">Tipo de reacción:
-                        {{ patient_history.form.history_content.diseases.dtm2.sulfonylureas.secondary_effects }}</span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.sulfonylureas.secondary_effects }}</span>
                 </v-col>
             </v-row>
         </v-col>
@@ -183,26 +183,26 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Glinidas</h3>
                     <span class="black--text font-weight-bold">
-                        {{ patient_history.form.history_content.diseases.dtm2.glinidas.treatment }} </span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.glinidas.treatment }} </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Dosis diarias:
-                        {{ patient_history.form.history_content.diseases.dtm2.glinidas.dosis}}</span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.glinidas.dosis}}</span>
                     <template
                         v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                         <v-badge color="primary"
-                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'glinidas'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'glinidas'  }}).dosis.percent)) + '%)'">
+                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antidiabetics', treatment: 'glinidas'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antidiabetics', treatment: 'glinidas'  }}).dosis.percent)) + '%)'">
                         </v-badge>
                     </template>
                 </v-col>
                 <v-col class="mt-n4" cols="12 ">
                     <span class="black--text font-weight-bold">Frecuencia:
-                        {{ patient_history.form.history_content.diseases.dtm2.glinidas.frecuency }} </span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.glinidas.frecuency }} </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Reacciones adversas:
                         <template
-                            v-if="patient_history.form.history_content.diseases.dtm2.glinidas.has_secondary_effects">
+                            v-if="patient_history.form.history_content.treatments.antidiabetics.glinidas.has_secondary_effects">
                             Sí
                         </template>
                         <template v-else>
@@ -211,9 +211,9 @@
                     </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="patient_history.form.history_content.diseases.dtm2.glinidas.has_secondary_effects">
+                    v-if="patient_history.form.history_content.treatments.antidiabetics.glinidas.has_secondary_effects">
                     <span class="black--text font-weight-bold">Tipo de reacción:
-                        {{ patient_history.form.history_content.diseases.dtm2.glinidas.secondary_effects }}</span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.glinidas.secondary_effects }}</span>
                 </v-col>
             </v-row>
         </v-col>
@@ -222,26 +222,26 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Pioglitazona</h3>
                     <span class="black--text font-weight-bold">
-                        {{ patient_history.form.history_content.diseases.dtm2.pioglitazona.treatment }} </span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.pioglitazona.treatment }} </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Dosis diarias:
-                        {{ patient_history.form.history_content.diseases.dtm2.pioglitazona.dosis}}</span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.pioglitazona.dosis}}</span>
                     <template
                         v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                         <v-badge color="primary"
-                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'pioglitazona'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'pioglitazona'  }}).dosis.percent)) + '%)'">
+                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antidiabetics', treatment: 'pioglitazona'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antidiabetics', treatment: 'pioglitazona'  }}).dosis.percent)) + '%)'">
                         </v-badge>
                     </template>
                 </v-col>
                 <v-col class="mt-n4" cols="12 ">
                     <span class="black--text font-weight-bold">Frecuencia:
-                        {{ patient_history.form.history_content.diseases.dtm2.pioglitazona.frecuency }} </span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.pioglitazona.frecuency }} </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Reacciones adversas:
                         <template
-                            v-if="patient_history.form.history_content.diseases.dtm2.pioglitazona.has_secondary_effects">
+                            v-if="patient_history.form.history_content.treatments.antidiabetics.pioglitazona.has_secondary_effects">
                             Sí
                         </template>
                         <template v-else>
@@ -250,9 +250,9 @@
                     </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="patient_history.form.history_content.diseases.dtm2.pioglitazona.has_secondary_effects">
+                    v-if="patient_history.form.history_content.treatments.antidiabetics.pioglitazona.has_secondary_effects">
                     <span class="black--text font-weight-bold">Tipo de reacción:
-                        {{ patient_history.form.history_content.diseases.dtm2.pioglitazona.secondary_effects }}</span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.pioglitazona.secondary_effects }}</span>
                 </v-col>
             </v-row>
         </v-col>
@@ -261,26 +261,26 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">I DPP-4</h3>
                     <span class="black--text font-weight-bold">
-                        {{ patient_history.form.history_content.diseases.dtm2.inh_dpp.treatment }} </span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.inh_dpp.treatment }} </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Dosis diarias:
-                        {{ patient_history.form.history_content.diseases.dtm2.inh_dpp.dosis}}</span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.inh_dpp.dosis}}</span>
                     <template
                         v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                         <v-badge color="primary"
-                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'inh_dpp'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'inh_dpp'  }}).dosis.percent)) + '%)'">
+                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antidiabetics', treatment: 'inh_dpp'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antidiabetics', treatment: 'inh_dpp'  }}).dosis.percent)) + '%)'">
                         </v-badge>
                     </template>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Frecuencia:
-                        {{ patient_history.form.history_content.diseases.dtm2.inh_dpp.frecuency }} </span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.inh_dpp.frecuency }} </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Reacciones adversas:
                         <template
-                            v-if="patient_history.form.history_content.diseases.dtm2.inh_dpp.has_secondary_effects">
+                            v-if="patient_history.form.history_content.treatments.antidiabetics.inh_dpp.has_secondary_effects">
                             Sí
                         </template>
                         <template v-else>
@@ -289,9 +289,9 @@
                     </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="patient_history.form.history_content.diseases.dtm2.inh_dpp.has_secondary_effects">
+                    v-if="patient_history.form.history_content.treatments.antidiabetics.inh_dpp.has_secondary_effects">
                     <span class="black--text font-weight-bold">Tipo de reacción:
-                        {{ patient_history.form.history_content.diseases.dtm2.inh_dpp.secondary_effects }}</span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.inh_dpp.secondary_effects }}</span>
                 </v-col>
             </v-row>
         </v-col>
@@ -300,26 +300,26 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">I SLGT-2</h3>
                     <span class="black--text font-weight-bold">
-                        {{ patient_history.form.history_content.diseases.dtm2.i_slgt2.treatment }} </span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.i_slgt2.treatment }} </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Dosis diarias:
-                        {{ patient_history.form.history_content.diseases.dtm2.i_slgt2.dosis}}</span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.i_slgt2.dosis}}</span>
                     <template
                         v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                         <v-badge color="primary"
-                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'i_slgt2'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'i_slgt2'  }}).dosis.percent)) + '%)'">
+                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antidiabetics', treatment: 'i_slgt2'  }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antidiabetics', treatment: 'i_slgt2'  }}).dosis.percent)) + '%)'">
                         </v-badge>
                     </template>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Frecuencia:
-                        {{ patient_history.form.history_content.diseases.dtm2.i_slgt2.frecuency }} </span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.i_slgt2.frecuency }} </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Reacciones adversas:
                         <template
-                            v-if="patient_history.form.history_content.diseases.dtm2.i_slgt2.has_secondary_effects">
+                            v-if="patient_history.form.history_content.treatments.antidiabetics.i_slgt2.has_secondary_effects">
                             Sí
                         </template>
                         <template v-else>
@@ -328,9 +328,9 @@
                     </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="patient_history.form.history_content.diseases.dtm2.i_slgt2.has_secondary_effects">
+                    v-if="patient_history.form.history_content.treatments.antidiabetics.i_slgt2.has_secondary_effects">
                     <span class="black--text font-weight-bold">Tipo de reacción:
-                        {{ patient_history.form.history_content.diseases.dtm2.i_slgt2.secondary_effects }}</span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.i_slgt2.secondary_effects }}</span>
                 </v-col>
             </v-row>
         </v-col>
@@ -339,25 +339,25 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Ag Rec GLP-1</h3>
                     <span class="black--text font-weight-bold">
-                        {{ patient_history.form.history_content.diseases.dtm2.gl.treatment }} </span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.gl.treatment }} </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Dosis diarias:
-                        {{ patient_history.form.history_content.diseases.dtm2.gl.dosis}}</span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.gl.dosis}}</span>
                     <template
                         v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_history.items.length > 1">
                         <v-badge color="primary"
-                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'gl' }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {disease: 'dtm2', treatment: 'gl' }}).dosis.percent)) + '%)'">
+                            :content=" returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antidiabetics', treatment: 'gl' }}).dosis.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('history', {dosis: true, treatment: {group: 'antidiabetics', treatment: 'gl' }}).dosis.percent)) + '%)'">
                         </v-badge>
                     </template>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Frecuencia:
-                        {{ patient_history.form.history_content.diseases.dtm2.gl.frecuency }} </span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.gl.frecuency }} </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Reacciones adversas:
-                        <template v-if="patient_history.form.history_content.diseases.dtm2.gl.has_secondary_effects">
+                        <template v-if="patient_history.form.history_content.treatments.antidiabetics.gl.has_secondary_effects">
                             Sí
                         </template>
                         <template v-else>
@@ -366,9 +366,9 @@
                     </span>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="patient_history.form.history_content.diseases.dtm2.gl.has_secondary_effects">
+                    v-if="patient_history.form.history_content.treatments.antidiabetics.gl.has_secondary_effects">
                     <span class="black--text font-weight-bold">Tipo de reacción:
-                        {{ patient_history.form.history_content.diseases.dtm2.gl.secondary_effects }}</span>
+                        {{ patient_history.form.history_content.treatments.antidiabetics.gl.secondary_effects }}</span>
                 </v-col>
             </v-row>
         </v-col>
@@ -377,7 +377,7 @@
                 <v-col cols="12" md="4" lg="3">
                     <v-col cols="12">
                         <h3 class="font-weight-bold black--text text-center">
-                            <template v-if="patient_history.form.history_content.diseases.dtm2.fdc.active">
+                            <template v-if="patient_history.form.history_content.treatments.antidiabetics.fdc.active">
                                 El paciente tiene indicada una combinación fija de los medicamentos seleccionados
                             </template>
                             <template v-else>
@@ -385,10 +385,10 @@
                             </template>
                         </h3>
                     </v-col>
-                    <v-col cols="12" v-if="patient_history.form.history_content.diseases.dtm2.fdc.active">
+                    <v-col cols="12" v-if="patient_history.form.history_content.treatments.antidiabetics.fdc.active">
                         <h3 class="font-weight-bold black--text text-center">Combinaciones a dosis fijas</h3>
                         <p class="font-weight-bold black--text text-center"
-                            v-for="item in patient_history.form.history_content.diseases.dtm2.fdc.selected">
+                            v-for="item in patient_history.form.history_content.treatments.antidiabetics.fdc.selected">
                             {{ item }}
                         </p>
                     </v-col>
