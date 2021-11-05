@@ -8,11 +8,12 @@
             "email": "roineradrianzap@gmail.com"
         }
     ],
-    "license": "",
+    "license": "proprietary",
     "require": {
+        "php": "<=7.4",
         "defuse/php-encryption": "^2.2",
         "phpmailer/phpmailer": "^6.2",
-        "dompdf/dompdf": "^1.0",
-        "filp/whoops": "^2.14"
+        "filp/whoops": "^2.14",
+        "dompdf/dompdf": "^1.0"
     }
 }
