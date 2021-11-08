@@ -3589,7 +3589,6 @@ let vm = new Vue({
               var rtfc_results = res.body.patient_to_compare_items.filter(item => {
                 return item.name == rf.calc_name
               });
-              console.log({ rfc_results, rtfc_results })
               if (rfc_results.length > 0) {
                 current_factor_risk.push(rfc_results.length >= 2 ? rfc_results[rfc_results.length - 1] : rfc_results[0])
               }
@@ -5233,6 +5232,7 @@ let vm = new Vue({
         }
         return result
       }
+      return ''
     },
 
     getCS(weight, height, w_suffix, h_suffix) {
@@ -5247,6 +5247,7 @@ let vm = new Vue({
         }
         return result
       }
+      return ''
     },
 
     getVitalSignalsAverage(item, arm) {
