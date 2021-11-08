@@ -35,7 +35,7 @@
                             },
                             vital_signs: {
                                 active: '1',
-                                items: {},
+                                items: [],
                             },
                           }
                         };loadExtrasToReport()">
@@ -55,7 +55,9 @@
                         </v-toolbar>
 
                         <v-divider></v-divider>
-                        <?php echo new Template('patients-management/recipes_and_reports/parts/report_form') ?>
+                        <template v-if="reports.dialog">
+                            <?php echo new Template('patients-management/recipes_and_reports/parts/report_form') ?>
+                        </template>
                         <v-card-actions class="px-8">
                             <v-spacer></v-spacer>
                             <v-btn color="secondary white--text" block @click="saveReport">
