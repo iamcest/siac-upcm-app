@@ -3063,6 +3063,9 @@ let vm = new Vue({
           && res.body.current_anthropometry.hasOwnProperty('appointment_id') ?
           res.body.current_anthropometry :
           Object.assign({}, app.patient_anthropometry.defaultItem)
+        res.body.antropometry_history.forEach(item => {
+          item.created_at = app.patient_appointments.appointments.find(e => e.appointment_id == item.appointment_id).appointment_date
+        });
         app.patient_anthropometry.history = res.body.antropometry_history
         if (add_to_report) {
           app.reports.editedItem.meta.anthropometry.item = app.patient_anthropometry.editedItem
@@ -5790,15 +5793,26 @@ let vm = new Vue({
               bmi: 0,
               cs: 0
             }
-            if (appointment.previous_appointment.hasOwnProperty('appointment_id')) {
+            if (obj.history.length > 1) {
+              var current_anthropometry = params !== undefined && params.hasOwnProperty('anthropometry') ? params.anthropometry : obj.editedItem
+              var current_appointment_index = appointment.appointments.indexOf(appointment.appointments.find(e => e.appointment_id == current_anthropometry.appointment_id))
+              var previous_appointment = appointment.appointments[current_appointment_index - 1]
+              if (previous_appointment == undefined) {
+                return general_results
+              }
               var previous_anthropometry = obj.history.find(
                 (e) => {
-                  return e.appointment_id == appointment.previous_appointment.appointment_id
+                  return e.appointment_id == previous_appointment.appointment_id
                 })
+              var anthropometry_index = obj.history.indexOf(current_anthropometry)
+              previous_anthropometry = previous_anthropometry == undefined ? obj.history[anthropometry_index - 1] : previous_anthropometry
               if (previous_anthropometry !== undefined && previous_anthropometry.hasOwnProperty('appointment_id')) {
-                var current_abdominal_waist = parseInt(obj.editedItem.abdominal_waist)
-                var current_height = parseInt(obj.editedItem.height)
-                var current_weight = parseInt(obj.editedItem.weight)
+                if (params.hasOwnProperty('anthropometry')) {
+                  
+                }
+                var current_abdominal_waist = parseInt(current_anthropometry.abdominal_waist)
+                var current_height = parseInt(current_anthropometry.height)
+                var current_weight = parseInt(current_anthropometry.weight)
                 var current_bmi = parseFloat(app.getBMI(
                   current_weight, current_height,
                   obj.editedItem.weight_suffix, obj.editedItem.height_suffix).replace(' kg/m2', ''))
