@@ -2,6 +2,8 @@
     <v-col cols="12" md="6" lg="4" xl="3" v-for="family in patient_history.form.history_content.family_history">
         <span class="font-weight-bold black--text">{{ family.relationship }}</span>
         <br>
+        <span class="font-weight-bold black--text">Edad: {{ family.age }} años</span>
+        <br>
         <template v-if="family.diseases.length > 0">
             <span class="font-weight-bold black--text" v-if="">Enfermedades:</span>
             <p>

@@ -13,6 +13,11 @@
         <v-select v-model="patient_history.form.history_content.family_history[i].relationship"
             :items="patient_history.options.family" outlined>
         </v-select>
+        
+        <label class="font-weight-bold black--text">Edad</label>
+        <v-text-field type="number" v-model="patient_history.form.history_content.family_history[i].age" outlined>
+        </v-text-field>
+
         <label class="font-weight-bold black--text">Seleccionar enfermedades</label>
         <v-select ref="family_disease_select" v-model="patient_history.form.history_content.family_history[i].diseases"
             :items="patient_history.options.diseases" multiple outlined>
