@@ -11,7 +11,7 @@
                 <v-row>
                     <v-col cols="12" md="6" lg="4"><span class="font-weight-bold">Sendetario:
                             <span class="black--text">
-                                <template v-if="patient_life_style.editedItem.sedentary">
+                                <template v-if="parseInt(patient_life_style.editedItem.sedentary)">
                                     Sí
                                 </template>
                                 <template v-else>
@@ -27,10 +27,10 @@
                     </v-col>
                 </v-row>
             </v-col>
-            <v-col cols="12" md="6" lg="4">
+            <v-col cols="12" md="6" lg="4" v-if="!parseInt(patient_life_style.editedItem.sedentary)">
                 <span class="font-weight-bold">Ejercicio físico:
                     <span class="black--text">
-                        <template v-if="patient_life_style.editedItem.physical_exercise">
+                        <template v-if="parseInt(patient_life_style.editedItem.physical_exercise)">
                             Sí
                         </template>
                         <template v-else>
@@ -39,7 +39,27 @@
                     </span>
                 </span>
             </v-col>
+
             <template v-if="parseInt(patient_life_style.editedItem.physical_exercise)">
+                <v-col cols="12" md="6" lg="4" v-if="!parseInt(patient_life_style.editedItem.sedentary)">
+                    <span class="font-weight-bold">Chequeo de inicio de actividad:
+                        <span class="black--text">
+                            <template v-if="parseInt(patient_life_style.editedItem.exercise_activity_before)">
+                                Sí
+                            </template>
+                            <template v-else>
+                                No
+                            </template>
+                        </span>
+                    </span>
+                </v-col>
+                <v-col cols="12" md="6" lg="4" v-if="parseInt(patient_life_style.editedItem.exercise_activity_before)">
+                    <span class="font-weight-bold">Inicio:
+                        <span class="black--text">
+                            {{ patient_life_style.editedItem.exercise_start_date }}
+                        </span>
+                    </span>
+                </v-col>
                 <v-col cols="12" md="6" lg="4">
                     <span class="font-weight-bold">Tipo de ejercicio:
                         <br>

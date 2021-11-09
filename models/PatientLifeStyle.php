@@ -56,10 +56,11 @@ class PatientLifeStyle
         $result = execute_query($sql);
         if (empty($result->fetch_object())) {
             $sql = "INSERT INTO {$this->table} (
-            appointment_id, physical_exercise, exercise, 
+            appointment_id, physical_exercise, exercise,  exercise_activity_before, exercise_start_date,
             exercise_weekly_minutes, alcohol_consumption, smoking, alcohol_daily_consumption, patient_id)
             VALUES (
-                $appointment_id, $sedentary, $sedentary_material, $physical_exercise, '$exercise', 
+                $appointment_id, $sedentary, $sedentary_material, $physical_exercise, 
+                '$exercise', $exercise_activity_before, '$exercise_start_date',
                 '$exercise_weekly_minutes', $alcohol_consumption, '$smoking',
                 '$alcohol_daily_consumption', $patient_id
             )";
@@ -67,6 +68,7 @@ class PatientLifeStyle
             $sql = "UPDATE {$this->table} SET
             sedentary = $sedentary, sedentary_material = '$sedentary_material',
             physical_exercise = $physical_exercise, exercise = '$exercise',
+            exercise_activity_before = '$exercise_activity_before', exercise_start_date = '$exercise_start_date',
             exercise_weekly_minutes = '$exercise_weekly_minutes', smoking = '$smoking', 
             alcohol_consumption = $alcohol_consumption, alcohol_daily_consumption = '$alcohol_daily_consumption'
             WHERE {$this->id_column} = $appointment_id";

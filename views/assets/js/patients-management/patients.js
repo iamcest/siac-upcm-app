@@ -962,6 +962,7 @@ let vm = new Vue({
     },
     patient_life_style: {
       loading: false,
+      exercise_start_date_modal: false,
       calc: {
         fagerstrom: {
           form_dialog: 0,

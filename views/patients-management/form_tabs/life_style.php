@@ -1,99 +1,130 @@
 <v-row class="full-width">
 
-        <v-row class="px-4">
-            <v-col cols="12">
-                <v-row>
-                    <v-col cols="12">
-                        <v-row>
-                            <v-col cols="12" md="6" lg="4">
-                                <label class="black--text font-weight-bold">Sedentario</label>
-                                <v-select v-model="patient_life_style.editedItem.sedentary"
-                                    :items="patient_life_style.options.select" outlined dense>
-                                </v-select>
-                            </v-col>
-                            <v-col cols="12" md="6" lg="4" v-if="parseInt(patient_life_style.editedItem.sedentary)">
-                                <label class="black--text font-weight-bold">Plan de actividad física</label>
-                                <v-select v-model="patient_life_style.editedItem.sedentary_material"
-                                    :items="filtered_templates" :loading="templates_loading"
-                                    :item-text="item => {return item.material_name}" return-object outlined dense>
-                                    <template #prepend-item>
-                                        <v-list-item>
-                                            <v-list-item-content>
-                                                <v-text-field v-model="template_search" placeholder="Buscar material"
-                                                    @input="searchTemplate" outlined></v-text-field>
-                                            </v-list-item-content>
-                                        </v-list-item>
-                                        <v-divider></v-divider>
-                                    </template>
-                                </v-select>
-                            </v-col>
-                        </v-row>
-                    </v-col>
-                    <v-col cols="12" md="6" lg="4">
-                        <label class="black--text font-weight-bold">Ejercicio físico</label>
-                        <v-select v-model="patient_life_style.editedItem.physical_exercise"
-                            :items="patient_life_style.options.select"
-                            @change="parseInt(patient_life_style.editedItem.physical_exercise)
+    <v-row class="px-4">
+        <v-col cols="12">
+            <v-row>
+                <v-col cols="12">
+                    <v-row>
+                        <v-col cols="12" md="6" lg="4">
+                            <label class="black--text font-weight-bold">Sedentario</label>
+                            <v-select v-model="patient_life_style.editedItem.sedentary"
+                                :items="patient_life_style.options.select" outlined dense>
+                            </v-select>
+                        </v-col>
+                        <v-col cols="12" md="6" lg="4" v-if="parseInt(patient_life_style.editedItem.sedentary)">
+                            <label class="black--text font-weight-bold">Plan de actividad física</label>
+                            <v-select v-model="patient_life_style.editedItem.sedentary_material"
+                                :items="filtered_templates" :loading="templates_loading"
+                                :item-text="item => {return item.material_name}" return-object outlined dense>
+                                <template #prepend-item>
+                                    <v-list-item>
+                                        <v-list-item-content>
+                                            <v-text-field v-model="template_search" placeholder="Buscar material"
+                                                @input="searchTemplate" outlined></v-text-field>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                    <v-divider></v-divider>
+                                </template>
+                            </v-select>
+                        </v-col>
+                    </v-row>
+                </v-col>
+                <v-col cols="12" md="6" lg="4">
+                    <label class="black--text font-weight-bold">Ejercicio físico</label>
+                    <v-select v-model="patient_life_style.editedItem.physical_exercise"
+                        :items="patient_life_style.options.select"
+                        @change="parseInt(patient_life_style.editedItem.physical_exercise)
                             ? patient_life_style.editedItem.sedentary = '0': patient_life_style.editedItem.sedentary = '1'" outlined dense>
-                        </v-select>
-                    </v-col>
-                    <template v-if="parseInt(patient_life_style.editedItem.physical_exercise)">
-                        <v-col cols="12" md="6" lg="4">
-                            <label class="black--text font-weight-bold">Tipo de ejercicio</label>
-                            <v-select v-model="patient_life_style.editedItem.exercise.type"
-                                :items="patient_life_style.options.exercises.type" multiple outlined dense>
-                            </v-select>
-                        </v-col>
-                        <v-col cols="12" md="6" lg="4"
-                            v-if="patient_life_style.editedItem.exercise.type.includes('Aeróbico')">
-                            <label class="black--text font-weight-bold">Ejercicios aeróbicos</label>
-                            <v-select v-model="patient_life_style.editedItem.exercise.aerobic_exercises"
-                                :items="patient_life_style.options.exercises.aerobic" multiple outlined dense>
-                            </v-select>
-                        </v-col>
-                        <v-col cols="12" md="6" lg="4"
-                            v-if="patient_life_style.editedItem.exercise.type.includes('Resistencia')">
-                            <label class="black--text font-weight-bold">Ejercicios de resistencia</label>
-                            <v-select v-model="patient_life_style.editedItem.exercise.resistance_exercises"
-                                :items="patient_life_style.options.exercises.resistance" multiple outlined dense>
-                            </v-select>
-                        </v-col>
-                        <v-col cols="12" md="6" lg="4">
-                            <label class="black--text font-weight-bold">Minutos a la semana</label>
-                            <v-text-field type="number" v-model="patient_life_style.editedItem.exercise_weekly_minutes"
-                                outlined dense>
-                            </v-text-field>
-                        </v-col>
-                    </template>
-                </v-row>
-            </v-col>
-            <v-col cols="12">
-                <v-divider></v-divider>
-            </v-col>
-            <v-col cols="12">
-                <v-row>
+                    </v-select>
+                </v-col>
+                <template v-if="parseInt(patient_life_style.editedItem.physical_exercise)">
                     <v-col cols="12" md="6" lg="4">
-                        <label class="black--text font-weight-bold">Consumo de alcohol</label>
-                        <v-select v-model="patient_life_style.editedItem.alcohol_consumption"
+                        <label class="black--text font-weight-bold">Chequeo de inicio de actividad</label>
+                        <v-select v-model="patient_life_style.editedItem.exercise_activity_before"
                             :items="patient_life_style.options.select" outlined dense>
                         </v-select>
                     </v-col>
-                    <v-col cols="12" md="6" lg="4" v-if="parseInt(patient_life_style.editedItem.alcohol_consumption)">
-                        <label class="black--text font-weight-bold">Cantidad diaria</label>
-                        <v-select v-model="patient_life_style.editedItem.alcohol_daily_consumption"
-                            :items="patient_life_style.options.alcohol_consumption" outlined dense>
+                    <v-col cols="12" md="6" lg="4"
+                        v-if="parseInt(patient_life_style.editedItem.exercise_activity_before)">
+                        <label class="black--text font-weight-bold">Inicio</label>
+                        <v-dialog ref="exercise_start_date_dialog"
+                            v-model="patient_life_style.editedItem.exercise_start_date_modal"
+                            :return-value.sync="patient_life_style.editedItem.exercise_start_date" width="290px">
+                            <template #activator="{ on, attrs }">
+                                <v-text-field v-model="patient_life_style.editedItem.exercise_start_date"
+                                    append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" dense outlined>
+                                </v-text-field>
+                            </template>
+                            <v-date-picker v-model="patient_life_style.editedItem.exercise_start_date" locale="es"
+                                scrollable>
+                                <v-spacer></v-spacer>
+                                <v-btn text color="primary"
+                                    @click="patient_life_style.editedItem.exercise_start_date_modal">
+                                    Cancel
+                                </v-btn>
+                                <v-btn text color="primary"
+                                    @click="$refs.exercise_start_date_dialog.save(patient_life_style.editedItem.exercise_start_date)">
+                                    OK
+                                </v-btn>
+                            </v-date-picker>
+                        </v-dialog>
+                    </v-col>
+                    <v-col cols="12" md="6" lg="4">
+                        <label class="black--text font-weight-bold">Tipo de ejercicio</label>
+                        <v-select v-model="patient_life_style.editedItem.exercise.type"
+                            :items="patient_life_style.options.exercises.type" multiple outlined dense>
                         </v-select>
                     </v-col>
-                </v-row>
-            </v-col>
-            <v-col cols="12">
-                <v-divider></v-divider>
-            </v-col>
-            <?php echo new Template('patients-management/form_tabs/life-style/smoking') ?>
-            <v-col cols="12">
-                <v-btn color="secondary" @click="saveLifeStyle" :loading="patient_life_style.loading" block>Guardar
-                </v-btn>
-            </v-col>
-        </v-row>
+                    <v-col cols="12" md="6" lg="4"
+                        v-if="patient_life_style.editedItem.exercise.type.includes('Aeróbico')">
+                        <label class="black--text font-weight-bold">Ejercicios aeróbicos</label>
+                        <v-select v-model="patient_life_style.editedItem.exercise.aerobic_exercises"
+                            :items="patient_life_style.options.exercises.aerobic" multiple outlined dense>
+                        </v-select>
+                    </v-col>
+                    <v-col cols="12" md="6" lg="4"
+                        v-if="patient_life_style.editedItem.exercise.type.includes('Resistencia')">
+                        <label class="black--text font-weight-bold">Ejercicios de resistencia</label>
+                        <v-select v-model="patient_life_style.editedItem.exercise.resistance_exercises"
+                            :items="patient_life_style.options.exercises.resistance" multiple outlined dense>
+                        </v-select>
+                    </v-col>
+                    <v-col cols="12" md="6" lg="4">
+                        <label class="black--text font-weight-bold">Minutos a la semana</label>
+                        <v-text-field type="number" v-model="patient_life_style.editedItem.exercise_weekly_minutes"
+                            outlined dense>
+                        </v-text-field>
+                    </v-col>
+                </template>
+            </v-row>
+        </v-col>
+        <v-col cols="12">
+            <v-divider></v-divider>
+        </v-col>
+        <v-col cols="12">
+            <v-row>
+                <v-col cols="12" md="6" lg="4">
+                    <label class="black--text font-weight-bold">Consumo de alcohol</label>
+                    <v-select v-model="patient_life_style.editedItem.alcohol_consumption"
+                        :items="patient_life_style.options.select" outlined dense>
+                    </v-select>
+                </v-col>
+                <v-col cols="12" md="6" lg="4" v-if="parseInt(patient_life_style.editedItem.alcohol_consumption)">
+                    <label class="black--text font-weight-bold">Cantidad diaria</label>
+                    <v-select v-model="patient_life_style.editedItem.alcohol_daily_consumption"
+                        :items="patient_life_style.options.alcohol_consumption" outlined dense>
+                    </v-select>
+                </v-col>
+            </v-row>
+        </v-col>
+        <v-col cols="12">
+            <v-divider></v-divider>
+        </v-col>
+        <?php echo new Template('patients-management/form_tabs/life-style/smoking') ?>
+        <v-col cols="12">
+            <v-btn color="secondary" @click="saveLifeStyle" :loading="patient_life_style.loading" block>Guardar
+            </v-btn>
+        </v-col>
+    </v-row>
 
 </v-row>
