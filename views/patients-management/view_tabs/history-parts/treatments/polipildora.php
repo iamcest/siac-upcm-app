@@ -20,10 +20,6 @@
                             <br>
                             <template
                                 v-if="patient_history.form.history_content.treatments.polipildora.active">
-                                <p class="black--text text-center font-weight-black">
-                                    Fecha de inicio:
-                                    {{ patient_history.form.history_content.treatments.polipildora.date }}
-                                </p>
 
                                 <p class="black--text text-center"
                                     v-for="item in patient_history.form.history_content.treatments.polipildora.selected">
@@ -38,7 +34,7 @@
                                     v-for="item in patient_history.form.history_content.treatments.polipildora.reason">
                                     -{{item}}
                                 </p>
-                                </p>
+
                             </template>
                     </v-row>
                 </v-col>

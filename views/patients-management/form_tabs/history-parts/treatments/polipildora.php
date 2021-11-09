@@ -45,31 +45,6 @@
                                 </v-select>
                             </v-col>
                             <v-col class="mt-n6" cols="12">
-                                <label>Fecha de la cita</label>
-                                <v-dialog ref="polipildora_date_dialog" v-model="ph_polipildora_date_modal"
-                                    :return-value.sync="patient_history.form.history_content.treatments.polipildora.date"
-                                    width="290px">
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field class="mt-3"
-                                            v-model="patient_history.form.history_content.treatments.polipildora.date"
-                                            append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" dense outlined>
-                                        </v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                        v-model="patient_history.form.history_content.treatments.polipildora.date"
-                                        locale="es" scrollable>
-                                        <v-spacer></v-spacer>
-                                        <v-btn text color="primary" @click="ph_polipildora_date_modal = false">
-                                            Cancel
-                                        </v-btn>
-                                        <v-btn text color="primary"
-                                            @click="$refs.polipildora_date_dialog.save(patient_history.form.history_content.treatments.polipildora.date)">
-                                            OK
-                                        </v-btn>
-                                    </v-date-picker>
-                                </v-dialog>
-                            </v-col>
-                            <v-col class="mt-n6" cols="12">
                                 <label>Razón</label>
                                 <v-select ref="polipildora_reason_select"
                                     v-model="patient_history.form.history_content.treatments.polipildora.reason"
