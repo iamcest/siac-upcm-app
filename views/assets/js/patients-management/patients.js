@@ -3646,7 +3646,7 @@ let vm = new Vue({
               lying_down: JSON.parse(record.lying_down),
               standing: JSON.parse(record.standing),
               takes: JSON.parse(record.takes),
-              created_at: record.created_at,
+              created_at: app.patient_appointments.appointments.find(e => e.appointment_id == record.appointment_id).appointment_date,
               updated_at: record.updated_at
             }
             patient_records.push(e)
@@ -3654,6 +3654,7 @@ let vm = new Vue({
               obj.takes = e.takes
               obj.temperature = e.sitting.temperature
               obj.sat = e.sitting.sat
+              obj.appointment_id = e.appointment_id
 
               if (add_to_report) {
                 var item = {
@@ -5808,7 +5809,7 @@ let vm = new Vue({
               previous_anthropometry = previous_anthropometry == undefined ? obj.history[anthropometry_index - 1] : previous_anthropometry
               if (previous_anthropometry !== undefined && previous_anthropometry.hasOwnProperty('appointment_id')) {
                 if (params.hasOwnProperty('anthropometry')) {
-                  
+
                 }
                 var current_abdominal_waist = parseInt(current_anthropometry.abdominal_waist)
                 var current_height = parseInt(current_anthropometry.height)
@@ -5943,17 +5944,67 @@ let vm = new Vue({
           }
           else {
             var obj = app.patient_vital_signs
-            if (appointment.previous_appointment.hasOwnProperty('appointment_id')) {
-              var previous_vs = obj.records.find(
-                (e) => {
-                  return e.appointment_id == appointment.previous_appointment.appointment_id
-                })
-              if (previous_vs == undefined) {
-                previous_vs = obj.records[obj.records.length - 2]
+            var takes = {
+              br: {
+                numeric: 0,
+                percent: 0,
+              },
+              frc: {
+                numeric: 0,
+                percent: 0,
+              },
+              arm:  {
+                numeric: 0,
+                percent: 0,
               }
-              if (previous_vs.hasOwnProperty('appointment_id')) {
-                var current_temperature = parseInt(obj.sat)
-                var current_sat = parseInt(obj.sat)
+            }
+            var average = {
+              pam: {
+                left: {
+                  numeric: 0,
+                  percent: 0,
+                },
+                right: {
+                  numeric: 0,
+                  percent: 0,
+                }
+              },  
+              pulse_pressure: {
+                left: {
+                  numeric: 0,
+                  percent: 0,
+                },
+                right: {
+                  numeric: 0,
+                  percent: 0,
+                }
+              },
+              br: {
+                numeric: 0,
+                percent: 0,
+              },
+              frc: {
+                numeric: 0,
+                percent: 0,
+              }
+            }
+            if (obj.records.length > 0) {
+              var current_vs = params.hasOwnProperty('vital_signals') ? params.vital_signals : {
+                appointment_id: obj.appointment_id,
+                takes: obj.takes
+              }
+              var current_vs_index = current_vs.appointment_id === undefined ? null : obj.records.indexOf(obj.records.find(
+                (e) => {
+                  return e.appointment_id == current_vs.appointment_id
+                }))
+              var previous_vs = current_vs_index != null ? obj.records[current_vs_index - 1] : obj.records[obj.records.length - 1]
+              
+              if (previous_vs !== undefined && current_vs.appointment_id != previous_vs.appointment_id) {
+                var current_temperature = current_vs.temperature === undefined 
+                ? parseInt(current_vs.temperature): parseInt(current_vs.lying_down.temperature)
+
+                var current_sat = current_vs.sat === undefined ?
+                 parseInt(current_vs.sat) : parseInt(current_vs.lying_down.sat)
 
                 var previous_temperature = parseInt(previous_vs.lying_down.temperature)
                 var previous_sat = parseInt(previous_vs.lying_down.sat)
@@ -5966,9 +6017,82 @@ let vm = new Vue({
                   numeric: current_sat - previous_sat,
                   percent: ((current_sat - previous_sat) / previous_sat) * 100,
                 }
-                takes = {}
-                if (params.hasOwnProperty('index')) {
-                  var current_take = obj.takes[params.index]
+                if (params.hasOwnProperty('method') && params.method == 'average') {
+                  var current_vs_pam_left_average = app.getVitalSignalsAverage(current_vs, 'left').pam
+                  var previous_vs_pam_left_average = app.getVitalSignalsAverage(previous_vs, 'left').pam
+
+                  var current_vs_pam_right_average = app.getVitalSignalsAverage(current_vs, 'right').pam
+                  var previous_vs_pam_right_average = app.getVitalSignalsAverage(previous_vs, 'right').pam
+
+                  var current_vs_frc_average = app.getFRCAverage([current_vs.takes[0].frc, current_vs.takes[1].frc, current_vs.takes[2].frc])
+                  var previous_vs_frc_average = app.getFRCAverage([current_vs.standing.frc, current_vs.sitting.frc, current_vs.lying_down.frc])
+
+                  var current_vs_br_average = app.getFRCAverage([current_vs.takes[0].breathing_rate, current_vs.takes[1].breathing_rate, current_vs.takes[2].breathing_rate])
+                  var previous_vs_br_average = app.getFRCAverage([current_vs.standing.breathing_rate, current_vs.sitting.breathing_rate, current_vs.lying_down.breathing_rate])
+
+                  var current_vs_pulse_pressure_left_average = app.getVitalSignalsAverage(current_vs, 'left').pulse_pressure
+                  var previous_vs_pulse_pressure_left_average = app.getVitalSignalsAverage(previous_vs, 'left').pulse_pressure
+
+                  var current_vs_pulse_pressure_right_average = app.getVitalSignalsAverage(current_vs, 'right').pulse_pressure
+                  var previous_vs_pulse_pressure_right_average = app.getVitalSignalsAverage(previous_vs, 'right').pulse_pressure
+                  
+                  var total_pam_left_average = current_vs_pam_left_average - previous_vs_pam_left_average
+                  var total_pam_right_average = current_vs_pam_right_average - previous_vs_pam_right_average
+                  var total_br_average = current_vs_br_average - previous_vs_br_average
+                  var total_frc_average = current_vs_frc_average - previous_vs_frc_average
+                  var total_pulse_pressure_left_average = current_vs_pulse_pressure_left_average - previous_vs_pulse_pressure_left_average
+                  var total_pulse_pressure_right_average = current_vs_pulse_pressure_right_average - previous_vs_pulse_pressure_right_average
+
+                  var pam_left_average = {
+                    numeric: total_pam_left_average,
+                    percentage: (total_pam_left_average / previous_vs_pam_left_average) * 100,
+                  }
+
+                  var pam_right_average = {
+                    numeric: total_pam_right_average,
+                    percentage: (total_pam_right_average / previous_vs_pam_right_average) * 100,
+                  }
+
+                  var br_average_difference = {
+                    numeric: total_br_average,
+                    percentage: (total_br_average / previous_vs_br_average) * 100,
+                  }
+
+                  var frc_average_difference = {
+                    numeric: total_frc_average,
+                    percentage: (total_frc_average / previous_vs_frc_average) * 100,
+                  }
+
+                  var pulse_pressure_left_average_difference = {
+                    numeric: total_pulse_pressure_left_average,
+                    percentage: (total_pulse_pressure_left_average / previous_vs_pulse_pressure_left_average) * 100,
+                  }
+
+                  var pulse_pressure_right_average_difference = {
+                    numeric: total_pulse_pressure_right_average,
+                    percentage: (total_pulse_pressure_right_average / previous_vs_pulse_pressure_right_average) * 100,
+                  }
+
+                  return {
+                    temperature: temperature_difference,
+                    sat: sat_difference,
+                    take: takes,
+                    averages: {
+                      pam: {
+                        left: pam_left_average,
+                        right: pam_right_average 
+                      },  
+                      pulse_pressure: {
+                        left: pulse_pressure_left_average_difference,
+                        right: pulse_pressure_right_average_difference 
+                      },
+                      br: br_average_difference,
+                      frc: frc_average_difference
+                    }
+                  }
+
+                } else if (params.hasOwnProperty('index')) {
+                  var current_take = current_vs.takes[params.index]
                   var previous_take = previous_vs.takes[params.index]
 
                   var current_br = parseInt(current_take.breathing_rate)
@@ -6002,15 +6126,40 @@ let vm = new Vue({
                   }
 
                 }
-
                 return {
                   temperature: temperature_difference,
                   sat: sat_difference,
-                  take: takes
+                  take: takes,
+                  averages: average
                 }
               }
               else {
-                return {}
+                return {
+                  temperature:  {
+                    numeric: 0,
+                    percent: 0,
+                  },
+                  sat:  {
+                    numeric: 0,
+                    percent: 0,
+                  },
+                  take: takes,
+                  averages: average
+                }
+              }
+            }
+            else {
+              return {
+                temperature: {
+                  numeric: 0,
+                  percent: 0,
+                },
+                sat: {
+                  numeric: 0,
+                  percent: 0,
+                },
+                take: takes,
+                averages: average
               }
             }
           }

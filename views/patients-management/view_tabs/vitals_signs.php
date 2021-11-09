@@ -15,8 +15,7 @@
                             {{ patient_vital_signs.temperature }} °C
                         </span>
                     </span>
-                    <template
-                        v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_vital_signs.records.length > 1">
+                    <template v-if="patient_vital_signs.records.length > 0 ">
                         <v-badge color="primary"
                             :content=" returnNumberSign(Math.round(getPercentDifference('vital-signals').temperature.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals').temperature.percent)) + '%)'">
                         </v-badge>
@@ -27,8 +26,7 @@
                         <span class="font-weight-light">
                             {{ patient_vital_signs.sat }}%
                         </span>
-                        <template
-                            v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_vital_signs.records.length > 1">
+                        <template v-if="patient_vital_signs.records.length > 0">
                             <v-badge color="primary"
                                 :content=" returnNumberSign(Math.round(getPercentDifference('vital-signals').sat.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals').sat.percent)) + '%)'">
                             </v-badge>
@@ -61,10 +59,10 @@
                                 <span class="font-weight-light">
                                     {{ patient_vital_signs.takes[index]['breathing_rate'] }} rpm
                                 </span>
-                                <template
-                                    v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_vital_signs.records.length > 1">
-                                    <v-badge color="primary"
-                                        :content=" returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index}).take.br.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index}).take.br.percent)) + '%)'">
+                                <template v-if="patient_vital_signs.records.length > 0">
+                                    <v-badge class="ml-2" color="primary"
+                                        :content="returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index}).take.br.numeric)) 
+                                        + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index}).take.br.percent)) + '%)'">
                                     </v-badge>
                                 </template>
                             </span>
@@ -78,10 +76,10 @@
                                 <span class="font-weight-light">
                                     {{ patient_vital_signs.takes[index]['frc'] }} lat x min
                                 </span>
-                                <template
-                                    v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_vital_signs.records.length > 1">
-                                    <v-badge color="primary"
-                                        :content=" returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index}).take.frc.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index}).take.frc.percent)) + '%)'">
+                                <template v-if="patient_vital_signs.records.length > 0">
+                                    <v-badge class="ml-2" color="primary"
+                                        :content=" returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index}).take.frc.numeric)) 
+                                        + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index}).take.frc.percent)) + '%)'">
                                     </v-badge>
                                 </template>
                             </span>
@@ -104,8 +102,7 @@
             </v-row>
             <v-row class="d-flex align-center pt-0 mt-n10 justify-center">
                 <v-col class="font-weight-bold text-center" cols="12" md="4">
-                    <v-row
-                        v-bind:class="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_vital_signs.records.length > 1 ? 'd-flex align-center' : ''">
+                    <v-row v-bind:class="patient_vital_signs.records.length > 0 ? 'd-flex align-center' : ''">
                         <v-col cols="5">
                             <span class="font-weight-bold"> Promedio PAS:
                                 <span class="font-weight-light">
@@ -113,10 +110,10 @@
                                 </span>
 
                             </span>
-                            <v-row class="mt-6 justify-center"
-                                v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_vital_signs.records.length > 1">
+                            <v-row class="mt-6 justify-center" v-if="patient_vital_signs.records.length > 0">
                                 <v-badge class="ml-n10" color="primary"
-                                    :content=" returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index, arm: 'pa_right_arm1_average'}).take.arm.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index, arm: 'pa_right_arm1_average'}).take.arm.percent)) + '%)'">
+                                    :content=" returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index, arm: 'pa_right_arm1_average'}).take.arm.numeric)) 
+                                    + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index, arm: 'pa_right_arm1_average'}).take.arm.percent)) + '%)'">
                                 </v-badge>
                             </v-row>
                         </v-col>
@@ -127,18 +124,17 @@
                                     {{ patient_vital_signs.takes[index]['pa_right_arm2_average'] }} mmHg
                                 </span>
                             </span>
-                            <v-row class="mt-6 justify-center"
-                                v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_vital_signs.records.length > 1">
+                            <v-row class="mt-6 justify-center" v-if="patient_vital_signs.records.length > 0">
                                 <v-badge class="ml-n10" color="primary"
-                                    :content=" returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index, arm: 'pa_right_arm2_average'}).take.arm.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index, arm: 'pa_right_arm2_average'}).take.arm.percent)) + '%)'">
+                                    :content=" returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index, arm: 'pa_right_arm2_average'}).take.arm.numeric)) 
+                                    + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index, arm: 'pa_right_arm2_average'}).take.arm.percent)) + '%)'">
                                 </v-badge>
                             </v-row>
                         </v-col>
                     </v-row>
                 </v-col>
                 <v-col class="font-weight-bold text-center" cols="12" md="4">
-                    <v-row
-                        v-bind:class="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_vital_signs.records.length > 1 ? 'd-flex align-center' : ''">
+                    <v-row v-bind:class="patient_vital_signs.records.length > 0 ? 'd-flex align-center' : ''">
                         <v-col cols="5">
                             <span class="font-weight-bold"> Promedio PAS:
                                 <span class="font-weight-light">
@@ -146,10 +142,10 @@
                                 </span>
 
                             </span>
-                            <v-row class="mt-6 justify-center"
-                                v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_vital_signs.records.length > 1">
+                            <v-row class="mt-6 justify-center" v-if="patient_vital_signs.records.length > 0">
                                 <v-badge class="ml-n10" color="primary"
-                                    :content=" returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index, arm: 'pa_left_arm1_average'}).take.arm.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index, arm: 'pa_left_arm1_average'}).take.arm.percent)) + '%)'">
+                                    :content=" returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index, arm: 'pa_left_arm1_average'}).take.arm.numeric)) 
+                                    + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index, arm: 'pa_left_arm1_average'}).take.arm.percent)) + '%)'">
                                 </v-badge>
                             </v-row>
                         </v-col>
@@ -161,16 +157,15 @@
                                 </span>
 
                             </span>
-                            <v-row class="mt-6 justify-center"
-                                v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_vital_signs.records.length > 1">
+                            <v-row class="mt-6 justify-center" v-if="patient_vital_signs.records.length > 0">
                                 <v-badge class="ml-n10" color="primary"
-                                    :content=" returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index, arm: 'pa_left_arm2_average'}).take.arm.numeric)) + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index, arm: 'pa_left_arm2_average'}).take.arm.percent)) + '%)'">
+                                    :content=" returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index, arm: 'pa_left_arm2_average'}).take.arm.numeric)) 
+                                    + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {index: index, arm: 'pa_left_arm2_average'}).take.arm.percent)) + '%)'">
                                 </v-badge>
                             </v-row>
                         </v-col>
                     </v-row>
                 </v-col>
-                <v-col cols="12" v-if="1 == 2">* Luego de 5 minutos sentado el paciente</v-col>
             </v-row>
         </v-col>
         <v-col cols="12">
@@ -179,17 +174,20 @@
     </v-row>
 </v-col>
 
-<v-col cols="12" v-if="1 == 2">
+<v-col cols="12">
 
     <v-data-table :headers="patient_vital_signs.headers" :items="patient_vital_signs.records" sort-by="take_date"
         :sort-desc="true" class="elevation-1 full-width">
         <template slot="item" slot-scope="props">
-            <tr class>
-                <td class="border-right text-center font-weight-bold" rowspan="7">
-                    {{ fromNow(props.item.take_date) }}</td>
             <tr>
-                <td class="grey--text font-weight-bold">Sentado</td>
-                <td class="text-center">{{ props.item.sitting.frc }} {{ props.item.sitting.frc_suffix}}
+                <td class="border-right text-center font-weight-bold" rowspan="6">
+                    {{ fromNow(props.item.created_at) }}</td>
+            <tr>
+                <td class="grey--text font-weight-bold">
+                    Sentado
+                </td>
+                <td class="text-center">
+                    {{ props.item.sitting.frc }} {{ props.item.sitting.frc_suffix}}
                 </td>
                 <td class="text-center">
                     S / D
@@ -230,6 +228,7 @@
                 <td class="text-center">{{ props.item.lying_down.temperature }} C°</td>
                 <td class="text-center">{{ props.item.standing.sat }} %</td>
             </tr>
+
             <tr>
                 <td class="grey--text font-weight-bold">De pie</td>
                 <td class="text-center">{{ props.item.standing.frc }}
@@ -251,15 +250,32 @@
                 <td class="text-center">{{ props.item.standing.temperature }} C°</td>
                 <td class="text-center">{{ props.item.standing.sat }} %</td>
             </tr>
+
             <tr>
                 <td class="grey--text font-weight-bold border-right" rowspan="2">Promedio</td>
                 <td class="text-center"><span class="font-weight-bold">Frecuencia Cardiaca: </span>
                     <br>{{ getFRCAverage([props.item.standing.frc, props.item.sitting.frc, props.item.lying_down.frc]) }}
                     lat x min
+                    <br>
+                    <template v-if="patient_vital_signs.records.length > 0">
+                        <v-badge class="badge-na my-2" color="primary"
+                            :content="returnNumberSign(Math.round(getPercentDifference('vital-signals', {vital_signals: props.item, method: 'average'}).averages.frc.numeric)) 
+                            + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {vital_signals: props.item, method: 'average'}).averages.frc.percent)) + '%)'">
+                        </v-badge>
+                    </template>
                 </td>
                 <td class="text-center"><span class="font-weight-bold">Presión Arterial Media: </span>
                     <br>{{ getVitalSignalsAverage(props.item, 'right').pam }}
                     {{ props.item.sitting.pa_suffix }}
+                    <template v-if="patient_vital_signs.records.length > 0">
+                        <br>
+                        <v-badge class="badge-na my-2" color="primary"
+                            :content="returnNumberSign(Math.round(getPercentDifference('vital-signals', {vital_signals: props.item, method: 'average'})
+                            .averages.pam.right.numeric)) 
+                            + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {vital_signals: props.item, method: 'average'})
+                            .averages.pam.right.percent)) + '%)'">
+                        </v-badge>
+                    </template>
                     <br>
                     <b>S: </b>
                     {{ getSDverage([props.item.sitting.pa_right_arm1, props.item.lying_down.pa_right_arm1, props.item.standing.pa_right_arm1]) }}
@@ -269,35 +285,86 @@
                 <td class="text-center"><span class="font-weight-bold">Presión Arterial Media: </span>
                     <br>{{ getVitalSignalsAverage(props.item, 'left').pam }}
                     {{ props.item.sitting.pa_suffix }}
+                    <template v-if="patient_vital_signs.records.length > 0">
+                        <br>
+                        <v-badge class="badge-na my-2" color="primary"
+                            :content="returnNumberSign(Math.round(getPercentDifference('vital-signals', {vital_signals: props.item, method: 'average'})
+                            .averages.pam.left.numeric)) 
+                            + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {vital_signals: props.item, method: 'average'})
+                            .averages.pam.left.percent)) + '%)'">
+                        </v-badge>
+                    </template>
                     <br>
                     <b>S: </b>
                     {{ getSDverage([props.item.sitting.pa_left_arm1, props.item.lying_down.pa_left_arm1, props.item.standing.pa_left_arm1]) }}
                     <b>D: </b>
                     {{ getSDverage([props.item.sitting.pa_left_arm2, props.item.lying_down.pa_left_arm2, props.item.standing.pa_left_arm2]) }}
                 </td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="text-center">
+                    <template v-if="patient_vital_signs.records.length > 0">
+                        <v-badge class="badge-na my-2" color="primary"
+                            :content="returnNumberSign(Math.round(getPercentDifference('vital-signals', {vital_signals: props.item, method: 'average'}).averages.br.numeric)) 
+                            + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {vital_signals: props.item, method: 'average'}).averages.br.percent)) + '%)'">
+                        </v-badge>
+                    </template>
+                </td>
+                <td class="text-center">
+                    <template v-if="patient_vital_signs.records.length > 0">
+                        <v-badge class="badge-na" color="primary"
+                            :content=" returnNumberSign(Math.round(getPercentDifference('vital-signals', {vital_signals: props.item}).temperature.numeric)) 
+                            + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {vital_signals: props.item}).temperature.percent)) + '%)'">
+                        </v-badge>
+                    </template>
+                </td>
+                <td class="text-center">
+                    <template v-if="patient_vital_signs.records.length > 0">
+                        <v-badge class="badge-na" color="primary"
+                            :content=" returnNumberSign(Math.round(getPercentDifference('vital-signals', {vital_signals: props.item}).sat.numeric)) 
+                            + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {vital_signals: props.item}).sat.percent)) + '%)'">
+                        </v-badge>
+                    </template>
+                </td>
+            </tr>
+
             <tr>
                 <td></td>
                 <td class="text-center"><span class="font-weight-bold">Presión del Pulso:</span>
                     <br>{{ getVitalSignalsAverage(props.item, 'right').pulse_pressure }}
                     {{ props.item.sitting.pa_suffix }}
+                    <template v-if="patient_vital_signs.records.length > 0">
+                        <br>
+                        <v-badge class="badge-na my-2" color="primary"
+                            :content="returnNumberSign(Math.round(getPercentDifference('vital-signals', {vital_signals: props.item, method: 'average'})
+                            .averages.pulse_pressure.right.numeric)) 
+                            + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {vital_signals: props.item, method: 'average'})
+                            .averages.pulse_pressure.right.percent)) + '%)'">
+                        </v-badge>
+                    </template>
                 </td>
                 <td class="text-center"><span class="font-weight-bold">Presión del Pulso:</span>
                     <br>{{ getVitalSignalsAverage(props.item, 'left').pulse_pressure }}
                     {{ props.item.sitting.pa_suffix }}
+                    <template v-if="patient_vital_signs.records.length > 0">
+                        <br>
+                        <v-badge class="badge-na my-2" color="primary"
+                            :content="returnNumberSign(Math.round(getPercentDifference('vital-signals', {vital_signals: props.item, method: 'average'})
+                            .averages.pulse_pressure.left.numeric)) 
+                            + ' (' + returnNumberSign(Math.round(getPercentDifference('vital-signals', {vital_signals: props.item, method: 'average'})
+                            .averages.pulse_pressure.left.percent)) + '%)'">
+                        </v-badge>
+                    </template>
                 </td>
-                <td></td>
-                <td></td>
-            </tr>
+                <td class="text-center">
+                </td>
+                <td class="text-center">
+                </td>
+                <td class="text-center">
+                </td>
             </tr>
             </tr>
         </template>
-        <template v-slot:no-data>
-            <v-btn color="primary" @click="initializeVitalSigns">
-                Recargar
-            </v-btn>
+        <template #no-data>
+            No se encontraron registros
         </template>
     </v-data-table>
 </v-col>

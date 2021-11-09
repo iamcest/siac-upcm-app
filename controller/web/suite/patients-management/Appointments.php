@@ -10,7 +10,7 @@ class Appointments extends Routes
         !$this->can_do('patient_management_access', 'appointments', 'read') ? header("Location: " . SITE_URL . "/") : '';
         $cf = 'patients-management/calculations';
         $this->styles = [
-            ['name' => 'patient-management'],
+            ['name' => 'patient-management.min'],
             ['name' => 'full-calendar-5.4.0.min']
         ];
         $this->scripts = [
@@ -29,7 +29,7 @@ class Appointments extends Routes
             ['name' => "$cf/inter-heart.min", 'version' => '1.0.0'],
             ['name' => "$cf/heart-risk-framingham.min", 'version' => '1.0.0'],
             ['name' => "patients-management/Classes/AppointmentCalendar.min", 'version' => '1.0.0'],
-            ['name' => 'patients-management/patients.min', 'version' => '1.14.0'],
+            ['name' => 'patients-management/patients.min', 'version' => '1.14.1'],
         ];
         $this->content = new Template("patients-management/appointments", [
             'title' => 'Cita',

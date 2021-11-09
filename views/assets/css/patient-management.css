@@ -8,3 +8,7 @@
 #vital_signs .theme--light.v-label--is-disabled {
     color: #76d7d7;
 }
+.badge-na .v-badge__wrapper, .badge-na .v-badge__badge{
+    position: relative;
+    inset: unset !important;
+}
