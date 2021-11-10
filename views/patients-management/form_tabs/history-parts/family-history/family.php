@@ -39,6 +39,7 @@
             patient_history.form.history_content.family_history.push(
                 {
                     relationship: 'Padre',
+                    age: Int,
                     diseases: [],
                     other_diseases: '',
                 }
