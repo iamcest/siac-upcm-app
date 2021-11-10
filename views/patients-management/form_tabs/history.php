@@ -65,7 +65,7 @@
                 <v-col class="mt-6" cols="12">
                     <h3 class="text-h5 text-center black--text">Tratamientos</h3>
                 </v-col>
-                <v-col class="px-0" cols="12" md="6" offset-md="3">
+                <v-col class="px-0 d-flex justify-center" cols="12">
                     <?php echo new Template('patients-management/form_tabs/history-parts/treatments/polipildora') ?>
                 </v-col>
                 <v-col class="px-0" cols="12">

@@ -1855,17 +1855,41 @@ let vm = new Vue({
             },
             polipildora: {
               treatments_list: {
-                polipildora:
-                  [
-                    'Aspirina', 'Estatina', 'Betabloqueante',
-                    'Diurético', 'IECA', 'BRA', 'Calcioantagonista',
-                    'AAS/Estatina/IECA', 'AAS/Estatina/IECA/Diurético', 'Antagonistas del calcio/Estatina/IECA'
-                  ],
-                polipildora_reason:
-                  [
-                    'Controlar los factores de riesgo', 'Evitar eventos recurrentes',
-                    'Disminuir polimedicación', 'Mejorar adherencia'
-                  ],
+                polipildora: [
+                  {
+                    name: 'AAS/Atorvastatina/Ramipril',
+                    dosis_selected: '',
+                    dosis: [
+                      '100/20/2.5mg',
+                      '100/20/5mg',
+                      '100/20/10mg'
+                    ]
+                  },
+                  {
+                    name: 'Amlodipino/Atorvastatina',
+                    dosis_selected: '',
+                    dosis: [
+                      '2.5/20mg',
+                      '2.5/40mg',
+                      '5/10mg',
+                      '5/20mg',
+                      '5/40mg',
+                      '10/10mg',
+                      '10/20mg',
+                    ]
+                  },
+                  {
+                    name: 'Bisoprolol, Candesartan, Hidroclorotiazyd, Rosuvastatin, AAS',
+                    dosis_selected: '',
+                    dosis: [
+                      '2.5mg/8mg/6.25mg/10mg/81mg',
+                    ]
+                  }
+                ],
+                polipildora_reason:[
+                  'Controlar los factores de riesgo', 'Evitar eventos recurrentes',
+                  'Disminuir polimedicación', 'Mejorar adherencia'
+                ],
               },
               active: 0,
               reason: [],
@@ -2415,17 +2439,41 @@ let vm = new Vue({
           },
           polipildora: {
             treatments_list: {
-              polipildora:
-                [
-                  'Aspirina', 'Estatina', 'Betabloqueante',
-                  'Diurético', 'IECA', 'BRA', 'Calcioantagonista',
-                  'AAS/Estatina/IECA', 'AAS/Estatina/IECA/Diurético', 'Antagonistas del calcio/Estatina/IECA'
-                ],
-              polipildora_reason:
-                [
-                  'Controlar los factores de riesgo', 'Evitar eventos recurrentes',
-                  'Disminuir polimedicación', 'Mejorar adherencia'
-                ],
+              polipildora: [
+                {
+                  name: 'AAS/Atorvastatina/Ramipril',
+                  dosis_selected: '',
+                  dosis: [
+                    '100/20/2.5mg',
+                    '100/20/5mg',
+                    '100/20/10mg'
+                  ]
+                },
+                {
+                  name: 'Amlodipino/Atorvastatina',
+                  dosis_selected: '',
+                  dosis: [
+                    '2.5/20mg',
+                    '2.5/40mg',
+                    '5/10mg',
+                    '5/20mg',
+                    '5/40mg',
+                    '10/10mg',
+                    '10/20mg',
+                  ]
+                },
+                {
+                  name: 'Bisoprolol, Candesartan, Hidroclorotiazyd, Rosuvastatin, AAS',
+                  dosis_selected: '',
+                  dosis: [
+                    '2.5mg/8mg/6.25mg/10mg/81mg',
+                  ]
+                }
+              ],
+              polipildora_reason:[
+                'Controlar los factores de riesgo', 'Evitar eventos recurrentes',
+                'Disminuir polimedicación', 'Mejorar adherencia'
+              ],
             },
             active: 0,
             reason: [],
@@ -5952,7 +6000,7 @@ let vm = new Vue({
                 numeric: 0,
                 percent: 0,
               },
-              arm:  {
+              arm: {
                 numeric: 0,
                 percent: 0,
               }
@@ -5967,7 +6015,7 @@ let vm = new Vue({
                   numeric: 0,
                   percent: 0,
                 }
-              },  
+              },
               pulse_pressure: {
                 left: {
                   numeric: 0,
@@ -5997,13 +6045,13 @@ let vm = new Vue({
                   return e.appointment_id == current_vs.appointment_id
                 }))
               var previous_vs = current_vs_index != null ? obj.records[current_vs_index - 1] : obj.records[obj.records.length - 1]
-              
+
               if (previous_vs !== undefined && current_vs.appointment_id != previous_vs.appointment_id) {
-                var current_temperature = current_vs.temperature === undefined 
-                ? parseInt(current_vs.temperature): parseInt(current_vs.lying_down.temperature)
+                var current_temperature = current_vs.temperature === undefined
+                  ? parseInt(current_vs.temperature) : parseInt(current_vs.lying_down.temperature)
 
                 var current_sat = current_vs.sat === undefined ?
-                 parseInt(current_vs.sat) : parseInt(current_vs.lying_down.sat)
+                  parseInt(current_vs.sat) : parseInt(current_vs.lying_down.sat)
 
                 var previous_temperature = parseInt(previous_vs.lying_down.temperature)
                 var previous_sat = parseInt(previous_vs.lying_down.sat)
@@ -6034,7 +6082,7 @@ let vm = new Vue({
 
                   var current_vs_pulse_pressure_right_average = app.getVitalSignalsAverage(current_vs, 'right').pulse_pressure
                   var previous_vs_pulse_pressure_right_average = app.getVitalSignalsAverage(previous_vs, 'right').pulse_pressure
-                  
+
                   var total_pam_left_average = current_vs_pam_left_average - previous_vs_pam_left_average
                   var total_pam_right_average = current_vs_pam_right_average - previous_vs_pam_right_average
                   var total_br_average = current_vs_br_average - previous_vs_br_average
@@ -6079,11 +6127,11 @@ let vm = new Vue({
                     averages: {
                       pam: {
                         left: pam_left_average,
-                        right: pam_right_average 
-                      },  
+                        right: pam_right_average
+                      },
                       pulse_pressure: {
                         left: pulse_pressure_left_average_difference,
-                        right: pulse_pressure_right_average_difference 
+                        right: pulse_pressure_right_average_difference
                       },
                       br: br_average_difference,
                       frc: frc_average_difference
@@ -6134,11 +6182,11 @@ let vm = new Vue({
               }
               else {
                 return {
-                  temperature:  {
+                  temperature: {
                     numeric: 0,
                     percent: 0,
                   },
-                  sat:  {
+                  sat: {
                     numeric: 0,
                     percent: 0,
                   },
