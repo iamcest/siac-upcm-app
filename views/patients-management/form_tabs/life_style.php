@@ -122,6 +122,10 @@
         </v-col>
         <?php echo new Template('patients-management/form_tabs/life-style/smoking') ?>
         <v-col cols="12">
+            <v-divider></v-divider>
+        </v-col>
+        <?php echo new Template('patients-management/view_tabs/life-style/view-table') ?>
+        <v-col cols="12">
             <v-btn color="secondary" @click="saveLifeStyle" :loading="patient_life_style.loading" block>Guardar
             </v-btn>
         </v-col>

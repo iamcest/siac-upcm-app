@@ -1,7 +1,8 @@
 <v-col cols="12">
     <v-row class="d-flex justify-start">
         <v-col cols="6" md="4" lg="3">
-            <v-select v-model="patient_life_style.editedItem.smoking.active" :items="patient_life_style.options.select" outlined dense>
+            <v-select v-model="patient_life_style.editedItem.smoking.active" :items="patient_life_style.options.select"
+                outlined dense>
                 <template #prepend>
                     <h4 class="my-auto text-h6 font-weight-bold">Tabaquismo:</h4>
                 </template>
@@ -13,8 +14,7 @@
             <v-row>
                 <v-col cols="12">
                     <label class="black--text font-weight-bold">Año de inicio aproximado:</label>
-                    <v-dialog ref="smoking_start_year_modal" v-model="smoking_start_year_modal"
-                        width="290px">
+                    <v-dialog ref="smoking_start_year_modal" v-model="smoking_start_year_modal" width="290px">
                         <template #activator="{ on, attrs }">
                             <v-text-field class="mt-3"
                                 :value="getOnlyYear(patient_life_style.editedItem.smoking.start_year)"
@@ -28,11 +28,11 @@
                         </v-date-picker>
                     </v-dialog>
                 </v-col>
-                <v-col cols="12" v-if="!parseInt(patient_life_style.editedItem.smoking.active) 
+                <v-col cols="12"
+                    v-if="!parseInt(patient_life_style.editedItem.smoking.active) 
                 || parseInt(patient_life_style.editedItem.smoking.active) && parseInt(patient_life_style.editedItem.smoking.no_smoking_frecuency)">
                     <label class="black--text font-weight-bold">Año de abandono:</label>
-                    <v-dialog ref="smoking_quit_year_modal" v-model="smoking_quit_year_modal"
-                        width="290px">
+                    <v-dialog ref="smoking_quit_year_modal" v-model="smoking_quit_year_modal" width="290px">
                         <template #activator="{ on, attrs }">
                             <v-text-field class="mt-3"
                                 :value="getOnlyYear(patient_life_style.editedItem.smoking.quit_year)"
@@ -54,6 +54,12 @@
                     <label class="black--text font-weight-bold">Número de cigarros al día</label>
                     <v-text-field v-model="patient_life_style.editedItem.smoking.cigarettes_per_day" class="mt-3"
                         outlined dense>
+                        <template v-if="patient_life_style.items.length > 1" #append>
+                            <v-badge class="ml-n16 mt-4" color="primary"
+                                :content=" returnNumberSign(Math.round(getPercentDifference('life-style').smoking.cigarettes_per_day.numeric))  
+                        + ' (' + returnNumberSign(Math.round(getPercentDifference('life-style').smoking.cigarettes_per_day.percent)) + '%)'">
+                            </v-badge>
+                        </template>
                     </v-text-field>
                 </v-col>
             </v-row>

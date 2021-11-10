@@ -33,6 +33,13 @@
                 <v-col cols="12">
                     <span class="black--text font-weight-bold">Número de cigarros al día:
                         {{ patient_life_style.editedItem.smoking.cigarettes_per_day }} </span>
+                    <template v-if="patient_life_style.items.length > 1">
+                        <br>
+                        <v-badge class="badge-na mb-2" color="primary"
+                            :content=" returnNumberSign(Math.round(getPercentDifference('life-style').smoking.cigarettes_per_day.numeric))  
+                        + ' (' + returnNumberSign(Math.round(getPercentDifference('life-style').smoking.cigarettes_per_day.percent)) + '%)'">
+                        </v-badge>
+                    </template>
                 </v-col>
             </v-row>
         </v-col>

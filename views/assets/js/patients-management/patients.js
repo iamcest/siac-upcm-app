@@ -963,6 +963,13 @@ let vm = new Vue({
     patient_life_style: {
       loading: false,
       exercise_start_date_modal: false,
+      headers: [
+        { text: 'Fecha', align: 'center', value: 'created_at', width: "auto" },
+        { text: 'Sedentario', align: 'center', value: 'sedentary', width: "auto" },
+        { text: 'Ejercicio', align: 'center', value: 'exercise', width: "auto" },
+        { text: 'Consumo de alcohol', align: 'center', value: 'alcohol_consumption', width: "auto" },
+        { text: 'Fumador', align: 'center', value: 'smoking', width: "auto" },
+      ],
       calc: {
         fagerstrom: {
           form_dialog: 0,
@@ -1061,6 +1068,8 @@ let vm = new Vue({
         },
         physical_exercise: '0',
         exercise_weekly_minutes: 30,
+        exercise_activity_before: '0',
+        exercise_start_date: '',
         exercise: {
           type: [],
           aerobic_exercises: [],
@@ -1097,6 +1106,8 @@ let vm = new Vue({
         },
         physical_exercise: '0',
         exercise_weekly_minutes: 30,
+        exercise_activity_before: '0',
+        exercise_start_date: '',
         exercise: {
           type: [],
           aerobic_exercises: [],
@@ -1886,7 +1897,7 @@ let vm = new Vue({
                     ]
                   }
                 ],
-                polipildora_reason:[
+                polipildora_reason: [
                   'Controlar los factores de riesgo', 'Evitar eventos recurrentes',
                   'Disminuir polimedicación', 'Mejorar adherencia'
                 ],
@@ -2470,7 +2481,7 @@ let vm = new Vue({
                   ]
                 }
               ],
-              polipildora_reason:[
+              polipildora_reason: [
                 'Controlar los factores de riesgo', 'Evitar eventos recurrentes',
                 'Disminuir polimedicación', 'Mejorar adherencia'
               ],
@@ -3468,6 +3479,7 @@ let vm = new Vue({
       var app = this
       var obj = app.patient_life_style
       obj.loading = true
+      obj.items = []
       obj.editedItem = Object.assign({}, obj.defaultItem)
       var url = api_url + 'patient-life-style/get/' + app.editedItem.patient_id
       app.$http.get(url).then(res => {
@@ -3478,11 +3490,16 @@ let vm = new Vue({
             e.exercise = JSON.parse(e.exercise)
             e.smoking = JSON.parse(e.smoking)
             e.sedentary_material = JSON.parse(e.sedentary_material)
+            e.created_at = app.patient_appointments.appointments.find(item => item.appointment_id == e.appointment_id).appointment_date
             items.push(e)
             if (parseInt(e.appointment_id) == parseInt(app.patient_appointments.current_appointment.appointment_id)) {
               obj.editedItem = e
             }
           });
+          if(!obj.editedItem.hasOwnProperty('appointment_id')) {
+            obj.editedItem = Object.assign({}, obj.items[obj.items.length - 1])
+            obj.editedItem.appointment_id = app.patient_appointments.current_appointment.appointment_id
+          } 
           obj.items = items
         }
       }, err => {
@@ -3511,6 +3528,10 @@ let vm = new Vue({
               obj.editedItem = e
             }
           });
+          if(!obj.editedItem.hasOwnProperty('appointment_id')) {
+            obj.editedItem = Object.assign({}, obj.items[obj.items.length - 1])
+            obj.editedItem.appointment_id = app.patient_appointments.current_appointment.appointment_id
+          }
           obj.items = items
         }
       }, err => {
@@ -4832,7 +4853,9 @@ let vm = new Vue({
       app.$http.post(url, obj.editedItem).then(res => {
         obj.save_loading = false
         if (res.body.status == 'success') {
-          obj.tab = 'tab-12'
+          app.tab = 'tab-12'
+          app.initializeFactorsRisk()
+          app.initializePlans()
         }
         activateAlert(res.body.message, res.body.status)
       }, err => {
@@ -7016,7 +7039,135 @@ let vm = new Vue({
             return { calc: general }
           }
           break;
+        case 'life-style':
+          if (comparison) {
+            var obj = app.comparison.anthropometry
+            if (obj.current_patient.hasOwnProperty('patient_id') && obj.patient_to_compare.hasOwnProperty('patient_id')) {
+              var patient_selected = !params.patient_to_compare ? obj.current_patient : obj.patient_to_compare
+              var patient_to_compare = !params.patient_to_compare ? obj.patient_to_compare : obj.current_patient
 
+              var current_abdominal_waist = parseInt(patient_selected.abdominal_waist)
+              var current_height = parseInt(patient_selected.height)
+              var current_weight = parseInt(patient_selected.weight)
+              var current_bmi = parseFloat(app.getBMI(
+                current_weight, current_height,
+                patient_selected.weight_suffix, patient_selected.height_suffix).replace(' kg/m2', ''))
+              var current_cs = parseFloat(app.getCS(
+                current_weight, current_height,
+                patient_selected.weight_suffix, patient_selected.height_suffix).replace(' m2', ''))
+
+              var previous_abdominal_waist = parseInt(patient_to_compare.abdominal_waist)
+              var previous_height = parseInt(patient_to_compare.height)
+              var previous_weight = parseInt(patient_to_compare.weight)
+              var previous_bmi = parseFloat(app.getBMI(
+                previous_weight, previous_height,
+                patient_to_compare.weight_suffix, patient_to_compare.height_suffix).replace(' kg/m2', ''))
+              var previous_cs = parseFloat(app.getCS(
+                previous_weight, previous_height,
+                patient_to_compare.weight_suffix, patient_to_compare.height_suffix).replace(' m2', ''))
+
+              var weight_difference = {
+                numeric: current_weight - previous_weight,
+                percent: (((current_weight - previous_weight) / previous_weight) * 100),
+              }
+
+              var height_difference = {
+                numeric: current_height - previous_height,
+                percent: (((current_height - previous_height) / previous_height) * 100),
+              }
+
+              var abdominal_waist_difference = {
+                numeric: current_abdominal_waist - previous_abdominal_waist,
+                percent: (((current_abdominal_waist - previous_abdominal_waist) / previous_abdominal_waist) * 100),
+              }
+
+              var bmi_difference = {
+                numeric: current_bmi - previous_bmi,
+                percent: (((current_bmi - previous_bmi) / previous_bmi) * 100),
+              }
+
+              var cs_difference = {
+                numeric: current_cs - previous_cs,
+                percent: (((current_cs - previous_cs) / previous_cs) * 100),
+              }
+
+              return {
+                weight: weight_difference,
+                height: height_difference,
+                abdominal_waist: abdominal_waist_difference,
+                bmi: bmi_difference,
+                cs: cs_difference
+              }
+            }
+            else {
+              return {}
+            }
+          }
+          else {
+            var obj = app.patient_life_style
+            var general_results = {
+              exercise_weekly_minutes: {
+                numeric: 0,
+                apercentage: 0
+              },
+              smoking: {
+                cigarettes_per_day: {
+                  numeric: 0,
+                  apercentage: 0
+                },
+              }
+            }
+            if (obj.items.length > 1) {
+              var current_life_style = params !== undefined && params.hasOwnProperty('life_style') ? params.life_style : obj.editedItem
+              var current_appointment_index = appointment.appointments.indexOf(appointment.appointments.find(e => e.appointment_id == current_life_style.appointment_id))
+              var previous_appointment = appointment.appointments[current_appointment_index - 1]
+              if (previous_appointment == undefined) {
+                return general_results
+              }
+              var previous_life_style = obj.items.find(
+                (e) => {
+                  return e.appointment_id == previous_appointment.appointment_id
+                })
+              var anthropometry_index = obj.items.indexOf(current_life_style)
+              previous_life_style = previous_life_style == undefined ? obj.items[anthropometry_index - 1] : previous_life_style
+              if (previous_life_style !== undefined && previous_life_style.hasOwnProperty('appointment_id')) {
+
+                var current_weekly_exercise_minutes = parseInt(current_life_style.exercise_weekly_minutes)
+                var current_smoking_cigarettes_per_day = parseInt(current_life_style.smoking.cigarettes_per_day)
+
+                var previous_weekly_exercise_minutes = parseInt(previous_life_style.exercise_weekly_minutes)
+                var previous_smoking_cigarettes_per_day = parseInt(previous_life_style.smoking.cigarettes_per_day)
+
+                var total_exercise_weekly_minutes = current_weekly_exercise_minutes - previous_weekly_exercise_minutes
+                var total_smoking_cigarettes_per_day = current_smoking_cigarettes_per_day - previous_smoking_cigarettes_per_day
+
+                var weekly_exercise_minutes_difference = {
+                  numeric: total_exercise_weekly_minutes,
+                  percent: (total_exercise_weekly_minutes / previous_weekly_exercise_minutes) * 100,
+                }
+
+                var smoking_cigarettes_per_day_difference = {
+                  numeric: total_smoking_cigarettes_per_day,
+                  percent: (total_smoking_cigarettes_per_day / previous_smoking_cigarettes_per_day) * 100,
+                }
+
+                return {
+                  exercise_weekly_minutes: weekly_exercise_minutes_difference,
+                  smoking: {
+                    cigarettes_per_day: smoking_cigarettes_per_day_difference
+                  }
+                }
+              }
+              else {
+                return general_results
+              }
+            }
+            else {
+              return general_results
+            }
+          }
+
+          break;
         default:
           // statements_def
           break
@@ -7072,6 +7223,9 @@ let vm = new Vue({
             app.initializeFactorsRisk(true)
             break;
           case 'tab-view-11':
+            app.initializeLifeStyle()
+            break;
+          case 'tab-view-12':
             app.initializePlans()
             break;
         }
@@ -7104,6 +7258,9 @@ let vm = new Vue({
             app.initializeFactorsRisk(app.view_dialog)
             break;
           case 'tab-11':
+            app.initializeLifeStyle()
+            break;
+          case 'tab-12':
             app.initializeFactorsRisk()
             app.initializePlans()
             break;

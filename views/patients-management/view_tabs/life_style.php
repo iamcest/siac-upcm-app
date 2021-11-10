@@ -92,6 +92,13 @@
                     <span class="font-weight-bold">Minutos a la semana:
                         <span class="black--text">
                             {{ patient_life_style.editedItem.exercise_weekly_minutes }}
+                            <template v-if="patient_life_style.items.length > 1">
+                                <br>
+                                <v-badge color="primary"
+                                    :content=" returnNumberSign(Math.round(getPercentDifference('life-style').exercise_weekly_minutes.numeric))  
+                        + ' (' + returnNumberSign(Math.round(getPercentDifference('life-style').exercise_weekly_minutes.percent)) + '%)'">
+                                </v-badge>
+                            </template>
                         </span>
                     </span>
                 </v-col>
@@ -128,4 +135,8 @@
         <v-divider></v-divider>
     </v-col>
     <?php echo new Template('patients-management/view_tabs/life-style/smoking') ?>
+    <v-col cols="12">
+        <v-divider></v-divider>
+    </v-col>
+    <?php echo new Template('patients-management/view_tabs/life-style/view-table') ?>
 </v-row>
