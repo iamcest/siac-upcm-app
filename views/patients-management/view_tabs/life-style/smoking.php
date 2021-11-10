@@ -97,13 +97,6 @@
                         </template>
                     </span>
                 </v-col>
-                <v-col cols="12"
-                    v-if="patient_life_style.editedItem.smoking.short_advice.done
-                                              && patient_life_style.editedItem.smoking.short_advice.material.material_name !== '' && 1 == 2">
-                    <span class="black--text font-weight-bold">Material seleccionado:
-                        {{ patient_life_style.editedItem.smoking.short_advice.material.material_name }}
-                    </span>
-                </v-col>
             </v-row>
         </v-col>
     </v-row>

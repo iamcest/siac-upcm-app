@@ -29,7 +29,8 @@
             </v-col>
 
             <v-col cols="6" v-if="patient_plan.editedItem.previous_treatments == '0'">
-                <v-btn class="mt-6" color="primary" @click="patient_plan.treatment_edit_dialog = true" block>Editar tratamientos</v-btn>
+                <v-btn class="mt-6" color="primary" @click="patient_plan.treatment_edit_dialog = true" block>Editar
+                    tratamientos</v-btn>
             </v-col>
 
             <v-col cols="12">
@@ -58,6 +59,27 @@
                         </v-text-field>
                     </v-col>
                 </v-row>
+            </v-col>
+            <v-col cols="12" md="6">
+                <label class="black--text font-weight-bold">Materiales para el paciente</label>
+                <v-select ref="template_select" v-model="patient_plan.editedItem.materials" :items="filtered_templates"
+                    :loading="templates_loading" item-text="material_name" return-object multiple outlined dense>
+
+                    <template #prepend-item>
+                        <v-row class="px-7">
+                            <v-btn color="secondary" @click="$refs.template_select.blur()" block>
+                                Cerrar
+                            </v-btn>
+                        </v-row>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-text-field v-model="template_search" placeholder="Buscar material"
+                                    @input="searchTemplate" outlined></v-text-field>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-divider></v-divider>
+                    </template>
+                </v-select>
             </v-col>
             <v-col cols="12">
                 <v-btn color="secondary" @click="savePlan" :loading="patient_plan.save_loading" block>Guardar</v-btn>

@@ -7,15 +7,18 @@
     <?php endif ?>
     <v-col cols="12">
         <v-data-table :headers="patient_plan.headers" :items="patient_plan.items" class="elevation-1 table_headers_lg">
-            <template v-slot:item.clinics_exams="{ item }">
+            <template #item.clinics_exams="{ item }">
                 <span v-for="(exam, i) in getClinicExamsActive(item.clinics_exams)">
                     - {{ exam.name }}
                 </span>
             </template>
-            <template v-slot:no-data>
-                <v-btn color="primary" @click="initializePlans">
-                    Recargar
-                </v-btn>
+            <template #item.materials="{ item }">
+                <span v-for="(material, i) in item.materials">
+                    - {{ material.material_name }}
+                </span>
+            </template>
+            <template #no-data>
+                No se encontraron registros
             </template>
         </v-data-table>
     </v-col>

@@ -2713,6 +2713,7 @@ let vm = new Vue({
         { text: 'Nutrición', align: 'start', value: 'nutrition' },
         { text: 'Plan de ejercicio', value: 'exercise_plan' },
         { text: 'Exámenes paraclínicos', value: 'clinics_exams' },
+        { text: 'Materiales', value: 'materials' },
       ],
       editedItem: {
         nutrition: '',
@@ -2740,6 +2741,7 @@ let vm = new Vue({
             value: '0'
           },
         ],
+        materials: [],
         registered_at: moment().format('YYYY-MM-DD')
       },
       defaultItem: {
@@ -3503,6 +3505,7 @@ let vm = new Vue({
           var items = []
           res.body.forEach((e, i) => {
             e.clinics_exams = JSON.parse(e.clinics_exams)
+            e.materials = JSON.parse(e.materials)
             items.push(e)
             if (parseInt(e.appointment_id) == parseInt(app.patient_appointments.current_appointment.appointment_id)) {
               obj.editedItem = e
@@ -4123,6 +4126,7 @@ let vm = new Vue({
           var items = []
           res.body.forEach((e, i) => {
             e.clinics_exams = JSON.parse(e.clinics_exams)
+            e.materials = JSON.parse(e.materials)
             items.push(e)
             if (parseInt(e.appointment_id) == parseInt(app.patient_appointments.current_appointment.appointment_id)) {
               obj.editedItem = e
@@ -7100,6 +7104,7 @@ let vm = new Vue({
             app.initializeFactorsRisk(app.view_dialog)
             break;
           case 'tab-11':
+            app.initializeFactorsRisk()
             app.initializePlans()
             break;
         }

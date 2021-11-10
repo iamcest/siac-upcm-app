@@ -47,7 +47,7 @@
                 Estilo de vida
             </v-tab>
 
-            <v-tab class="font-weight-bold" href="#tab-12" @click="initializePlans">
+            <v-tab class="font-weight-bold" href="#tab-12" @click="initializeFactorsRisk();initializePlans()">
                 Plan
             </v-tab>
         </template>

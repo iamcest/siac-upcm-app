@@ -134,22 +134,6 @@
                     <v-select class="mt-3" v-model="patient_life_style.editedItem.smoking.short_advice.done"
                         :items="patient_life_style.options.select" outlined dense></v-select>
                 </v-col>
-                <v-col cols="12" v-if="patient_life_style.editedItem.smoking.short_advice.done && 1 == 2">
-                    <label class="black--text font-weight-bold">Seleccione el material</label>
-                    <v-select v-model="patient_life_style.editedItem.smoking.short_advice.material"
-                        :items="filtered_templates" :loading="templates_loading"
-                        :item-text="item => {return item.material_name}" return-object outlined dense>
-                        <template #prepend-item>
-                            <v-list-item>
-                                <v-list-item-content>
-                                    <v-text-field v-model="template_search" placeholder="Buscar material"
-                                        @input="searchTemplate" outlined></v-text-field>
-                                </v-list-item-content>
-                            </v-list-item>
-                            <v-divider></v-divider>
-                        </template>
-                    </v-select>
-                </v-col>
             </v-row>
         </v-col>
     </v-row>
