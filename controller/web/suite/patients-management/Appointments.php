@@ -29,7 +29,7 @@ class Appointments extends Routes
             ['name' => "$cf/inter-heart.min", 'version' => '1.0.0'],
             ['name' => "$cf/heart-risk-framingham.min", 'version' => '1.0.0'],
             ['name' => "patients-management/Classes/AppointmentCalendar.min", 'version' => '1.0.0'],
-            ['name' => 'patients-management/patients.min', 'version' => '1.14.7'],
+            ['name' => 'patients-management/patients.min', 'version' => '1.14.8'],
         ];
         $this->content = new Template("patients-management/appointments", [
             'title' => 'Cita',

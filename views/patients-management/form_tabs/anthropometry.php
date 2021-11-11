@@ -52,7 +52,10 @@
         <v-row class="d-flex justify-center">
             <v-col cols="2">
                 <h5 class="text-h6">
-                    IMC:{{ getBMI(patient_anthropometry.editedItem.weight, patient_anthropometry.editedItem.height, patient_anthropometry.editedItem.weight_suffix, patient_anthropometry.editedItem.height_suffix) }}
+                    IMC:{{ getBMI(patient_anthropometry.editedItem.weight, 
+                        patient_anthropometry.editedItem.height,
+                         patient_anthropometry.editedItem.weight_suffix, 
+                         patient_anthropometry.editedItem.height_suffix).replace(' kg/m2', '') }} kg/m<sup>2</sup>
                 </h5>
                 <br>
                 <template
@@ -64,7 +67,10 @@
             </v-col>
             <v-col cols="2">
                 <h5 class="text-h6">
-                    SC:{{ getCS(patient_anthropometry.editedItem.weight, patient_anthropometry.editedItem.height, patient_anthropometry.editedItem.weight_suffix, patient_anthropometry.editedItem.height_suffix) }}
+                    SC:{{ getCS(patient_anthropometry.editedItem.weight, 
+                        patient_anthropometry.editedItem.height, 
+                        patient_anthropometry.editedItem.weight_suffix, 
+                        patient_anthropometry.editedItem.height_suffix).replace(' m2', '') }} m<sup>2</sup>
                 </h5>
                 <br>
                 <template

@@ -7,7 +7,7 @@
 
     <v-col cols="12" md="4" lg="3" xl="3">
         <v-alert color="pink" icon="mdi-account-heart" border="left" outlined prominent>
-            <b>Fumadores</b>
+            <b>Tabaquismo</b>
             <template v-if="!statistics.life_style.loading">
                 <br>
                 Sí: {{ statistics.life_style.smoking.active }}
@@ -25,7 +25,7 @@
 
     <v-col cols="12" md="4" lg="3" xl="3">
         <v-alert color="pink" icon="mdi-account-heart" border="left" outlined prominent>
-            <b>Consumidores <br> de alcohol</b>
+            <b>Consumo <br> de alcohol</b>
             <template v-if="!statistics.life_style.loading">
                 <br>
                 Sí: {{ statistics.life_style.alcohol_consumption.active }}
@@ -42,7 +42,7 @@
 
     <v-col cols="12" md="4" lg="3" xl="3">
         <v-alert color="pink" icon="mdi-account-heart" border="left" outlined prominent>
-            <b>Sedentarios</b>
+            <b>Sedentarismo</b>
             <template v-if="!statistics.life_style.loading">
                 <br>
                 Sí: {{ statistics.life_style.sedentary.active }}
@@ -61,7 +61,7 @@
 
     <v-col cols="12" md="4" lg="3" xl="3">
         <v-alert color="pink" icon="mdi-account-heart" border="left" outlined prominent>
-            <b>Ejercicios</b>
+            <b>Ejercicios físico</b>
             <template v-if="!statistics.life_style.loading">
                 <br>
                 Aeróbicos:

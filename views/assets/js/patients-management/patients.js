@@ -261,7 +261,7 @@ let vm = new Vue({
             total: 0
           },
           {
-            name: 'Triglicérídos',
+            name: 'Triglicéridos',
             nomenclature: 'mg/dL',
             items: 0,
             total: 0
@@ -5203,7 +5203,7 @@ let vm = new Vue({
           var url = api_url + "medical-exams/get"
           var total_cholesterol = { exam_id: app.filterExamsByName('Colesterol Total').exam_id, patient_id: app.editedItem.patient_id }
           var c_HDL = { exam_id: app.filterExamsByName('Colesterol HDL').exam_id, patient_id: app.editedItem.patient_id }
-          var triglycerides = { exam_id: app.filterExamsByName('Triglicérídos').exam_id, patient_id: app.editedItem.patient_id }
+          var triglycerides = { exam_id: app.filterExamsByName('Triglicéridos').exam_id, patient_id: app.editedItem.patient_id }
 
 
           app.$http.post(url, total_cholesterol).then(res => {

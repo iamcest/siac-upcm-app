@@ -44,7 +44,7 @@
         <v-col cols="12" sm="6" md="4">
             <p class="black--text text-h6"><strong>índice Masa Corporal:</strong>
                 <span class="font-weight-light">
-                    {{ getBMI(patient_anthropometry.editedItem.weight, patient_anthropometry.editedItem.height) }}
+                    {{ getBMI(patient_anthropometry.editedItem.weight, patient_anthropometry.editedItem.height).replace(' kg/m2', '') }} kg/m<sup>2</sup>
                 </span>
                 <template v-if="patient_anthropometry.history.length > 1">
                     <v-badge color="primary"
@@ -57,7 +57,7 @@
         <v-col cols="12" sm="6" md="4">
             <p class="black--text text-h6"><strong>Superficie Corporal:</strong>
                 <span class="font-weight-light">
-                    {{ getCS(patient_anthropometry.editedItem.weight, patient_anthropometry.editedItem.height) }}
+                    {{ getCS(patient_anthropometry.editedItem.weight, patient_anthropometry.editedItem.height).replace(' m2', '') }} m<sup>2</sup>
                 </span>
                 <template v-if="patient_anthropometry.history.length > 1">
                     <v-badge color="primary"

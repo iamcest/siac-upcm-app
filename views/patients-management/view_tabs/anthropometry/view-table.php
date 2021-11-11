@@ -32,7 +32,7 @@
         </template>
     </template>
     <template #item.bmi="{ item }">
-        {{ getBMI(item.weight, item.height, item.weight_suffix, item.height_suffix) }}
+        {{ getBMI(item.weight, item.height, item.weight_suffix, item.height_suffix).replace(' kg/m2', '') }} kg/m<sup>2</sup>
         <template v-if="patient_anthropometry.history.length > 1">
             <br>
             <v-badge color="primary"
@@ -42,7 +42,7 @@
         </template>
     </template>
     <template #item.corporal_surface="{ item }">
-        {{ getCS(item.weight, item.height, item.weight_suffix, item.height_suffix) }}
+        {{ getCS(item.weight, item.height, item.weight_suffix, item.height_suffix).replace(' m2', '') }} m<sup>2</sup>
         <template v-if="patient_anthropometry.history.length > 1">
             <br>
             <v-badge color="primary"

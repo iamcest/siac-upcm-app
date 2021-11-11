@@ -6,7 +6,7 @@
     </v-col>
     <v-col cols="12" md="4" lg="3" xl="3">
         <v-alert color="info" icon="mdi-heart-pulse" border="left" outlined prominent>
-            <b>Hipertensión</b>
+            <b>Hipertensión arterial</b>
             <template v-if="!statistics.diseases.loading">
                 <br>
                 Total: {{ statistics.diseases.hta.controlled + statistics.diseases.hta.no_controlled }}
