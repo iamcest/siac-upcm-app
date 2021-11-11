@@ -18,7 +18,7 @@
                 <template v-if="patient_risk_factors.rf.treatment_selected.name != ''">
                     <template
                         v-if="patient_risk_factors.rf.treatment_selected.name == 'HTA' || patient_risk_factors.rf.treatment_selected.name == 'Insuficiencia Cardíaca'">
-                        <?php echo new Template('patients-management/form_tabs/history-parts/treatments/antidiabetics') ?>
+                        <?php echo new Template('patients-management/form_tabs/history-parts/treatments/antihypertensives') ?>
                     </template>
                     <template v-else-if="patient_risk_factors.rf.treatment_selected.name == 'Dislipidemia'">
                         <?php echo new Template('patients-management/form_tabs/history-parts/treatments/hypolipidemic') ?>
