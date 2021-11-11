@@ -7,7 +7,7 @@
             <v-col class="d-flex justify-center" cols="12">
                 <span class="font-weight-bold black--text">
                     <template v-if="!patient_history.form.history_content.cardiovascular_diseases.arritmia.active">
-                        No hay padecido alguna
+                        No ha padecido alguna
                     </template>
                 </span>
             </v-col>
