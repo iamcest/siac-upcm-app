@@ -21,8 +21,9 @@ switch ($method) {
 
     case 'get':
         $query = clean_string($query);
+        $data = sanitize($data);
         if ($query == 'comparison') {
-            $data = sanitize($data);
+            
             if (empty($data)) {
                 echo json_encode([]);
                 die();
@@ -38,11 +39,11 @@ switch ($method) {
 
             echo json_encode($results);
         } else {
-            $data = sanitize($data);
             $currents = $risk_factors->get($data['current_appointment']);
             $previous = !empty($data['previous_appointment']) && $data['previous_appointment'] != $data['current_appointment'] ?
             $risk_factors->get($data['previous_appointment']) : [];
-            echo json_encode(['current_list' => $currents, 'previous_list' => $previous]);
+            $history = $risk_factors->get(0, $data['patient_id']);
+            echo json_encode(['current_list' => $currents, 'previous_list' => $previous, 'items' => $history]);
         }
         break;
 

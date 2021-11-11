@@ -2503,12 +2503,18 @@ let vm = new Vue({
           results: '',
         }
       },
+      detail_table_rf_selected: {
+        nomenclature: '',
+        calc_name: 'FINDRISK',
+        obj: findrisk_vars
+      },
       headers: [
         { text: ' ', align: 'start', value: 'name' },
         { text: 'Diagnóstico', value: 'diagnostic' },
         { text: 'Tratamiento', value: 'comment' },
       ],
       risk_factor_headers: [
+        { text: 'Fecha', align: 'start', value: 'created_at' },
         { text: 'Fórmula de Cálculo de Riesgo', align: 'start', value: 'name' },
         { text: 'Resultado', value: 'results' },
       ],
@@ -2618,6 +2624,7 @@ let vm = new Vue({
       risk_factors_list: {
         current_list: [],
         previous_list: [],
+        items: []
       },
       risk_factors_calc_list: [],
       defaultItems: {
@@ -3552,13 +3559,28 @@ let vm = new Vue({
       if (get_risk_factors) {
         obj.risk_factors_list.current_list = []
         obj.risk_factors_list.previous_list = []
+        obj.risk_factors_list.items = []
         obj.risk_factors_loaded = true
         var url = api_url + 'patient-risk-factors/get/'
         app.$http.post(url, data).then(res => {
-          obj.risk_factors_list.current_list = res.body.hasOwnProperty('current_list')
-            ? res.body.current_list : []
-          obj.risk_factors_list.previous_list = res.body.hasOwnProperty('previous_list')
-            ? res.body.previous_list : []
+          if (res.body.hasOwnProperty('current_list')) {
+            res.body.current_list.forEach(e => {
+              e.created_at = app.patient_appointments.appointments.find(item => item.appointment_id == e.appointment_id).appointment_date
+            })
+            obj.risk_factors_list.current_list = res.body.current_list
+          }
+          if (res.body.hasOwnProperty('previous_list')) {
+            res.body.previous_list.forEach(e => {
+              e.created_at = app.patient_appointments.appointments.find(item => item.appointment_id == e.appointment_id).appointment_date
+            })
+            obj.risk_factors_list.previous_list = res.body.previous_list
+          }
+          if (res.body.hasOwnProperty('items')) {
+            res.body.items.forEach(e => {
+              e.created_at = app.patient_appointments.appointments.find(item => item.appointment_id == e.appointment_id).appointment_date
+            })
+            obj.risk_factors_list.items = res.body.items
+          }
           /*
           if (res.body.hasOwnProperty('current_risk_factors_diagnostics')) {
             obj.risk_factors_list = res.body
@@ -5161,7 +5183,7 @@ let vm = new Vue({
     },
 
     getRiskFactorData(name) {
-      var obj = this.patient_risk_factors.risk_factors_list
+      var obj = this.patient_risk_factors.risk_factors_list.items
       var results = obj.filter((risk_factor) => {
         return risk_factor.name == name;
       });
@@ -5291,12 +5313,14 @@ let vm = new Vue({
 
     assignGeneralVars() {
       var app = this
-      if (app.patient_risk_factors.selectedForm.calc_name != '') {
+      var obj = app.patient_risk_factors
+      if (obj.selectedForm.calc_name != '') {
         app.getCurrentFactorRisk()
       }
+      obj.detail_table_rf_selected = Object.assign({}, obj.selectedForm)
       app.setAnthropometryVars()
-      app.patient_risk_factors.selectedForm.obj.vars.age = moment(app.editedItem.birthdate, "YYYY-MM-DD").fromNow().split(" ")[1]
-      app.patient_risk_factors.selectedForm.obj.vars.gender = app.editedItem.gender
+      obj.selectedForm.obj.vars.age = moment(app.editedItem.birthdate, "YYYY-MM-DD").fromNow().split(" ")[1]
+      obj.selectedForm.obj.vars.gender = app.editedItem.gender
     },
 
     getBMI(weight, height, w_suffix, h_suffix) {
@@ -6973,12 +6997,20 @@ let vm = new Vue({
           }
           else {
             var obj = app.patient_risk_factors
-            if (appointment.previous_appointment.hasOwnProperty('appointment_id')) {
+            if (obj.risk_factors_list.items.length > 1) {
               var current_rfc = params.item
-              var previous_rfc = obj.risk_factors_list.previous_list.find(
+              var current_rfc_index = appointment.appointments.indexOf(appointment.appointments.find(e => e.appointment_id == current_rfc.appointment_id))
+              var previous_rfc_appointment = appointment.appointments[current_rfc_index - 1]
+              console.log(current_rfc, previous_rfc_appointment)
+              if (previous_rfc_appointment == undefined) {
+                return { calc: general }
+              }
+              var previous_rfc = obj.risk_factors_list.items.find(
                 (e) => {
-                  return e.name == current_rfc.name
+                  return e.appointment_id == previous_rfc_appointment.appointment_id && e.name == current_rfc.name
                 })
+              var rfc_index = obj.risk_factors_list.items.indexOf(obj.risk_factors_list.items.find( e => e.appointment_id == current_rfc.appointment_id))
+              previous_rfc = previous_rfc == undefined ? !rfc_index ? undefined : obj.items[rfc_index - 1] : previous_rfc
               var results = {
                 calc: general,
               }
@@ -6987,9 +7019,11 @@ let vm = new Vue({
                 var current_result = parseFloat(current_rfc.results)
                 var previous_result = parseFloat(previous_rfc.results)
 
+                var total_result = current_result - previous_result
+
                 var rfc_difference = {
-                  numeric: current_result - previous_result,
-                  percent: (((current_result - previous_result) / previous_result) * 100),
+                  numeric: total_result,
+                  percent: (total_result / previous_result) * 100,
                 }
 
                 results.calc = rfc_difference
@@ -6999,6 +7033,9 @@ let vm = new Vue({
               else {
                 return { calc: general }
               }
+            }
+            else {
+              return { calc: general }
             }
           }
           break;

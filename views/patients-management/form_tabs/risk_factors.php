@@ -15,9 +15,13 @@
     <?php echo new Template('patients-management/form_tabs/calculations/inter-heart') ?>
     <?php echo new Template('patients-management/form_tabs/calculations/heart-risk-framingham') ?>
     <v-col class="d-flex justify-center" cols="12"
-        v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') && patient_risk_factors.risk_factors_calc_list.length > 1 && patient_risk_factors.selectedForm.calc_name != 'Riesgo OMS/OPS'">
-        <v-badge class="ml-n14" color="primary"
-            :content=" returnNumberSign(Math.round(getPercentDifference('risk-factor-calc').calc.numeric))  + ' (' + returnNumberSign(Math.round(getPercentDifference('risk-factor-calc').calc.percent)) + '%)'">
+        v-if="patient_appointments.previous_appointment.hasOwnProperty('appointment_id') 
+        && patient_risk_factors.risk_factors_calc_list.length > 1  
+        && patient_risk_factors.selectedForm.calc_name != ''
+        && patient_risk_factors.selectedForm.calc_name != 'Riesgo OMS/OPS'">
+        <v-badge class="badge-na text-center" color="primary"
+            :content=" returnNumberSign(parseFloat(getPercentDifference('risk-factor-calc').calc.numeric).toFixed(2)) 
+            + ' (' + returnNumberSign(parseFloat(getPercentDifference('risk-factor-calc').calc.percent).toFixed(2)) + '%)'">
         </v-badge>
     </v-col>
     <v-col class="d-flex justify-center mt-2" cols="12" md="4" offset-md="4"
@@ -25,6 +29,9 @@
         <v-btn class="secondary white--text" v-on:click="saveFactorRisk()" :loading="patient_risk_factors.loading">
             Guardar Cálculo
         </v-btn>
+    </v-col>
+    <v-col cols="12" md="6" v-if="patient_risk_factors.selectedForm.calc_name != ''" offset-md="3">
+    <?php echo new Template('patients-management/view_tabs/risk-factors/rf-view-table') ?>
     </v-col>
     <v-col cols="12">
         <v-btn color="primary white--text" block @click="tab = 'tab-11';initializePlans()">
