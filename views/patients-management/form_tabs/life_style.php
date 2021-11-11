@@ -93,6 +93,12 @@
                         <label class="black--text font-weight-bold">Minutos a la semana</label>
                         <v-text-field type="number" v-model="patient_life_style.editedItem.exercise_weekly_minutes"
                             outlined dense>
+                            <template v-if="patient_life_style.items.length > 1" #append>
+                                <v-badge class="badge-na" color="primary"
+                                    :content=" returnNumberSign(Math.round(getPercentDifference('life-style').exercise_weekly_minutes.numeric))  
+                        + ' (' + returnNumberSign(Math.round(getPercentDifference('life-style').exercise_weekly_minutes.percent)) + '%)'">
+                                </v-badge>
+                            </template>
                         </v-text-field>
                     </v-col>
                 </template>

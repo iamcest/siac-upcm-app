@@ -55,7 +55,7 @@
                     <v-text-field v-model="patient_life_style.editedItem.smoking.cigarettes_per_day" class="mt-3"
                         outlined dense>
                         <template v-if="patient_life_style.items.length > 1" #append>
-                            <v-badge class="ml-n16 mt-4" color="primary"
+                            <v-badge class="badge-na" color="primary"
                                 :content=" returnNumberSign(Math.round(getPercentDifference('life-style').smoking.cigarettes_per_day.numeric))  
                         + ' (' + returnNumberSign(Math.round(getPercentDifference('life-style').smoking.cigarettes_per_day.percent)) + '%)'">
                             </v-badge>
