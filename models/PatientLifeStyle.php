@@ -50,27 +50,28 @@ class PatientLifeStyle
 
         extract($data);
         $exercise = json_encode($exercise, JSON_UNESCAPED_UNICODE);
-        $sedentary_material = json_encode($sedentary_material, JSON_UNESCAPED_UNICODE);
         $smoking = json_encode($smoking, JSON_UNESCAPED_UNICODE);
         $sql = "SELECT * FROM {$this->table} WHERE {$this->id_column} = $appointment_id LIMIT 1";
         $result = execute_query($sql);
         if (empty($result->fetch_object())) {
             $sql = "INSERT INTO {$this->table} (
-            appointment_id, sedentary, sedentary_material, physical_exercise, exercise, exercise_activity_before, exercise_start_date,
-            exercise_weekly_minutes, alcohol_consumption, smoking, alcohol_daily_consumption, patient_id)
+            appointment_id, sedentary, physical_exercise, exercise, exercise_activity_before, exercise_start_date,
+            aerobic_weekly_minutes, resistance_weekly_minutes, alcohol_consumption, smoking, alcohol_daily_consumption, patient_id)
             VALUES (
-                $appointment_id, $sedentary, '$sedentary_material', $physical_exercise, '$exercise',  
+                $appointment_id, $sedentary, $physical_exercise, '$exercise',  
                 $exercise_activity_before, '$exercise_start_date',
-                '$exercise_weekly_minutes', $alcohol_consumption, '$smoking',
+                $aerobic_weekly_minutes, $resistance_weekly_minutes, $alcohol_consumption, '$smoking',
                 '$alcohol_daily_consumption', $patient_id
             )";
         } else {
             $sql = "UPDATE {$this->table} SET
-            sedentary = $sedentary, sedentary_material = '$sedentary_material',
-            physical_exercise = $physical_exercise, exercise = '$exercise',
-            exercise_activity_before = '$exercise_activity_before', exercise_start_date = '$exercise_start_date',
-            exercise_weekly_minutes = '$exercise_weekly_minutes', smoking = '$smoking', 
-            alcohol_consumption = $alcohol_consumption, alcohol_daily_consumption = '$alcohol_daily_consumption'
+            sedentary = $sedentary, physical_exercise = $physical_exercise, 
+            exercise = '$exercise', exercise_activity_before = '$exercise_activity_before', 
+            exercise_start_date = '$exercise_start_date', 
+            aerobic_weekly_minutes = '$aerobic_weekly_minutes', 
+            resistance_weekly_minutes = $resistance_weekly_minutes, 
+            smoking = '$smoking', alcohol_consumption = $alcohol_consumption, 
+            alcohol_daily_consumption = '$alcohol_daily_consumption'
             WHERE {$this->id_column} = $appointment_id";
         }
         $result = execute_query($sql);

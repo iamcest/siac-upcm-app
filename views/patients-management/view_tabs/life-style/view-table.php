@@ -19,7 +19,6 @@
                     </template>
                 </template>
                 <template #item.exercise="{ item }">
-                    {{ item.height }} {{ item.height_suffix }}
                     <template v-if="parseInt(item.physical_exercise)">
                         <b>Sí.</b>
                         <br>
@@ -27,16 +26,29 @@
                         <span v-for="exercise, i in item.exercise.type">
                             <br>
                             - {{ exercise }}.
+
+                            <template v-if="exercise.includes('Resistencia')">
+                                <b>Tiempo semanal:</b> {{ item.resistance_weekly_minutes }} minutos
+                                <template v-if="patient_life_style.items.length > 1">
+                                    <v-badge class="badge-na mb-2" color="primary"
+                                        :content=" returnNumberSign(Math.round(getPercentDifference('life-style', {life_style: item}).resistance_weekly_minutes.numeric))  
+                        + ' (' + returnNumberSign(Math.round(getPercentDifference('life-style', {life_style: item}).resistance_weekly_minutes.percent)) + '%)'">
+                                    </v-badge>
+                                </template>
+                            </template>
+                            
+                            <template v-if="exercise.includes('Aeróbico')">
+                                <b>Tiempo semanal:</b> {{ item.aerobic_weekly_minutes }} minutos
+                                <template v-if="patient_life_style.items.length > 1">
+                                    <v-badge class="badge-na mb-2" color="primary"
+                                        :content=" returnNumberSign(Math.round(getPercentDifference('life-style', {life_style: item}).aerobic_weekly_minutes.numeric))  
+                        + ' (' + returnNumberSign(Math.round(getPercentDifference('life-style', {life_style: item}).aerobic_weekly_minutes.percent)) + '%)'">
+                                    </v-badge>
+                                </template>
+                            </template>
                         </span>
                         <br>
-                        <b>Tiempo semanal:</b> {{ item.exercise_weekly_minutes }}
-                        <template v-if="patient_life_style.items.length > 1">
-                            <br>
-                            <v-badge class="badge-na mb-2" color="primary"
-                                :content=" returnNumberSign(Math.round(getPercentDifference('life-style', {life_style: item}).exercise_weekly_minutes.numeric))  
-                        + ' (' + returnNumberSign(Math.round(getPercentDifference('life-style', {life_style: item}).exercise_weekly_minutes.percent)) + '%)'">
-                            </v-badge>
-                        </template>
+
                     </template>
                     <template v-else>
                         <b>No</b>
