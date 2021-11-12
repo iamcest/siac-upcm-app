@@ -464,7 +464,7 @@ let vm = new Vue({
       next_date_modal: false,
       headers: [
         { text: 'Fecha de creación', align: 'start', value: 'registered_at' },
-        { text: 'Fecha de consulta', align: 'start', value: 'appointment_date' },
+        { text: 'Fecha de consulta', align: 'start', value: 'next_appointment' },
         { text: 'Acciones', value: 'actions', align: 'center', sortable: false },
       ],
       treatments: [
@@ -838,6 +838,8 @@ let vm = new Vue({
     },
     patient_physical_exam: {
       loading: false,
+      aai_dialog: false,
+      aai_results_menu: false,
       options: {
         general_aspect: ['Bueno', 'Regular', 'Mal'],
         soplo: ['Sistólico', 'Diastólico', 'Continuo'],
@@ -854,6 +856,25 @@ let vm = new Vue({
       },
       items: [],
       content: {
+        calc: {
+          aai: {
+            vars: {
+              tpi: 0,
+              pi: 0,
+              tpd: 0,
+              pd: 0,
+              hi: 0,
+              hd: 0,
+              pad: 0,
+              pai: 0,
+              pah: 0,
+            },
+            itbi: 0,
+            itbd: 0,
+            itbi_result: '',
+            itbd_result: '',
+          }
+        },
         general_aspect: '',
         apex: {
           is_palpated: 1,
@@ -908,17 +929,36 @@ let vm = new Vue({
         },
       },
       defaultItem: {
+        calc: {
+          aai: {
+            vars: {
+              tpi: 0,
+              pi: 0,
+              tpd: 0,
+              pd: 0,
+              hi: 0,
+              hd: 0,
+              pad: 0,
+              pai: 0,
+              pah: 0,
+            },
+            itbi: 0,
+            itbd: 0,
+            itbi_result: '',
+            itbd_result: '',
+          }
+        },
         general_aspect: '',
+        apex: {
+          is_palpated: 1,
+          displaced: 0,
+          characteristic: 'Normokinético',
+        },
         pvy: {
           morphology_breastx: 1,
           cvy: 1,
           swivel_stop: 1,
           other: '',
-        },
-        apex: {
-          is_palpated: 1,
-          displaced: 0,
-          characteristic: 'Normokinético',
         },
         carotid_beats: {
           symmetrical: 1,
@@ -929,7 +969,9 @@ let vm = new Vue({
           rhythmic_heart_sounds: 1,
           regular: 1,
           unfolded_r1: 1,
+          r1_type: '',
           unfolded_r2: 1,
+          r2_type: '',
           unfolded_r3: 1,
           unfolded_r4: 1,
           gallop_rhythm: 0,
@@ -3503,10 +3545,10 @@ let vm = new Vue({
               obj.editedItem = e
             }
           });
-          if(!obj.editedItem.hasOwnProperty('appointment_id')) {
+          if (!obj.editedItem.hasOwnProperty('appointment_id')) {
             obj.editedItem = Object.assign({}, obj.items[obj.items.length - 1])
             obj.editedItem.appointment_id = app.patient_appointments.current_appointment.appointment_id
-          } 
+          }
           obj.items = items
         }
       }, err => {
@@ -3535,7 +3577,7 @@ let vm = new Vue({
               obj.editedItem = e
             }
           });
-          if(!obj.editedItem.hasOwnProperty('appointment_id')) {
+          if (!obj.editedItem.hasOwnProperty('appointment_id')) {
             obj.editedItem = Object.assign({}, obj.items[obj.items.length - 1])
             obj.editedItem.appointment_id = app.patient_appointments.current_appointment.appointment_id
           }
@@ -5508,6 +5550,108 @@ let vm = new Vue({
       content.qtcal = parseInt(content.qtcal);
     },
 
+    calcAAI() {
+
+      var app = this
+      var obj = app.patient_physical_exam.content.calc.aai
+
+      var TPI = obj.vars.tpi
+      var PI = obj.vars.pi
+
+      var TPD = obj.vars.tpd
+      var PD = obj.vars.pd
+
+      var HI = obj.vars.hi
+      var HD = obj.vars.hd
+
+      var PAI = obj.vars.pai = 0
+      var PAD = obj.vars.pad = 0
+      var PAH = obj.vars.pah = 0
+
+      if (TPI >= PI) {
+        PAI = TPI
+      }
+      else if (TPI < PI) {
+        PAI = PI
+      }
+      else if (TPI > 0) {
+        PAI = TPI
+      }
+      else if (PI > 0) {
+        PAI = PI
+      } else {
+
+      }
+
+      if (TPD >= PD) {
+        PAD = TPD
+      }
+      else if (TPD < PD) {
+        PAD = PD
+      }
+      else if (TPD > 0) {
+        PAD = TPD
+      }
+      else if (PD > 0) {
+        PAD =  PD
+      } else {
+
+      }
+
+      if (HI >= HD) {
+        PAH = HI
+      }
+      else if (HI < HD) {
+        PAH = HD
+      }
+      else if (HI > 0) {
+        PAH = HI
+      }
+      else if (HD > 0) {
+        PAH = HD
+      } else {
+
+      }
+
+      var ITBI = obj.itbi = (PAI / PAH).toFixed(2)
+      var ITBD = obj.itbd = (PAD / PAH).toFixed(2)
+
+      app.patient_physical_exam.content.aai.range = ITBI + ' - ' + ITBD
+
+      if (ITBI <= 0.4) {
+        obj.itbi_result = "Cuando el valor es menor o igual 0,4 se considera estenosis grave."
+      }
+      else if (ITBI < 0.9) {
+        obj.itbi_result = "Cuando el valor es mayor a 0,4 y menor de 0,9 se considera estenosis leve/moderada."
+      }
+      else if (ITBI <= 1.2) {
+        obj.itbi_result = "Los valores situados entre 0,9 y 1,2 son considerados normales."
+      }
+      else if (ITBI > 1.2) {
+        obj.itbi_result = "Cuando el valor es mayor a 1,20 pueden existir calcificaciones arteriales."
+      }
+      else {
+        obj.itbi_result = ""
+      }
+
+      if (ITBD <= 0.4) {
+        obj.itbd_result = "Cuando el valor es menor o igual 0,4 se considera estenosis grave."
+      }
+      else if (ITBD < 0.9) {
+        obj.itbd_result = "Cuando el valor es mayor a 0,4 y menor de 0,9 se considera estenosis leve/moderada."
+      }
+      else if (ITBD <= 1.2) {
+        obj.itbd_result = "Los valores situados entre 0,9 y 1,2 son considerados normales."
+      }
+      else if (ITBD > 1.2) {
+        obj.itbd_result = "Cuando el valor es mayor a 1,20 pueden existir calcificaciones arteriales."
+      }
+      else {
+        obj.itbd_result = ""
+      }
+
+    },
+
     fagerstromTest() {
       var app = this
       var fagerstrom = app.patient_life_style.calc.fagerstrom
@@ -7009,7 +7153,7 @@ let vm = new Vue({
                 (e) => {
                   return e.appointment_id == previous_rfc_appointment.appointment_id && e.name == current_rfc.name
                 })
-              var rfc_index = obj.risk_factors_list.items.indexOf(obj.risk_factors_list.items.find( e => e.appointment_id == current_rfc.appointment_id))
+              var rfc_index = obj.risk_factors_list.items.indexOf(obj.risk_factors_list.items.find(e => e.appointment_id == current_rfc.appointment_id))
               previous_rfc = previous_rfc == undefined ? !rfc_index ? undefined : obj.items[rfc_index - 1] : previous_rfc
               var results = {
                 calc: general,

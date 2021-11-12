@@ -364,4 +364,45 @@
         <?php endif ?>
     </TR>
 </TABLE>
+<?php if (!empty($meta['physical_exam']['item']['aai']['range'])) : ?>
+<H3>Índice Tobillo brazo</H3>
+<TABLE WIDTH=510 CELLPADDING=5 CELLSPACING=0>
+    <TR>
+        <?php if (!empty($meta['physical_exam']['item']['calc']['aai']['itbi'])) : ?>
+        <TD WIDTH=150 HEIGHT=10 STYLE="border: 0px solid white;">
+            <P LANG="es-ES" CLASS="western" ALIGN=CENTER>
+                <FONT>
+                    <FONT FACE="Calibri, sans-serif">
+                        <SPAN LANG="es-VE">
+                            Lado izquierdo: <?php echo $meta['physical_exam']['item']['calc']['aai']['itbi'] ?>
+                        </SPAN>
+                        <BR>
+                        <SPAN LANG="es-VE">
+                            <?php echo $meta['physical_exam']['item']['calc']['aai']['itbi_result'] ?>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+            </P>
+        </TD>
+        <?php endif ?>
+        <?php if (!empty($meta['physical_exam']['item']['calc']['aai']['itbd'])) : ?>
+        <TD WIDTH=150 STYLE="border: 0px solid white;">
+            <P LANG="es-ES" CLASS="western" ALIGN=CENTER>
+                <FONT>
+                    <FONT FACE="Calibri, sans-serif">
+                        <SPAN LANG="es-VE">
+                            Lado derecho: <?php echo $meta['physical_exam']['item']['calc']['aai']['itbd'] ?>
+                        </SPAN>
+                        <BR>
+                        <SPAN LANG="es-VE">
+                            <?php echo $meta['physical_exam']['item']['calc']['aai']['itbd_result'] ?>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+            </P>
+        </TD>
+        <?php endif ?>
+    </TR>
+</TABLE>
+<?php endif ?>
 <?php endif ?>
