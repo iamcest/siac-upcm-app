@@ -33,33 +33,40 @@
                     tratamientos</v-btn>
             </v-col>
 
-            <v-col cols="12">
-                <v-row>
-                    <v-col cols="12">
-                        <h5 class="text-h5">Exámenes paraclínicos</h5>
-                    </v-col>
-                    <v-col cols="3" v-for="(clinic_exam, i) in patient_plan.editedItem.clinics_exams" :key="i">
-                        <v-checkbox v-model="clinic_exam.value" :label="clinic_exam.name" color="primary" true-value="1"
-                            false-value="0">
-                            <template #append>
-                                <v-icon color="error" @click="patient_plan.editedItem.clinics_exams.splice(i, 1)">
-                                    mdi-close</v-icon>
-                            </template>
-                        </v-checkbox>
-                    </v-col>
-                    <v-col cols="3">
-                        <v-text-field ref="patient_plan_clinic_exam" placeholder="Añadir otro" outlined dense>
-                            <template #append>
-                                <v-btn class="mr-n3" color="primary" style="margin-top: -6.3px"
-                                    @click="patient_plan.editedItem.clinics_exams.push({name: $refs.patient_plan_clinic_exam.internalValue, value: '0'})"
-                                    dark>
-                                    Añadir
-                                </v-btn>
-                            </template>
-                        </v-text-field>
-                    </v-col>
-                </v-row>
+            <v-col cols="12" md="6">
+                <label class="black--text font-weight-bold">Exámenes paraclínicos</label>
+                <v-select ref="clinics_exams_select" v-model="patient_plan.editedItem.clinics_exams" class="black-text"
+                    :items="patient_plan.editedItem.clinics_exams" item-text="name" item-value="name" multiple
+                    return-object outlined dense>
+                    <template #prepend-item>
+                        <v-row class="px-7">
+                            <v-btn color="secondary" @click="$refs.clinics_exams_select.blur()" block>
+                                Cerrar
+                            </v-btn>
+                        </v-row>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-text-field ref="plan_clinic_exam_se" placeholder="Incluir otro" clearable dense
+                                    outlined>
+                                </v-text-field>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-btn class="mt-n6" color="primary" text @click="addItemToArray(
+                                    {
+                                        name: $refs.plan_clinic_exam_se.internalValue,
+                                        value: '1'
+                                    }, 
+                                    patient_plan.editedItem.clinics_exams,
+                                    true
+                                )">
+                            <v-icon>mdi-plus-circle</v-icon>
+                            Añadir
+                        </v-btn>
+                        <v-divider class="mt-2"></v-divider>
+                    </template>
+                </v-select>
             </v-col>
+
             <v-col cols="12" md="6">
                 <label class="black--text font-weight-bold">Materiales para el paciente</label>
                 <v-select ref="template_select" v-model="patient_plan.editedItem.materials" :items="filtered_templates"

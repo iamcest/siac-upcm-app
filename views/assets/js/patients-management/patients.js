@@ -1105,11 +1105,9 @@ let vm = new Vue({
       items: [],
       editedItem: {
         sedentary: '1',
-        sedentary_material: {
-          material_name: ''
-        },
         physical_exercise: '0',
-        exercise_weekly_minutes: 30,
+        resistance_weekly_minutes: 30,
+        aerobic_weekly_minutes: 30,
         exercise_activity_before: '0',
         exercise_start_date: '',
         exercise: {
@@ -1143,11 +1141,9 @@ let vm = new Vue({
       },
       defaultItem: {
         sedentary: '1',
-        sedentary_material: {
-          material_name: '',
-        },
         physical_exercise: '0',
-        exercise_weekly_minutes: 30,
+        resistance_weekly_minutes: 30,
+        aerobic_weekly_minutes: 30,
         exercise_activity_before: '0',
         exercise_start_date: '',
         exercise: {
@@ -2782,23 +2778,45 @@ let vm = new Vue({
         clinics_exams: [
           {
             name: 'Laboratorio',
-            value: '0'
+            value: '1'
           },
           {
             name: 'Rayos X de Torax',
-            value: '0'
+            value: '1'
           },
           {
             name: 'Ecocardiograma',
-            value: '0'
+            value: '1'
           },
           {
             name: 'Duplex arterial',
-            value: '0'
+            value: '1'
           },
           {
             name: 'Angio-Tac coronaria',
-            value: '0'
+            value: '1'
+          },
+        ],
+        clinics_exams_list: [
+          {
+            name: 'Laboratorio',
+            value: '1'
+          },
+          {
+            name: 'Rayos X de Torax',
+            value: '1'
+          },
+          {
+            name: 'Ecocardiograma',
+            value: '1'
+          },
+          {
+            name: 'Duplex arterial',
+            value: '1'
+          },
+          {
+            name: 'Angio-Tac coronaria',
+            value: '1'
           },
         ],
         materials: [],
@@ -2811,23 +2829,45 @@ let vm = new Vue({
         clinics_exams: [
           {
             name: 'Laboratorio',
-            value: '0'
+            value: '1'
           },
           {
             name: 'Rayos X de Torax',
-            value: '0'
+            value: '1'
           },
           {
             name: 'Ecocardiograma',
-            value: '0'
+            value: '1'
           },
           {
             name: 'Duplex arterial',
-            value: '0'
+            value: '1'
           },
           {
             name: 'Angio-Tac coronaria',
-            value: '0'
+            value: '1'
+          },
+        ],
+        clinics_exams_list: [
+          {
+            name: 'Laboratorio',
+            value: '1'
+          },
+          {
+            name: 'Rayos X de Torax',
+            value: '1'
+          },
+          {
+            name: 'Ecocardiograma',
+            value: '1'
+          },
+          {
+            name: 'Duplex arterial',
+            value: '1'
+          },
+          {
+            name: 'Angio-Tac coronaria',
+            value: '1'
           },
         ],
         registered_at: moment().format('YYYY-MM-DD')
@@ -3538,7 +3578,6 @@ let vm = new Vue({
           res.body.forEach((e, i) => {
             e.exercise = JSON.parse(e.exercise)
             e.smoking = JSON.parse(e.smoking)
-            e.sedentary_material = JSON.parse(e.sedentary_material)
             e.created_at = app.patient_appointments.appointments.find(item => item.appointment_id == e.appointment_id).appointment_date
             items.push(e)
             if (parseInt(e.appointment_id) == parseInt(app.patient_appointments.current_appointment.appointment_id)) {
@@ -3986,11 +4025,16 @@ let vm = new Vue({
           parseInt(e.smoking.active) ? life_style.smoking.active++ : life_style.smoking.inactive++
           parseInt(e.alcohol_consumption) ? life_style.alcohol_consumption.active++ : life_style.alcohol_consumption.inactive++
           parseInt(e.sedentary) ? life_style.sedentary.active++ : life_style.sedentary.inactive++
-          e.exercise.type.includes('Aeróbico') ? life_style.exercises.aerobics++ : ''
-          e.exercise.type.includes('Resistencia') ? life_style.exercises.resistance++ : ''
-          if (!parseInt(e.sendetary) && parseInt(e.exercise_weekly_minutes) > 0) {
-            exercise_weekly_minutes_count = exercise_weekly_minutes_count + 1
-            exercise_weekly_minutes_total = exercise_weekly_minutes_total + parseInt(e.exercise_weekly_minutes)
+          if (!parseInt(e.sedentary)) {
+            if (e.exercise.type.includes('Aeróbico')) {
+              life_style.exercises.aerobics++
+              exercise_weekly_minutes_count = exercise_weekly_minutes_count + 1
+              exercise_weekly_minutes_total = exercise_weekly_minutes_total + parseInt(e.aerobic_weekly_minutes)
+            } else if (e.exercise.type.includes('Resistencia')) {
+              life_style.exercises.resistance++
+              exercise_weekly_minutes_count = exercise_weekly_minutes_count + 1
+              exercise_weekly_minutes_total = exercise_weekly_minutes_total + parseInt(e.resistance_weekly_minutes)
+            }
           }
         })
         exercise_weekly_minutes_count > 0 ? life_style.exercises.time_weekly_avg =
@@ -5593,7 +5637,7 @@ let vm = new Vue({
         PAD = TPD
       }
       else if (PD > 0) {
-        PAD =  PD
+        PAD = PD
       } else {
 
       }
@@ -5823,9 +5867,9 @@ let vm = new Vue({
       return moment().format('YYYY-MM-DD')
     },
 
-    addItemToArray(val, options) {
+    addItemToArray(val, options, begin = Boolean ) {
       if (val != '' || typeof val != undefined) {
-        options.push(val)
+        begin ? options.unshift(val) : options.push(val)
       }
     },
 
@@ -7287,7 +7331,11 @@ let vm = new Vue({
           else {
             var obj = app.patient_life_style
             var general_results = {
-              exercise_weekly_minutes: {
+              aerobic_weekly_minutes: {
+                numeric: 0,
+                apercentage: 0
+              },
+              resistance_weekly_minutes: {
                 numeric: 0,
                 apercentage: 0
               },
@@ -7313,27 +7361,42 @@ let vm = new Vue({
               previous_life_style = previous_life_style == undefined ? obj.items[anthropometry_index - 1] : previous_life_style
               if (previous_life_style !== undefined && previous_life_style.hasOwnProperty('appointment_id')) {
 
-                var current_weekly_exercise_minutes = parseInt(current_life_style.exercise_weekly_minutes)
+                var current_aerobic_weekly_exercise_minutes = parseInt(current_life_style.aerobic_weekly_minutes)
+                var current_resistance_weekly_exercise_minutes = parseInt(current_life_style.resistance_weekly_minutes)
                 var current_smoking_cigarettes_per_day = parseInt(current_life_style.smoking.cigarettes_per_day)
 
-                var previous_weekly_exercise_minutes = parseInt(previous_life_style.exercise_weekly_minutes)
+                var previous_aerobic_weekly_exercise_minutes = parseInt(previous_life_style.aerobic_weekly_minutes)
+                var previous_resistance_weekly_exercise_minutes = parseInt(previous_life_style.resistance_weekly_minutes)
                 var previous_smoking_cigarettes_per_day = parseInt(previous_life_style.smoking.cigarettes_per_day)
 
-                var total_exercise_weekly_minutes = current_weekly_exercise_minutes - previous_weekly_exercise_minutes
+                var total_aerobic_weekly_minutes = current_aerobic_weekly_exercise_minutes - previous_aerobic_weekly_exercise_minutes
+                var total_resistance_weekly_minutes = current_resistance_weekly_exercise_minutes - previous_resistance_weekly_exercise_minutes
                 var total_smoking_cigarettes_per_day = current_smoking_cigarettes_per_day - previous_smoking_cigarettes_per_day
 
-                var weekly_exercise_minutes_difference = {
-                  numeric: total_exercise_weekly_minutes,
-                  percent: (total_exercise_weekly_minutes / previous_weekly_exercise_minutes) * 100,
-                }
+                var aerobic_exercise_minutes_difference = !parseInt(current_life_style.sedentary) &&
+                  current_life_style.exercise.type.includes('Aeróbico') && !parseInt(previous_life_style.sedentary)
+                  && previous_life_style.exercise.type.includes('Aeróbico')
+                  ? {
+                    numeric: total_aerobic_weekly_minutes,
+                    percent: (total_aerobic_weekly_minutes / previous_aerobic_weekly_exercise_minutes) * 100,
+                  } : general_results.aerobic_weekly_minutes
+
+                var resistance_exercise_minutes_difference = !parseInt(current_life_style.sedentary) &&
+                  current_life_style.exercise.type.includes('Resistencia') && !parseInt(previous_life_style.sedentary)
+                  && previous_life_style.exercise.type.includes('Resistencia')
+                  ?
+                  {
+                    numeric: total_resistance_weekly_minutes,
+                    percent: (total_resistance_weekly_minutes / previous_resistance_weekly_exercise_minutes) * 100,
+                  } : general_results.resistance_weekly_minutes
 
                 var smoking_cigarettes_per_day_difference = {
                   numeric: total_smoking_cigarettes_per_day,
                   percent: (total_smoking_cigarettes_per_day / previous_smoking_cigarettes_per_day) * 100,
                 }
-
                 return {
-                  exercise_weekly_minutes: weekly_exercise_minutes_difference,
+                  aerobic_weekly_minutes: aerobic_exercise_minutes_difference,
+                  resistance_weekly_minutes: resistance_exercise_minutes_difference,
                   smoking: {
                     cigarettes_per_day: smoking_cigarettes_per_day_difference
                   }
