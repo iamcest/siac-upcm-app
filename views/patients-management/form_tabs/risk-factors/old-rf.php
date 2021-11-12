@@ -7,7 +7,7 @@
             <template #top>
                 <v-row>
                     <v-col class="pl-7" cols="11">
-                        <h5 class="text-h5 secondary--text p-2">Diagnósticos previos</h5>
+                        <h5 class="text-h5 secondary--text p-2">Diagnósticos previos  <span class="text-h6 secondary--text">(cita pasada)</span></h5>
                     </v-col>
                 </v-row>
             </template>
@@ -25,7 +25,7 @@
             <template #top>
                 <v-row>
                     <v-col class="pl-7" cols="11">
-                        <h5 class="text-h5 secondary--text p-2">Diagnósticos previos</h5>
+                        <h5 class="text-h5 secondary--text p-2">Diagnósticos previos <span class="text-h6 secondary--text">(cita pasada)</span></h5>
                     </v-col>
                 </v-row>
             </template>
