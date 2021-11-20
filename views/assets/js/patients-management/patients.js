@@ -1941,6 +1941,7 @@ let vm = new Vue({
                 ],
               },
               active: 0,
+              candidate: 0,
               reason: [],
               selected: [],
             },
@@ -2525,6 +2526,7 @@ let vm = new Vue({
               ],
             },
             active: 0,
+            candidate: 0,
             reason: [],
             selected: [],
           },
@@ -3708,7 +3710,7 @@ let vm = new Vue({
               e.diagnostic = parseInt(history.cardiovascular_diseases.ischemic_cardiopathy.sca.active) ? 'Sí' : 'No'
             }
             else if (e.name == 'Arritmia') {
-              e.diagnostic = history.cardiovascular_diseases.arritmia.type != '' ? 'Sí' : 'No'
+              e.diagnostic = parseInt(history.cardiovascular_diseases.arritmia.active) ? 'Sí' : 'No'
             }
             else if (e.name == 'Insuficiencia Cardíaca') {
               e.diagnostic = parseInt(history.cardiovascular_diseases.heart_failure.active) ? 'Sí' : 'No'
@@ -7189,7 +7191,6 @@ let vm = new Vue({
               var current_rfc = params.item
               var current_rfc_index = appointment.appointments.indexOf(appointment.appointments.find(e => e.appointment_id == current_rfc.appointment_id))
               var previous_rfc_appointment = appointment.appointments[current_rfc_index - 1]
-              console.log(current_rfc, previous_rfc_appointment)
               if (previous_rfc_appointment == undefined) {
                 return { calc: general }
               }
