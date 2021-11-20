@@ -1,5 +1,6 @@
 <v-col cols="12">
     <?php echo new Template('patients-management/form_tabs/risk-factors/treatments/edit_dialog') ?>
+    <?php echo new Template('patients-management/form_tabs/risk-factors/treatments/polipildora') ?>
     <v-data-table :headers="patient_risk_factors.headers" :items="patient_risk_factors.rf.risk_factors"
         :loading="patient_risk_factors.loading" class="elevation-1 full-width table_headers_lg">
         <template #top>
@@ -15,44 +16,36 @@
         <template #item.comment='{ item }'>
             <v-row v-if="item.diagnostic == 'Sí'">
                 <v-col cols="6">
-                    <v-select class="mt-6" :items="['Sí', 'No']" v-model="item.has_treatment" outlined dense>
+                    <label><span class="text-center">¿Actualmente en tratamiento?</span></label>
+                    <v-select :items="['Sí', 'No']" v-model="item.has_treatment" outlined dense>
                     </v-select>
+                    <template v-if="item.has_treatment == 'Sí' && patient_risk_factors.risk_factors_diagnostics.length > 0 && hasPreviousFRTreatment(item.name)">
+                    <label><span class="text-center">¿Desea mantener el mismo tratamiento?</span></label>
+                        <v-select v-model="item.same_treatment" :items="['Sí', 'No']"
+                            @change="item.same_treatment == 'Sí' ? item.comment = searchFRTreatment(item.name) : ''"
+                            outlined dense reactive>
+                        </v-select>
+                    </template>
                 </v-col>
-                <v-col cols="6" v-if="item.has_treatment == 'Sí'">
+                <v-col class="d-flex align-center" cols="6" v-if="item.has_treatment == 'Sí'">
                     <template
                         v-if="item.name == 'HTA' 
                     || item.name == 'Dislipidemia' || item.name == 'DMt2' 
                     || item.name == 'Cardiopatía Isquémica' || item.name == 'Insuficiencia Cardíaca'  || item.name == 'Pre DMt2'">
                         <template
-                            v-if="patient_risk_factors.risk_factors_diagnostics.length > 0 && item.same_treatment == ''">
-                            <p class="text-center">¿Desea mantener el mismo tratamiento?</p>
-                            <v-btn-toggle class="d-flex justify-center" background-color="transparent" reactive>
-                                <v-btn color="primary" @click="item.same_treatment = 'Sí';">Sí
-                                </v-btn>
-                                <v-btn color="secondary" @click="item.same_treatment = 'No'">No</v-btn>
-                            </v-btn-toggle>
-                        </template>
-                        <template
-                            v-else-if="patient_risk_factors.risk_factors_diagnostics.length > 0 || item.same_treatment == 'No'">
-                            <v-btn color="primary" class="mt-6" @click="patient_risk_factors.rf.treatment_selected = item;
+                            v-if="patient_risk_factors.risk_factors_diagnostics.length > 0 || item.same_treatment == 'No'">
+                            <v-btn color="primary" @click="patient_risk_factors.rf.treatment_selected = item;
                             patient_risk_factors.rf.treatment_dialog = true"
                                 v-if="item.same_treatment == '' || item.same_treatment == 'No'">Editar</v-btn>
                         </template>
                         <template v-else>
-                            <v-btn color="primary" class="mt-6" @click="patient_risk_factors.rf.treatment_selected = item;
+                            <v-btn color="primary" @click="patient_risk_factors.rf.treatment_selected = item;
                             patient_risk_factors.rf.treatment_dialog = true">Editar</v-btn>
                         </template>
                     </template>
                     <template v-else>
                         <template
                             v-if="item.same_treatment == '' && patient_risk_factors.risk_factors_diagnostics.length > 0 && hasPreviousFRTreatment(item.name)">
-                            <p class="text-center">¿Desea mantener el mismo tratamiento?</p>
-                            <v-btn-toggle class="d-flex justify-center" background-color="transparent" reactive>
-                                <v-btn color="primary"
-                                    @click="item.same_treatment = 'Sí';item.comment = searchFRTreatment(item.name)">Sí
-                                </v-btn>
-                                <v-btn color="secondary" @click="item.same_treatment = 'No'">No</v-btn>
-                            </v-btn-toggle>
                         </template>
                         <template v-else>
                             <v-text-field class="mt-6" v-model="item.comment" placeholder="especifique el tratamiento"

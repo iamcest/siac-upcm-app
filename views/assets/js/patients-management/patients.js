@@ -2553,7 +2553,7 @@ let vm = new Vue({
         { text: 'Diagnóstico', value: 'diagnostic' },
         { text: 'Tratamiento', value: 'comment' },
       ],
-      risk_factor_headers: [
+      Noheaders: [
         { text: 'Fecha', align: 'start', value: 'created_at' },
         { text: 'Fórmula de Cálculo de Riesgo', align: 'start', value: 'name' },
         { text: 'Resultado', value: 'results' },
@@ -2570,70 +2570,70 @@ let vm = new Vue({
             name: 'HTA',
             diagnostic: 'No',
             has_treatment: 'No',
-            same_treatment: '',
+            same_treatment: 'Sí',
             comment: ''
           },
           {
             name: 'Dislipidemia',
             diagnostic: 'No',
             has_treatment: 'No',
-            same_treatment: '',
+            same_treatment: 'Sí',
             comment: ''
           },
           {
             name: 'Sobrepeso',
             diagnostic: 'No',
             has_treatment: 'No',
-            same_treatment: '',
+            same_treatment: 'Sí',
             comment: ''
           },
           {
             name: 'Obesidad',
             diagnostic: 'No',
             has_treatment: 'No',
-            same_treatment: '',
+            same_treatment: 'Sí',
             comment: ''
           },
           {
             name: 'Pre DMt2',
             diagnostic: 'No',
             has_treatment: 'No',
-            same_treatment: '',
+            same_treatment: 'Sí',
             comment: ''
           },
           {
             name: 'DMt2',
             diagnostic: 'No',
             has_treatment: 'No',
-            same_treatment: '',
+            same_treatment: 'Sí',
             comment: ''
           },
           {
             name: 'Arritmia',
             diagnostic: 'No',
             has_treatment: 'No',
-            same_treatment: '',
+            same_treatment: 'Sí',
             comment: ''
           },
           {
             name: 'Cardiopatía Isquémica',
             diagnostic: 'No',
             has_treatment: 'No',
-            same_treatment: '',
+            same_treatment: 'Sí',
             comment: ''
           },
           {
             name: 'Insuficiencia Cardíaca',
             diagnostic: 'No',
             has_treatment: 'No',
-            same_treatment: '',
+            same_treatment: 'Sí',
             comment: ''
           },
           {
             name: 'Tabaquismo',
             diagnostic: 'No',
             has_treatment: 'No',
-            same_treatment: '',
+            same_treatment: 'Sí',
             comment: ''
           },
         ],
@@ -2679,70 +2679,70 @@ let vm = new Vue({
               name: 'HTA',
               diagnostic: 'No',
               has_treatment: 'No',
-              same_treatment: '',
+              same_treatment: 'Sí',
               comment: ''
             },
             {
               name: 'Dislipidemia',
               diagnostic: 'No',
               has_treatment: 'No',
-              same_treatment: '',
+              same_treatment: 'Sí',
               comment: ''
             },
             {
               name: 'Sobrepeso',
               diagnostic: 'No',
               has_treatment: 'No',
-              same_treatment: '',
+              same_treatment: 'Sí',
               comment: ''
             },
             {
               name: 'Obesidad',
               diagnostic: 'No',
               has_treatment: 'No',
-              same_treatment: '',
+              same_treatment: 'Sí',
               comment: ''
             },
             {
               name: 'Pre DMt2',
               diagnostic: 'No',
               has_treatment: 'No',
-              same_treatment: '',
+              same_treatment: 'Sí',
               comment: ''
             },
             {
               name: 'DMt2',
               diagnostic: 'No',
               has_treatment: 'No',
-              same_treatment: '',
+              same_treatment: 'Sí',
               comment: ''
             },
             {
               name: 'Arritmia',
               diagnostic: 'No',
               has_treatment: 'No',
-              same_treatment: '',
+              same_treatment: 'Sí',
               comment: ''
             },
             {
               name: 'Cardiopatía Isquémica',
               diagnostic: 'No',
               has_treatment: 'No',
-              same_treatment: '',
+              same_treatment: 'Sí',
               comment: ''
             },
             {
               name: 'Insuficiencia Cardíaca',
               diagnostic: 'No',
               has_treatment: 'No',
-              same_treatment: '',
+              same_treatment: 'Sí',
               comment: ''
             },
             {
               name: 'Tabaquismo',
               diagnostic: 'No',
               has_treatment: 'No',
-              same_treatment: '',
+              same_treatment: 'Sí',
               comment: ''
             },
           ],
