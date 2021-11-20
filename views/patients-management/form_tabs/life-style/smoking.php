@@ -17,8 +17,11 @@
                     <v-dialog ref="smoking_start_year_modal" v-model="smoking_start_year_modal" width="290px">
                         <template #activator="{ on, attrs }">
                             <v-text-field class="mt-3"
-                                :value="getOnlyYear(patient_life_style.editedItem.smoking.start_year)"
-                                append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" outlined dense>
+                                :value="getOnlyYear(patient_life_style.editedItem.smoking.start_year)" readonly
+                                v-bind="attrs" v-on="on" outlined dense>
+                                <template #append>
+                                    <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
+                                </template>
                             </v-text-field>
                         </template>
                         <v-date-picker ref="smoking_start_year_datepicker"
@@ -35,8 +38,11 @@
                     <v-dialog ref="smoking_quit_year_modal" v-model="smoking_quit_year_modal" width="290px">
                         <template #activator="{ on, attrs }">
                             <v-text-field class="mt-3"
-                                :value="getOnlyYear(patient_life_style.editedItem.smoking.quit_year)"
-                                append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" outlined dense>
+                                :value="getOnlyYear(patient_life_style.editedItem.smoking.quit_year)" readonly
+                                v-bind="attrs" v-on="on" outlined dense>
+                                <template #append>
+                                    <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
+                                </template>
                             </v-text-field>
                         </template>
                         <v-date-picker ref="smoking_quit_year_datepicker"
@@ -154,7 +160,10 @@
             <v-dialog ref="smoking_quit_year_modal" v-model="smoking_quit_year_modal" width="290px">
                 <template #activator="{ on, attrs }">
                     <v-text-field class="mt-3" :value="getOnlyYear(patient_life_style.editedItem.smoking.quit_year)"
-                        append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" outlined dense>
+                        readonly v-bind="attrs" v-on="on" outlined dense>
+                        <template #append>
+                            <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
+                        </template>
                     </v-text-field>
                 </template>
                 <v-date-picker ref="smoking_quit_year_datepicker"

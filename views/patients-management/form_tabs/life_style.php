@@ -39,8 +39,11 @@
                                 v-model="patient_life_style.editedItem.exercise_start_date_modal"
                                 :return-value.sync="patient_life_style.editedItem.exercise_start_date" width="290px">
                                 <template #activator="{ on, attrs }">
-                                    <v-text-field v-model="patient_life_style.editedItem.exercise_start_date"
-                                        append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" dense outlined>
+                                    <v-text-field v-model="patient_life_style.editedItem.exercise_start_date" readonly
+                                        v-bind="attrs" v-on="on" dense outlined>
+                                        <template #append>
+                                            <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
+                                        </template>
                                     </v-text-field>
                                 </template>
                                 <v-date-picker v-model="patient_life_style.editedItem.exercise_start_date" locale="es"
@@ -65,7 +68,7 @@
                         </v-col>
                         <template v-if="patient_life_style.editedItem.exercise.type.includes('Aeróbico')">
                             <v-col cols="12" md="6" lg="4">
-                            <label class=" black--text font-weight-bold">Ejercicios aeróbicos</label>
+                                <label class=" black--text font-weight-bold">Ejercicios aeróbicos</label>
                                 <v-select v-model="patient_life_style.editedItem.exercise.aerobic_exercises"
                                     :items="patient_life_style.options.exercises.aerobic" multiple outlined dense>
                                 </v-select>

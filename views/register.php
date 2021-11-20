@@ -50,9 +50,8 @@
                                     </v-col>
                                     <v-col cols="12" md="6">
                                         <span>Teléfono</span>
-                                        <vue-tel-input-vuetify id="tel-input" label=""
-                                            v-model="register.telephone" mode="international"
-                                            :inputoptions="{showDialCode: true}"
+                                        <vue-tel-input-vuetify id="tel-input" label="" v-model="register.telephone"
+                                            mode="international" :inputoptions="{showDialCode: true}"
                                             placeholder="Ingresa un número de télefono" hint="Ej: +58 4245887477"
                                             persistent-hint @input="getTelephoneInput" outlined>
                                         </vue-tel-input-vuetify>
@@ -87,10 +86,12 @@
                                         <label>Fecha de nacimiento</label>
                                         <v-dialog ref="birthdateDialog" v-model="modal"
                                             :return-value.sync="register.birthdate" width="290px">
-                                            <template v-slot:activator="{ on, attrs }">
+                                            <template #activator="{ on, attrs }">
                                                 <v-text-field name="birthdate" class="mt-3" v-model="register.birthdate"
-                                                    append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
-                                                    outlined>
+                                                    readonly v-bind="attrs" v-on="on" outlined>
+                                                    <template #append>
+                                                        <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
+                                                    </template>
                                                 </v-text-field>
                                             </template>
                                             <v-date-picker v-model="register.birthdate" locale="es" scrollable>

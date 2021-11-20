@@ -101,6 +101,9 @@
                             <template #activator="{ on, attrs }">
                                 <v-text-field class="mt-3" outlined v-model="editedItem.birthdate" outlined readonly
                                     v-bind="attrs" v-on="on">
+                                    <template #append>
+                                        <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
+                                    </template>
                                 </v-text-field>
                             </template>
                             <v-date-picker v-model="editedItem.birthdate" no-title scrollable>

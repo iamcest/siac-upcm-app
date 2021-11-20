@@ -14,6 +14,7 @@
 
         <v-card-text>
             <v-container fluid>
+                <?php echo new Template('patients-management/form_tabs/risk-factors/treatments/polipildora') ?>
                 <v-row>
                     <v-col cols="12">
                         <?php echo new Template('patients-management/form_tabs/risk-factors/treatments/edit_dialog') ?>

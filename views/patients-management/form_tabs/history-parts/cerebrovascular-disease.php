@@ -31,8 +31,11 @@
                                 <template #activator="{ on, attrs }">
                                     <v-text-field
                                         :value="getOnlyYear(patient_history.form.history_content.cerebrovascular_disease.items[i].year)"
-                                        append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                        readonly v-bind="attrs" v-on="on"
                                         @click="ref_index = i" outlined dense>
+                                        <template #append>
+                                            <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
+                                        </template>
                                     </v-text-field>
                                 </template>
                                 <v-date-picker ref="cv_disease_year_datepicker"

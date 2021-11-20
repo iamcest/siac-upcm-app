@@ -66,9 +66,13 @@
                                 <v-menu ref="menu" v-model="menu" :close-on-content-click="false"
                                     :return-value.sync="form.birthdate" transition="scale-transition" offset-y
                                     min-width="300px">
-                                    <template v-slot:activator="{ on, attrs }">
+                                    <template #activator="{ on, attrs }">
                                         <v-text-field class="mt-3" outlined v-model="form.birthdate" outlined readonly
-                                            v-bind="attrs" v-on="on"></v-text-field>
+                                            v-bind="attrs" v-on="on">
+                                            <template #append>
+                                                <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
+                                            </template>
+                                        </v-text-field>
                                     </template>
                                     <v-date-picker v-model="form.birthdate" no-title scrollable>
                                         <v-spacer></v-spacer>

@@ -39,8 +39,11 @@
                                         <template #activator="{ on, attrs }">
                                             <v-text-field
                                                 :value="getOnlyYear(patient_history.form.history_content.cardiovascular_diseases.arritmia.items[i].year)"
-                                                append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                                readonly v-bind="attrs" v-on="on"
                                                 @click="ref_index = i" outlined dense>
+                                                <template #append>
+                                                    <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
+                                                </template>
                                             </v-text-field>
                                         </template>
                                         <v-date-picker ref="arritmia_year_datepicker"
@@ -110,7 +113,7 @@
                                 v-if="patient_history.form.history_content.cardiovascular_diseases.arritmia.items[i].treatment"
                                 v-for="(treatment, it) in patient_history.form.history_content.cardiovascular_diseases.arritmia.items[i].treatments">
                                 <label class="font-weight-bold">Indique el tratamiento:</label>
-                                <v-text-field 
+                                <v-text-field
                                     v-model="patient_history.form.history_content.cardiovascular_diseases.arritmia.items[i].treatments[it]"
                                     outlined dense>
                                     <template v-if="patient_history.form.history_content.cardiovascular_diseases.arritmia.items[i].treatments.length > 1

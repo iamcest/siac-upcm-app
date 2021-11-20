@@ -7,7 +7,7 @@
             <v-col class="px-4" cols="12">
                 <v-row>
                     <v-col cols="12">
-                    <label class="font-weight-bold black--text">Padece esta enfermedad:</label>
+                        <label class="font-weight-bold black--text">Padece esta enfermedad:</label>
                         <v-select
                             v-model="patient_history.form.history_content.cardiovascular_diseases.heart_failure.active"
                             :items="patient_history.select" placeholder="Seleccione una opción" class="mt-3" outlined
@@ -21,10 +21,13 @@
                                 <template #activator="{ on, attrs }">
                                     <v-text-field
                                         :value="getOnlyYear(patient_history.form.history_content.cardiovascular_diseases.heart_failure.dx_age)"
-                                        append-icon="mdi-calendar" class="mt-3" readonly v-bind="attrs" v-on="on"
+                                        class="mt-3" readonly v-bind="attrs" v-on="on"
                                         outlined dense>
                                         <template class="black-text" #prepend>
                                             <span class="font-weight-bold">Dx año:</span>
+                                        </template>
+                                        <template #append>
+                                            <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
                                         </template>
                                     </v-text-field>
                                 </template>

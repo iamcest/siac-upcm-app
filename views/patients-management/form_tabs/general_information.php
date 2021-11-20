@@ -20,9 +20,12 @@
         <label>Fecha de nacimiento</label>
         <v-dialog ref="birthdate_dialog" v-model="birthdate_modal" :return-value.sync="editedItem.birthdate"
             width="290px">
-            <template v-slot:activator="{ on, attrs }">
-                <v-text-field class="mt-3" v-model="editedItem.birthdate" append-icon="mdi-calendar" readonly
-                    v-bind="attrs" v-on="on" outlined></v-text-field>
+            <template #activator="{ on, attrs }">
+                <v-text-field class="mt-3" v-model="editedItem.birthdate" readonly v-bind="attrs" v-on="on" outlined>
+                    <template #append>
+                        <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
+                    </template>
+                </v-text-field>
             </template>
             <v-date-picker v-model="editedItem.birthdate" locale="es" scrollable>
                 <v-spacer></v-spacer>
@@ -42,9 +45,13 @@
             <label>Fecha de nacimiento</label>
             <v-dialog ref="birthdate_dialog" v-model="birthdate_modal" :return-value.sync="editedItem.birthdate"
                 width="290px">
-                <template v-slot:activator="{ on, attrs }">
-                    <v-text-field class="mt-3" v-model="editedItem.birthdate" append-icon="mdi-calendar" readonly
-                        v-bind="attrs" v-on="on" outlined></v-text-field>
+                <template #activator="{ on, attrs }">
+                    <v-text-field class="mt-3" v-model="editedItem.birthdate" readonly v-bind="attrs" v-on="on"
+                        outlined>
+                        <template #append>
+                            <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
+                        </template>
+                    </v-text-field>
                 </template>
                 <v-date-picker v-model="editedItem.birthdate" locale="es" scrollable>
                     <v-spacer></v-spacer>
@@ -104,9 +111,13 @@
     <label>Fecha de ingreso</label>
     <v-dialog ref="entry_date_dialog" v-model="entry_date_modal" :return-value.sync="editedItem.entry_date"
         width="290px">
-        <template v-slot:activator="{ on, attrs }">
-            <v-text-field class="mt-3" v-model="editedItem.entry_date" append-icon="mdi-calendar" readonly
-                v-bind="attrs" v-on="on" outlined></v-text-field>
+        <template #activator="{ on, attrs }">
+            <v-text-field class="mt-3" v-model="editedItem.entry_date" readonly
+                v-bind="attrs" v-on="on" outlined>
+                <template #append>
+                    <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
+                </template>
+            </v-text-field>
         </template>
         <v-date-picker v-model="editedItem.entry_date" locale="es" scrollable>
             <v-spacer></v-spacer>

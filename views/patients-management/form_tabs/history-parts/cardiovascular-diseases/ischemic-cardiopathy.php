@@ -58,10 +58,13 @@
                                     <v-dialog ref="cd_ischemic_cardiopathy_sca_im_year_modal"
                                         v-model="ph_cd_ischemic_cardiopathy_sca_im_year_modal" width="290px">
                                         <template #activator="{ on, attrs }">
-                                            <v-text-field :value="getOnlyYear(IM.year)" append-icon="mdi-calendar"
-                                                readonly v-bind="attrs" v-on="on" @click="ref_index = i" outlined dense>
+                                            <v-text-field :value="getOnlyYear(IM.year)" readonly v-bind="attrs"
+                                                v-on="on" @click="ref_index = i" outlined dense>
                                                 <template class="black-text" #prepend>
                                                     <span class="font-weight-bold">Año:</span>
+                                                </template>
+                                                <template #append>
+                                                    <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
                                                 </template>
                                             </v-text-field>
                                         </template>
@@ -109,9 +112,12 @@
                                     <template #activator="{ on, attrs }">
                                         <v-text-field
                                             :value="getOnlyYear(patient_history.form.history_content.cardiovascular_diseases.ischemic_cardiopathy.scai.year)"
-                                            append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" outlined dense>
+                                            readonly v-bind="attrs" v-on="on" outlined dense>
                                             <template class="black-text" #prepend>
                                                 <span class="font-weight-bold">Año:</span>
+                                            </template>
+                                            <template #append>
+                                                <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
                                             </template>
                                         </v-text-field>
                                     </template>
@@ -161,10 +167,12 @@
                                                     <template #activator="{ on, attrs }">
                                                         <v-text-field
                                                             :value="getOnlyYear(patient_history.form.history_content.cardiovascular_diseases.ischemic_cardiopathy.revascularized.surgery.year)"
-                                                            append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
-                                                            outlined dense>
+                                                            readonly v-bind="attrs" v-on="on" outlined dense>
                                                             <template class="black-text" #prepend>
                                                                 <span class="font-weight-bold">Año:</span>
+                                                            </template>
+                                                            <template #append>
+                                                                <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
                                                             </template>
                                                         </v-text-field>
                                                     </template>
@@ -208,10 +216,13 @@
                                                     <template #activator="{ on, attrs }">
                                                         <v-text-field
                                                             :value="getOnlyYear(patient_history.form.history_content.cardiovascular_diseases.ischemic_cardiopathy.revascularized.percutaneous.year)"
-                                                            append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                                            readonly v-bind="attrs" v-on="on"
                                                             outlined dense>
                                                             <template class="black-text" #prepend>
                                                                 <span class="font-weight-bold">Año:</span>
+                                                            </template>
+                                                            <template #append>
+                                                                <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
                                                             </template>
                                                         </v-text-field>
                                                     </template>

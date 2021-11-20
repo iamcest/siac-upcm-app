@@ -19,10 +19,15 @@
     <label>Fecha de nacimiento</label>
     <v-dialog ref="birthdate_dialog" v-model="birthdate_modal" :return-value.sync="editedItem.birthdate" width="290px">
         <template #activator="{ on, attrs }">
-            <v-text-field class="mt-3" v-model="editedItem.birthdate" append-icon="mdi-calendar" @click="" readonly v-bind="attrs"
-                v-on="on" outlined></v-text-field>
+            <v-text-field class="mt-3" v-model="editedItem.birthdate" @click="" readonly
+                v-bind="attrs" v-on="on" outlined>
+                <template #append>
+                    <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
+                </template>
+            </v-text-field>
         </template>
-        <v-date-picker v-model="editedItem.birthdate" ref="register_patient_bd" locale="es" activePicker="YEAR" scrollable>
+        <v-date-picker v-model="editedItem.birthdate" ref="register_patient_bd" locale="es" activePicker="YEAR"
+            scrollable>
             <v-spacer></v-spacer>
             <v-btn text color="primary" @click="birthdate_modal = false">
                 Cancel
@@ -48,10 +53,9 @@
 </v-col>
 <v-col cols="12" sm="6" md="4">
     <label>Teléfono</label>
-    <vue-tel-input-vuetify id="tel-input" class="mt-3" label=""
-      v-model="editedItem.telephone" mode="international" 
-      :inputoptions="{showDialCode: true}"  placeholder="Ingresa un número de télefono" 
-      hint="Ej: +58 4245887477" persistent-hint @input="getTelephoneInput" outlined>
+    <vue-tel-input-vuetify id="tel-input" class="mt-3" label="" v-model="editedItem.telephone" mode="international"
+        :inputoptions="{showDialCode: true}" placeholder="Ingresa un número de télefono" hint="Ej: +58 4245887477"
+        persistent-hint @input="getTelephoneInput" outlined>
     </vue-tel-input-vuetify>
 </v-col>
 <v-col cols="12" md="4">

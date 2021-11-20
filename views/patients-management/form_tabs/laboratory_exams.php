@@ -35,8 +35,12 @@
                                 :return-value.sync="patient_laboratory_exams.editedFileItem.exam_date" width="290px">
                                 <template #activator="{ on, attrs }">
                                     <v-text-field v-model="patient_laboratory_exams.editedFileItem.exam_date"
-                                        append-icon="mdi-calendar" label="Fecha" hint="Ingrese la fecha del examen"
-                                        readonly v-bind="attrs" v-on="on" dense></v-text-field>
+                                        label="Fecha" hint="Ingrese la fecha del examen" readonly v-bind="attrs"
+                                        v-on="on" dense>
+                                        <template #append>
+                                            <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
+                                        </template>
+                                    </v-text-field>
                                 </template>
                                 <v-date-picker v-model="patient_laboratory_exams.editedFileItem.exam_date" locale="es"
                                     scrollable>
@@ -116,7 +120,7 @@
                         <template #item.results="{ item }">
                             {{ item.results }}
                             <template v-if="patient_laboratory_exams.selectedExam.nomenclature == 'mm3'">
-                              mm<sup>3</sup>
+                                mm<sup>3</sup>
                             </template>
                             <template v-else>
                                 {{ patient_laboratory_exams.selectedExam.nomenclature }}
@@ -164,12 +168,13 @@
                                     <v-text-field v-model="patient_laboratory_exams.editedItem.results"
                                         label="Resultados del examen" hint="Ingrese los resultados del examen" dense>
                                         <template #append>
-                                          <template v-if="patient_laboratory_exams.selectedExam.nomenclature == 'mm3'">
-                                            mm<sup>3</sup>
-                                          </template>
-                                          <template v-else>
-                                            {{ patient_laboratory_exams.selectedExam.nomenclature }}
-                                          </template>
+                                            <template
+                                                v-if="patient_laboratory_exams.selectedExam.nomenclature == 'mm3'">
+                                                mm<sup>3</sup>
+                                            </template>
+                                            <template v-else>
+                                                {{ patient_laboratory_exams.selectedExam.nomenclature }}
+                                            </template>
                                         </template>
                                     </v-text-field>
                                 </td>

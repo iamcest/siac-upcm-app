@@ -6,8 +6,12 @@
                 <v-dialog ref="reports_appointment_date_dialog" v-model="reports.date_modal"
                     :return-value.sync="reports.editedItem.appointment_date" width="290px">
                     <template #activator="{ on, attrs }">
-                        <v-text-field class="mt-3" v-model="reports.editedItem.appointment_date"
-                            append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" outlined></v-text-field>
+                        <v-text-field class="mt-3" v-model="reports.editedItem.appointment_date" readonly v-bind="attrs"
+                            v-on="on" outlined>
+                            <template #append>
+                                <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
+                            </template>
+                        </v-text-field>
                     </template>
                     <v-date-picker v-model="reports.editedItem.appointment_date" locale="es" scrollable>
                         <v-spacer></v-spacer>
@@ -27,7 +31,11 @@
                     :return-value.sync="reports.editedItem.next_appointment" width="290px">
                     <template #activator="{ on, attrs }">
                         <v-text-field class="mt-3" v-model="reports.editedItem.next_appointment"
-                            append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" outlined></v-text-field>
+                            readonly v-bind="attrs" v-on="on" outlined>
+                            <template #append>
+                                <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
+                            </template>
+                        </v-text-field>
                     </template>
                     <v-date-picker v-model="reports.editedItem.next_appointment" locale="es" scrollable>
                         <v-spacer></v-spacer>
@@ -115,7 +123,8 @@
                     <template v-if="reports.editedIndex == -1" #footer>
                         <v-row>
                             <v-col class="d-flex justify-center" cols="12">
-                                <span class="subtitle-1 grey--text">Se cargan automáticamente los tratamientos a partir del último récipe creado</span>
+                                <span class="subtitle-1 grey--text">Se cargan automáticamente los tratamientos a partir
+                                    del último récipe creado</span>
                             </v-col>
                         </v-row>
                     </template>

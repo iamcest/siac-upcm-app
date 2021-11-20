@@ -24,7 +24,8 @@
                 <v-row>
                     <v-col cols="12">
                         <label>Tipo de miembro</label>
-                        <v-select class="mt-3" v-model="editedItem.user_type" :items="user_types" @change="filterAccessByRol" outlined></v-select>
+                        <v-select class="mt-3" v-model="editedItem.user_type" :items="user_types"
+                            @change="filterAccessByRol" outlined></v-select>
                     </v-col>
                     <v-col cols="12" sm="12" md="6"
                         v-if="editedItem.user_type == 'coordinador' || editedItem.user_type == 'miembro'">
@@ -90,7 +91,10 @@
                             width="290px">
                             <template #activator="{ on, attrs }">
                                 <v-text-field name="birthdate" class="mt-3" v-model="editedItem.birthdate"
-                                    append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" outlined>
+                                    readonly v-bind="attrs" v-on="on" outlined>
+                                    <template #append>
+                                        <v-icon v-bind="attrs" v-on="on">mdi-calendar</v-icon>
+                                    </template>
                                 </v-text-field>
                             </template>
                             <v-date-picker v-model="editedItem.birthdate" locale="es" scrollable>
