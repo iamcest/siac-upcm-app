@@ -360,6 +360,7 @@ let vm = new Vue({
           { text: 'Doctor', value: 'full_name' },
           { text: 'Tipo de cita', value: 'appointment_type' },
           { text: 'Motivo de la cita', value: 'appointment_reason' },
+          { text: 'Acciones', value: 'actions' },
         ],
       },
       patient_anthropometry: {
@@ -464,7 +465,8 @@ let vm = new Vue({
       next_date_modal: false,
       headers: [
         { text: 'Fecha de creación', align: 'start', value: 'registered_at' },
-        { text: 'Fecha de consulta', align: 'start', value: 'next_appointment' },
+        { text: 'Fecha de consulta', align: 'start', value: 'appointment_date' },
+        { text: 'Próxima consulta', align: 'start', value: 'next_appointment' },
         { text: 'Acciones', value: 'actions', align: 'center', sortable: false },
       ],
       treatments: [
@@ -3100,6 +3102,9 @@ let vm = new Vue({
       }, err => {
 
       })
+      .then( res => {
+        app.checkAppointmentReports()
+      })
     },
 
     initializeExams() {
@@ -3126,13 +3131,15 @@ let vm = new Vue({
     initializeAppointments(appointment_id) {
       var app = this
       app.general_save = false
+      
+      var obj = app.patient_appointments
       app.getDoctors()
-      if (app.patient_appointments.appointments.length == 0) {
-        app.patient_appointments.current_appointment = {}
-        app.patient_appointments.previous_appointment = {}
+      if (obj.appointments.length == 0 || obj.appointments.length > 0 && app.editedItem.patient_id == obj.appointments[0].patient_id) {
+        obj.current_appointment = {}
+        obj.previous_appointment = {}
         var url = api_url + 'appointments/get/' + app.editedItem.patient_id
         app.$http.get(url).then(res => {
-          app.patient_appointments.appointments = res.body
+          obj.appointments = res.body
           if (res.body.length > 0) {
             var obj = app.patient_appointments
             var filtered_appointment = appointment_id !== undefined ?
@@ -3144,15 +3151,16 @@ let vm = new Vue({
               var previous_appointment_i = Object.keys(filtered_appointment).length > 0 && obj.appointments.indexOf(filtered_appointment) !== 0 ?
                 obj.appointments[obj.appointments.indexOf(filtered_appointment) - 1] : obj.appointments[total_length - 2]
               previous_appointment_i.patient_id = app.editedItem.patient_id
-              app.patient_appointments.previous_appointment = previous_appointment_i
+              obj.previous_appointment = previous_appointment_i
             }
-            app.patient_appointments.current_appointment = appointment_id !== undefined ?
+            obj.current_appointment = appointment_id !== undefined ?
               obj.appointments.find(e => e.appointment_id == appointment_id) : current_appointment_i
           }
         }, err => {
 
         }).then(() => {
           app.initializeHistory()
+          app.initializeReports()
         })
       }
     },
@@ -4332,6 +4340,13 @@ let vm = new Vue({
       this.initializeElectroCardiograms(true)
       this.initializeVitalSigns(true)
       this.loadLaboratoryExamsToReport()
+    },
+
+    checkAppointmentReports() {
+      var app = this
+      app.patient_appointments.appointments.forEach( e => {
+        e.hasAppointment = app.reports.items.find(r => r.appointment_date == e.appointment_date) != null ? true : false
+      })
     },
 
     getCurrentFactorRisk() {

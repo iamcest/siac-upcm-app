@@ -10,10 +10,20 @@
 <v-col cols="12">
     <v-data-table :headers="views.patient_appointments.headers" :items="patient_appointments.appointments"
         sort-by="date" class="elevation-1 full-width">
-        <template v-slot:no-data>
-            <v-btn color="primary" @click="initializeAppointments">
-                Recargar
-            </v-btn>
+        <template #no-data>
+            No se encontraron registros previos
+        </template>
+        <template #item.actions="{ item }">
+            <v-tooltip v-if="item.hasAppointment" top>
+                <template #activator="{ on, attrs }">
+                    <v-btn color="primary" v-bind="attrs" v-on="on" @click="downloadReport(reports.items.find(e => e.appointment_date == item.appointment_date))" icon>
+                        <v-icon>
+                            mdi-file-download
+                        </v-icon>
+                    </v-btn>
+                </template>
+                <span>Descargar informe</span>
+            </v-tooltip>
         </template>
     </v-data-table>
 </v-col>

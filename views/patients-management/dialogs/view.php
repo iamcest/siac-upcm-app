@@ -26,7 +26,7 @@
                                 Comparar pacientes</v-btn>
                             <?php if (!empty($can_manage_suite) || !empty($access['patient_management_access']['sections'][0]['permissions']['update'])) : ?>
                             <v-btn color="primary"
-                                @click="recipe_reports_dialog = true;initializeRecipes();initializeFactorsRisk(false);">
+                                @click="recipe_reports_dialog = true;initializeRecipes();initializeReports();initializeFactorsRisk(false);">
                                 Informes y Récipes</v-btn>
                             <v-btn color="info" @click="FollowUpAppointmentsDialog = true" light>Seguimiento</v-btn>
                             <?php endif?>
