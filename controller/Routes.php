@@ -19,21 +19,20 @@ class Routes extends AccessControl
         array_shift($route);
         if ($route[0] == "api") {
             $controller = $route[1];
-            if (!empty($controller)) 
-            {
+            if (!empty($controller)) {
                 $method = isset($route[2]) ? $route[2] : '';
                 $query = isset($route[3]) ? $route[3] : '';
                 require "controller/api/" . $controller . ".php";
             }
         } else {
             if (!empty($_SESSION['user_id']) && empty($_SESSION['tos_accepted'])) {
-                require('controller/web/Tos.php');
+                require 'controller/web/Tos.php';
                 new Tos();
             }
             $dir = 'controller/web/';
             $Class = Helper::convert_first_letter_uppercase(end($route));
             $pages_args = [
-                'article' => empty($route[1]) ? '' : $route[1]
+                'article' => empty($route[1]) ? '' : $route[1],
             ];
             $args = [];
             switch (count($route)) {
@@ -42,7 +41,7 @@ class Routes extends AccessControl
                     $controller_route = "$dir$Class.php";
                     $this->render_web_404($controller_route);
                     require $controller_route;
-                    
+
                     $init = method_exists($Class, 'initView');
                     if ($init) {
                         $view = new $Class;
@@ -53,7 +52,7 @@ class Routes extends AccessControl
                     break;
 
                 case 2:
-                    if (empty($route[1])) {
+                    if (empty($route[1]) || str_contains($route[1], '?')) {
                         $Class = Helper::convert_first_letter_uppercase($route[0]);
                         $controller_route = "$dir/$Class.php";
                         $this->render_web_404($controller_route);
@@ -63,8 +62,7 @@ class Routes extends AccessControl
                             $Class = Helper::convert_first_letter_uppercase($route[0]);
                             $args['query'] = $route[1];
                             $controller_route = "$dir$Class.php";
-                        }
-                        else {
+                        } else {
                             $controller_route = "$dir$route[0]/$Class.php";
                         }
                         $this->render_web_404($controller_route);
@@ -94,8 +92,7 @@ class Routes extends AccessControl
                     if ($init) {
                         $view = new $Class;
                         $view->initView($args);
-                    }
-                    else {
+                    } else {
                         new $Class();
                     }
                     break;
@@ -107,7 +104,8 @@ class Routes extends AccessControl
         }
     }
 
-    public function render_web_404($directory = '') {
+    public function render_web_404($directory = '')
+    {
         if (!file_exists($directory) || empty($directory)) {
             $this->header = false;
             $this->footer = false;
