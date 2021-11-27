@@ -1,4 +1,4 @@
-<template v-if="viewPatientsComparisonDialog && comparison.patient_selected.hasOwnProperty('patient_id')">
+<template v-if="viewPatientsComparisonDialog">
     <v-col cols="12">
         <v-row>
             <v-col cols="12" :md="comparison.laboratory_exams.examsListed ? 4 : 6">
@@ -27,69 +27,20 @@
                                 {{ comparison.laboratory_exams.selectedExam.name }}</h3>
                         </v-col>
                         <v-col cols="12" md="6">
-                            <h4 class="text-h6 mb-6"><b>Paciente:</b>
-                                {{  comparison.patient_selected.full_name }}
-                            </h4>
-                            <v-data-table
-                                :headers="[{ text: 'Resultado', value: 'results', align: 'center', width: 'auto' }]"
-                                :items="comparison.laboratory_exams.current_patient" class="elevation-1 full-width"
-                                hide-default-footer>
-                                <template #item.results="{ item }">
-                                    <template v-if="item !== undefined">
-                                        {{ item.results }}
-                                        <template v-if="comparison.laboratory_exams.selectedExam.nomenclature == 'mm3'">
-                                            mm<sup>3</sup>
-                                        </template>
-                                        <template v-else>
-                                            {{ comparison.laboratory_exams.selectedExam.nomenclature }}
-                                        </template>
-                                        <v-badge color="primary"
-                                            :content=" returnNumberSign(Math.round(getPercentDifference('laboratory-exam', {item: item, patient_to_compare: false}, true).exam.numeric))  
-                                        + ' (' + returnNumberSign(Math.round(getPercentDifference('laboratory-exam', {item: item, patient_to_compare: false}, true).exam.percent)) + '%)'"
-                                            v-if="comparison.laboratory_exams.patient_to_compare[0] !== undefined">
-                                        </v-badge>
-                                    </template>
-                                    <template v-else>
-                                        No se encontraron resultados
-                                    </template>
-                                </template>
-                                <template #no-data>
-                                    No se encontraron resultados de exámenes
-                                </template>
-                            </v-data-table>
+                            <?= new Template('patients-management/view_comparison_tabs/laboratory-exams/layout', 
+                                [
+                                    'item' => 'current_patient',
+                                    'patient_to_compare' => 'false'
+                                ]
+                            ) ?>
                         </v-col>
                         <v-col cols="12" md="6">
-                            <h4 class="text-h6 mb-6"><b>Paciente:</b>
-                                {{  comparison.patient_to_compare.full_name }}
-                            </h4>
-                            <v-data-table
-                                :headers="[{ text: 'Resultado', value: 'results', align: 'center', width: 'auto' }]"
-                                :items="comparison.laboratory_exams.patient_to_compare" class="elevation-1 full-width"
-                                hide-default-footer>
-                                <template #item.results="{ item }">
-                                    <template v-if="item !== undefined">
-                                        {{ item.results }} 
-                                        <template v-if="comparison.laboratory_exams.selectedExam.nomenclature == 'mm3'">
-                                            mm<sup>3</sup>
-                                        </template>
-                                        <template v-else>
-                                            {{ comparison.laboratory_exams.selectedExam.nomenclature }}
-                                        </template>
-                                        {{ comparison.laboratory_exams.selectedExam.nomenclature }}
-                                        <v-badge color="primary"
-                                            :content=" returnNumberSign(Math.round(getPercentDifference('laboratory-exam', {item: item, patient_to_compare: true}, true).exam.numeric))  
-                                            + ' (' + returnNumberSign(Math.round(getPercentDifference('laboratory-exam', {item: item, patient_to_compare: true}, true).exam.percent)) + '%)'"
-                                            v-if="comparison.laboratory_exams.current_patient[0] !== undefined">
-                                        </v-badge>
-                                    </template>
-                                    <template v-else>
-                                        No se encontraron resultados
-                                    </template>
-                                </template>
-                                <template #no-data>
-                                    No se encontraron resultados de exámenes
-                                </template>
-                            </v-data-table>
+                            <?= new Template('patients-management/view_comparison_tabs/laboratory-exams/layout', 
+                                [
+                                    'item' => 'patient_to_compare',
+                                    'patient_to_compare' => 'true'
+                                ]
+                            ) ?>
                         </v-col>
                     </v-row>
                 </v-col>
