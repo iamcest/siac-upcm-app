@@ -6077,13 +6077,13 @@ let vm = new Vue({
 
               var bmi_difference = {
                 numeric: total_bmi,
-                percent: (total_bmi / 
+                percent: (total_bmi /
                   (Math.sign(total_bmi) == -1 ? current_bmi : previous_bmi)) * 100,
               }
 
               var cs_difference = {
                 numeric: total_cs,
-                percent: (total_cs / 
+                percent: (total_cs /
                   (Math.sign(total_cs) == -1 ? current_cs : previous_cs)) * 100,
               }
 
@@ -6195,20 +6195,27 @@ let vm = new Vue({
               var patient_selected = !params.patient_to_compare ? obj.current_patient : obj.patient_to_compare
               var patient_to_compare = !params.patient_to_compare ? obj.patient_to_compare : obj.current_patient
 
-              var current_temperature = parseInt(patient_selected.sat)
+              var current_temperature = parseInt(patient_selected.lying_down.temperature)
               var current_sat = parseInt(patient_selected.sat)
 
               var previous_temperature = parseInt(patient_to_compare.lying_down.temperature)
               var previous_sat = parseInt(patient_to_compare.lying_down.sat)
 
+              var total_temperature = current_temperature - previous_temperature
+              var total_sat = current_sat - previous_sat
+
               var temperature_difference = {
-                numeric: current_temperature - previous_temperature,
-                percent: ((current_temperature - previous_temperature) / previous_temperature) * 100,
+                numeric: total_temperature,
+                percent: (total_temperature /
+                  (Math.sign(total_temperature) == -1 ? current_temperature : previous_temperature)) * 100,
               }
+
               var sat_difference = {
-                numeric: current_sat - previous_sat,
-                percent: ((current_sat - previous_sat) / previous_sat) * 100,
+                numeric: total_sat,
+                percent: (total_sat /
+                  (Math.sign(total_sat) == -1 ? current_sat : previous_sat)) * 100,
               }
+
               takes = {}
               if (params.hasOwnProperty('index')) {
                 var current_take = patient_selected.takes[params.index]
@@ -6224,18 +6231,28 @@ let vm = new Vue({
                 if (params.hasOwnProperty('arm')) {
                   var current_arm = parseInt(current_take[params.arm])
                   var previous_arm = parseInt(previous_take[params.arm])
+
+                  var total_arm = current_arm - previous_arm
+
                   arm_difference = {
-                    numeric: current_arm - previous_arm,
-                    percent: ((current_arm - previous_arm) / previous_arm) * 100,
+                    numeric: total_arm,
+                    percent: (total_arm /
+                      (Math.sign(total_arm) == -1 ? current_arm : previous_arm)) * 100,
                   }
                 }
+
+                var total_br = current_br - previous_br
+                var total_frc = current_frc - previous_frc
+
                 var br_difference = {
-                  numeric: current_br - previous_br,
-                  percent: ((current_br - previous_br) / previous_br) * 100,
+                  numeric: total_br,
+                  percent: (total_br /
+                    (Math.sign(current_br) == -1 ? current_br : current_br)) * 100,
                 }
                 var frc_difference = {
-                  numeric: current_frc - previous_frc,
-                  percent: ((current_frc - previous_frc) / previous_frc) * 100,
+                  numeric: total_frc,
+                  percent: (total_frc /
+                    (Math.sign(total_frc) == -1 ? total_frc : total_frc)) * 100,
                 }
 
                 takes = {
