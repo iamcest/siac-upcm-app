@@ -3432,16 +3432,18 @@ let vm = new Vue({
 
         if (res.body.hasOwnProperty('current_patient_items')
           && res.body.hasOwnProperty('patient_to_compare_items')) {
-          obj.current_patient = res.body.current_patient_items.length > 1 ?
-            res.body.current_patient_items[res.body.current_patient_items.length - 1] : res.body.current_patient_items[0]
+          if (res.body.current_patient_items.length > 0) {
+            obj.current_patient = res.body.current_patient_items.length > 1 ?
+              res.body.current_patient_items[res.body.current_patient_items.length - 1] : res.body.current_patient_items[0]
 
-          obj.current_patient.content = JSON.parse(obj.current_patient.content)
+            obj.current_patient.content = JSON.parse(obj.current_patient.content)
+          }
+          if (res.body.patient_to_compare_items.length > 0) {
+            obj.patient_to_compare = res.body.patient_to_compare_items.length > 1 ?
+              res.body.patient_to_compare_items[res.body.patient_to_compare_items.length - 1] : res.body.patient_to_compare_items[0]
 
-          obj.patient_to_compare = res.body.patient_to_compare_items.length > 1 ?
-            res.body.patient_to_compare_items[res.body.patient_to_compare_items.length - 1] : res.body.patient_to_compare_items[0]
-
-          obj.patient_to_compare.content = JSON.parse(obj.patient_to_compare.content)
-
+            obj.patient_to_compare.content = JSON.parse(obj.patient_to_compare.content)
+          }
         }
         obj.loading = false
       }, err => {
