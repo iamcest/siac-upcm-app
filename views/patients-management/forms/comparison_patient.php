@@ -6,7 +6,7 @@
             Antecedentes
         </v-tab>
 
-        <v-tab class="font-weight-bold" href="#tab-comparison-4" @click="initializeComparisonAnthropometry">
+        <v-tab class="font-weight-bold" href="#tab-comparison-4" @click="initializeComparisonAnthropometry(false)">
             Antropometría
         </v-tab>
 
@@ -45,11 +45,11 @@
     <?php $i = 0; ?>
     <?php foreach ($data['tabs'] as $tab_item): ?>
     <?php $i++; ?>
-    <v-tab-item transition="scroll-y-reverse-transition" :value="'tab-comparison-<?php echo $i;?>'">
+    <v-tab-item transition="scroll-y-reverse-transition" :value="'tab-comparison-<?= $i?>'">
         <v-container fluid>
 
-            <v-row v-if="view_comparison_tab == 'tab-comparison-<?php echo $i;?>'">
-                <?php echo new Template('patients-management/view_comparison_tabs/'. $tab_item) ?>
+            <v-row v-if="view_comparison_tab == 'tab-comparison-<?= $i?>'">
+                <?= new Template('patients-management/view_comparison_tabs/'. $tab_item) ?>
             </v-row>
 
         </v-container>

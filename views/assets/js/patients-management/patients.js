@@ -3102,9 +3102,9 @@ let vm = new Vue({
       }, err => {
 
       })
-      .then( res => {
-        app.checkAppointmentReports()
-      })
+        .then(res => {
+          app.checkAppointmentReports()
+        })
     },
 
     initializeExams() {
@@ -3131,7 +3131,7 @@ let vm = new Vue({
     initializeAppointments(appointment_id) {
       var app = this
       app.general_save = false
-      
+
       var obj = app.patient_appointments
       app.getDoctors()
       if (obj.appointments.length == 0 || obj.appointments.length > 0 && app.editedItem.patient_id == obj.appointments[0].patient_id) {
@@ -3234,7 +3234,7 @@ let vm = new Vue({
       })
     },
 
-    initializeComparisonAnthropometry(get_all = false) {
+    initializeComparisonAnthropometry(get_all) {
       var app = this
       var obj = app.comparison.anthropometry
       if (get_all) {
@@ -4344,7 +4344,7 @@ let vm = new Vue({
 
     checkAppointmentReports() {
       var app = this
-      app.patient_appointments.appointments.forEach( e => {
+      app.patient_appointments.appointments.forEach(e => {
         e.hasAppointment = app.reports.items.find(r => r.appointment_date == e.appointment_date) != null ? true : false
       })
     },
@@ -5884,7 +5884,7 @@ let vm = new Vue({
       return moment().format('YYYY-MM-DD')
     },
 
-    addItemToArray(val, options, begin = Boolean ) {
+    addItemToArray(val, options, begin = Boolean) {
       if (val != '' || typeof val != undefined) {
         begin ? options.unshift(val) : options.push(val)
       }
@@ -6051,29 +6051,40 @@ let vm = new Vue({
                 previous_weight, previous_height,
                 patient_to_compare.weight_suffix, patient_to_compare.height_suffix).replace(' m2', ''))
 
+              var total_weight = current_weight - previous_weight
+              var total_height = current_height - previous_height
+              var total_abdominal_waist = current_abdominal_waist - previous_abdominal_waist
+              var total_bmi = current_bmi - previous_bmi
+              var total_cs = current_cs - previous_cs
+
               var weight_difference = {
-                numeric: current_weight - previous_weight,
-                percent: (((current_weight - previous_weight) / previous_weight) * 100),
+                numeric: total_weight,
+                percent: (total_weight /
+                  (Math.sign(total_weight) == -1 ? current_weight : previous_weight)) * 100,
               }
 
               var height_difference = {
-                numeric: current_height - previous_height,
-                percent: (((current_height - previous_height) / previous_height) * 100),
+                numeric: total_height,
+                percent: (total_height /
+                  (Math.sign(total_height) == -1 ? current_height : previous_height)) * 100,
               }
 
               var abdominal_waist_difference = {
-                numeric: current_abdominal_waist - previous_abdominal_waist,
-                percent: (((current_abdominal_waist - previous_abdominal_waist) / previous_abdominal_waist) * 100),
+                numeric: total_abdominal_waist,
+                percent: (total_abdominal_waist /
+                  (Math.sign(total_abdominal_waist) == -1 ? current_abdominal_waist : previous_abdominal_waist)) * 100,
               }
 
               var bmi_difference = {
-                numeric: current_bmi - previous_bmi,
-                percent: (((current_bmi - previous_bmi) / previous_bmi) * 100),
+                numeric: total_bmi,
+                percent: (total_bmi / 
+                  (Math.sign(total_bmi) == -1 ? current_bmi : previous_bmi)) * 100,
               }
 
               var cs_difference = {
-                numeric: current_cs - previous_cs,
-                percent: (((current_cs - previous_cs) / previous_cs) * 100),
+                numeric: total_cs,
+                percent: (total_cs / 
+                  (Math.sign(total_cs) == -1 ? current_cs : previous_cs)) * 100,
               }
 
               return {
@@ -6949,7 +6960,6 @@ let vm = new Vue({
           var general = { numeric: 0, percent: 0 }
 
           if (comparison) {
-            console.log(params.patient_to_compare)
             var obj = app.comparison.history
             var results = {
               dosis: general,

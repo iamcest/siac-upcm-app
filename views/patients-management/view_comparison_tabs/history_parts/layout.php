@@ -12,27 +12,27 @@
                 </template>
             -->
             Paciente:
-            {{ comparison.<?php echo $item == 'current_patient' ? 'patient_selected' : $item ?>.full_name }}
+            {{ comparison.<?= $item == 'current_patient' ? 'patient_selected' : $item ?>.full_name }}
         </h3>
     </v-col>
     <v-col cols="12"
-        v-if="comparison.history.<?php echo $item ?> !== undefined && comparison.history.<?php echo $item ?>.history_content !== undefined">
-        <?php echo new Template('patients-management/view_comparison_tabs/history_parts/partials/hta', [
+        v-if="comparison.history.<?= $item ?> !== undefined && comparison.history.<?= $item ?>.history_content !== undefined">
+        <?= new Template('patients-management/view_comparison_tabs/history_parts/partials/hta', [
                 'item' => $item,
                 'patient_to_compare' => $patient_to_compare
             ]
         ) ?>
-        <?php echo new Template('patients-management/view_comparison_tabs/history_parts/partials/dtm2', [
+        <?= new Template('patients-management/view_comparison_tabs/history_parts/partials/dtm2', [
                 'item' => $item,
                 'patient_to_compare' => $patient_to_compare
             ]
         )  ?>
-        <?php echo new Template('patients-management/view_comparison_tabs/history_parts/partials/pre-dtm2', [
+        <?= new Template('patients-management/view_comparison_tabs/history_parts/partials/pre-dtm2', [
                 'item' => $item,
                 'patient_to_compare' => $patient_to_compare
             ]
         )  ?>
-        <?php echo new Template('patients-management/view_comparison_tabs/history_parts/partials/dyslipidemia', [
+        <?= new Template('patients-management/view_comparison_tabs/history_parts/partials/dyslipidemia', [
                 'item' => $item,
                 'patient_to_compare' => $patient_to_compare
             ]
@@ -41,7 +41,7 @@
             <v-col class="factor-risk-container px-4 py-4" cols="5">
                 <h5 class="text-h6 black--text font-weight-bold">Ha estado alguna vez hospitalizado por
                     descompensación de la PA - Emergencia hipertensiva</h5>
-                <template v-if="comparison.history.<?php echo $item ?>.history_content.emergency_hta_history">
+                <template v-if="comparison.history.<?= $item ?>.history_content.emergency_hta_history">
                     Sí
                 </template>
                 <template v-else>
@@ -52,7 +52,7 @@
             <v-col class="factor-risk-container px-4 py-4" cols="5">
                 <h5 class="text-h6 black--text font-weight-bold">Ha estado alguna vez hospitalizado por
                     descompensación de la Diabetes</h5>
-                <template v-if="comparison.history.<?php echo $item ?>.history_content.emergency_diabetes_history">
+                <template v-if="comparison.history.<?= $item ?>.history_content.emergency_diabetes_history">
                     Sí
                 </template>
                 <template v-else>
@@ -60,7 +60,7 @@
                 </template>
             </v-col>
         </v-row>
-        <?php echo new Template('patients-management/view_comparison_tabs/history_parts/partials/family-history', [
+        <?= new Template('patients-management/view_comparison_tabs/history_parts/partials/family-history', [
                 'item' => $item,
                 'patient_to_compare' => $patient_to_compare
             ]
@@ -74,7 +74,7 @@
                     </v-col>
 
                     <v-col class="pr-6" cols="12">
-                        <?php echo new Template('patients-management/view_comparison_tabs/history_parts/partials/cardiovascular-diseases/ischemic-cardiopathy', [
+                        <?= new Template('patients-management/view_comparison_tabs/history_parts/partials/cardiovascular-diseases/ischemic-cardiopathy', [
                                 'item' => $item,
                                 'patient_to_compare' => $patient_to_compare
                             ]
@@ -82,7 +82,7 @@
                     </v-col>
 
                     <v-col class="pr-6 pl-3 col col-8" cols="12">
-                        <?php echo new Template('patients-management/view_comparison_tabs/history_parts/partials/cardiovascular-diseases/arritmia', [
+                        <?= new Template('patients-management/view_comparison_tabs/history_parts/partials/cardiovascular-diseases/arritmia', [
                                 'item' => $item,
                                 'patient_to_compare' => $patient_to_compare
                             ]
@@ -90,7 +90,7 @@
                     </v-col>
 
                     <v-col cols="12" md="6">
-                        <?php echo new Template('patients-management/view_comparison_tabs/history_parts/partials/cardiovascular-diseases/heart-failure', [
+                        <?= new Template('patients-management/view_comparison_tabs/history_parts/partials/cardiovascular-diseases/heart-failure', [
                                 'item' => $item,
                                 'patient_to_compare' => $patient_to_compare
                             ]
@@ -98,7 +98,7 @@
                     </v-col>
 
                     <v-col cols="12" md="6">
-                        <?php echo new Template('patients-management/view_comparison_tabs/history_parts/partials/cardiovascular-diseases/peripheral-artery', [
+                        <?= new Template('patients-management/view_comparison_tabs/history_parts/partials/cardiovascular-diseases/peripheral-artery', [
                                 'item' => $item,
                                 'patient_to_compare' => $patient_to_compare
                             ]
@@ -110,7 +110,7 @@
 
         <v-row>
             <v-col class="pr-md-6 px-1" cols="12" md="6">
-                <?php echo new Template('patients-management/view_comparison_tabs/history_parts/partials/cronic-kidney-disease', [
+                <?= new Template('patients-management/view_comparison_tabs/history_parts/partials/cronic-kidney-disease', [
                         'item' => $item,
                         'patient_to_compare' => $patient_to_compare
                     ]
@@ -118,7 +118,7 @@
             </v-col>
 
             <v-col class="pl-md-6 px-1" cols="12" md="6">
-                <?php echo new Template('patients-management/view_comparison_tabs/history_parts/partials/cerebrovascular-disease', [
+                <?= new Template('patients-management/view_comparison_tabs/history_parts/partials/cerebrovascular-disease', [
                         'item' => $item,
                         'patient_to_compare' => $patient_to_compare
                     ]
@@ -131,35 +131,35 @@
                 <h3 class="text-h5 text-center black--text">Tratamientos</h3>
             </v-col>
             <v-col class="pr-6" cols="12">
-                <?php echo new Template('patients-management/view_comparison_tabs/history_parts/partials/treatments/polipildora', [
+                <?= new Template('patients-management/view_comparison_tabs/history_parts/partials/treatments/polipildora', [
                         'item' => $item,
                         'patient_to_compare' => $patient_to_compare
                     ]
                 )  ?>
             </v-col>
             <v-col class="pr-6" cols="12">
-                <?php echo new Template('patients-management/view_comparison_tabs/history_parts/partials/treatments/antihypertensives', [
+                <?= new Template('patients-management/view_comparison_tabs/history_parts/partials/treatments/antihypertensives', [
                         'item' => $item,
                         'patient_to_compare' => $patient_to_compare
                     ]
                 )  ?>
             </v-col>
             <v-col class="pr-6" cols="12">
-                <?php echo new Template('patients-management/view_comparison_tabs/history_parts/partials/treatments/antidiabetics', [
+                <?= new Template('patients-management/view_comparison_tabs/history_parts/partials/treatments/antidiabetics', [
                         'item' => $item,
                         'patient_to_compare' => $patient_to_compare
                     ]
                 )  ?>
             </v-col>
             <v-col class="pr-6" cols="12">
-                <?php echo new Template('patients-management/view_comparison_tabs/history_parts/partials/treatments/antithrombotics', [
+                <?= new Template('patients-management/view_comparison_tabs/history_parts/partials/treatments/antithrombotics', [
                         'item' => $item,
                         'patient_to_compare' => $patient_to_compare
                     ]
                 )  ?>
             </v-col>
             <v-col class="pr-6" cols="12">
-                <?php echo new Template('patients-management/view_comparison_tabs/history_parts/partials/treatments/hypolipidemic', [
+                <?= new Template('patients-management/view_comparison_tabs/history_parts/partials/treatments/hypolipidemic', [
                         'item' => $item,
                         'patient_to_compare' => $patient_to_compare
                     ]
