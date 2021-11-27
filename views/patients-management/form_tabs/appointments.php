@@ -130,6 +130,15 @@
         </template>
         <template #item.actions="{ item }">
             <v-row justify="center" align="center">
+                <v-tooltip v-if="item.hasAppointment" top>
+                    <template #activator="{ on, attrs }">
+                        <v-icon v-bind="attrs" v-on="on" color="primary"
+                            @click="downloadReport(reports.items.find(e => e.appointment_date == item.appointment_date))">
+                            mdi-file-download
+                        </v-icon>
+                    </template>
+                    <span>Descargar informe</span>
+                </v-tooltip>
                 <v-icon md class="" @click="editAppointmentItem(item)" color="#00BFA5">
                     mdi-pencil
                 </v-icon>
@@ -137,7 +146,6 @@
                     mdi-delete
                 </v-icon>
             </v-row>
-
         </template>
         <template #no-data>
             <v-btn color="primary" @click="initializeAppointments">

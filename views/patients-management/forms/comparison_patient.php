@@ -48,7 +48,7 @@
     <v-tab-item transition="scroll-y-reverse-transition" :value="'tab-comparison-<?php echo $i;?>'">
         <v-container fluid>
 
-            <v-row>
+            <v-row v-if="view_comparison_tab == 'tab-comparison-<?php echo $i;?>'">
                 <?php echo new Template('patients-management/view_comparison_tabs/'. $tab_item) ?>
             </v-row>
 

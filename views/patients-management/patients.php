@@ -13,7 +13,7 @@
                     <?php echo new Template('patients-management/dialogs/follow-ups_appointments') ?>
                     <?php echo new Template('patients-management/dialogs/compare-patients') ?>
                     <?php echo new Template('patients-management/statistics/main') ?>
-                    <?php /* echo new Template('patients-management/comparison/main') */?>
+                    <?php echo new Template('patients-management/comparison/main') ?>
                     <?php /* echo new Template('patients-management/comparison/average-main') */?>
 
                     <v-row>

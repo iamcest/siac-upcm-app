@@ -3138,10 +3138,10 @@ let vm = new Vue({
         obj.current_appointment = {}
         obj.previous_appointment = {}
         var url = api_url + 'appointments/get/' + app.editedItem.patient_id
+        obj.appointments = []
         app.$http.get(url).then(res => {
-          obj.appointments = res.body
           if (res.body.length > 0) {
-            var obj = app.patient_appointments
+            obj.appointments = res.body
             var filtered_appointment = appointment_id !== undefined ?
               obj.appointments.find(e => e.appointment_id == appointment_id) : {}
             var total_length = obj.appointments.length
@@ -6949,6 +6949,7 @@ let vm = new Vue({
           var general = { numeric: 0, percent: 0 }
 
           if (comparison) {
+            console.log(params.patient_to_compare)
             var obj = app.comparison.history
             var results = {
               dosis: general,
