@@ -23,8 +23,19 @@
                     <template v-if="comparison.type_selected == 1">
                         <v-col cols="12" md="6">
                             <label for="">Seleccione el paciente</label>
-                            <v-select v-model="comparison.patient_to_compare" :items="patients"
-                                :item-text=" (e) => e.first_name + ' ' + e.last_name" clearable return-object>
+                            <v-select v-model="comparison.patient_to_compare" :items="comparison.patients_filtered"
+                                :item-text="(e) => e.full_name" clearable return-object>
+                                <template #prepend-item>
+                                    <v-list-item>
+                                        <v-list-item-content>
+                                            <v-text-field v-model="comparison.search"
+                                                placeholder="Buscar paciente"
+                                                @input="searchPatientsComparison" @click:clear="searchPatientsComparison" 
+                                                clearable outlined></v-text-field>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                    <v-divider></v-divider>
+                                </template>
                             </v-select>
                         </v-col>
                     </template>

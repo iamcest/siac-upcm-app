@@ -72,6 +72,7 @@ let vm = new Vue({
     templates_loading: false,
     appointment_calendar: new AppointmentCalendar(),
     comparison: {
+      search: '',
       active: 0,
       external_loading: false,
       type_selected: 1,
@@ -4689,6 +4690,7 @@ let vm = new Vue({
           app.loading = false
           if (res.body.status == "success") {
             Object.assign(app.patients[app.editedIndex], app.editedItem)
+            app.comparison.patients = Objet.assign({}, app.patients)
             app.tab = "tab-2"
             app.initializeAppointments()
           }
@@ -4704,6 +4706,7 @@ let vm = new Vue({
             app.editedItem.patient_id = res.body.data.patient_id
             app.editedItem.full_name = app.editedItem.first_name + ' ' + app.editedItem.last_name
             app.patients.push(app.editedItem)
+            app.comparison.patients = Objet.assign({}, app.patients)
             app.close(false)
             app.editItem(app.editedItem)
           }
@@ -7573,6 +7576,13 @@ let vm = new Vue({
     searchTemplate() {
       return this.filtered_templates = this.templates.filter(template => {
         return template.material_name.toLowerCase().includes(this.template_search.toLowerCase())
+      })
+    },
+
+    searchPatientsComparison() {
+      var search = this.comparison.search == null ? '' : this.comparison.search
+      return this.comparison.patients_filtered = this.patients.filter(patient => {
+        return patient.full_name.toLowerCase().includes(search.toLowerCase())
       })
     },
 
