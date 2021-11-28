@@ -16,7 +16,7 @@
         </h3>
     </v-col>
     <v-col cols="12"
-        v-if="comparison.history.<?= $item ?> !== undefined && comparison.history.<?= $item ?>.history_content !== undefined">
+        v-if="comparison.history.<?= $item ?>.hasOwnProperty('history_content')">
         <?= new Template('patients-management/view_comparison_tabs/history_parts/partials/hta', [
                 'item' => $item,
                 'patient_to_compare' => $patient_to_compare

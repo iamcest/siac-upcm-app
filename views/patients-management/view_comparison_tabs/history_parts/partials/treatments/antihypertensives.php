@@ -1,5 +1,5 @@
 <v-card class="px-4">
-    <v-row class="mb-10" v-if="comparison.history.<?php echo $item ?>.hasOwnProperty('history_content')">
+    <v-row class="mb-10" v-if="comparison.history.<?= $item ?>.hasOwnProperty('history_content')">
         <v-col cols="12">
             <h3 class="text-h5">ANTIHIPERTENSIVOS</h3>
         </v-col>
@@ -8,13 +8,19 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">IECAS</h3>
                     <label class="black--text font-weight-bold">
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.iecas.treatment }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.iecas.treatment }} </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Dosis diarias:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.iecas.dosis}} </span>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.iecas.dosis}} </span>
                     <template
-                        v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.iecas.dosis != ''">
+                        v-if="
+                        comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.iecas.dosis != ''
+                        &&
+                        comparison.history.<?= $item == 'current_patient' ? 'patient_to_compare' : $item ?>.hasOwnProperty('history_content')
+                        &&
+                        comparison.history.<?= $item == 'current_patient' ? 'patient_to_compare' : $item ?>.history_content.treatments.antihypertensives.iecas.dosis != ''
+                        ">
                         <v-badge class="badge-na" color="primary"
                             :content=" returnNumberSign(Math.round(getPercentDifference('history', 
                             {dosis: true, treatment: {group: 'antihypertensives', treatment: 'iecas'}, patient_to_compare: <?= $patient_to_compare ?>}, true).dosis.numeric)) 
@@ -25,11 +31,11 @@
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Frecuencia:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.iecas.frecuency }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.iecas.frecuency }} </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Reacciones adversas:
-                        <template v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.iecas.has_secondary_effects">
+                        <template v-if="comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.iecas.has_secondary_effects">
                             Sí
                         </template>
                         <template v-else>
@@ -38,9 +44,9 @@
                     </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.iecas.has_secondary_effects">
+                    v-if="comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.iecas.has_secondary_effects">
                     <label class="black--text font-weight-bold">Tipo de reacción:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.iecas.secondary_effects }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.iecas.secondary_effects }} </label>
                 </v-col>
             </v-row>
         </v-col>
@@ -49,13 +55,19 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">BRA</h3>
                     <label class="black--text font-weight-bold">
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.bra.treatment }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.bra.treatment }} </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Dosis diarias:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.bra.dosis}} </span>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.bra.dosis}} </span>
                     <template
-                        v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.bra.dosis != ''">
+                        v-if="
+                        comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.bra.dosis != ''
+                        &&
+                        comparison.history.<?= $item == 'current_patient' ? 'patient_to_compare' : $item ?>.hasOwnProperty('history_content')
+                        &&
+                        comparison.history.<?= $item == 'current_patient' ? 'patient_to_compare' : $item ?>.history_content.treatments.antihypertensives.bra.dosis != ''
+                        ">
                         <v-badge class="badge-na" color="primary"
                             :content=" returnNumberSign(Math.round(getPercentDifference('history', 
                             {dosis: true, treatment: {group: 'antihypertensives', treatment: 'bra'}, patient_to_compare: <?= $patient_to_compare ?>}, true).dosis.numeric)) 
@@ -66,11 +78,11 @@
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Frecuencia:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.bra.frecuency }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.bra.frecuency }} </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Reacciones adversas:
-                        <template v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.bra.has_secondary_effects">
+                        <template v-if="comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.bra.has_secondary_effects">
                             Sí
                         </template>
                         <template v-else>
@@ -79,9 +91,9 @@
                     </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.bra.has_secondary_effects">
+                    v-if="comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.bra.has_secondary_effects">
                     <label class="black--text font-weight-bold">Tipo de reacción:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.bra.secondary_effects }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.bra.secondary_effects }} </label>
                 </v-col>
             </v-row>
         </v-col>
@@ -90,13 +102,19 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Ca antagonista</h3>
                     <label class="black--text font-weight-bold">
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ca.treatment }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ca.treatment }} </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Dosis diarias:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ca.dosis}}</span>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ca.dosis}}</span>
                     <template
-                        v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ca.dosis != ''">
+                        v-if="
+                        comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ca.dosis != ''
+                        &&
+                        comparison.history.<?= $item == 'current_patient' ? 'patient_to_compare' : $item ?>.hasOwnProperty('history_content')
+                        &&
+                        comparison.history.<?= $item == 'current_patient' ? 'patient_to_compare' : $item ?>.history_content.treatments.antihypertensives.ca.dosis != ''
+                        ">
                         <v-badge class="badge-na" color="primary"
                             :content=" returnNumberSign(Math.round(getPercentDifference('history', 
                             {dosis: true, treatment: {group: 'antihypertensives', treatment: 'ca'}, patient_to_compare: <?= $patient_to_compare ?>}, true).dosis.numeric)) 
@@ -107,11 +125,11 @@
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Frecuencia:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ca.frecuency }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ca.frecuency }} </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Reacciones adversas:
-                        <template v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ca.has_secondary_effects">
+                        <template v-if="comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ca.has_secondary_effects">
                             Sí
                         </template>
                         <template v-else>
@@ -120,9 +138,9 @@
                     </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ca.has_secondary_effects">
+                    v-if="comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ca.has_secondary_effects">
                     <label class="black--text font-weight-bold">Tipo de reacción:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ca.secondary_effects }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ca.secondary_effects }} </label>
                 </v-col>
             </v-row>
         </v-col>
@@ -131,13 +149,19 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Diurético</h3>
                     <label class="black--text font-weight-bold">
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.diuretic.treatment }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.diuretic.treatment }} </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Dosis diarias:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.diuretic.dosis}} </span>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.diuretic.dosis}} </span>
                     <template
-                        v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.diuretic.dosis != ''">
+                        v-if="
+                        comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.diuretic.dosis != ''
+                        &&
+                        comparison.history.<?= $item == 'current_patient' ? 'patient_to_compare' : $item ?>.hasOwnProperty('history_content')
+                        &&
+                        comparison.history.<?= $item == 'current_patient' ? 'patient_to_compare' : $item ?>.history_content.treatments.antihypertensives.diuretic.dosis != ''
+                        ">
                         <v-badge class="badge-na" color="primary"
                             :content=" returnNumberSign(Math.round(getPercentDifference('history', 
                             {dosis: true, treatment: {group: 'antihypertensives', treatment: 'diuretic'}, patient_to_compare: <?= $patient_to_compare ?>}, true).dosis.numeric)) 
@@ -148,12 +172,12 @@
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Frecuencia:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.diuretic.frecuency }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.diuretic.frecuency }} </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Reacciones adversas:
                         <template
-                            v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.diuretic.has_secondary_effects">
+                            v-if="comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.diuretic.has_secondary_effects">
                             Sí
                         </template>
                         <template v-else>
@@ -162,9 +186,9 @@
                     </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.diuretic.has_secondary_effects">
+                    v-if="comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.diuretic.has_secondary_effects">
                     <label class="black--text font-weight-bold">Tipo de reacción:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.diuretic.secondary_effects }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.diuretic.secondary_effects }} </label>
                 </v-col>
             </v-row>
         </v-col>
@@ -173,13 +197,19 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Inhibidores Renina</h3>
                     <label class="black--text font-weight-bold">
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ir.treatment }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ir.treatment }} </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Dosis diarias:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ir.dosis}} </span>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ir.dosis}} </span>
                     <template
-                        v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ir.dosis != ''">
+                        v-if="
+                        comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ir.dosis != ''
+                        &&
+                        comparison.history.<?= $item == 'current_patient' ? 'patient_to_compare' : $item ?>.hasOwnProperty('history_content')
+                        &&
+                        comparison.history.<?= $item == 'current_patient' ? 'patient_to_compare' : $item ?>.history_content.treatments.antihypertensives.ir.dosis != ''
+                        ">
                         <v-badge class="badge-na" color="primary"
                             :content=" returnNumberSign(Math.round(getPercentDifference('history', 
                             {dosis: true, treatment: {group: 'antihypertensives', treatment: 'ir'}, patient_to_compare: <?= $patient_to_compare ?>}, true).dosis.numeric)) 
@@ -190,11 +220,11 @@
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Frecuencia:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ir.frecuency }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ir.frecuency }} </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Reacciones adversas:
-                        <template v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ir.has_secondary_effects">
+                        <template v-if="comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ir.has_secondary_effects">
                             Sí
                         </template>
                         <template v-else>
@@ -203,9 +233,9 @@
                     </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ir.has_secondary_effects">
+                    v-if="comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ir.has_secondary_effects">
                     <label class="black--text font-weight-bold">Tipo de reacción:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ir.secondary_effects }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ir.secondary_effects }} </label>
                 </v-col>
             </v-row>
         </v-col>
@@ -214,13 +244,19 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Beta bloq</h3>
                     <label class="black--text font-weight-bold">
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.block_beta.treatment }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.block_beta.treatment }} </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Dosis diarias:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.block_beta.dosis}} </span>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.block_beta.dosis}} </span>
                     <template
-                        v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.block_beta.dosis != ''">
+                        v-if="
+                        comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.block_beta.dosis != ''
+                        &&
+                        comparison.history.<?= $item == 'current_patient' ? 'patient_to_compare' : $item ?>.hasOwnProperty('history_content')
+                        &&
+                        comparison.history.<?= $item == 'current_patient' ? 'patient_to_compare' : $item ?>.history_content.treatments.antihypertensives.block_beta.dosis != ''
+                        ">
                         <v-badge class="badge-na" color="primary"
                             :content=" returnNumberSign(Math.round(getPercentDifference('history', 
                             {dosis: true, treatment: {group: 'antihypertensives', treatment: 'block_beta'}, patient_to_compare: <?= $patient_to_compare ?>}, true).dosis.numeric)) 
@@ -231,12 +267,12 @@
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Frecuencia:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.block_beta.frecuency }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.block_beta.frecuency }} </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Reacciones adversas:
                         <template
-                            v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.block_beta.has_secondary_effects">
+                            v-if="comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.block_beta.has_secondary_effects">
                             Sí
                         </template>
                         <template v-else>
@@ -245,9 +281,9 @@
                     </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.block_beta.has_secondary_effects">
+                    v-if="comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.block_beta.has_secondary_effects">
                     <label class="black--text font-weight-bold">Tipo de reacción:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.block_beta.secondary_effects }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.block_beta.secondary_effects }} </label>
                 </v-col>
             </v-row>
         </v-col>
@@ -256,13 +292,19 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">ARNI</h3>
                     <label class="black--text font-weight-bold">
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.arni.treatment }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.arni.treatment }} </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Dosis diarias:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.arni.dosis}} </span>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.arni.dosis}} </span>
                     <template
-                        v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.arni.dosis">
+                        v-if="
+                        comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.arni.dosis
+                        &&
+                        comparison.history.<?= $item == 'current_patient' ? 'patient_to_compare' : $item ?>.hasOwnProperty('history_content')
+                        &&
+                        comparison.history.<?= $item == 'current_patient' ? 'patient_to_compare' : $item ?>.history_content.treatments.antihypertensives.arni.dosis != ''
+                        ">
                         <v-badge class="badge-na" color="primary"
                             :content=" returnNumberSign(Math.round(getPercentDifference('history', 
                             {dosis: true, treatment: {group: 'antihypertensives', treatment: 'arni'}, patient_to_compare: <?= $patient_to_compare ?>}, true).dosis.numeric)) 
@@ -273,11 +315,11 @@
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Frecuencia:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.arni.frecuency }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.arni.frecuency }} </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Reacciones adversas:
-                        <template v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.arni.has_secondary_effects">
+                        <template v-if="comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.arni.has_secondary_effects">
                             Sí
                         </template>
                         <template v-else>
@@ -286,9 +328,9 @@
                     </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.arni.has_secondary_effects">
+                    v-if="comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.arni.has_secondary_effects">
                     <label class="black--text font-weight-bold">Tipo de reacción:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.arni.secondary_effects }} </label>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.arni.secondary_effects }} </label>
                 </v-col>
             </v-row>
         </v-col>
@@ -297,14 +339,20 @@
                 <v-col cols="12">
                     <h3 class="font-weight-bold black--text text-center">Ant. MINERALOCORTICOIDES</h3>
                     <label class="black--text font-weight-bold">
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ant_mineralocorticoids.treatment }}
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ant_mineralocorticoids.treatment }}
                     </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <span class="black--text font-weight-bold">Dosis diarias:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ant_mineralocorticoids.dosis}} </span>
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ant_mineralocorticoids.dosis}} </span>
                     <template
-                        v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ant_mineralocorticoids.dosis != ''">
+                        v-if="
+                        comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ant_mineralocorticoids.dosis != ''
+                        &&
+                        comparison.history.<?= $item == 'current_patient' ? 'patient_to_compare' : $item ?>.hasOwnProperty('history_content')
+                        &&
+                        comparison.history.<?= $item == 'current_patient' ? 'patient_to_compare' : $item ?>.history_content.treatments.antihypertensives.ant_mineralocorticoids.dosis != ''
+                        ">
                         <v-badge class="badge-na" color="primary"
                             :content=" returnNumberSign(Math.round(getPercentDifference('history', 
                             {dosis: true, treatment: {group: 'antihypertensives', treatment: 'ant_mineralocorticoids'}, patient_to_compare: <?= $patient_to_compare ?>}, true).dosis.numeric)) 
@@ -315,13 +363,13 @@
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Frecuencia:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ant_mineralocorticoids.frecuency }}
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ant_mineralocorticoids.frecuency }}
                     </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12">
                     <label class="black--text font-weight-bold">Reacciones adversas:
                         <template
-                            v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ant_mineralocorticoids.has_secondary_effects">
+                            v-if="comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ant_mineralocorticoids.has_secondary_effects">
                             Sí
                         </template>
                         <template v-else>
@@ -330,9 +378,9 @@
                     </label>
                 </v-col>
                 <v-col class="mt-n4" cols="12"
-                    v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ant_mineralocorticoids.has_secondary_effects">
+                    v-if="comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ant_mineralocorticoids.has_secondary_effects">
                     <label class="black--text font-weight-bold">Tipo de reacción:
-                        {{ comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.ant_mineralocorticoids.secondary_effects }}
+                        {{ comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.ant_mineralocorticoids.secondary_effects }}
                     </label>
                 </v-col>
             </v-row>
@@ -342,7 +390,7 @@
                 <v-col cols="12">
                     <v-col cols="12">
                         <h3 class="font-weight-bold black--text text-center">
-                            <template v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.fdc.active">
+                            <template v-if="comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.fdc.active">
                                 El paciente tiene indicada una combinación fija de los medicamentos seleccionados
                             </template>
                             <template v-else>
@@ -350,10 +398,10 @@
                             </template>
                         </h3>
                     </v-col>
-                    <v-col cols="12" v-if="comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.fdc.active">
+                    <v-col cols="12" v-if="comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.fdc.active">
                         <h3 class="font-weight-bold black--text text-center">Combinaciones a dosis fijas</h3>
                         <p class="font-weight-bold black--text text-center"
-                            v-for="item in comparison.history.<?php echo $item ?>.history_content.treatments.antihypertensives.fdc.selected">
+                            v-for="item in comparison.history.<?= $item ?>.history_content.treatments.antihypertensives.fdc.selected">
                             {{ item }}
                         </p>
                     </v-col>
