@@ -1,5 +1,5 @@
 <v-card class="px-4">
-    <v-row class="mb-10">
+    <v-row class="mb-10" v-if="comparison.history.<?php echo $item ?>.hasOwnProperty('history_content')">
         <v-col cols="12">
             <h3 class="text-h5 text-center black--text">Polipíldora</h3>
         </v-col>
@@ -56,5 +56,8 @@
                 </v-col>
             </v-row>
         </v-col>
+    </v-row>
+    <v-row class="px-4 py-4" v-else>
+        <p class="text-center">No se encontró información</p>
     </v-row>
 </v-card>

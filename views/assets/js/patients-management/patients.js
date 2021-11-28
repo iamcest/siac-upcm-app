@@ -168,6 +168,8 @@ let vm = new Vue({
         loading: false,
         rf_loading: false,
         average_loading: false,
+        treatment_view_dialog: false,
+        treatment_selected: {},
         patients: [],
         external_patients: [],
         patients_filtered: [],
@@ -2555,8 +2557,12 @@ let vm = new Vue({
         { text: 'Diagnóstico', value: 'diagnostic' },
         { text: 'Tratamiento', value: 'comment' },
       ],
-      Noheaders: [
+      risk_factor_headers: [
         { text: 'Fecha', align: 'start', value: 'created_at' },
+        { text: 'Fórmula de Cálculo de Riesgo', align: 'start', value: 'name' },
+        { text: 'Resultado', value: 'results' },
+      ], 
+      comparison_risk_factor_headers: [
         { text: 'Fórmula de Cálculo de Riesgo', align: 'start', value: 'name' },
         { text: 'Resultado', value: 'results' },
       ],
