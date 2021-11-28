@@ -15,13 +15,31 @@ $patient_life_style = new PatientLifeStyle;
 $helper = new Helper;
 
 $data = json_decode(file_get_contents("php://input"), true);
-$query = empty($query) ? 0 : $query;
+$query = empty($query) ? 0 : clean_string($query);
 
 switch ($method) {
 
     case 'get':
-        $results = $patient_life_style->get(0, clean_string($query));
-        echo json_encode($results);
+        if ($query == 'comparison') {
+            $data = sanitize($data);
+            if (empty($data)) {
+                echo json_encode([]);
+                die();
+            }
+
+            $current_patient_items = $patient_life_style->get(0, $data['current_patient_id']);
+            $patient_to_compare_items = $patient_life_style->get(0, $data['patient_to_compare_id']);
+
+            $results = [
+                'current_patient_items' => $current_patient_items,
+                'patient_to_compare_items' => $patient_to_compare_items,
+            ];
+
+            echo json_encode($results);
+        } else {
+            $results = $patient_life_style->get(0, $query);
+            echo json_encode($results);
+        }
         break;
 
     case 'get-by-list':

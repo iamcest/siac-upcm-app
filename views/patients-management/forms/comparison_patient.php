@@ -34,6 +34,10 @@
             Diagnósticos
         </v-tab>
 
+        <v-tab class="font-weight-bold" href="#tab-comparison-11" @click="initializeComparisonLifeStyle">
+            Estilo de vida
+        </v-tab>
+
         <v-tab class="font-weight-bold" href="#tab-comparison-12" @click="initializeComparisonPlans" v-if="1 == 2">
             Plan
         </v-tab>

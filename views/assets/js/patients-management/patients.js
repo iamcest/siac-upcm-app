@@ -184,6 +184,16 @@ let vm = new Vue({
           patient_to_compare: [],
         },
       },
+      life_style: {
+        loading: false,
+        average_loading: false,
+        patients: [],
+        external_patients: [],
+        patients_filtered: [],
+        external_patients_filtered: [],
+        current_patient: {},
+        patient_to_compare: {},
+      },
       vital_signs: {
         loading: false,
         average_loading: false,
@@ -2562,7 +2572,7 @@ let vm = new Vue({
         { text: 'Fecha', align: 'start', value: 'created_at' },
         { text: 'Fórmula de Cálculo de Riesgo', align: 'start', value: 'name' },
         { text: 'Resultado', value: 'results' },
-      ], 
+      ],
       comparison_risk_factor_headers: [
         { text: 'Fórmula de Cálculo de Riesgo', align: 'start', value: 'name' },
         { text: 'Resultado', value: 'results' },
@@ -3370,19 +3380,23 @@ let vm = new Vue({
 
         if (res.body.hasOwnProperty('current_patient_items')
           && res.body.hasOwnProperty('patient_to_compare_items')) {
-          obj.current_patient = res.body.current_patient_items.length > 1 ?
-            res.body.current_patient_items[res.body.current_patient_items.length - 1] : res.body.current_patient_items[0]
 
-          if (obj.current_patient !== undefined) {
+          if (res.body.current_patient_items.length > 0) {
+            obj.current_patient = res.body.current_patient_items.length > 1 ?
+              res.body.current_patient_items[res.body.current_patient_items.length - 1] : res.body.current_patient_items[0]
+
             obj.current_patient.history_content = JSON.parse(obj.current_patient.history_content)
           }
 
-          obj.patient_to_compare = res.body.patient_to_compare_items.length > 1 ?
-            res.body.patient_to_compare_items[res.body.patient_to_compare_items.length - 1] : res.body.patient_to_compare_items[0]
 
-          if (obj.patient_to_compare !== undefined) {
+          if (res.body.patient_to_compare_items.length > 0) {
+            obj.patient_to_compare = res.body.patient_to_compare_items.length > 1 ?
+              res.body.patient_to_compare_items[res.body.patient_to_compare_items.length - 1] : res.body.patient_to_compare_items[0]
+
+
             obj.patient_to_compare.history_content = JSON.parse(obj.patient_to_compare.history_content)
           }
+
         }
         obj.loading = false
       }, err => {
@@ -3615,6 +3629,46 @@ let vm = new Vue({
           }
           obj.items = items
         }
+      }, err => {
+        obj.loading = false
+      })
+    },
+
+    initializeComparisonLifeStyle() {
+      var app = this
+      var obj = app.comparison.life_style
+      obj.loading = true
+      obj.current_patient = {}
+      obj.patient_to_compare = {}
+      var url = api_url + 'patient-life-style/get/comparison'
+      var data = {
+        current_patient_id: app.comparison.patient_selected.patient_id,
+        patient_to_compare_id: app.comparison.patient_to_compare.patient_id,
+      }
+
+      app.$http.post(url, data).then(res => {
+
+        if (res.body.hasOwnProperty('current_patient_items')
+          && res.body.hasOwnProperty('patient_to_compare_items')) {
+
+          if (res.body.current_patient_items.length > 0) {
+            obj.current_patient = res.body.current_patient_items.length > 1 ?
+              res.body.current_patient_items[res.body.current_patient_items.length - 1] : res.body.current_patient_items[0]
+
+            obj.current_patient.exercise = JSON.parse(obj.current_patient.exercise)
+            obj.current_patient.smoking = JSON.parse(obj.current_patient.smoking)
+          }
+
+          if (res.body.patient_to_compare_items.length > 0) {
+            obj.patient_to_compare = res.body.patient_to_compare_items.length > 1 ?
+              res.body.patient_to_compare_items[res.body.patient_to_compare_items.length - 1] : res.body.patient_to_compare_items[0]
+
+            obj.patient_to_compare.exercise = JSON.parse(obj.patient_to_compare.exercise)
+            obj.patient_to_compare.smoking = JSON.parse(obj.patient_to_compare.smoking)
+          }
+
+        }
+        obj.loading = false
       }, err => {
         obj.loading = false
       })
@@ -7327,66 +7381,81 @@ let vm = new Vue({
           break;
         case 'life-style':
           if (comparison) {
-            var obj = app.comparison.anthropometry
-            if (obj.current_patient.hasOwnProperty('patient_id') && obj.patient_to_compare.hasOwnProperty('patient_id')) {
+            var obj = app.comparison.life_style
+            var general_results = {
+              aerobic_weekly_minutes: {
+                numeric: 0,
+                apercentage: 0
+              },
+              resistance_weekly_minutes: {
+                numeric: 0,
+                apercentage: 0
+              },
+              smoking: {
+                cigarettes_per_day: {
+                  numeric: 0,
+                  apercentage: 0
+                },
+              }
+            }
+            if (obj.current_patient !== undefined || obj.patient_to_compare !== undefined) {
               var patient_selected = !params.patient_to_compare ? obj.current_patient : obj.patient_to_compare
               var patient_to_compare = !params.patient_to_compare ? obj.patient_to_compare : obj.current_patient
 
-              var current_abdominal_waist = parseInt(patient_selected.abdominal_waist)
-              var current_height = parseInt(patient_selected.height)
-              var current_weight = parseInt(patient_selected.weight)
-              var current_bmi = parseFloat(app.getBMI(
-                current_weight, current_height,
-                patient_selected.weight_suffix, patient_selected.height_suffix).replace(' kg/m2', ''))
-              var current_cs = parseFloat(app.getCS(
-                current_weight, current_height,
-                patient_selected.weight_suffix, patient_selected.height_suffix).replace(' m2', ''))
+              if (patient_selected !== undefined && patient_to_compare !== undefined) {
+                var current_aerobic_weekly_exercise_minutes = parseInt(patient_selected.aerobic_weekly_minutes)
+                var current_resistance_weekly_exercise_minutes = parseInt(patient_selected.resistance_weekly_minutes)
+                var current_smoking_cigarettes_per_day = parseInt(patient_selected.smoking.cigarettes_per_day)
+            
+                var previous_aerobic_weekly_exercise_minutes = parseInt(patient_to_compare.aerobic_weekly_minutes)
+                var previous_resistance_weekly_exercise_minutes = parseInt(patient_to_compare.resistance_weekly_minutes)
+                var previous_smoking_cigarettes_per_day = parseInt(patient_to_compare.smoking.cigarettes_per_day)
+            
+                var total_aerobic_weekly_minutes = current_aerobic_weekly_exercise_minutes - previous_aerobic_weekly_exercise_minutes
+                var total_resistance_weekly_minutes = current_resistance_weekly_exercise_minutes - previous_resistance_weekly_exercise_minutes
+                var total_smoking_cigarettes_per_day = current_smoking_cigarettes_per_day - previous_smoking_cigarettes_per_day
+            
+                var aerobic_exercise_minutes_difference = !parseInt(patient_selected.sedentary) &&
+                  patient_selected.exercise.type.includes('Aeróbico') && !parseInt(patient_to_compare.sedentary)
+                  && patient_to_compare.exercise.type.includes('Aeróbico')
+                  ? {
+                    numeric: total_aerobic_weekly_minutes,
+                    percent: (total_aerobic_weekly_minutes / 
+                      (Math.sign(total_aerobic_weekly_minutes) == -1 
+                      ? current_aerobic_weekly_exercise_minutes : previous_aerobic_weekly_exercise_minutes)) * 100,
+                  } : general_results.aerobic_weekly_minutes
+            
+                var resistance_exercise_minutes_difference = !parseInt(patient_selected.sedentary) &&
+                  patient_selected.exercise.type.includes('Resistencia') && !parseInt(patient_to_compare.sedentary)
+                  && patient_to_compare.exercise.type.includes('Resistencia')
+                  ?
+                  {
+                    numeric: total_resistance_weekly_minutes,
+                    percent: (total_resistance_weekly_minutes / 
+                      (Math.sign(total_resistance_weekly_minutes) == -1 
+                    ? current_resistance_weekly_exercise_minutes : previous_resistance_weekly_exercise_minutes)) * 100,
+                  } : general_results.resistance_weekly_minutes
+            
+                var smoking_cigarettes_per_day_difference = {
+                  numeric: total_smoking_cigarettes_per_day,
+                  percent: (total_smoking_cigarettes_per_day / (Math.sign(total_smoking_cigarettes_per_day) == -1 
+                  ? current_smoking_cigarettes_per_day : previous_smoking_cigarettes_per_day)) * 100,
+                }
 
-              var previous_abdominal_waist = parseInt(patient_to_compare.abdominal_waist)
-              var previous_height = parseInt(patient_to_compare.height)
-              var previous_weight = parseInt(patient_to_compare.weight)
-              var previous_bmi = parseFloat(app.getBMI(
-                previous_weight, previous_height,
-                patient_to_compare.weight_suffix, patient_to_compare.height_suffix).replace(' kg/m2', ''))
-              var previous_cs = parseFloat(app.getCS(
-                previous_weight, previous_height,
-                patient_to_compare.weight_suffix, patient_to_compare.height_suffix).replace(' m2', ''))
-
-              var weight_difference = {
-                numeric: current_weight - previous_weight,
-                percent: (((current_weight - previous_weight) / previous_weight) * 100),
+                return {
+                  aerobic_weekly_minutes: aerobic_exercise_minutes_difference,
+                  resistance_weekly_minutes: resistance_exercise_minutes_difference,
+                  smoking: {
+                    cigarettes_per_day: smoking_cigarettes_per_day_difference
+                  }
+                }
               }
-
-              var height_difference = {
-                numeric: current_height - previous_height,
-                percent: (((current_height - previous_height) / previous_height) * 100),
-              }
-
-              var abdominal_waist_difference = {
-                numeric: current_abdominal_waist - previous_abdominal_waist,
-                percent: (((current_abdominal_waist - previous_abdominal_waist) / previous_abdominal_waist) * 100),
-              }
-
-              var bmi_difference = {
-                numeric: current_bmi - previous_bmi,
-                percent: (((current_bmi - previous_bmi) / previous_bmi) * 100),
-              }
-
-              var cs_difference = {
-                numeric: current_cs - previous_cs,
-                percent: (((current_cs - previous_cs) / previous_cs) * 100),
-              }
-
-              return {
-                weight: weight_difference,
-                height: height_difference,
-                abdominal_waist: abdominal_waist_difference,
-                bmi: bmi_difference,
-                cs: cs_difference
+              else {
+                return general_results
               }
             }
             else {
-              return {}
+              return general_results
             }
           }
           else {

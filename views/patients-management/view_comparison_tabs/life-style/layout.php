@@ -1,16 +1,16 @@
-<v-row class="full-width">
-    <?php if (!empty($can_manage_suite) || !empty($access['patient_management_access']['sections'][0]['permissions']['update'])) : ?>
-    <v-col class="d-flex justify-end" cols="12">
-        <v-btn color="#00BFA5" @click="editedIndex = editedViewIndex;dialog = true; view_dialog = false;tab = 'tab-11'"
-            dark>Editar</v-btn>
+<v-row class="px-4" v-if="comparison.life_style.<?= $item ?>.hasOwnProperty('exercise')">
+    <v-col cols="12">
+        <h4 class="text-center text-h5 mb-4">
+            Paciente:
+            {{ comparison.<?= $item == 'current_patient' ? 'patient_selected' : $item ?>.full_name }}
+        </h4>
     </v-col>
-    <?php endif ?>
     <v-col cols="12">
         <v-row>
             <v-col cols="12">
                 <v-col cols="12" md="6" lg="4"><span class="font-weight-bold">Sendetario:
                         <span class="black--text">
-                            <template v-if="parseInt(patient_life_style.editedItem.sedentary)">
+                            <template v-if="parseInt(comparison.life_style.<?= $item ?>.sedentary)">
                                 Sí
                             </template>
                             <template v-else>
@@ -20,14 +20,14 @@
                     </span>
                 </v-col>
             </v-col>
-            <template v-if="!parseInt(patient_life_style.editedItem.sedentary)">
+            <template v-if="!parseInt(comparison.life_style.<?= $item ?>.sedentary)">
                 <v-col cols="12">
                     <h5 class="text-h5 black--text">Plan de actividad física:</h5>
                 </v-col>
                 <v-col cols="12" md="6" lg="4">
                     <span class="font-weight-bold">Ejercicio físico:
                         <span class="black--text">
-                            <template v-if="parseInt(patient_life_style.editedItem.physical_exercise)">
+                            <template v-if="parseInt(comparison.life_style.<?= $item ?>.physical_exercise)">
                                 Sí
                             </template>
                             <template v-else>
@@ -37,12 +37,12 @@
                     </span>
                 </v-col>
 
-                <template v-if="parseInt(patient_life_style.editedItem.physical_exercise)">
+                <template v-if="parseInt(comparison.life_style.<?= $item ?>.physical_exercise)">
 
                     <v-col cols="12" md="6" lg="4">
                         <span class="font-weight-bold">Chequeo de inicio de actividad:
                             <span class="black--text">
-                                <template v-if="parseInt(patient_life_style.editedItem.exercise_activity_before)">
+                                <template v-if="parseInt(comparison.life_style.<?= $item ?>.exercise_activity_before)">
                                     Sí
                                 </template>
                                 <template v-else>
@@ -52,10 +52,10 @@
                         </span>
                     </v-col>
                     <v-col cols="12" md="6" lg="4"
-                        v-if="parseInt(patient_life_style.editedItem.exercise_activity_before)">
+                        v-if="parseInt(comparison.life_style.<?= $item ?>.exercise_activity_before)">
                         <span class="font-weight-bold">Inicio:
                             <span class="black--text">
-                                {{ patient_life_style.editedItem.exercise_start_date }}
+                                {{ comparison.life_style.<?= $item ?>.exercise_start_date }}
                             </span>
                         </span>
                     </v-col>
@@ -63,29 +63,36 @@
                         <span class="font-weight-bold">Tipo de ejercicio:
                             <br>
                             <span class="black--text"
-                                v-for="(exercise_type, i) in patient_life_style.editedItem.exercise.type" :key="i">
+                                v-for="(exercise_type, i) in comparison.life_style.<?= $item ?>.exercise.type" :key="i">
                                 - {{ exercise_type }} <br>
                             </span>
                         </span>
                     </v-col>
-                    <template v-if="patient_life_style.editedItem.exercise.type.includes('Aeróbico')">
+                    <template v-if="comparison.life_style.<?= $item ?>.exercise.type.includes('Aeróbico')">
                         <v-col cols="12" md="6" lg="4">
                             <span class="font-weight-bold">Ejercicios aeróbicos:
                                 <br>
                                 <span class="black--text"
-                                    v-for="(exercise, i) in patient_life_style.editedItem.exercise.aerobic_exercises"
+                                    v-for="(exercise, i) in comparison.life_style.<?= $item ?>.exercise.aerobic_exercises"
                                     :key="i">
                                     - {{ exercise }} <br>
                                 </span>
                                 <br>
                                 <span class="font-weight-bold">Minutos a la semana:
                                     <span class="black--text">
-                                        {{ patient_life_style.editedItem.aerobic_weekly_minutes }} minutos
-                                        <template v-if="patient_life_style.items.length > 1">
+                                        {{ comparison.life_style.<?= $item ?>.aerobic_weekly_minutes }} minutos
+                                        <template v-if="
+                                            comparison.life_style.<?= $item == 'current_patient' ? 'patient_to_compare' : 'current_patient' ?>.hasOwnProperty('exercise')
+                                            &&
+                                            comparison.life_style.<?= $item == 'current_patient' ? 'patient_to_compare' : 'current_patient' ?>.exercise.type.includes('Aeróbico')
+                                            ">
                                             <br>
-                                            <v-badge color="primary"
-                                                :content=" returnNumberSign(Math.round(getPercentDifference('life-style').aerobic_weekly_minutes.numeric))  
-                        + ' (' + returnNumberSign(Math.round(getPercentDifference('life-style').aerobic_weekly_minutes.percent)) + '%)'">
+                                            <v-badge color=" primary"
+                                                :content="
+                                                returnNumberSign(Math.round(getPercentDifference('life-style', 
+                                                {patient_to_compare: <?= $patient_to_compare ?>}, true).aerobic_weekly_minutes.numeric))  
+                                                + ' (' + returnNumberSign(Math.round(getPercentDifference('life-style', 
+                                                {patient_to_compare: <?= $patient_to_compare ?>}, true).aerobic_weekly_minutes.percent)) + '%)'">
                                             </v-badge>
                                         </template>
                                     </span>
@@ -94,24 +101,30 @@
                         </v-col>
                     </template>
 
-                    <template v-if="patient_life_style.editedItem.exercise.type.includes('Resistencia')">
+                    <template v-if="comparison.life_style.<?= $item ?>.exercise.type.includes('Resistencia')">
                         <v-col cols="12" md="6" lg="4">
                             <span class="font-weight-bold">Ejercicios de resistencia:
                                 <br>
                                 <span class="black--text"
-                                    v-for="exercise, i in patient_life_style.editedItem.exercise.resistance_exercises"
+                                    v-for="exercise, i in comparison.life_style.<?= $item ?>.exercise.resistance_exercises"
                                     :key="i">
                                     - {{ exercise }} <br>
                                 </span>
                                 <br>
                                 <span class="font-weight-bold">Minutos a la semana:
                                     <span class="black--text">
-                                        {{ patient_life_style.editedItem.resistance_weekly_minutes }} minutos
-                                        <template v-if="patient_life_style.items.length > 1">
+                                        {{ comparison.life_style.<?= $item ?>.resistance_weekly_minutes }} minutos
+                                        <template v-if="
+                                            comparison.life_style.<?= $item == 'current_patient' ? 'patient_to_compare' : 'current_patient' ?>.hasOwnProperty('exercise')
+                                            &&
+                                            comparison.life_style.<?= $item == 'current_patient' ? 'patient_to_compare' : 'current_patient' ?>.exercise.type.includes('Resistencia')
+                                            ">
                                             <br>
                                             <v-badge color="primary"
-                                                :content=" returnNumberSign(Math.round(getPercentDifference('life-style').resistance_weekly_minutes.numeric))  
-                        + ' (' + returnNumberSign(Math.round(getPercentDifference('life-style').resistance_weekly_minutes.percent)) + '%)'">
+                                                :content=" returnNumberSign(Math.round(getPercentDifference('life-style', 
+                                                {patient_to_compare: <?= $patient_to_compare ?>}, true).resistance_weekly_minutes.numeric))  
+                                                + ' (' + returnNumberSign(Math.round(getPercentDifference('life-style', 
+                                                {patient_to_compare: <?= $patient_to_compare ?>}, true).resistance_weekly_minutes.percent)) + '%)'">
                                             </v-badge>
                                         </template>
                                     </span>
@@ -133,7 +146,7 @@
             <v-col cols="12" md="6" lg="4">
                 <span class="font-weight-bold">Consumo de alcohol:
                     <span class="black--text">
-                        <template v-if="patient_life_style.editedItem.alcohol_consumption">
+                        <template v-if="comparison.life_style.<?= $item ?>.alcohol_consumption">
                             Sí
                         </template>
                         <template v-else>
@@ -142,10 +155,10 @@
                     </span>
                 </span>
             </v-col>
-            <v-col cols="12" md="6" lg="4" v-if="parseInt(patient_life_style.editedItem.alcohol_consumption)">
+            <v-col cols="12" md="6" lg="4" v-if="parseInt(comparison.life_style.<?= $item ?>.alcohol_consumption)">
                 <span class="font-weight-bold">Cantidad diaria:
                     <span class="black--text">
-                        {{ patient_life_style.editedItem.alcohol_daily_consumption }}
+                        {{ comparison.life_style.<?= $item ?>.alcohol_daily_consumption }}
                     </span>
                 </span>
             </v-col>
@@ -154,9 +167,12 @@
     <v-col cols="12">
         <v-divider></v-divider>
     </v-col>
-    <?php echo new Template('patients-management/view_tabs/life-style/smoking') ?>
+    <?php echo new Template('patients-management/view_comparison_tabs/life-style/partials/smoking', $data) ?>
+</v-row>
+<v-row v-else>
+
     <v-col cols="12">
-        <v-divider></v-divider>
+        <p class="text-center">No se encontró información</p>
     </v-col>
-    <?php echo new Template('patients-management/view_tabs/life-style/view-table') ?>
+
 </v-row>
