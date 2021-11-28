@@ -1,7 +1,10 @@
+<template v-if="viewPatientsComparisonDialog">
     <v-row class="full-width px-4">
-        <template
-            v-if="viewPatientsComparisonDialog && comparison.anthropometry.current_patient.hasOwnProperty('patient_id')">
 
+        <template v-if="comparison.anthropometry.loading">
+            <?= new Template('patients-management/view_comparison_tabs/partials/loader') ?>
+        </template>
+        <template v-else>
             <v-col cols="6" id="anthropometry_cp">
                 <?= new Template(
                     'patients-management/view_comparison_tabs/anthropometry/layout', 
@@ -21,4 +24,7 @@
                 )?>
             </v-col>
         </template>
+
     </v-row>
+
+</template>

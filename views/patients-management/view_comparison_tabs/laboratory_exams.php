@@ -1,9 +1,14 @@
 <template v-if="viewPatientsComparisonDialog">
-    <v-col cols="12">
-        <v-row>
+    <v-row class="full-width">
+
+        <template v-if="comparison.laboratory_exams.loading">
+            <?= new Template('patients-management/view_comparison_tabs/partials/loader') ?>
+        </template>
+
+        <template v-else>
             <v-col cols="12" :md="comparison.laboratory_exams.examsListed ? 4 : 6">
                 <v-data-table :headers="patient_laboratory_exams.headers" :items="patient_laboratory_exams.exams"
-                    class="elevation-1 full-width" :options="patient_laboratory_exams.table_options"
+                    class="elevation-1" :options="patient_laboratory_exams.table_options"
                     hide-default-footer>
                     <template #item.action="{ item }">
                         <v-row class="mx-auto">
@@ -28,24 +33,24 @@
                         </v-col>
                         <v-col cols="12" md="6">
                             <?= new Template('patients-management/view_comparison_tabs/laboratory-exams/layout', 
-                                [
-                                    'item' => 'current_patient',
-                                    'patient_to_compare' => 'false'
-                                ]
-                            ) ?>
+                                    [
+                                        'item' => 'current_patient',
+                                        'patient_to_compare' => 'false'
+                                    ]
+                                ) ?>
                         </v-col>
                         <v-col cols="12" md="6">
                             <?= new Template('patients-management/view_comparison_tabs/laboratory-exams/layout', 
-                                [
-                                    'item' => 'patient_to_compare',
-                                    'patient_to_compare' => 'true'
-                                ]
-                            ) ?>
+                                    [
+                                        'item' => 'patient_to_compare',
+                                        'patient_to_compare' => 'true'
+                                    ]
+                                ) ?>
                         </v-col>
                     </v-row>
                 </v-col>
             </template>
+        </template>
 
-        </v-row>
-    </v-col>
+    </v-row>
 </template>

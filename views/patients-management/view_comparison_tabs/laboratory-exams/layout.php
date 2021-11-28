@@ -3,7 +3,7 @@
     {{ comparison.<?= $item == 'current_patient' ? 'patient_selected' : $item ?>.full_name }}
 </h4>
 <v-data-table :headers="[{ text: 'Resultado', value: 'results', align: 'center', width: 'auto' }]"
-    :items="comparison.laboratory_exams.<?= $item ?>" class="elevation-1 full-width" hide-default-footer>
+    :items="comparison.laboratory_exams.<?= $item ?>" class="elevation-1" hide-default-footer>
     <template #item.results="{ item }">
         <template v-if="item !== undefined">
             {{ item.results }}

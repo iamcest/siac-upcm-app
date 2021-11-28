@@ -53,7 +53,11 @@
                     </template>
                     <v-btn color="primary"
                         v-if="comparison.patient_to_compare !== undefined && comparison.patient_to_compare.hasOwnProperty('patient_id')"
-                        @click="comparison.patient_selected = Object.assign({}, editedItem);viewPatientsComparisonDialog = true;initializeComparisonAppointments();"
+                        @click="
+                        comparison.patient_selected = Object.assign({}, editedItem);
+                        view_comparison_tab = 3;
+                        viewPatientsComparisonDialog = true;
+                        initializeComparisonAppointments();"
                         block>Continuar</v-btn>
                 </v-row>
             </v-container>
