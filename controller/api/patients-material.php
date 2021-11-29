@@ -52,6 +52,7 @@ switch ($method) {
         $options->setIsPhpEnabled(true);
         $options->setIsRemoteEnabled(true);
         $file_name = $helper->convert_slug($material['material_name']) . "-" . time() . ".pdf";
+        $upcm_path = DIRECTORY . "/public/material/{$_SESSION['upcm_id']}";
         $temp_dir = $upcm_path . "/{$file_name}";
         ob_start();
         include "views/patient-material/templates/{$material['source']}.php";

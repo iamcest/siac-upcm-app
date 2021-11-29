@@ -19,7 +19,7 @@
                     </v-col>
 
                     <v-col cols="12">
-                        <label>Humeral</label>
+                        <label>Miembro superior</label>
                         <v-text-field type="number" class="mt-3" v-model="patient_physical_exam.content.calc.aai.vars.hi"
                             @input="calcAAI" outlined></v-text-field>
                     </v-col>
@@ -58,7 +58,7 @@
                     </v-col>
 
                     <v-col cols="12">
-                        <label>Humeral</label>
+                        <label>Miembro superior</label>
                         <v-text-field type="number" class="mt-3" v-model="patient_physical_exam.content.calc.aai.vars.hd"
                             @input="calcAAI" outlined></v-text-field>
                     </v-col>
