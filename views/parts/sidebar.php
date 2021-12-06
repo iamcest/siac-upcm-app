@@ -43,6 +43,7 @@
             <v-list-item class="pl-12 sub-item" href="<?php SITE_URL?>/suite/forms/pulse-pressure" link>
                 <v-list-item-title>Presión de Pulso</v-list-item-title>
             </v-list-item>
+            
             <v-list-item class="pl-12 sub-item" href="<?php SITE_URL?>/suite/forms/corporal-surface" link>
                 <v-list-item-title>Superficie Corporal</v-list-item-title>
             </v-list-item>
@@ -61,47 +62,63 @@
             <v-list-item class="pl-12 sub-item" href="<?php SITE_URL?>/suite/forms/unit-converter" link>
                 <v-list-item-title>Conversor de unidades</v-list-item-title>
             </v-list-item>
+
             <v-list-item class="pl-12 sub-item" href="<?php SITE_URL?>/suite/forms/colesterol-ldl" link>
                 <v-list-item-title>LDL-c (Fórmula de Hopkins)</v-list-item-title>
             </v-list-item>
+            
+            <v-list-item class="pl-12 sub-item" href="<?php SITE_URL?>/suite/forms/glomerular-filtration-rate" link>
+                <v-list-item-title>Filtrado glomerular MDR / CKD-EPI</v-list-item-title>
+            </v-list-item>
+
             <v-list-item class="pl-12 sub-item pb-2" href="<?php SITE_URL?>/suite/forms/dx-ecg-cornell-sokolow" link>
                 <v-list-item-title>Dx ecg de HVI(Cornell/Sokolow L)</v-list-item-title>
             </v-list-item>
+
             <v-divider></v-divider>
+
             <v-list-item class="pl-12 sub-item" href="<?php SITE_URL?>/suite/algorithms/hta-statement-treatment" link>
                 <v-list-item-title>Tto HTA Statement SIAC</v-list-item-title>
             </v-list-item>
+
             <v-list-item class="pl-12 sub-item pb-3"
                 href="<?php SITE_URL?>/suite/algorithms/atherogenic-dyslipedimia-treatment" link>
                 <v-list-item-title>Tto dislipidemia aterogénica SIAC</v-list-item-title>
             </v-list-item>
+
             <v-list-item class="pl-12 sub-item" href="<?php SITE_URL?>/suite/algorithms/dyslipedimia-risk-treatment"
                 link>
                 <v-list-item-title>Tto dislipidemia del consenso SIAC Riesgo Residual</v-list-item-title>
             </v-list-item>
+
             <v-list-item class="pl-12 sub-item">
                 <v-list-item-title>Tto DM ADA o ALAD</v-list-item-title>
             </v-list-item>
         </v-list-group>
         <?php endif ?>
+        
         <?php if (!empty($can_manage_suite) || !empty($access['patient_material_access']['access']) ) : ?>
         <v-list-item class="menu-item" href="<?php SITE_URL?>/suite/patient-material" link>
             <v-icon class="mr-1">mdi-file-document</v-icon>
             <v-list-item-title class="pl-2 font-weight-normal body-1">Materiales para el paciente</v-list-item-title>
         </v-list-item>
         <?php endif ?>
+
         <v-list-item class="menu-item" href="<?php SITE_URL?>/suite/updates/" link>
             <v-icon class="mr-1">mdi-bell</v-icon>
             <v-list-item-title class="pl-2 font-weight-normal body-1">Seguimiento del Paciente</v-list-item-title>
         </v-list-item>
+        
         <v-list-item class="menu-item" href="<?php SITE_URL?>/suite/chat/" link>
             <v-icon class="mr-1">mdi-comment</v-icon>
             <v-list-item-title class="pl-2 font-weight-normal body-1">Chat</v-list-item-title>
         </v-list-item>
+
         <v-list-item class="menu-item" href="<?php SITE_URL?>/community" link>
             <v-icon class="mr-1">mdi-account-group</v-icon>
             <v-list-item-title class="pl-2 font-weight-normal body-1">SIAC Comunidad</v-list-item-title>
         </v-list-item>
+
         <?php if (!empty($can_manage_suite) || !empty($access['notifications_access']['access']) ) : ?>
         <v-list-item class="menu-item" href="<?php SITE_URL?>/suite/notifications/" link>
             <v-icon class="mr-1">mdi-air-horn</v-icon>
@@ -112,7 +129,8 @@
             </v-list-item-title>
         </v-list-item>
         <?php endif ?>
-        <?php if (!empty($can_manage_suite)): ?>
+
+        <?php if (!empty($can_manage_suite) ) : ?>
         <v-list-group prepend-icon="mdi-hospital-building" class="menu-item">
             <template #activator>
                 <v-list-item-title class="font-weight-normal body-1">Administrar UPCM</v-list-item-title>
@@ -125,6 +143,7 @@
             </v-list-item>
         </v-list-group>
         <?php endif?>
+
         <v-list-group prepend-icon="mdi-cog" class="menu-item">
             <template #activator>
                 <v-list-item-title class="font-weight-normal body-1">Ajustes</v-list-item-title>

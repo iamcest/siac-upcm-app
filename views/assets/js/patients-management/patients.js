@@ -5845,7 +5845,7 @@ let vm = new Vue({
 
       var patient = app.editedItem
       var gender = patient.gender
-      var formula = app.patient_laboratory_exams.formulas.filt_glom
+      var formula = app.patient_laboratory_exams.formulas.egfr_mdr_ckdepi
 
       var sex = gender == 'M' ? 1 : 1.018
       var alpha = gender == 'M' ? -0.411 : -0.329
@@ -5859,7 +5859,7 @@ let vm = new Vue({
         * Math.pow(Math.max(serum_creatinine / kappa, 1), -1.209)
         * Math.pow(0.993, age) * sex * race
 
-      app.patient_laboratory_exams.formulas.filt_glom.results = GFR.toFixed(2)
+      app.patient_laboratory_exams.formulas.egfr_mdr_ckdepi.results = GFR.toFixed(2)
       app.patient_laboratory_exams.editedItem.results = GFR.toFixed(2)
 
       return GFR.toFixed(2)
@@ -5879,9 +5879,6 @@ let vm = new Vue({
 
       var age = parseFloat(moment().diff(patient.birthdate, 'years'))
 
-      175 * Math.pow(serum_creatinine, -1.154) * Math.pow(age, -0.203)
-        * sex * race;
-
       var GFR = 175 * Math.pow(serum_creatinine, -1.154) * Math.pow(age, -0.203)
         * sex * race;
 
@@ -5897,7 +5894,7 @@ let vm = new Vue({
       var mdrd = this.patient_laboratory_exams.formulas.egfr_mdr_ckdepi.vars
       if (metodology == 'CKD-EPI') {
         formulas.filt_glom.vars.serum_creatinine = mdrd.serum_creatinine
-        formulas.filt_glom.vars.race = mdrd.race == 1.21 ? 1.159 : 1
+        formulas.filt_glom.vars.race = mdrd.race == '1.21' ? 1.159 : 1
       }
     },
 

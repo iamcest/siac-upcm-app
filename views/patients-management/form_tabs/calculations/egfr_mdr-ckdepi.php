@@ -28,7 +28,7 @@
               </v-col>
 
               <v-col class="d-flex justify-center mt-n10" cols="12" md="4" offset-md="4">
-                <v-btn class="secondary white--text" @click="if(patient_laboratory_exams.formulas.egfr_mdr_ckdepi.vars.metodology == 'MRD (IDMS)') {gfrCkdEpiFx()} else {gfrRrmdFx()}">
+                <v-btn class="secondary white--text" @click="patient_laboratory_exams.formulas.egfr_mdr_ckdepi.vars.metodology == 'MDRD (IDMS)' ? gfrCkdEpiFx() : gfrRrmdFx()">
                   Calcular
                 </v-btn>
               </v-col>
