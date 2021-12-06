@@ -10,7 +10,7 @@ class PatientMaterial extends Routes
         $suite = new SuiteSection();
         $this->scripts = [
             ['name' => 'lib/moment.min'],
-            ['name' => 'patient-material.min', 'version' => '1.0.1'],
+            ['name' => 'patient-material.min', 'version' => '1.0.2'],
             ['name' => 'vue-components/vue2-editor.min'],
         ];
         $this->content = new Template("patient-material/patient-material", [

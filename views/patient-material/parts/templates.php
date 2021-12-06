@@ -29,6 +29,11 @@
                                             single-line hide-details></v-text-field>
                                     </v-col>
                                 </template>
+                                <template #item.actions="{ item }">
+                                    <v-btn color="primary" @click="filterPatient(item.patient_id)" icon>
+                                        <v-icon>mdi-eye</v-icon>
+                                    </v-btn>
+                                </template>
                                 <template #no-data>
                                     No se encontraron registros
                                 </template>

@@ -1,5 +1,5 @@
 <?php if (!empty($can_manage_suite) || !empty($access['patient_material_access']['sections'][0]['permissions']['read']) ): ?>
-<v-row>
+<v-row ref="patient_materials_title">
     <v-col cols="12" md="12">
         <h2 class="grey--text text--darken-1">Materiales para el
             paciente{{ isSelected ? ': ' + patient.full_name : '' }}</h2>

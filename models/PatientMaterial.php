@@ -38,7 +38,7 @@ class PatientMaterial
             return false;
         }
 
-        $sql = "SELECT PM.registered_at, CONCAT(P.first_name, ' ', P.last_name) full_name 
+        $sql = "SELECT PM.registered_at, CONCAT(P.first_name, ' ', P.last_name) full_name, P.patient_id 
 		FROM {$this->table_material_files} PMF
 		INNER JOIN {$this->table} PM ON PM.patient_material_id = PMF.patient_material_id 
 		INNER JOIN {$this->table_patients} P ON P.patient_id = PM.patient_id

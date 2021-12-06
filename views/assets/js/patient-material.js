@@ -71,6 +71,7 @@ let vm = new Vue({
       headers: [
         { text: 'Fecha', align: 'start', value: 'registered_at', width: "auto" },
         { text: 'Paciente', value: 'full_name', width: "auto" },
+        { text: 'Acciones', value: 'actions', width: "auto" },
       ],
       items: [],
       editedItem: {
@@ -190,6 +191,21 @@ let vm = new Vue({
       this.isSelected = false
       this.patient_id = ''
       this.patient = {}
+    },
+
+    filterPatient(id) {
+      var result = this.patients.find(patient => patient.patient_id == id)
+      if (result != null) {
+        this.patient = result
+        this.getPatientMaterial()
+        this.materials_sent.dialog = false
+        this.isSelected = true
+        this.$refs.patient_materials_title.scrollIntoViewIfNeeded({behavior: "smooth"})
+      }
+      else {
+        activateAlert('No se ha encontrado este paciente, intente de nuevo.', 'warning')
+      }
+      return result
     },
 
     showItem(item) {
