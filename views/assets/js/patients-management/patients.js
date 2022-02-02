@@ -76,8 +76,7 @@ let vm = new Vue({
       active: 0,
       external_loading: false,
       type_selected: 1,
-      types: [
-        {
+      types: [{
           text: 'Pacientes de la misma unidad',
           value: 1,
         },
@@ -96,10 +95,8 @@ let vm = new Vue({
       patient_to_compare: {},
       appointments: {
         loading: false,
-        current_patient: {
-        },
-        patient_to_compare: {
-        },
+        current_patient: {},
+        patient_to_compare: {},
       },
       history: {
         loading: false,
@@ -118,10 +115,8 @@ let vm = new Vue({
         external_patients: [],
         patients_filtered: [],
         external_patients_filtered: [],
-        current_patient: {
-        },
-        patient_to_compare: {
-        },
+        current_patient: {},
+        patient_to_compare: {},
       },
       physical_exams: {
         loading: false,
@@ -266,8 +261,7 @@ let vm = new Vue({
       },
       laboratory_exam: {
         loading: false,
-        items: [
-          {
+        items: [{
             name: 'Colesterol Total',
             nomenclature: 'mg/dL',
             items: 0,
@@ -309,14 +303,13 @@ let vm = new Vue({
         loading: false,
         monthly_data: {
           current_year: moment().format('YYYY'),
-          months: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12',],
+          months: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', ],
           labels: [
             'Enero', 'Febrero', 'Marzo',
             'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto',
             'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
           ],
-          datasets: [
-            {
+          datasets: [{
               label: 'Total',
               backgroundColor: vuetify.preset.theme.themes.light.secondary,
               data: []
@@ -336,8 +329,7 @@ let vm = new Vue({
         weekly_data: {
           current_day: moment().format('YYYY-MM-DD'),
           labels: [],
-          datasets: [
-            {
+          datasets: [{
               label: 'Total',
               backgroundColor: vuetify.preset.theme.themes.light.secondary,
               data: []
@@ -357,46 +349,121 @@ let vm = new Vue({
       }
     },
     patients: [],
-    headers: [
-      { text: 'N° de historia', align: 'start', value: 'patient_id', width: "auto" },
-      { text: 'Nombre y Apellido', value: 'full_name', width: "auto" },
-      { text: 'Teléfono', value: 'telephone', width: "auto" },
-      { text: 'Email', value: 'email', width: "auto" },
-      { text: 'Dirección', value: 'address', width: "auto" },
-      { text: 'Acciones', value: 'actions', align: 'center', sortable: false },
+    headers: [{
+        text: 'N° de historia',
+        align: 'start',
+        value: 'patient_id',
+        width: "auto"
+      },
+      {
+        text: 'Nombre y Apellido',
+        value: 'full_name',
+        width: "auto"
+      },
+      {
+        text: 'Teléfono',
+        value: 'telephone',
+        width: "auto"
+      },
+      {
+        text: 'Email',
+        value: 'email',
+        width: "auto"
+      },
+      {
+        text: 'Dirección',
+        value: 'address',
+        width: "auto"
+      },
+      {
+        text: 'Acciones',
+        value: 'actions',
+        align: 'center',
+        sortable: false
+      },
     ],
     views: {
       patient_appointments: {
-        headers: [
-          { text: 'Fecha de la cita', align: 'start', value: 'appointment_date' },
-          { text: 'Hora de la cita', value: 'appointment_time' },
-          { text: 'Doctor', value: 'full_name' },
-          { text: 'Tipo de cita', value: 'appointment_type' },
-          { text: 'Motivo de la cita', value: 'appointment_reason' },
-          { text: 'Acciones', value: 'actions' },
+        headers: [{
+            text: 'Fecha de la cita',
+            align: 'start',
+            value: 'appointment_date'
+          },
+          {
+            text: 'Hora de la cita',
+            value: 'appointment_time'
+          },
+          {
+            text: 'Doctor',
+            value: 'full_name'
+          },
+          {
+            text: 'Tipo de cita',
+            value: 'appointment_type'
+          },
+          {
+            text: 'Motivo de la cita',
+            value: 'appointment_reason'
+          },
+          {
+            text: 'Acciones',
+            value: 'actions'
+          },
         ],
       },
       patient_anthropometry: {
-        headers: [
-          { text: 'Fecha', align: 'start', value: 'created_at' },
-          { text: 'Peso', value: 'weight' },
-          { text: 'Talla', value: 'height' },
-          { text: 'Cintura Abdominal', value: 'abdominal_waist' },
+        headers: [{
+            text: 'Fecha',
+            align: 'start',
+            value: 'created_at'
+          },
+          {
+            text: 'Peso',
+            value: 'weight'
+          },
+          {
+            text: 'Talla',
+            value: 'height'
+          },
+          {
+            text: 'Cintura Abdominal',
+            value: 'abdominal_waist'
+          },
           {
             text: 'Índice Masa Corporal',
             value: 'bmi'
           },
-          { text: 'Superficie Corporal', value: 'corporal_surface' },
+          {
+            text: 'Superficie Corporal',
+            value: 'corporal_surface'
+          },
         ],
       },
       patient_laboratory_exams: {
-        exam_headers: [
-          { text: 'Fecha del examen', align: 'start', value: 'exam_date', width: "auto" },
-          { text: 'Resultado', value: 'results', width: "auto" },
+        exam_headers: [{
+            text: 'Fecha del examen',
+            align: 'start',
+            value: 'exam_date',
+            width: "auto"
+          },
+          {
+            text: 'Resultado',
+            value: 'results',
+            width: "auto"
+          },
         ],
-        exam_file_headers: [
-          { text: 'Fecha', align: 'start', value: 'exam_date', width: "auto" },
-          { text: 'Archivo', align: 'center', value: 'file_result', width: "auto" },
+        exam_file_headers: [{
+            text: 'Fecha',
+            align: 'start',
+            value: 'exam_date',
+            width: "auto"
+          },
+          {
+            text: 'Archivo',
+            align: 'center',
+            value: 'file_result',
+            width: "auto"
+          },
         ],
       },
     },
@@ -410,8 +477,7 @@ let vm = new Vue({
       select: false,
       current_appointment: {},
       previous_appointment: {},
-      types: [
-        {
+      types: [{
           text: 'Primera vez',
         },
         {
@@ -419,13 +485,33 @@ let vm = new Vue({
         }
       ],
       doctors: [],
-      headers: [
-        { text: 'Fecha de la cita', align: 'start', value: 'appointment_date' },
-        { text: 'Hora de la cita', value: 'appointment_time' },
-        { text: 'Doctor', value: 'full_name' },
-        { text: 'Tipo de cita', value: 'appointment_type' },
-        { text: 'Motivo de la cita', value: 'appointment_reason' },
-        { text: 'Acciones', value: 'actions', align: 'center', sortable: false },
+      headers: [{
+          text: 'Fecha de la cita',
+          align: 'start',
+          value: 'appointment_date'
+        },
+        {
+          text: 'Hora de la cita',
+          value: 'appointment_time'
+        },
+        {
+          text: 'Doctor',
+          value: 'full_name'
+        },
+        {
+          text: 'Tipo de cita',
+          value: 'appointment_type'
+        },
+        {
+          text: 'Motivo de la cita',
+          value: 'appointment_reason'
+        },
+        {
+          text: 'Acciones',
+          value: 'actions',
+          align: 'center',
+          sortable: false
+        },
       ],
       appointments: [],
       editedItem: {},
@@ -443,23 +529,69 @@ let vm = new Vue({
       date_modal: false,
       next_date_modal: false,
       select: false,
-      headers: [
-        { text: 'Fecha de creación', align: 'start', value: 'registered_at' },
-        { text: 'Fecha de consulta', align: 'start', value: 'appointment_date' },
-        { text: 'Próxima cita', align: 'start', value: 'next_appointment' },
-        { text: 'Acciones', value: 'actions', align: 'center', sortable: false },
+      headers: [{
+          text: 'Fecha de creación',
+          align: 'start',
+          value: 'registered_at'
+        },
+        {
+          text: 'Fecha de consulta',
+          align: 'start',
+          value: 'appointment_date'
+        },
+        {
+          text: 'Próxima cita',
+          align: 'start',
+          value: 'next_appointment'
+        },
+        {
+          text: 'Acciones',
+          value: 'actions',
+          align: 'center',
+          sortable: false
+        },
       ],
-      diagnostic_headers: [
-        { text: 'Diagnóstico', align: 'center', value: 'diagnostic' },
-        { text: 'Metas de Tratamiento', align: 'center', value: 'treatment_goal' },
-        { text: '', align: 'start', value: 'action' },
+      diagnostic_headers: [{
+          text: 'Diagnóstico',
+          align: 'center',
+          value: 'diagnostic'
+        },
+        {
+          text: 'Metas de Tratamiento',
+          align: 'center',
+          value: 'treatment_goal'
+        },
+        {
+          text: '',
+          align: 'start',
+          value: 'action'
+        },
       ],
-      instruction_headers: [
-        { text: 'Tratamiento', align: 'center', value: 'treatment' },
-        { text: 'Dosis', align: 'center', value: 'dosis' },
-        { text: 'Horario', align: 'center', value: 'schedule' },
-        { text: 'Observaciones', align: 'center', value: 'observations' },
-        { text: '', align: 'start', value: 'action' },
+      instruction_headers: [{
+          text: 'Tratamiento',
+          align: 'center',
+          value: 'treatment'
+        },
+        {
+          text: 'Dosis',
+          align: 'center',
+          value: 'dosis'
+        },
+        {
+          text: 'Horario',
+          align: 'center',
+          value: 'schedule'
+        },
+        {
+          text: 'Observaciones',
+          align: 'center',
+          value: 'observations'
+        },
+        {
+          text: '',
+          align: 'start',
+          value: 'action'
+        },
       ],
       items: [],
       editedItem: {},
@@ -476,17 +608,48 @@ let vm = new Vue({
       dialogDelete: false,
       date_modal: false,
       next_date_modal: false,
-      headers: [
-        { text: 'Fecha de creación', align: 'start', value: 'registered_at' },
-        { text: 'Fecha de consulta', align: 'start', value: 'appointment_date' },
-        { text: 'Próxima consulta', align: 'start', value: 'next_appointment' },
-        { text: 'Acciones', value: 'actions', align: 'center', sortable: false },
+      headers: [{
+          text: 'Fecha de creación',
+          align: 'start',
+          value: 'registered_at'
+        },
+        {
+          text: 'Fecha de consulta',
+          align: 'start',
+          value: 'appointment_date'
+        },
+        {
+          text: 'Próxima consulta',
+          align: 'start',
+          value: 'next_appointment'
+        },
+        {
+          text: 'Acciones',
+          value: 'actions',
+          align: 'center',
+          sortable: false
+        },
       ],
-      treatments: [
-        { text: 'Tratamiento', align: 'center', value: 'treatment' },
-        { text: 'Dosis', align: 'center', value: 'dosis' },
-        { text: 'Intervalo', align: 'center', value: 'interval' },
-        { text: '', align: 'start', value: 'action' },
+      treatments: [{
+          text: 'Tratamiento',
+          align: 'center',
+          value: 'treatment'
+        },
+        {
+          text: 'Dosis',
+          align: 'center',
+          value: 'dosis'
+        },
+        {
+          text: 'Intervalo',
+          align: 'center',
+          value: 'interval'
+        },
+        {
+          text: '',
+          align: 'start',
+          value: 'action'
+        },
       ],
       items: [],
       editedItem: {
@@ -623,24 +786,56 @@ let vm = new Vue({
           results: 0,
         }
       },
-      headers: [
-        { text: 'Laboratorio', align: 'start', value: 'name', width: "auto" },
-        { text: 'Acción', value: 'action', width: "auto" },
+      headers: [{
+          text: 'Laboratorio',
+          align: 'start',
+          value: 'name',
+          width: "auto"
+        },
+        {
+          text: 'Acción',
+          value: 'action',
+          width: "auto"
+        },
       ],
       table_options: {
         disablePagination: true,
         itemsPerPage: 15,
         hideDefaultFooter: true,
       },
-      exam_headers: [
-        { text: 'Fecha del examen', align: 'start', value: 'exam_date', width: "auto" },
-        { text: 'Resultado', value: 'results', width: "auto" },
-        { text: 'Acción', value: 'action', width: "auto" },
+      exam_headers: [{
+          text: 'Fecha del examen',
+          align: 'start',
+          value: 'exam_date',
+          width: "auto"
+        },
+        {
+          text: 'Resultado',
+          value: 'results',
+          width: "auto"
+        },
+        {
+          text: 'Acción',
+          value: 'action',
+          width: "auto"
+        },
       ],
-      exam_files_headers: [
-        { text: 'Fecha', align: 'start', value: 'exam_date', width: "auto" },
-        { text: 'Archivo', value: 'file_result', width: "auto" },
-        { text: 'Acción', value: 'action', width: "auto" },
+      exam_files_headers: [{
+          text: 'Fecha',
+          align: 'start',
+          value: 'exam_date',
+          width: "auto"
+        },
+        {
+          text: 'Archivo',
+          value: 'file_result',
+          width: "auto"
+        },
+        {
+          text: 'Acción',
+          value: 'action',
+          width: "auto"
+        },
       ],
       exam_files: [],
       exam_results: [],
@@ -663,8 +858,7 @@ let vm = new Vue({
       show_results: false,
       temperature: 35,
       sat: 75,
-      defaultItem: [
-        {
+      defaultItem: [{
           frc: 30,
           breathing_rate: 10,
           pa_left_arm1_average: '',
@@ -743,8 +937,7 @@ let vm = new Vue({
           },
         },
       ],
-      takes: [
-        {
+      takes: [{
           frc: 30,
           breathing_rate: 10,
           pa_left_arm1_average: '',
@@ -823,24 +1016,97 @@ let vm = new Vue({
           },
         },
       ],
-      headers: [
-        { text: 'Fecha', align: 'center', value: 'created_at', width: "auto" },
-        { text: '', align: 'center', value: 'heart_frecuency', width: "auto" },
-        { text: 'Frecuencia Cardiaca', align: 'center', value: 'frc', width: "auto" },
-        { text: 'Presión Arterial del Brazo Derecho', align: 'center', value: 'pa_right', width: "auto" },
-        { text: 'Presión Arterial del Brazo Izquierdo', align: 'center', value: 'pa_left', width: "auto" },
-        { text: 'Frecuencia respiratoria', align: 'center', value: 'breathing_rate', width: "auto" },
-        { text: 'Temperatura (°C)', align: 'center', value: 'temperature', width: "auto" },
-        { text: 'SAT (%)', align: 'center', value: 'sat', width: "auto" },
+      headers: [{
+          text: 'Fecha',
+          align: 'center',
+          value: 'created_at',
+          width: "auto"
+        },
+        {
+          text: '',
+          align: 'center',
+          value: 'heart_frecuency',
+          width: "auto"
+        },
+        {
+          text: 'Frecuencia Cardiaca',
+          align: 'center',
+          value: 'frc',
+          width: "auto"
+        },
+        {
+          text: 'Presión Arterial del Brazo Derecho',
+          align: 'center',
+          value: 'pa_right',
+          width: "auto"
+        },
+        {
+          text: 'Presión Arterial del Brazo Izquierdo',
+          align: 'center',
+          value: 'pa_left',
+          width: "auto"
+        },
+        {
+          text: 'Frecuencia respiratoria',
+          align: 'center',
+          value: 'breathing_rate',
+          width: "auto"
+        },
+        {
+          text: 'Temperatura (°C)',
+          align: 'center',
+          value: 'temperature',
+          width: "auto"
+        },
+        {
+          text: 'SAT (%)',
+          align: 'center',
+          value: 'sat',
+          width: "auto"
+        },
       ],
-      headers_result: [
-        { text: ' ', align: 'center', value: 'heart_frecuency', width: "auto" },
-        { text: 'Frecuencia cardíaca', align: 'center', value: 'frc', width: "auto" },
-        { text: 'Presión Arterial del Brazo Derecho', align: 'center', value: 'pa_right', width: "auto" },
-        { text: 'Presión Arterial del Brazo Izquierdo', align: 'center', value: 'pa_left', width: "auto" },
-        { text: 'Frecuencia respiratoria', align: 'center', value: 'breathing_rate', width: "auto" },
-        { text: 'Temperatura (°C)', align: 'center', value: 'temperature', width: "auto" },
-        { text: 'SAT O (%)', align: 'center', value: 'sat', width: "auto" },
+      headers_result: [{
+          text: ' ',
+          align: 'center',
+          value: 'heart_frecuency',
+          width: "auto"
+        },
+        {
+          text: 'Frecuencia cardíaca',
+          align: 'center',
+          value: 'frc',
+          width: "auto"
+        },
+        {
+          text: 'Presión Arterial del Brazo Derecho',
+          align: 'center',
+          value: 'pa_right',
+          width: "auto"
+        },
+        {
+          text: 'Presión Arterial del Brazo Izquierdo',
+          align: 'center',
+          value: 'pa_left',
+          width: "auto"
+        },
+        {
+          text: 'Frecuencia respiratoria',
+          align: 'center',
+          value: 'breathing_rate',
+          width: "auto"
+        },
+        {
+          text: 'Temperatura (°C)',
+          align: 'center',
+          value: 'temperature',
+          width: "auto"
+        },
+        {
+          text: 'SAT O (%)',
+          align: 'center',
+          value: 'sat',
+          width: "auto"
+        },
       ],
       results: [],
       records: [],
@@ -858,8 +1124,7 @@ let vm = new Vue({
       options: {
         general_aspect: ['Bueno', 'Regular', 'Mal'],
         soplo: ['Sistólico', 'Diastólico', 'Continuo'],
-        select: [
-          {
+        select: [{
             text: 'Sí',
             value: 1
           },
@@ -920,13 +1185,11 @@ let vm = new Vue({
           soplo: {
             active: 1,
             foco_options: ['Aórtico', 'Mitral', 'Tricuspideo', 'Pulmonar'],
-            items: [
-              {
-                type: '',
-                foco: '',
-                intensity_foco: ''
-              }
-            ],
+            items: [{
+              type: '',
+              foco: '',
+              intensity_foco: ''
+            }],
           }
         },
         peripheral_pulses: {
@@ -993,13 +1256,11 @@ let vm = new Vue({
           soplo: {
             active: 1,
             foco_options: ['Aórtico', 'Mitral', 'Tricuspideo', 'Pulmonar'],
-            items: [
-              {
-                type: '',
-                foco: '',
-                intensity_foco: ''
-              }
-            ],
+            items: [{
+              type: '',
+              foco: '',
+              intensity_foco: ''
+            }],
           }
         },
         peripheral_pulses: {
@@ -1020,12 +1281,36 @@ let vm = new Vue({
     patient_life_style: {
       loading: false,
       exercise_start_date_modal: false,
-      headers: [
-        { text: 'Fecha', align: 'center', value: 'created_at', width: "auto" },
-        { text: 'Sedentario', align: 'center', value: 'sedentary', width: "auto" },
-        { text: 'Ejercicio', align: 'center', value: 'exercise', width: "auto" },
-        { text: 'Consumo de alcohol', align: 'center', value: 'alcohol_consumption', width: "auto" },
-        { text: 'Fumador', align: 'center', value: 'smoking', width: "auto" },
+      headers: [{
+          text: 'Fecha',
+          align: 'center',
+          value: 'created_at',
+          width: "auto"
+        },
+        {
+          text: 'Sedentario',
+          align: 'center',
+          value: 'sedentary',
+          width: "auto"
+        },
+        {
+          text: 'Ejercicio',
+          align: 'center',
+          value: 'exercise',
+          width: "auto"
+        },
+        {
+          text: 'Consumo de alcohol',
+          align: 'center',
+          value: 'alcohol_consumption',
+          width: "auto"
+        },
+        {
+          text: 'Fumador',
+          align: 'center',
+          value: 'smoking',
+          width: "auto"
+        },
       ],
       calc: {
         fagerstrom: {
@@ -1039,8 +1324,7 @@ let vm = new Vue({
             input6: 0,
           },
           options: {
-            input1: [
-              {
+            input1: [{
                 text: 'Hasta 5 minutos',
                 value: 3
               },
@@ -1057,8 +1341,7 @@ let vm = new Vue({
                 value: 0
               },
             ],
-            input3: [
-              {
+            input3: [{
                 text: 'El primero de la mañana',
                 value: 1
               },
@@ -1067,8 +1350,7 @@ let vm = new Vue({
                 value: 0
               },
             ],
-            input4: [
-              {
+            input4: [{
                 text: '31 o más cigarrillos',
                 value: 3
               },
@@ -1090,8 +1372,7 @@ let vm = new Vue({
         }
       },
       options: {
-        select: [
-          {
+        select: [{
             text: 'Sí',
             value: '1'
           },
@@ -1100,8 +1381,7 @@ let vm = new Vue({
             value: '0'
           },
         ],
-        smoking_select: [
-          {
+        smoking_select: [{
             text: 'Sí',
             value: 1
           },
@@ -1167,16 +1447,16 @@ let vm = new Vue({
           resistance_exercises: [],
         },
         smoking: {
-          active: '0',
+          active: '1',
           did_smoke: '0',
           start_year: '',
           quit_year: '',
           cigarettes_per_day: '',
           fagerstrom_test: '',
-          no_smoking_frecuency: 0,
+          no_smoking_frecuency: '0',
           last_time: '',
           how_many_times: '',
-          smoking_wish: 0,
+          smoking_wish: '0',
           short_advice: {
             done: 0,
             material: {
@@ -1199,8 +1479,7 @@ let vm = new Vue({
       qtc_view_results_menu: false,
       options: {
         rhythm: ['Sinusal', 'No sinusal'],
-        qtc_list: [
-          {
+        qtc_list: [{
             text: 'RR',
             value: 'rr'
           },
@@ -1326,8 +1605,7 @@ let vm = new Vue({
           'Muerte súbita', 'Hipercolesterolemia familiar homocigótica', 'ICTUS'
         ],
       },
-      select: [
-        {
+      select: [{
           text: 'Sí',
           value: 1
         },
@@ -1336,8 +1614,7 @@ let vm = new Vue({
           value: 0
         },
       ],
-      interval_times: [
-        {
+      interval_times: [{
           text: 'Menos de un año',
           value: 'Menos de un año'
         },
@@ -1431,20 +1708,18 @@ let vm = new Vue({
             },
             arritmia: {
               active: 0,
-              items: [
-                {
-                  type: '',
-                  treatment: 0,
-                  treatment_type: '',
-                  treatments: [''],
-                  dosis: '',
-                  daily_dosis: '',
-                  ablation: 0,
-                  ablation_age: '',
-                  cdi_holder: 0,
-                  cdi_age: '',
-                }
-              ]
+              items: [{
+                type: '',
+                treatment: 0,
+                treatment_type: '',
+                treatments: [''],
+                dosis: '',
+                daily_dosis: '',
+                ablation: 0,
+                ablation_age: '',
+                cdi_holder: 0,
+                cdi_age: '',
+              }]
             },
             heart_failure: {
               active: 0,
@@ -1510,90 +1785,147 @@ let vm = new Vue({
           },
           cerebrovascular_disease: {
             active: 0,
-            items: [
-              {
-                year: moment().format('YYYY-MM-DD'),
-                type: 'Isquémico',
-                ischemic_type: '',
-              }
-            ],
+            items: [{
+              year: moment().format('YYYY-MM-DD'),
+              type: 'Isquémico',
+              ischemic_type: '',
+            }],
           },
           treatments: {
             antihypertensives: {
               treatments_list: {
-                iecas:
-                  [
-                    'Benazepril', 'Captopril', 'Cilazapril',
-                    'Enalapril', 'Espirapril', 'Fosinopril', 'Lisinopril',
-                    'Imidapril', 'Moexipril', 'Perindopril', 'Quinapril',
-                    'Ramipril', 'Espirapril', 'Trandolapril', 'Zofenopril'
-                  ],
-                bra:
-                  [
-                    'Candesartan', 'Eprosartan',
-                    'Irbesartan', 'Losartan', 'Olmesartan medoxomilo',
-                    'Telmisartan', 'Valsartan'
-                  ],
-                diuretic:
-                  [
-                    { header: 'Tiazidas y similares' },
-                    { name: 'Clorotiazida', group: 'Group 1' },
-                    { name: 'Clortalidona', group: 'Group 1' },
-                    { name: 'Hidroclorotiazida', group: 'Group 1' },
-                    { name: 'Metolazona', group: 'Group 1' },
-                    { divider: true },
-                    { header: 'Asa' },
-                    { name: 'Azetazolamida', group: 'Group 2' },
-                    { name: 'Bumetamida', group: 'Group 2' },
-                    { name: 'Furosemida', group: 'Group 2' },
-                    { name: 'Torsemida', group: 'Group 2' },
-                    { divider: true },
-                    { header: 'Ahorradores de potasio' },
-                    { name: 'Metolazona', group: 'Group 3' },
-                    { name: 'Espironolactona', group: 'Group 3' },
-                    { name: 'Triametereno', group: 'Group 3' },
-                    { divider: true },
-                    { header: 'Otros' },
-                  ],
-                ca:
-                  [
-                    'Amlodipina', 'Felodipina', 'Isradipina',
-                    'Nicardipina', 'Nifedipina', 'Nifedipina OROS',
-                    'Nimodipina', 'Nisoldipina', 'Lacidipina',
-                    'Manidipina', 'Barnidipina', 'Lecardipina',
-                    'Clevadipina', 'Verapamilo', 'Diltiazem'
-                  ],
+                iecas: [
+                  'Benazepril', 'Captopril', 'Cilazapril',
+                  'Enalapril', 'Espirapril', 'Fosinopril', 'Lisinopril',
+                  'Imidapril', 'Moexipril', 'Perindopril', 'Quinapril',
+                  'Ramipril', 'Espirapril', 'Trandolapril', 'Zofenopril'
+                ],
+                bra: [
+                  'Candesartan', 'Eprosartan',
+                  'Irbesartan', 'Losartan', 'Olmesartan medoxomilo',
+                  'Telmisartan', 'Valsartan'
+                ],
+                diuretic: [{
+                    header: 'Tiazidas y similares'
+                  },
+                  {
+                    name: 'Clorotiazida',
+                    group: 'Group 1'
+                  },
+                  {
+                    name: 'Clortalidona',
+                    group: 'Group 1'
+                  },
+                  {
+                    name: 'Hidroclorotiazida',
+                    group: 'Group 1'
+                  },
+                  {
+                    name: 'Metolazona',
+                    group: 'Group 1'
+                  },
+                  {
+                    divider: true
+                  },
+                  {
+                    header: 'Asa'
+                  },
+                  {
+                    name: 'Azetazolamida',
+                    group: 'Group 2'
+                  },
+                  {
+                    name: 'Bumetamida',
+                    group: 'Group 2'
+                  },
+                  {
+                    name: 'Furosemida',
+                    group: 'Group 2'
+                  },
+                  {
+                    name: 'Torsemida',
+                    group: 'Group 2'
+                  },
+                  {
+                    divider: true
+                  },
+                  {
+                    header: 'Ahorradores de potasio'
+                  },
+                  {
+                    name: 'Metolazona',
+                    group: 'Group 3'
+                  },
+                  {
+                    name: 'Espironolactona',
+                    group: 'Group 3'
+                  },
+                  {
+                    name: 'Triametereno',
+                    group: 'Group 3'
+                  },
+                  {
+                    divider: true
+                  },
+                  {
+                    header: 'Otros'
+                  },
+                ],
+                ca: [
+                  'Amlodipina', 'Felodipina', 'Isradipina',
+                  'Nicardipina', 'Nifedipina', 'Nifedipina OROS',
+                  'Nimodipina', 'Nisoldipina', 'Lacidipina',
+                  'Manidipina', 'Barnidipina', 'Lecardipina',
+                  'Clevadipina', 'Verapamilo', 'Diltiazem'
+                ],
                 ir: [
                   'Candesartan', 'Eprosartan',
                   'Irbesartan', 'Losartan', 'Olmesartan medoxomilo',
                   'Telmisartan', 'Valsartan'
                 ],
-                block_beta:
-                  [
-                    'Atenolol', 'Bisoprolol', 'Carvedilol',
-                    'Metoprolol', 'Nebivolol', 'Torsemida'
-                  ],
-                arni:
-                  [
-                    'Sacubitril / Valsartan'
-                  ],
-                fdc:
-                  [
-                    { header: 'Calcioantagonistas y diuréticos' },
-                    { name: 'Amlodipina + indapamida', group: 'Group 1' },
-                    { name: 'Amlodipina + hidroclorotiazida', group: 'Group 1' },
-                    { divider: true },
-                    { name: 'IECAS + diuréticos' },
-                    { name: 'IECAS + calcioantagonitas' },
-                    { name: 'IECAS + betabloqueantes' },
-                    { name: 'Betabloqueante + diurético' },
-                    { name: 'Betabloqueante + calcioantagonista' },
-                    { name: 'BRA + diurético + calcioantagonista ' }
-                  ],
-                ant_mineralocorticoids:
-                  [
-                    'Espironolactona', 'Esplerenona'
-                  ],
+                block_beta: [
+                  'Atenolol', 'Bisoprolol', 'Carvedilol',
+                  'Metoprolol', 'Nebivolol', 'Torsemida'
+                ],
+                arni: [
+                  'Sacubitril / Valsartan'
+                ],
+                fdc: [{
+                    header: 'Calcioantagonistas y diuréticos'
+                  },
+                  {
+                    name: 'Amlodipina + indapamida',
+                    group: 'Group 1'
+                  },
+                  {
+                    name: 'Amlodipina + hidroclorotiazida',
+                    group: 'Group 1'
+                  },
+                  {
+                    divider: true
+                  },
+                  {
+                    name: 'IECAS + diuréticos'
+                  },
+                  {
+                    name: 'IECAS + calcioantagonitas'
+                  },
+                  {
+                    name: 'IECAS + betabloqueantes'
+                  },
+                  {
+                    name: 'Betabloqueante + diurético'
+                  },
+                  {
+                    name: 'Betabloqueante + calcioantagonista'
+                  },
+                  {
+                    name: 'BRA + diurético + calcioantagonista '
+                  }
+                ],
+                ant_mineralocorticoids: [
+                  'Espironolactona', 'Esplerenona'
+                ],
               },
               secondary_effects: {
                 iecas: ['Tos', 'Edema', 'Angio neurótico'],
@@ -1702,7 +2034,7 @@ let vm = new Vue({
                   'Glargina', 'Glulisina', 'Lispro',
                   'NPA', 'NPL'
                 ],
-                insulin_mixtures: ['Rápida + NPH', 'Aspart + NPA', 'Lispro – NPL',],
+                insulin_mixtures: ['Rápida + NPH', 'Aspart + NPA', 'Lispro – NPL', ],
                 metformin: [],
                 sulfonylureas: [
                   'Glibenclamida (gliburida)', 'Glipizida', 'Gliclazida',
@@ -1721,9 +2053,12 @@ let vm = new Vue({
                   'Exenatide', 'Exenatide LAR', 'Lixisenatide',
                   'Liraglutide', 'Dulaglutide'
                 ],
-                fdc: [
-                  { name: 'Metformina + Sulfonilúreas' },
-                  { name: 'Metformina + I DPP-4' },
+                fdc: [{
+                    name: 'Metformina + Sulfonilúreas'
+                  },
+                  {
+                    name: 'Metformina + I DPP-4'
+                  },
                 ],
               },
               secondary_effects: {
@@ -1854,16 +2189,14 @@ let vm = new Vue({
             },
             hypolipidemic: {
               treatments_list: {
-                statins:
-                  [
-                    'Atorvastatina', 'Lovastatina', 'Simvastatina',
-                    'Pitavastatina', 'Pravastatina', 'Rosuvastatina ',
-                  ],
+                statins: [
+                  'Atorvastatina', 'Lovastatina', 'Simvastatina',
+                  'Pitavastatina', 'Pravastatina', 'Rosuvastatina ',
+                ],
                 ezt: [],
-                fibratos:
-                  [
-                    'Gembribrozil', 'Bezafibrato', 'Fenofibrato'
-                  ],
+                fibratos: [
+                  'Gembribrozil', 'Bezafibrato', 'Fenofibrato'
+                ],
                 omega3: ['EPA', 'EPA-DHA'],
                 ipcsk9: [],
               },
@@ -1919,8 +2252,7 @@ let vm = new Vue({
             },
             polipildora: {
               treatments_list: {
-                polipildora: [
-                  {
+                polipildora: [{
                     name: 'AAS/Atorvastatina/Ramipril',
                     dosis_selected: '',
                     dosis: [
@@ -2040,20 +2372,18 @@ let vm = new Vue({
           },
           arritmia: {
             active: 0,
-            items: [
-              {
-                type: '',
-                treatment: 0,
-                treatment_type: '',
-                treatments: [''],
-                dosis: '',
-                daily_dosis: '',
-                ablation: 0,
-                ablation_age: '',
-                cdi_holder: 0,
-                cdi_age: '',
-              }
-            ]
+            items: [{
+              type: '',
+              treatment: 0,
+              treatment_type: '',
+              treatments: [''],
+              dosis: '',
+              daily_dosis: '',
+              ablation: 0,
+              ablation_age: '',
+              cdi_holder: 0,
+              cdi_age: '',
+            }]
           },
           heart_failure: {
             active: 0,
@@ -2119,90 +2449,147 @@ let vm = new Vue({
         },
         cerebrovascular_disease: {
           active: 0,
-          items: [
-            {
-              year: moment().format('YYYY-MM-DD'),
-              type: 'Isquémico',
-              ischemic_type: '',
-            }
-          ],
+          items: [{
+            year: moment().format('YYYY-MM-DD'),
+            type: 'Isquémico',
+            ischemic_type: '',
+          }],
         },
         treatments: {
           antihypertensives: {
             treatments_list: {
-              iecas:
-                [
-                  'Benazepril', 'Captopril', 'Cilazapril',
-                  'Enalapril', 'Espirapril', 'Fosinopril', 'Lisinopril',
-                  'Imidapril', 'Moexipril', 'Perindopril', 'Quinapril',
-                  'Ramipril', 'Espirapril', 'Trandolapril', 'Zofenopril'
-                ],
-              bra:
-                [
-                  'Candesartan', 'Eprosartan',
-                  'Irbesartan', 'Losartan', 'Olmesartan medoxomilo',
-                  'Telmisartan', 'Valsartan'
-                ],
-              diuretic:
-                [
-                  { header: 'Tiazidas y similares' },
-                  { name: 'Clorotiazida', group: 'Group 1' },
-                  { name: 'Clortalidona', group: 'Group 1' },
-                  { name: 'Hidroclorotiazida', group: 'Group 1' },
-                  { name: 'Metolazona', group: 'Group 1' },
-                  { divider: true },
-                  { header: 'Asa' },
-                  { name: 'Azetazolamida', group: 'Group 2' },
-                  { name: 'Bumetamida', group: 'Group 2' },
-                  { name: 'Furosemida', group: 'Group 2' },
-                  { name: 'Torsemida', group: 'Group 2' },
-                  { divider: true },
-                  { header: 'Ahorradores de potasio' },
-                  { name: 'Metolazona', group: 'Group 3' },
-                  { name: 'Espironolactona', group: 'Group 3' },
-                  { name: 'Triametereno', group: 'Group 3' },
-                  { divider: true },
-                  { header: 'Otros' },
-                ],
-              ca:
-                [
-                  'Amlodipina', 'Felodipina', 'Isradipina',
-                  'Nicardipina', 'Nifedipina', 'Nifedipina OROS',
-                  'Nimodipina', 'Nisoldipina', 'Lacidipina',
-                  'Manidipina', 'Barnidipina', 'Lecardipina',
-                  'Clevadipina', 'Verapamilo', 'Diltiazem'
-                ],
+              iecas: [
+                'Benazepril', 'Captopril', 'Cilazapril',
+                'Enalapril', 'Espirapril', 'Fosinopril', 'Lisinopril',
+                'Imidapril', 'Moexipril', 'Perindopril', 'Quinapril',
+                'Ramipril', 'Espirapril', 'Trandolapril', 'Zofenopril'
+              ],
+              bra: [
+                'Candesartan', 'Eprosartan',
+                'Irbesartan', 'Losartan', 'Olmesartan medoxomilo',
+                'Telmisartan', 'Valsartan'
+              ],
+              diuretic: [{
+                  header: 'Tiazidas y similares'
+                },
+                {
+                  name: 'Clorotiazida',
+                  group: 'Group 1'
+                },
+                {
+                  name: 'Clortalidona',
+                  group: 'Group 1'
+                },
+                {
+                  name: 'Hidroclorotiazida',
+                  group: 'Group 1'
+                },
+                {
+                  name: 'Metolazona',
+                  group: 'Group 1'
+                },
+                {
+                  divider: true
+                },
+                {
+                  header: 'Asa'
+                },
+                {
+                  name: 'Azetazolamida',
+                  group: 'Group 2'
+                },
+                {
+                  name: 'Bumetamida',
+                  group: 'Group 2'
+                },
+                {
+                  name: 'Furosemida',
+                  group: 'Group 2'
+                },
+                {
+                  name: 'Torsemida',
+                  group: 'Group 2'
+                },
+                {
+                  divider: true
+                },
+                {
+                  header: 'Ahorradores de potasio'
+                },
+                {
+                  name: 'Metolazona',
+                  group: 'Group 3'
+                },
+                {
+                  name: 'Espironolactona',
+                  group: 'Group 3'
+                },
+                {
+                  name: 'Triametereno',
+                  group: 'Group 3'
+                },
+                {
+                  divider: true
+                },
+                {
+                  header: 'Otros'
+                },
+              ],
+              ca: [
+                'Amlodipina', 'Felodipina', 'Isradipina',
+                'Nicardipina', 'Nifedipina', 'Nifedipina OROS',
+                'Nimodipina', 'Nisoldipina', 'Lacidipina',
+                'Manidipina', 'Barnidipina', 'Lecardipina',
+                'Clevadipina', 'Verapamilo', 'Diltiazem'
+              ],
               ir: [
                 'Candesartan', 'Eprosartan',
                 'Irbesartan', 'Losartan', 'Olmesartan medoxomilo',
                 'Telmisartan', 'Valsartan'
               ],
-              block_beta:
-                [
-                  'Atenolol', 'Bisoprolol', 'Carvedilol',
-                  'Metoprolol', 'Nebivolol', 'Torsemida'
-                ],
-              arni:
-                [
-                  'Sacubitril / Valsartan'
-                ],
-              fdc:
-                [
-                  { header: 'Calcioantagonistas y diuréticos' },
-                  { name: 'Amlodipina + indapamida', group: 'Group 1' },
-                  { name: 'Amlodipina + hidroclorotiazida', group: 'Group 1' },
-                  { divider: true },
-                  { name: 'IECAS + diuréticos' },
-                  { name: 'IECAS + calcioantagonitas' },
-                  { name: 'IECAS + betabloqueantes' },
-                  { name: 'Betabloqueante + diurético' },
-                  { name: 'Betabloqueante + calcioantagonista' },
-                  { name: 'BRA + diurético + calcioantagonista ' }
-                ],
-              ant_mineralocorticoids:
-                [
-                  'Espironolactona', 'Esplerenona'
-                ],
+              block_beta: [
+                'Atenolol', 'Bisoprolol', 'Carvedilol',
+                'Metoprolol', 'Nebivolol', 'Torsemida'
+              ],
+              arni: [
+                'Sacubitril / Valsartan'
+              ],
+              fdc: [{
+                  header: 'Calcioantagonistas y diuréticos'
+                },
+                {
+                  name: 'Amlodipina + indapamida',
+                  group: 'Group 1'
+                },
+                {
+                  name: 'Amlodipina + hidroclorotiazida',
+                  group: 'Group 1'
+                },
+                {
+                  divider: true
+                },
+                {
+                  name: 'IECAS + diuréticos'
+                },
+                {
+                  name: 'IECAS + calcioantagonitas'
+                },
+                {
+                  name: 'IECAS + betabloqueantes'
+                },
+                {
+                  name: 'Betabloqueante + diurético'
+                },
+                {
+                  name: 'Betabloqueante + calcioantagonista'
+                },
+                {
+                  name: 'BRA + diurético + calcioantagonista '
+                }
+              ],
+              ant_mineralocorticoids: [
+                'Espironolactona', 'Esplerenona'
+              ],
             },
             secondary_effects: {
               iecas: ['Tos', 'Edema', 'Angio neurótico'],
@@ -2302,7 +2689,7 @@ let vm = new Vue({
                 'Glargina', 'Glulisina', 'Lispro',
                 'NPA', 'NPL'
               ],
-              insulin_mixtures: ['Rápida + NPH', 'Aspart + NPA', 'Lispro – NPL',],
+              insulin_mixtures: ['Rápida + NPH', 'Aspart + NPA', 'Lispro – NPL', ],
               metformin: [],
               sulfonylureas: [
                 'Glibenclamida (gliburida)', 'Glipizida', 'Gliclazida',
@@ -2321,9 +2708,12 @@ let vm = new Vue({
                 'Exenatide', 'Exenatide LAR', 'Lixisenatide',
                 'Liraglutide', 'Dulaglutide'
               ],
-              fdc: [
-                { name: 'Metformina + Sulfonilúreas' },
-                { name: 'Metformina + I DPP-4' },
+              fdc: [{
+                  name: 'Metformina + Sulfonilúreas'
+                },
+                {
+                  name: 'Metformina + I DPP-4'
+                },
               ],
             },
             secondary_effects: {
@@ -2444,16 +2834,14 @@ let vm = new Vue({
           },
           hypolipidemic: {
             treatments_list: {
-              statins:
-                [
-                  'Atorvastatina', 'Lovastatina', 'Simvastatina',
-                  'Pitavastatina', 'Pravastatina', 'Rosuvastatina ',
-                ],
+              statins: [
+                'Atorvastatina', 'Lovastatina', 'Simvastatina',
+                'Pitavastatina', 'Pravastatina', 'Rosuvastatina ',
+              ],
               ezt: [],
-              fibratos:
-                [
-                  'Gembribrozil', 'Bezafibrato', 'Fenofibrato'
-                ],
+              fibratos: [
+                'Gembribrozil', 'Bezafibrato', 'Fenofibrato'
+              ],
               omega3: ['EPA', 'EPA-DHA'],
               ipcsk9: [],
             },
@@ -2504,8 +2892,7 @@ let vm = new Vue({
           },
           polipildora: {
             treatments_list: {
-              polipildora: [
-                {
+              polipildora: [{
                   name: 'AAS/Atorvastatina/Ramipril',
                   dosis_selected: '',
                   dosis: [
@@ -2563,19 +2950,44 @@ let vm = new Vue({
         calc_name: 'FINDRISK',
         obj: findrisk_vars
       },
-      headers: [
-        { text: ' ', align: 'start', value: 'name' },
-        { text: 'Diagnóstico', value: 'diagnostic' },
-        { text: 'Tratamiento', value: 'comment' },
+      headers: [{
+          text: ' ',
+          align: 'start',
+          value: 'name'
+        },
+        {
+          text: 'Diagnóstico',
+          value: 'diagnostic'
+        },
+        {
+          text: 'Tratamiento',
+          value: 'comment'
+        },
       ],
-      risk_factor_headers: [
-        { text: 'Fecha', align: 'start', value: 'created_at' },
-        { text: 'Fórmula de Cálculo de Riesgo', align: 'start', value: 'name' },
-        { text: 'Resultado', value: 'results' },
+      risk_factor_headers: [{
+          text: 'Fecha',
+          align: 'start',
+          value: 'created_at'
+        },
+        {
+          text: 'Fórmula de Cálculo de Riesgo',
+          align: 'start',
+          value: 'name'
+        },
+        {
+          text: 'Resultado',
+          value: 'results'
+        },
       ],
-      comparison_risk_factor_headers: [
-        { text: 'Fórmula de Cálculo de Riesgo', align: 'start', value: 'name' },
-        { text: 'Resultado', value: 'results' },
+      comparison_risk_factor_headers: [{
+          text: 'Fórmula de Cálculo de Riesgo',
+          align: 'start',
+          value: 'name'
+        },
+        {
+          text: 'Resultado',
+          value: 'results'
+        },
       ],
       rf: {
         appointment_id: '',
@@ -2584,8 +2996,7 @@ let vm = new Vue({
         treatment_selected: {
           name: ''
         },
-        risk_factors: [
-          {
+        risk_factors: [{
             name: 'HTA',
             diagnostic: 'No',
             has_treatment: 'No',
@@ -2658,8 +3069,7 @@ let vm = new Vue({
         ],
       },
       risk_factors_diagnostics: [],
-      form_risk_factors: [
-        {
+      form_risk_factors: [{
           nomenclature: '',
           calc_name: 'FINDRISK',
           obj: findrisk_vars
@@ -2693,8 +3103,7 @@ let vm = new Vue({
           treatment_selected: {
             name: ''
           },
-          risk_factors: [
-            {
+          risk_factors: [{
               name: 'HTA',
               diagnostic: 'No',
               has_treatment: 'No',
@@ -2775,8 +3184,7 @@ let vm = new Vue({
       save_loading: false,
       alreadySaved: false,
       items: [],
-      select: [
-        {
+      select: [{
           text: 'Sí',
           value: '1'
         },
@@ -2785,19 +3193,33 @@ let vm = new Vue({
           value: '0'
         },
       ],
-      headers: [
-        { text: 'Fecha', value: 'created_at' },
-        { text: 'Nutrición', align: 'start', value: 'nutrition' },
-        { text: 'Plan de ejercicio', value: 'exercise_plan' },
-        { text: 'Exámenes paraclínicos', value: 'clinics_exams' },
-        { text: 'Materiales', value: 'materials' },
+      headers: [{
+          text: 'Fecha',
+          value: 'created_at'
+        },
+        {
+          text: 'Nutrición',
+          align: 'start',
+          value: 'nutrition'
+        },
+        {
+          text: 'Plan de ejercicio',
+          value: 'exercise_plan'
+        },
+        {
+          text: 'Exámenes paraclínicos',
+          value: 'clinics_exams'
+        },
+        {
+          text: 'Materiales',
+          value: 'materials'
+        },
       ],
       editedItem: {
         nutrition: '',
         exercise_plan: '',
         previous_treatments: '0',
-        clinics_exams: [
-          {
+        clinics_exams: [{
             name: 'Laboratorio',
             value: '1'
           },
@@ -2818,8 +3240,7 @@ let vm = new Vue({
             value: '1'
           },
         ],
-        clinics_exams_list: [
-          {
+        clinics_exams_list: [{
             name: 'Laboratorio',
             value: '1'
           },
@@ -2847,8 +3268,7 @@ let vm = new Vue({
         nutrition: '',
         exercise_plan: '',
         previous_treatments: '0',
-        clinics_exams: [
-          {
+        clinics_exams: [{
             name: 'Laboratorio',
             value: '1'
           },
@@ -2869,8 +3289,7 @@ let vm = new Vue({
             value: '1'
           },
         ],
-        clinics_exams_list: [
-          {
+        clinics_exams_list: [{
             name: 'Laboratorio',
             value: '1'
           },
@@ -2894,8 +3313,7 @@ let vm = new Vue({
         registered_at: moment().format('YYYY-MM-DD')
       },
     },
-    genders: [
-      {
+    genders: [{
         name: 'Masculino',
         gender: 'M',
       },
@@ -2904,8 +3322,7 @@ let vm = new Vue({
         gender: 'F',
       },
     ],
-    document_types: [
-      {
+    document_types: [{
         text: 'DNI',
         value: 'DNI'
       },
@@ -2968,7 +3385,9 @@ let vm = new Vue({
 
     tab() {
       if (this.$refs.edit_tabs !== undefined)
-        this.$refs.edit_tabs.$el.scrollIntoView({ behavior: 'smooth' })
+        this.$refs.edit_tabs.$el.scrollIntoView({
+          behavior: 'smooth'
+        })
     },
 
     dialog(val) {
@@ -3044,26 +3463,25 @@ let vm = new Vue({
     this.initialize()
   },
 
-  mounted() {
-  },
+  mounted() {},
 
   methods: {
     initialize() {
       var url = api_url + 'patients/get'
       var app = this
       app.$http.get(url).then(res => {
-        res.body.forEach(e => {
-          if (Array.isArray(e.meta)) {
-            e.meta = {}
-          }
-        })
-        app.patients = res.body
-        app.comparison.patients = res.body
-        app.comparison.patients_filtered = res.body
-        app.initializeMaterialTemplates()
-      }, err => {
+          res.body.forEach(e => {
+            if (Array.isArray(e.meta)) {
+              e.meta = {}
+            }
+          })
+          app.patients = res.body
+          app.comparison.patients = res.body
+          app.comparison.patients_filtered = res.body
+          app.initializeMaterialTemplates()
+        }, err => {
 
-      })
+        })
         .then(res => {
           url += '-external'
           app.comparison.external_loading = true
@@ -3113,12 +3531,12 @@ let vm = new Vue({
       var url = api_url + 'reports/get/' + app.editedItem.patient_id
       app.reports.items = []
       app.$http.get(url).then(res => {
-        res.body.forEach(e => {
-          app.reports.items.push(e)
-        });
-      }, err => {
+          res.body.forEach(e => {
+            app.reports.items.push(e)
+          });
+        }, err => {
 
-      })
+        })
         .then(res => {
           app.checkAppointmentReports()
         })
@@ -3196,8 +3614,8 @@ let vm = new Vue({
 
       app.$http.post(url, data).then(res => {
 
-        if (res.body.hasOwnProperty('current_patient_appointments')
-          && res.body.hasOwnProperty('patient_to_compare_appointments')) {
+        if (res.body.hasOwnProperty('current_patient_appointments') &&
+          res.body.hasOwnProperty('patient_to_compare_appointments')) {
           obj.current_patient = res.body.current_patient_appointments.length > 1 ?
             res.body.current_patient_appointments[res.body.current_patient_appointments.length - 1] : res.body.current_patient_appointments[0]
 
@@ -3235,8 +3653,8 @@ let vm = new Vue({
         appointment_id: app.patient_appointments.current_appointment.appointment_id
       }
       app.$http.post(url, data).then(res => {
-        app.patient_anthropometry.editedItem = res.body.hasOwnProperty('current_anthropometry')
-          && res.body.current_anthropometry.hasOwnProperty('appointment_id') ?
+        app.patient_anthropometry.editedItem = res.body.hasOwnProperty('current_anthropometry') &&
+          res.body.current_anthropometry.hasOwnProperty('appointment_id') ?
           res.body.current_anthropometry :
           Object.assign({}, app.patient_anthropometry.defaultItem)
         res.body.antropometry_history.forEach(item => {
@@ -3272,19 +3690,18 @@ let vm = new Vue({
           external_patient_ids
         }
         app.$http.post(url, data).then(res => {
-          if (res.body.hasOwnProperty('current_patient_items')
-            && res.body.hasOwnProperty('patient_to_compare_items')) {
-            obj.current_patient = res.body.current_patient_items.length > 1
-              ? res.body.current_patient_items[res.body.current_patient_items.length - 1] : res.body.current_patient_items[0]
-            obj.patient_to_compare = res.body.patient_to_compare_items.length > 1
-              ? res.body.patient_to_compare_items[res.body.patient_to_compare_items.length - 1] : res.body.patient_to_compare_items[0]
+          if (res.body.hasOwnProperty('current_patient_items') &&
+            res.body.hasOwnProperty('patient_to_compare_items')) {
+            obj.current_patient = res.body.current_patient_items.length > 1 ?
+              res.body.current_patient_items[res.body.current_patient_items.length - 1] : res.body.current_patient_items[0]
+            obj.patient_to_compare = res.body.patient_to_compare_items.length > 1 ?
+              res.body.patient_to_compare_items[res.body.patient_to_compare_items.length - 1] : res.body.patient_to_compare_items[0]
           }
           obj.average_loading = false
         }, err => {
           obj.average_loading = false
         })
-      }
-      else {
+      } else {
         obj.loading = true
         var url = api_url + 'anthropometry/get/comparison'
         var data = {
@@ -3292,12 +3709,12 @@ let vm = new Vue({
           patient_to_compare_id: app.comparison.patient_to_compare.patient_id,
         }
         app.$http.post(url, data).then(res => {
-          if (res.body.hasOwnProperty('current_patient_items')
-            && res.body.hasOwnProperty('patient_to_compare_items')) {
-            obj.current_patient = res.body.current_patient_items.length > 1
-              ? res.body.current_patient_items[res.body.current_patient_items.length - 1] : res.body.current_patient_items[0]
-            obj.patient_to_compare = res.body.patient_to_compare_items.length > 1
-              ? res.body.patient_to_compare_items[res.body.patient_to_compare_items.length - 1] : res.body.patient_to_compare_items[0]
+          if (res.body.hasOwnProperty('current_patient_items') &&
+            res.body.hasOwnProperty('patient_to_compare_items')) {
+            obj.current_patient = res.body.current_patient_items.length > 1 ?
+              res.body.current_patient_items[res.body.current_patient_items.length - 1] : res.body.current_patient_items[0]
+            obj.patient_to_compare = res.body.patient_to_compare_items.length > 1 ?
+              res.body.patient_to_compare_items[res.body.patient_to_compare_items.length - 1] : res.body.patient_to_compare_items[0]
           }
           obj.loading = false
         }, err => {
@@ -3315,8 +3732,8 @@ let vm = new Vue({
         appointment_id: app.patient_appointments.current_appointment.appointment_id
       }
       app.$http.post(url, data).then(res => {
-        anthropometry.editedItem = res.body.hasOwnProperty('current_anthropometry')
-          && res.body.current_anthropometry.hasOwnProperty('appointment_id') ?
+        anthropometry.editedItem = res.body.hasOwnProperty('current_anthropometry') &&
+          res.body.current_anthropometry.hasOwnProperty('appointment_id') ?
           res.body.current_anthropometry :
           Object.assign({}, anthropometry.defaultItem)
         app.patient_risk_factors.selectedForm.obj.vars.weight = anthropometry.editedItem.weight
@@ -3345,7 +3762,7 @@ let vm = new Vue({
       app.$http.get(url).then(res => {
         if (res.body.length > 0) {
           var records = []
-          res.body.forEach((record) => {
+          res.body.forEach((record, i) => {
             var e = {
               appointment_id: record.appointment_id,
               history_content: JSON.parse(record.history_content),
@@ -3354,6 +3771,8 @@ let vm = new Vue({
             }
             records.push(e)
             if (parseInt(e.appointment_id) == parseInt(app.patient_appointments.current_appointment.appointment_id)) {
+              obj.form.history_content = e.history_content
+            } else if (parseInt(e.appointment_id) != parseInt(app.patient_appointments.current_appointment.appointment_id) && i == (records.length - 1)) {
               obj.form.history_content = e.history_content
             }
           })
@@ -3378,8 +3797,8 @@ let vm = new Vue({
 
       app.$http.post(url, data).then(res => {
 
-        if (res.body.hasOwnProperty('current_patient_items')
-          && res.body.hasOwnProperty('patient_to_compare_items')) {
+        if (res.body.hasOwnProperty('current_patient_items') &&
+          res.body.hasOwnProperty('patient_to_compare_items')) {
 
           if (res.body.current_patient_items.length > 0) {
             obj.current_patient = res.body.current_patient_items.length > 1 ?
@@ -3451,8 +3870,8 @@ let vm = new Vue({
 
       app.$http.post(url, data).then(res => {
 
-        if (res.body.hasOwnProperty('current_patient_items')
-          && res.body.hasOwnProperty('patient_to_compare_items')) {
+        if (res.body.hasOwnProperty('current_patient_items') &&
+          res.body.hasOwnProperty('patient_to_compare_items')) {
           if (res.body.current_patient_items.length > 0) {
             obj.current_patient = res.body.current_patient_items.length > 1 ?
               res.body.current_patient_items[res.body.current_patient_items.length - 1] : res.body.current_patient_items[0]
@@ -3518,8 +3937,8 @@ let vm = new Vue({
 
       app.$http.post(url, data).then(res => {
 
-        if (res.body.hasOwnProperty('current_patient_items')
-          && res.body.hasOwnProperty('patient_to_compare_items')) {
+        if (res.body.hasOwnProperty('current_patient_items') &&
+          res.body.hasOwnProperty('patient_to_compare_items')) {
           if (res.body.current_patient_items.length > 0) {
             obj.current_patient = res.body.current_patient_items.length > 1 ?
               res.body.current_patient_items[res.body.current_patient_items.length - 1] : res.body.current_patient_items[0]
@@ -3584,8 +4003,8 @@ let vm = new Vue({
 
       app.$http.post(url, data).then(res => {
 
-        if (res.body.hasOwnProperty('current_patient_items')
-          && res.body.hasOwnProperty('patient_to_compare_items')) {
+        if (res.body.hasOwnProperty('current_patient_items') &&
+          res.body.hasOwnProperty('patient_to_compare_items')) {
           if (res.body.current_patient_items.length > 0) {
             obj.current_patient = res.body.current_patient_items.length > 1 ?
               res.body.current_patient_items[res.body.current_patient_items.length - 1] : res.body.current_patient_items[0]
@@ -3623,8 +4042,8 @@ let vm = new Vue({
               obj.editedItem = e
             }
           });
-          if (!obj.editedItem.hasOwnProperty('appointment_id')) {
-            obj.editedItem = Object.assign({}, obj.items[obj.items.length - 1])
+          if (!obj.editedItem.hasOwnProperty('appointment_id') && items.length > 0) {
+            obj.editedItem = Object.assign({}, items[items.length - 1])
             obj.editedItem.appointment_id = app.patient_appointments.current_appointment.appointment_id
           }
           obj.items = items
@@ -3648,8 +4067,8 @@ let vm = new Vue({
 
       app.$http.post(url, data).then(res => {
 
-        if (res.body.hasOwnProperty('current_patient_items')
-          && res.body.hasOwnProperty('patient_to_compare_items')) {
+        if (res.body.hasOwnProperty('current_patient_items') &&
+          res.body.hasOwnProperty('patient_to_compare_items')) {
 
           if (res.body.current_patient_items.length > 0) {
             obj.current_patient = res.body.current_patient_items.length > 1 ?
@@ -3751,7 +4170,12 @@ let vm = new Vue({
 
         })
       }
-      obj.selectedForm = { calc_name: '', obj: { results: '' } }
+      obj.selectedForm = {
+        calc_name: '',
+        obj: {
+          results: ''
+        }
+      }
       var url = api_url + 'patient-risk-factors-diagnostic/get/'
       obj.risk_factors = Object.assign({}, obj.defaultItems.risk_factors)
       obj.risk_factors_diagnostics = []
@@ -3767,32 +4191,24 @@ let vm = new Vue({
           obj.rf.risk_factors = rf.risk_factors
           obj.rf.created_at = rf.created_at
           obj.rf.updated_at = rf.updated_at
-        }
-        else {
+        } else {
           var history = app.patient_history.form.history_content
           obj.rf.risk_factors.forEach(e => {
             if (e.name == 'HTA') {
               e.diagnostic = parseInt(history.diseases.hta.active) ? 'Sí' : 'No'
-            }
-            else if (e.name == 'Dislipidemia') {
+            } else if (e.name == 'Dislipidemia') {
               e.diagnostic = parseInt(history.diseases.dyslipidemia.active) ? 'Sí' : 'No'
-            }
-            else if (e.name == 'Pre DMt2') {
+            } else if (e.name == 'Pre DMt2') {
               e.diagnostic = parseInt(history.diseases.pre_dtm2.active) ? 'Sí' : 'No'
-            }
-            else if (e.name == 'DMt2') {
+            } else if (e.name == 'DMt2') {
               e.diagnostic = parseInt(history.diseases.dtm2.active) ? 'Sí' : 'No'
-            }
-            else if (e.name == 'Cardiopatía Isquémica') {
+            } else if (e.name == 'Cardiopatía Isquémica') {
               e.diagnostic = parseInt(history.cardiovascular_diseases.ischemic_cardiopathy.sca.active) ? 'Sí' : 'No'
-            }
-            else if (e.name == 'Arritmia') {
+            } else if (e.name == 'Arritmia') {
               e.diagnostic = parseInt(history.cardiovascular_diseases.arritmia.active) ? 'Sí' : 'No'
-            }
-            else if (e.name == 'Insuficiencia Cardíaca') {
+            } else if (e.name == 'Insuficiencia Cardíaca') {
               e.diagnostic = parseInt(history.cardiovascular_diseases.heart_failure.active) ? 'Sí' : 'No'
-            }
-            else {
+            } else {
               e.diagnostic = 'No'
             }
           })
@@ -3833,9 +4249,9 @@ let vm = new Vue({
         app.patient_risk_factors.rf_loading = true
         var url = api_url + 'patient-risk-factors/get/comparison'
         app.$http.post(url, data).then(res => {
-          if ((res.body.hasOwnProperty('current_patient_items')
-            && res.body.current_patient_items.length > 1) || (res.body.hasOwnProperty('patient_to_compare_items')
-              && res.body.patient_to_compare_items.length > 1)) {
+          if ((res.body.hasOwnProperty('current_patient_items') &&
+              res.body.current_patient_items.length > 1) || (res.body.hasOwnProperty('patient_to_compare_items') &&
+              res.body.patient_to_compare_items.length > 1)) {
             var current_factor_risk = []
             var factor_risk_to_compare = []
             app.patient_risk_factors.form_risk_factors.forEach(rf => {
@@ -3862,8 +4278,8 @@ let vm = new Vue({
       }
       var url = api_url + 'patient-risk-factors-diagnostic/get/comparison'
       app.$http.post(url, data).then(res => {
-        if (res.body.hasOwnProperty('current_patient_items')
-          && res.body.hasOwnProperty('patient_to_compare_items')) {
+        if (res.body.hasOwnProperty('current_patient_items') &&
+          res.body.hasOwnProperty('patient_to_compare_items')) {
           var dx_current_patient = res.body.current_patient_items.length > 1 ?
             res.body.current_patient_items[res.body.current_patient_items.length - 1] : res.body.current_patient_items[0]
 
@@ -3940,8 +4356,8 @@ let vm = new Vue({
 
       app.$http.post(url, data).then(res => {
 
-        if (res.body.hasOwnProperty('current_patient_items')
-          && res.body.hasOwnProperty('patient_to_compare_items')) {
+        if (res.body.hasOwnProperty('current_patient_items') &&
+          res.body.hasOwnProperty('patient_to_compare_items')) {
           obj.current_patient = res.body.current_patient_items.length > 1 ?
             res.body.current_patient_items[res.body.current_patient_items.length - 1] : res.body.current_patient_items[0]
 
@@ -4230,8 +4646,7 @@ let vm = new Vue({
       var app = this
       if (app.recipes.editedIndex == -1) {
         var items = []
-        var keys = [
-          {
+        var keys = [{
             name: 'HTA',
             key: 'antihypertensives'
           },
@@ -4261,8 +4676,7 @@ let vm = new Vue({
             key: 'antidiabetics'
           },
         ]
-        var treatments = [
-          {
+        var treatments = [{
             name: 'antihypertensives',
             imported: false,
           },
@@ -4284,7 +4698,10 @@ let vm = new Vue({
         ]
         app.patient_risk_factors.rf.risk_factors.forEach(e => {
           if (e.diagnostic == 'Sí') {
-            items.push({ diagnostic: e.name, treatment_goal: '' })
+            items.push({
+              diagnostic: e.name,
+              treatment_goal: ''
+            })
             var key = keys.find(item => item.name == e.name)
             if (key !== undefined) {
               var treatment = app.patient_history.form.history_content.treatments[key.key]
@@ -4294,14 +4711,12 @@ let vm = new Vue({
                 Object.entries(treatment).forEach(item => {
                   item[0] == 'metformin' && item[1].active ? item[1].treatment = 'Metformina' : '';
                   item[0] == 'ezt' && item[1].active ? item[1].treatment = 'EZT' : '';
-                  item[1].hasOwnProperty('treatment') && item[1].treatment !== '' ? app.recipes.editedItem.instructions.push(
-                    {
-                      dosis: item[1].dosis,
-                      observations: "",
-                      schedule: `${item[1].frecuency} dosis diarias`,
-                      treatment: item[1].treatment
-                    }
-                  ) : ''
+                  item[1].hasOwnProperty('treatment') && item[1].treatment !== '' ? app.recipes.editedItem.instructions.push({
+                    dosis: item[1].dosis,
+                    observations: "",
+                    schedule: `${item[1].frecuency} dosis diarias`,
+                    treatment: item[1].treatment
+                  }) : ''
                 })
                 treatments[treatment_imported_index].imported = true
               }
@@ -4375,8 +4790,7 @@ let vm = new Vue({
         }, err => {
 
         })
-      }
-      else {
+      } else {
         var recipe = app.recipes.items[app.recipes.items.length - 1]
         recipe.instructions.forEach(e => {
           var item = {
@@ -4574,7 +4988,10 @@ let vm = new Vue({
       var app = this
       var obj = app.patient_appointments
       var url = api_url + 'appointments/delete'
-      app.$http.post(url, { appointment_id: obj.editedItem.appointment_id, patient_id: app.editedItem.patient_id }).then(res => {
+      app.$http.post(url, {
+        appointment_id: obj.editedItem.appointment_id,
+        patient_id: app.editedItem.patient_id
+      }).then(res => {
         app.loading = false
         if (res.body.status == "success")
           obj.appointments.splice(obj.editedIndex, 1)
@@ -4800,8 +5217,7 @@ let vm = new Vue({
           obj.appointments.push(obj.editedItem)
           if (obj.appointments.length == 1) {
             obj.current_appointment = Object.assign({}, obj.editedItem)
-          }
-          else {
+          } else {
             obj.current_appointment = Object.assign({}, obj.editedItem)
             obj.previous_appointment = obj.appointments[obj.appointments.length - 2]
           }
@@ -4890,8 +5306,7 @@ let vm = new Vue({
           if (res.body.status == 'success') {
             res.body.message = 'Tratamientos actualizados'
           }
-        }
-        else {
+        } else {
           if (res.body.status == 'success') {
             app.tab = 'tab-4'
             app.initializeAnthropometry()
@@ -4910,8 +5325,7 @@ let vm = new Vue({
       var url = api_url + 'patient-risk-factors/update'
       var data = {
         appointment_id: obj.selectedForm.obj.hasOwnProperty['appointment_id'] ?
-          obj.selectedForm.obj.appointment_id :
-          app.patient_appointments.current_appointment.appointment_id,
+          obj.selectedForm.obj.appointment_id : app.patient_appointments.current_appointment.appointment_id,
         patient_id: app.editedItem.patient_id,
         name: obj.selectedForm.calc_name,
         results: obj.selectedForm.obj.results,
@@ -5126,8 +5540,7 @@ let vm = new Vue({
           obj.add_loading = false
           app.closeRecipe()
         })
-      }
-      else {
+      } else {
         var url = api_url + "recipes/create"
         app.$http.post(url, data).then(res => {
           activateAlert(res.body.message, res.body.status)
@@ -5165,8 +5578,7 @@ let vm = new Vue({
           obj.add_loading = false
           app.closeReport()
         })
-      }
-      else {
+      } else {
         var url = api_url + "reports/create"
         app.$http.post(url, data).then(res => {
           activateAlert(res.body.message, res.body.status)
@@ -5202,8 +5614,7 @@ let vm = new Vue({
           a.click()
           a.remove()
         }
-      }, err => {
-      })
+      }, err => {})
     },
 
     downloadReport(item) {
@@ -5268,8 +5679,7 @@ let vm = new Vue({
           a.click()
           a.remove()
         }
-      }, err => {
-      })
+      }, err => {})
     },
 
     calcVitalSigns() {
@@ -5375,9 +5785,18 @@ let vm = new Vue({
         case 'Colesterol LDL':
           var app = this
           var url = api_url + "medical-exams/get"
-          var total_cholesterol = { exam_id: app.filterExamsByName('Colesterol Total').exam_id, patient_id: app.editedItem.patient_id }
-          var c_HDL = { exam_id: app.filterExamsByName('Colesterol HDL').exam_id, patient_id: app.editedItem.patient_id }
-          var triglycerides = { exam_id: app.filterExamsByName('Triglicéridos').exam_id, patient_id: app.editedItem.patient_id }
+          var total_cholesterol = {
+            exam_id: app.filterExamsByName('Colesterol Total').exam_id,
+            patient_id: app.editedItem.patient_id
+          }
+          var c_HDL = {
+            exam_id: app.filterExamsByName('Colesterol HDL').exam_id,
+            patient_id: app.editedItem.patient_id
+          }
+          var triglycerides = {
+            exam_id: app.filterExamsByName('Triglicéridos').exam_id,
+            patient_id: app.editedItem.patient_id
+          }
 
 
           app.$http.post(url, total_cholesterol).then(res => {
@@ -5402,8 +5821,14 @@ let vm = new Vue({
         case 'Colesterol No HDL':
           var app = this
           var url = api_url + "medical-exams/get"
-          var total_cholesterol = { exam_id: app.filterExamsByName('Colesterol Total').exam_id, patient_id: app.editedItem.patient_id }
-          var c_no_HDL = { exam_id: app.filterExamsByName('Colesterol No HDL').exam_id, patient_id: app.editedItem.patient_id }
+          var total_cholesterol = {
+            exam_id: app.filterExamsByName('Colesterol Total').exam_id,
+            patient_id: app.editedItem.patient_id
+          }
+          var c_no_HDL = {
+            exam_id: app.filterExamsByName('Colesterol No HDL').exam_id,
+            patient_id: app.editedItem.patient_id
+          }
 
 
           app.$http.post(url, total_cholesterol).then(res => {
@@ -5428,7 +5853,10 @@ let vm = new Vue({
       obj.laboratory_exam = true
       obj.selectedExam = item
       var url = api_url + "medical-exams/get"
-      var data = { exam_id: item.exam_id, patient_id: this.editedItem.patient_id }
+      var data = {
+        exam_id: item.exam_id,
+        patient_id: this.editedItem.patient_id
+      }
       app.$http.post(url, data).then(res => {
         obj.exam_results = res.body
       }, err => {
@@ -5453,8 +5881,8 @@ let vm = new Vue({
 
       app.$http.post(url, data).then(res => {
 
-        if (res.body.hasOwnProperty('current_patient_items')
-          && res.body.hasOwnProperty('patient_to_compare_items')) {
+        if (res.body.hasOwnProperty('current_patient_items') &&
+          res.body.hasOwnProperty('patient_to_compare_items')) {
           var current_items = res.body.current_patient_items.length > 1 ?
             res.body.current_patient_items[res.body.current_patient_items.length - 1] : res.body.current_patient_items[0]
 
@@ -5477,7 +5905,10 @@ let vm = new Vue({
       obj.laboratory_exam = true
       obj.selectedExam = item
       var url = api_url + "medical-exams/get-exam-files"
-      var data = { exam_id: item.exam_id, patient_id: this.editedItem.patient_id }
+      var data = {
+        exam_id: item.exam_id,
+        patient_id: this.editedItem.patient_id
+      }
       app.$http.post(url, data).then(res => {
         obj.exam_files = res.body
       }, err => {
@@ -5549,9 +5980,11 @@ let vm = new Vue({
         var pulse_pressure = tas - tad
 
         var pam = Math.round(tad - (-(tas - tad) / count))
-        return { pulse_pressure: pulse_pressure, pam: pam }
-      }
-      else if (arm == "right") {
+        return {
+          pulse_pressure: pulse_pressure,
+          pam: pam
+        }
+      } else if (arm == "right") {
         if (parseInt(sitting.pa_right_arm1) != 0 || parseInt(sitting.pa_right_arm2) != 0) {
           count++
         }
@@ -5567,7 +6000,10 @@ let vm = new Vue({
           parseInt(lying_down.pa_right_arm2) + parseInt(standing.pa_right_arm2)) / count)
         var pulse_pressure = tas - tad
         var pam = Math.round(tad - (-(tas - tad) / count))
-        return { pulse_pressure: pulse_pressure, pam: pam }
+        return {
+          pulse_pressure: pulse_pressure,
+          pam: pam
+        }
       }
     },
 
@@ -5579,8 +6015,7 @@ let vm = new Vue({
       items.forEach((item) => {
         if (parseInt(item) == 0 || typeof item == undefined || item == '') {
           return false
-        }
-        else {
+        } else {
           count++
           var q = parseInt(item)
           total = total + q
@@ -5603,8 +6038,7 @@ let vm = new Vue({
       items.forEach((item) => {
         if (parseInt(item) == 0 || typeof item == undefined || item == '') {
           return false
-        }
-        else {
+        } else {
           count++
           var q = parseInt(item)
           total = total + q
@@ -5626,8 +6060,7 @@ let vm = new Vue({
       items.forEach((item) => {
         if (parseInt(item) == 0 || typeof item == undefined || item == '') {
           return false
-        }
-        else {
+        } else {
           count++
           var q = parseInt(item)
           total = total + q
@@ -5702,14 +6135,11 @@ let vm = new Vue({
 
       if (TPI >= PI) {
         PAI = TPI
-      }
-      else if (TPI < PI) {
+      } else if (TPI < PI) {
         PAI = PI
-      }
-      else if (TPI > 0) {
+      } else if (TPI > 0) {
         PAI = TPI
-      }
-      else if (PI > 0) {
+      } else if (PI > 0) {
         PAI = PI
       } else {
 
@@ -5717,14 +6147,11 @@ let vm = new Vue({
 
       if (TPD >= PD) {
         PAD = TPD
-      }
-      else if (TPD < PD) {
+      } else if (TPD < PD) {
         PAD = PD
-      }
-      else if (TPD > 0) {
+      } else if (TPD > 0) {
         PAD = TPD
-      }
-      else if (PD > 0) {
+      } else if (PD > 0) {
         PAD = PD
       } else {
 
@@ -5732,14 +6159,11 @@ let vm = new Vue({
 
       if (HI >= HD) {
         PAH = HI
-      }
-      else if (HI < HD) {
+      } else if (HI < HD) {
         PAH = HD
-      }
-      else if (HI > 0) {
+      } else if (HI > 0) {
         PAH = HI
-      }
-      else if (HD > 0) {
+      } else if (HD > 0) {
         PAH = HD
       } else {
 
@@ -5752,33 +6176,25 @@ let vm = new Vue({
 
       if (ITBI <= 0.4) {
         obj.itbi_result = "Cuando el valor es menor o igual 0,4 se considera estenosis grave."
-      }
-      else if (ITBI < 0.9) {
+      } else if (ITBI < 0.9) {
         obj.itbi_result = "Cuando el valor es mayor a 0,4 y menor de 0,9 se considera estenosis leve/moderada."
-      }
-      else if (ITBI <= 1.2) {
+      } else if (ITBI <= 1.2) {
         obj.itbi_result = "Los valores situados entre 0,9 y 1,2 son considerados normales."
-      }
-      else if (ITBI > 1.2) {
+      } else if (ITBI > 1.2) {
         obj.itbi_result = "Cuando el valor es mayor a 1,20 pueden existir calcificaciones arteriales."
-      }
-      else {
+      } else {
         obj.itbi_result = ""
       }
 
       if (ITBD <= 0.4) {
         obj.itbd_result = "Cuando el valor es menor o igual 0,4 se considera estenosis grave."
-      }
-      else if (ITBD < 0.9) {
+      } else if (ITBD < 0.9) {
         obj.itbd_result = "Cuando el valor es mayor a 0,4 y menor de 0,9 se considera estenosis leve/moderada."
-      }
-      else if (ITBD <= 1.2) {
+      } else if (ITBD <= 1.2) {
         obj.itbd_result = "Los valores situados entre 0,9 y 1,2 son considerados normales."
-      }
-      else if (ITBD > 1.2) {
+      } else if (ITBD > 1.2) {
         obj.itbd_result = "Cuando el valor es mayor a 1,20 pueden existir calcificaciones arteriales."
-      }
-      else {
+      } else {
         obj.itbd_result = ""
       }
 
@@ -5802,23 +6218,17 @@ let vm = new Vue({
 
       if (fagerstrom_result == '') {
         description = ''
-      }
-      else if (fagerstrom_result >= 0 && fagerstrom_result <= 2) {
+      } else if (fagerstrom_result >= 0 && fagerstrom_result <= 2) {
         description = 'Dependencia MUY BAJA'
-      }
-      else if (fagerstrom_result >= 3 && fagerstrom_result <= 4) {
+      } else if (fagerstrom_result >= 3 && fagerstrom_result <= 4) {
         description = 'Dependencia BAJA'
-      }
-      else if (fagerstrom_result == 5) {
+      } else if (fagerstrom_result == 5) {
         description = 'Dependencia MODERADA'
-      }
-      else if (fagerstrom_result >= 6 && fagerstrom_result <= 7) {
+      } else if (fagerstrom_result >= 6 && fagerstrom_result <= 7) {
         description = 'Dependencia ALTA'
-      }
-      else if (fagerstrom_result >= 8 && fagerstrom_result <= 10) {
+      } else if (fagerstrom_result >= 8 && fagerstrom_result <= 10) {
         description = 'Dependencia ALTA'
-      }
-      else {
+      } else {
         description = ''
       }
 
@@ -5832,8 +6242,7 @@ let vm = new Vue({
       var bra_ieca_found = combination_selected.find(e => e.includes('BRA') || e.includes('IECAS'))
       if (bra_ieca_found != undefined && bra_ieca_found.length > 0 && app.editedItem.gender == 'F') {
         condition = true
-      }
-      else {
+      } else {
         condition = false
       }
 
@@ -5855,9 +6264,9 @@ let vm = new Vue({
 
       var age = parseFloat(moment().diff(patient.birthdate, 'years'))
 
-      var GFR = 141 * Math.pow(Math.min(serum_creatinine / kappa, 1), alpha)
-        * Math.pow(Math.max(serum_creatinine / kappa, 1), -1.209)
-        * Math.pow(0.993, age) * sex * race
+      var GFR = 141 * Math.pow(Math.min(serum_creatinine / kappa, 1), alpha) *
+        Math.pow(Math.max(serum_creatinine / kappa, 1), -1.209) *
+        Math.pow(0.993, age) * sex * race
 
       app.patient_laboratory_exams.formulas.egfr_mdr_ckdepi.results = GFR.toFixed(2)
       app.patient_laboratory_exams.editedItem.results = GFR.toFixed(2)
@@ -5879,8 +6288,8 @@ let vm = new Vue({
 
       var age = parseFloat(moment().diff(patient.birthdate, 'years'))
 
-      var GFR = 175 * Math.pow(serum_creatinine, -1.154) * Math.pow(age, -0.203)
-        * sex * race;
+      var GFR = 175 * Math.pow(serum_creatinine, -1.154) * Math.pow(age, -0.203) *
+        sex * race;
 
       app.patient_laboratory_exams.formulas.egfr_mdr_ckdepi.results = GFR.toFixed(2)
       app.patient_laboratory_exams.editedItem.results = GFR.toFixed(2)
@@ -5931,12 +6340,12 @@ let vm = new Vue({
 
     diagnosticDateCheck(disease) {
       if (!disease.detected_previously) {
-        if (disease.diagnostic_date == 'Menos de un año'
-          || disease.diagnostic_date == 'Entre 1 y 2 años'
-          || disease.diagnostic_date == '3 a 4 años'
-          || disease.diagnostic_date == '4 a 5 años'
-          || disease.diagnostic_date == 'Más de 5 años'
-          || disease.diagnostic_date == 'Más de 10 años') {
+        if (disease.diagnostic_date == 'Menos de un año' ||
+          disease.diagnostic_date == 'Entre 1 y 2 años' ||
+          disease.diagnostic_date == '3 a 4 años' ||
+          disease.diagnostic_date == '4 a 5 años' ||
+          disease.diagnostic_date == 'Más de 5 años' ||
+          disease.diagnostic_date == 'Más de 10 años') {
           disease.diagnostic_date = moment().format('YYYY[-]MM[-]DD')
           return true
         }
@@ -5960,7 +6369,10 @@ let vm = new Vue({
 
     addObjectToArray(val, options) {
       if (val != '' || typeof val != undefined) {
-        options.push({ name: val, group: 'Group 4' })
+        options.push({
+          name: val,
+          group: 'Group 4'
+        })
       }
     },
 
@@ -6004,8 +6416,7 @@ let vm = new Vue({
           diagnostic.diagnostic == 'Sí' &&
           diagnostic.has_treatment == 'Sí') {
           return diagnostic.comment
-        }
-        else {
+        } else {
           return ''
         }
       }
@@ -6030,8 +6441,7 @@ let vm = new Vue({
           }
           return false
         }
-      }
-      else {
+      } else {
         return false
       }
 
@@ -6051,16 +6461,13 @@ let vm = new Vue({
           diagnostic.has_treatment == 'Sí' && diagnostic.comment != treatment && treatment != '') {
           if (show_pt) {
             return "Previo: " + diagnostic.comment
-          }
-          else {
+          } else {
             return "Tratamiento cambiado de " + diagnostic.comment + " a " + treatment
           }
-        }
-        else {
+        } else {
           return ''
         }
-      }
-      else {
+      } else {
         var index = obj.risk_factors_diagnostics.length
         if (obj.risk_factors_diagnostics[index - 1] !== undefined) {
           diagnostic = obj.risk_factors_diagnostics[index - 1]
@@ -6072,16 +6479,13 @@ let vm = new Vue({
             diagnostic.has_treatment == 'Sí' && diagnostic.comment != treatment && treatment != '') {
             if (show_pt) {
               return "Previo: " + diagnostic.comment
-            }
-            else {
+            } else {
               return "Tratamiento cambiado de " + diagnostic.comment + " a " + treatment
             }
-          }
-          else {
+          } else {
             return ''
           }
-        }
-        else {
+        } else {
           return ''
         }
       }
@@ -6162,12 +6566,10 @@ let vm = new Vue({
                 bmi: bmi_difference,
                 cs: cs_difference
               }
-            }
-            else {
+            } else {
               return {}
             }
-          }
-          else {
+          } else {
             var obj = app.patient_anthropometry
             var general_results = {
               weight: 0,
@@ -6245,12 +6647,10 @@ let vm = new Vue({
                   bmi: bmi_difference,
                   cs: cs_difference
                 }
-              }
-              else {
+              } else {
                 return general_results
               }
-            }
-            else {
+            } else {
               return general_results
             }
           }
@@ -6336,12 +6736,10 @@ let vm = new Vue({
                 sat: sat_difference,
                 take: takes
               }
-            }
-            else {
+            } else {
               return {}
             }
-          }
-          else {
+          } else {
             var obj = app.patient_vital_signs
             var takes = {
               br: {
@@ -6399,8 +6797,8 @@ let vm = new Vue({
               var previous_vs = current_vs_index != null ? obj.records[current_vs_index - 1] : obj.records[obj.records.length - 1]
 
               if (previous_vs !== undefined && current_vs.appointment_id != previous_vs.appointment_id) {
-                var current_temperature = current_vs.temperature === undefined
-                  ? parseInt(current_vs.temperature) : parseInt(current_vs.lying_down.temperature)
+                var current_temperature = current_vs.temperature === undefined ?
+                  parseInt(current_vs.temperature) : parseInt(current_vs.lying_down.temperature)
 
                 var current_sat = current_vs.sat === undefined ?
                   parseInt(current_vs.sat) : parseInt(current_vs.lying_down.sat)
@@ -6531,8 +6929,7 @@ let vm = new Vue({
                   take: takes,
                   averages: average
                 }
-              }
-              else {
+              } else {
                 return {
                   temperature: {
                     numeric: 0,
@@ -6546,8 +6943,7 @@ let vm = new Vue({
                   averages: average
                 }
               }
-            }
-            else {
+            } else {
               return {
                 temperature: {
                   numeric: 0,
@@ -6599,8 +6995,7 @@ let vm = new Vue({
                       (Math.sign(numeric_difference_soplo) == -1 ? current_soplo_if : previous_soplo_if)) * 100),
                   }
                   soplo_if = auscultation_soplo_if_difference
-                }
-                else {
+                } else {
                   soplo_if = {
                     numeric: 0,
                     percent: 0,
@@ -6667,12 +7062,10 @@ let vm = new Vue({
                 pp: pp,
                 edema: edema_difference
               }
-            }
-            else {
+            } else {
               return {}
             }
-          }
-          else {
+          } else {
             var obj = app.patient_physical_exam
             if (appointment.previous_appointment.hasOwnProperty('appointment_id')) {
               var previous_pe = obj.items[obj.items.length - 2]
@@ -6692,8 +7085,7 @@ let vm = new Vue({
 
                 if (params.hasOwnProperty('soplo')) {
                   var current_soplo_if = parseInt(params.soplo.intensity_foco)
-                  var previous_soplo_if = parseInt(previous_pe.content.auscultation.soplo.
-                    items[params.i].intensity_foco)
+                  var previous_soplo_if = parseInt(previous_pe.content.auscultation.soplo.items[params.i].intensity_foco)
 
                   var auscultation_soplo_if_difference = {
                     numeric: current_soplo_if - previous_soplo_if,
@@ -6748,12 +7140,10 @@ let vm = new Vue({
                   pp: pp,
                   edema: edema_difference
                 }
-              }
-              else {
+              } else {
                 return {}
               }
-            }
-            else {
+            } else {
               return {}
             }
           }
@@ -6814,38 +7204,38 @@ let vm = new Vue({
 
                 var qtbaz_difference = {
                   numeric: qtbaz_numeric_difference,
-                  percent: (qtbaz_numeric_difference
-                    / (Math.sign(qtbaz_numeric_difference) == -1 ? current_qtbaz : previous_qtbaz) * 100),
+                  percent: (qtbaz_numeric_difference /
+                    (Math.sign(qtbaz_numeric_difference) == -1 ? current_qtbaz : previous_qtbaz) * 100),
                 }
 
                 var qtcal_difference = {
                   numeric: qtbaz_numeric_difference,
-                  percent: (qtbaz_numeric_difference
-                    / (Math.sign(qtbaz_numeric_difference) == -1 ? current_qtcal : previous_qtcal) * 100),
+                  percent: (qtbaz_numeric_difference /
+                    (Math.sign(qtbaz_numeric_difference) == -1 ? current_qtcal : previous_qtcal) * 100),
                 }
 
                 var qtfra_difference = {
                   numeric: qtfra_numeric_difference,
-                  percent: ((qtfra_numeric_difference
-                    / (Math.sign(qtbaz_numeric_difference) == -1 ? current_qtfra : previous_qtfra)) * 100),
+                  percent: ((qtfra_numeric_difference /
+                    (Math.sign(qtbaz_numeric_difference) == -1 ? current_qtfra : previous_qtfra)) * 100),
                 }
 
                 var qtfri_difference = {
                   numeric: qtfri_numeric_difference,
-                  percent: (qtfri_numeric_difference
-                    / (Math.sign(qtfri_numeric_difference) == -1 ? current_qtfri : previous_qtfri) * 100),
+                  percent: (qtfri_numeric_difference /
+                    (Math.sign(qtfri_numeric_difference) == -1 ? current_qtfri : previous_qtfri) * 100),
                 }
 
                 var qtrau_difference = {
                   numeric: qtrau_numeric_difference,
-                  percent: (qtrau_numeric_difference
-                    / (Math.sign(qtrau_numeric_difference) == -1 ? current_qtrau : previous_qtrau) * 100),
+                  percent: (qtrau_numeric_difference /
+                    (Math.sign(qtrau_numeric_difference) == -1 ? current_qtrau : previous_qtrau) * 100),
                 }
 
                 var rr_difference = {
                   numeric: rr_numeric_difference,
-                  percent: ((rr_numeric_difference
-                    / (Math.sign(rr_numeric_difference) == -1 ? current_rr : previous_rr)) * 100),
+                  percent: ((rr_numeric_difference /
+                    (Math.sign(rr_numeric_difference) == -1 ? current_rr : previous_rr)) * 100),
                 }
 
                 qtc_formula = {
@@ -6867,33 +7257,33 @@ let vm = new Vue({
 
               var frecuency_difference = {
                 numeric: frecuency_numeric_difference,
-                percent: (frecuency_numeric_difference
-                  / (Math.sign(frecuency_numeric_difference) == -1 ? current_frecuency : previous_frecuency) * 100),
+                percent: (frecuency_numeric_difference /
+                  (Math.sign(frecuency_numeric_difference) == -1 ? current_frecuency : previous_frecuency) * 100),
               }
               var pr_difference = {
                 numeric: pr_numeric_difference,
-                percent: (pr_numeric_difference
-                  / (Math.sign(pr_numeric_difference) == -1 ? current_pr : previous_pr) * 100),
+                percent: (pr_numeric_difference /
+                  (Math.sign(pr_numeric_difference) == -1 ? current_pr : previous_pr) * 100),
               }
               var qtc_difference = {
                 numeric: qtc_numeric_difference,
-                percent: (qtc_numeric_difference
-                  / (Math.sign(pr_numeric_difference) == -1 ? current_pr : previous_pr) * 100),
+                percent: (qtc_numeric_difference /
+                  (Math.sign(pr_numeric_difference) == -1 ? current_pr : previous_pr) * 100),
               }
               var axes_p_difference = {
                 numeric: axes_p_numeric_difference,
-                percent: (axes_p_numeric_difference
-                  / (Math.sign(axes_p_numeric_difference) == -1 ? current_axes_p : previous_axes_p) * 100),
+                percent: (axes_p_numeric_difference /
+                  (Math.sign(axes_p_numeric_difference) == -1 ? current_axes_p : previous_axes_p) * 100),
               }
               var axes_qrs_difference = {
                 numeric: axes_qrs_numeric_difference,
-                percent: (axes_qrs_numeric_difference
-                  / (Math.sign(pr_numeric_difference) == -1 ? current_axes_qrs : previous_axes_qrs) * 100),
+                percent: (axes_qrs_numeric_difference /
+                  (Math.sign(pr_numeric_difference) == -1 ? current_axes_qrs : previous_axes_qrs) * 100),
               }
               var axes_t_difference = {
                 numeric: axes_t_numeric_difference,
-                percent: (axes_t_numeric_difference
-                  / (Math.sign(axes_t_numeric_difference) == -1 ? current_axes_t : previous_axes_t) * 100),
+                percent: (axes_t_numeric_difference /
+                  (Math.sign(axes_t_numeric_difference) == -1 ? current_axes_t : previous_axes_t) * 100),
               }
 
               return {
@@ -6907,12 +7297,10 @@ let vm = new Vue({
                   t: axes_t_difference,
                 },
               }
-            }
-            else {
+            } else {
               return {}
             }
-          }
-          else {
+          } else {
             var obj = app.patient_electro_cardiogram
             if (appointment.previous_appointment.hasOwnProperty('appointment_id')) {
               var previous_pe = obj.items[obj.items.length - 2]
@@ -7031,18 +7419,19 @@ let vm = new Vue({
                     t: axes_t_difference,
                   },
                 }
-              }
-              else {
+              } else {
                 return {}
               }
-            }
-            else {
+            } else {
               return {}
             }
           }
           break;
         case 'history':
-          var general = { numeric: 0, percent: 0 }
+          var general = {
+            numeric: 0,
+            percent: 0
+          }
 
           if (comparison) {
             var obj = app.comparison.history
@@ -7057,44 +7446,38 @@ let vm = new Vue({
               if (patient_selected !== undefined && patient_to_compare !== undefined) {
                 if (params.hasOwnProperty('dosis')) {
                   var current_dosis = patient_selected.history_content.
-                    treatments[params.treatment.group]
-                  [params.treatment.treatment].dosis != '' ? parseInt(patient_selected.history_content.
-                    treatments[params.treatment.group]
-                  [params.treatment.treatment].dosis) : 0
+                  treatments[params.treatment.group]
+                    [params.treatment.treatment].dosis != '' ? parseInt(patient_selected.history_content.treatments[params.treatment.group]
+                      [params.treatment.treatment].dosis) : 0
 
                   var previous_dosis = patient_to_compare.history_content.
-                    treatments[params.treatment.group]
-                  [params.treatment.treatment].dosis != '' ? parseFloat(patient_to_compare.history_content.
-                    treatments[params.treatment.group]
-                  [params.treatment.treatment].dosis) : 0
+                  treatments[params.treatment.group]
+                    [params.treatment.treatment].dosis != '' ? parseFloat(patient_to_compare.history_content.treatments[params.treatment.group]
+                      [params.treatment.treatment].dosis) : 0
 
                   var dosis_numeric_difference = current_dosis - previous_dosis
 
                   var dosis_difference = {
                     numeric: dosis_numeric_difference,
-                    percent: (dosis_numeric_difference
-                      / (Math.sign(dosis_numeric_difference) == -1 ? current_dosis : previous_dosis) * 100),
+                    percent: (dosis_numeric_difference /
+                      (Math.sign(dosis_numeric_difference) == -1 ? current_dosis : previous_dosis) * 100),
                   }
 
                   results.dosis = dosis_difference
 
-                }
+                } else if (params.hasOwnProperty('daily_dosis')) {
+                  var current_dd = parseInt(patient_selected.history_content.treatments[params.treatment.group]
+                    [params.treatment.treatment].daily_dosis)
 
-                else if (params.hasOwnProperty('daily_dosis')) {
-                  var current_dd = parseInt(patient_selected.history_content.
-                    treatments[params.treatment.group]
-                  [params.treatment.treatment].daily_dosis)
-
-                  var previous_dd = parseFloat(patient_to_compare.history_content.
-                    treatments[params.treatment.group]
-                  [params.treatment.treatment].daily_dosis)
+                  var previous_dd = parseFloat(patient_to_compare.history_content.treatments[params.treatment.group]
+                    [params.treatment.treatment].daily_dosis)
 
                   var dd_numeric_difference = current_dd - previous_dd
 
                   var dd_difference = {
                     numeric: dd_numeric_difference,
-                    percent: (dd_numeric_difference
-                      / (Math.sign(dd_numeric_difference) == -1 ? current_dd : previous_dd) * 100),
+                    percent: (dd_numeric_difference /
+                      (Math.sign(dd_numeric_difference) == -1 ? current_dd : previous_dd) * 100),
                   }
 
                   results.daily_dosis = dd_difference
@@ -7102,16 +7485,19 @@ let vm = new Vue({
                 }
 
                 return results
+              } else {
+                return {
+                  dosis: general,
+                  daily_dosis: general
+                }
               }
-              else {
-                return { dosis: general, daily_dosis: general }
+            } else {
+              return {
+                dosis: general,
+                daily_dosis: general
               }
             }
-            else {
-              return { dosis: general, daily_dosis: general }
-            }
-          }
-          else {
+          } else {
             if (appointment.previous_appointment.hasOwnProperty('appointment_id')) {
               var obj = app.patient_history
               var previous_ph = obj.items.find(
@@ -7126,16 +7512,14 @@ let vm = new Vue({
 
                 if (params.hasOwnProperty('dosis')) {
                   var current_dosis = obj.form.history_content.
-                    treatments[params.treatment.group]
-                  [params.treatment.treatment].dosis != '' ? parseInt(obj.form.history_content.
-                    treatments[params.treatment.group]
-                  [params.treatment.treatment].dosis) : 0
+                  treatments[params.treatment.group]
+                    [params.treatment.treatment].dosis != '' ? parseInt(obj.form.history_content.treatments[params.treatment.group]
+                      [params.treatment.treatment].dosis) : 0
 
                   var previous_dosis = previous_ph.history_content.
-                    treatments[params.treatment.group]
-                  [params.treatment.treatment].dosis != '' ? parseFloat(previous_ph.history_content.
-                    treatments[params.treatment.group]
-                  [params.treatment.treatment].dosis) : 0
+                  treatments[params.treatment.group]
+                    [params.treatment.treatment].dosis != '' ? parseFloat(previous_ph.history_content.treatments[params.treatment.group]
+                      [params.treatment.treatment].dosis) : 0
 
                   var dosis_difference = {
                     numeric: current_dosis - previous_dosis,
@@ -7144,16 +7528,12 @@ let vm = new Vue({
 
                   results.dosis = dosis_difference
 
-                }
+                } else if (params.hasOwnProperty('daily_dosis')) {
+                  var current_dd = parseInt(obj.form.history_content.treatments[params.treatment.group]
+                    [params.treatment.treatment].daily_dosis)
 
-                else if (params.hasOwnProperty('daily_dosis')) {
-                  var current_dd = parseInt(obj.form.history_content.
-                    treatments[params.treatment.group]
-                  [params.treatment.treatment].daily_dosis)
-
-                  var previous_dd = parseFloat(previous_ph.history_content.
-                    treatments[params.treatment.group]
-                  [params.treatment.treatment].daily_dosis)
+                  var previous_dd = parseFloat(previous_ph.history_content.treatments[params.treatment.group]
+                    [params.treatment.treatment].daily_dosis)
 
                   var dd_difference = {
                     numeric: current_dd - previous_dd,
@@ -7165,9 +7545,11 @@ let vm = new Vue({
                 }
 
                 return results
-              }
-              else {
-                return { dosis: general, daily_dosis: general }
+              } else {
+                return {
+                  dosis: general,
+                  daily_dosis: general
+                }
               }
             }
           }
@@ -7179,8 +7561,8 @@ let vm = new Vue({
               numeric: 0,
               percent: 0
             }
-            if (obj.current_patient[0] != undefined && obj.current_patient[0].hasOwnProperty('patient_id')
-              && obj.patient_to_compare[0] != undefined && obj.patient_to_compare[0].hasOwnProperty('patient_id')) {
+            if (obj.current_patient[0] != undefined && obj.current_patient[0].hasOwnProperty('patient_id') &&
+              obj.patient_to_compare[0] != undefined && obj.patient_to_compare[0].hasOwnProperty('patient_id')) {
               var patient_selected = !params.patient_to_compare ? obj.current_patient[0] : obj.patient_to_compare[0]
               var patient_to_compare = !params.patient_to_compare ? obj.patient_to_compare[0] : obj.current_patient[0]
 
@@ -7195,19 +7577,19 @@ let vm = new Vue({
 
               var ple_difference = {
                 numeric: ple_numeric_difference,
-                percent: (ple_numeric_difference
-                  / (Math.sign(ple_numeric_difference) == -1 ? current_result : previous_result) * 100),
+                percent: (ple_numeric_difference /
+                  (Math.sign(ple_numeric_difference) == -1 ? current_result : previous_result) * 100),
               }
 
               results.exam = ple_difference
 
               return results
+            } else {
+              return {
+                exam: general
+              }
             }
-            else {
-              return { exam: general }
-            }
-          }
-          else {
+          } else {
             var obj = app.patient_laboratory_exams
             var general = {
               numeric: 0,
@@ -7233,13 +7615,15 @@ let vm = new Vue({
                 results.exam = ple_difference
 
                 return results
+              } else {
+                return {
+                  exam: general
+                }
               }
-              else {
-                return { exam: general }
+            } else {
+              return {
+                exam: general
               }
-            }
-            else {
-              return { exam: general }
             }
           }
           break;
@@ -7276,34 +7660,40 @@ let vm = new Vue({
 
                   var rfc_difference = {
                     numeric: rfc_numeric_difference,
-                    percent: (rfc_numeric_difference
-                      / (Math.sign(rfc_numeric_difference) == -1 ? current_result : previous_result) * 100),
+                    percent: (rfc_numeric_difference /
+                      (Math.sign(rfc_numeric_difference) == -1 ? current_result : previous_result) * 100),
                   }
 
                   results.calc = rfc_difference
 
                   return results
+                } else {
+                  return {
+                    calc: general
+                  }
                 }
-                else {
-                  return { calc: general }
+              } else {
+                return {
+                  dosis: general,
+                  daily_dosis: general
                 }
               }
-              else {
-                return { dosis: general, daily_dosis: general }
+            } else {
+              return {
+                dosis: general,
+                daily_dosis: general
               }
             }
-            else {
-              return { dosis: general, daily_dosis: general }
-            }
-          }
-          else {
+          } else {
             var obj = app.patient_risk_factors
             if (obj.risk_factors_list.items.length > 1) {
               var current_rfc = params.item
               var current_rfc_index = appointment.appointments.indexOf(appointment.appointments.find(e => e.appointment_id == current_rfc.appointment_id))
               var previous_rfc_appointment = appointment.appointments[current_rfc_index - 1]
               if (previous_rfc_appointment == undefined) {
-                return { calc: general }
+                return {
+                  calc: general
+                }
               }
               var previous_rfc = obj.risk_factors_list.items.find(
                 (e) => {
@@ -7329,13 +7719,15 @@ let vm = new Vue({
                 results.calc = rfc_difference
 
                 return results
+              } else {
+                return {
+                  calc: general
+                }
               }
-              else {
-                return { calc: general }
+            } else {
+              return {
+                calc: general
               }
-            }
-            else {
-              return { calc: general }
             }
           }
           break;
@@ -7367,13 +7759,15 @@ let vm = new Vue({
               results.calc = rfc_difference
 
               return results
+            } else {
+              return {
+                calc: general
+              }
             }
-            else {
-              return { calc: general }
+          } else {
+            return {
+              calc: general
             }
-          }
-          else {
-            return { calc: general }
           }
           break;
         case 'life-style':
@@ -7403,40 +7797,39 @@ let vm = new Vue({
                 var current_aerobic_weekly_exercise_minutes = parseInt(patient_selected.aerobic_weekly_minutes)
                 var current_resistance_weekly_exercise_minutes = parseInt(patient_selected.resistance_weekly_minutes)
                 var current_smoking_cigarettes_per_day = parseInt(patient_selected.smoking.cigarettes_per_day)
-            
+
                 var previous_aerobic_weekly_exercise_minutes = parseInt(patient_to_compare.aerobic_weekly_minutes)
                 var previous_resistance_weekly_exercise_minutes = parseInt(patient_to_compare.resistance_weekly_minutes)
                 var previous_smoking_cigarettes_per_day = parseInt(patient_to_compare.smoking.cigarettes_per_day)
-            
+
                 var total_aerobic_weekly_minutes = current_aerobic_weekly_exercise_minutes - previous_aerobic_weekly_exercise_minutes
                 var total_resistance_weekly_minutes = current_resistance_weekly_exercise_minutes - previous_resistance_weekly_exercise_minutes
                 var total_smoking_cigarettes_per_day = current_smoking_cigarettes_per_day - previous_smoking_cigarettes_per_day
-            
+
                 var aerobic_exercise_minutes_difference = !parseInt(patient_selected.sedentary) &&
-                  patient_selected.exercise.type.includes('Aeróbico') && !parseInt(patient_to_compare.sedentary)
-                  && patient_to_compare.exercise.type.includes('Aeróbico')
-                  ? {
+                  patient_selected.exercise.type.includes('Aeróbico') && !parseInt(patient_to_compare.sedentary) &&
+                  patient_to_compare.exercise.type.includes('Aeróbico') ?
+                  {
                     numeric: total_aerobic_weekly_minutes,
-                    percent: (total_aerobic_weekly_minutes / 
-                      (Math.sign(total_aerobic_weekly_minutes) == -1 
-                      ? current_aerobic_weekly_exercise_minutes : previous_aerobic_weekly_exercise_minutes)) * 100,
+                    percent: (total_aerobic_weekly_minutes /
+                      (Math.sign(total_aerobic_weekly_minutes) == -1 ?
+                        current_aerobic_weekly_exercise_minutes : previous_aerobic_weekly_exercise_minutes)) * 100,
                   } : general_results.aerobic_weekly_minutes
-            
+
                 var resistance_exercise_minutes_difference = !parseInt(patient_selected.sedentary) &&
-                  patient_selected.exercise.type.includes('Resistencia') && !parseInt(patient_to_compare.sedentary)
-                  && patient_to_compare.exercise.type.includes('Resistencia')
-                  ?
+                  patient_selected.exercise.type.includes('Resistencia') && !parseInt(patient_to_compare.sedentary) &&
+                  patient_to_compare.exercise.type.includes('Resistencia') ?
                   {
                     numeric: total_resistance_weekly_minutes,
-                    percent: (total_resistance_weekly_minutes / 
-                      (Math.sign(total_resistance_weekly_minutes) == -1 
-                    ? current_resistance_weekly_exercise_minutes : previous_resistance_weekly_exercise_minutes)) * 100,
+                    percent: (total_resistance_weekly_minutes /
+                      (Math.sign(total_resistance_weekly_minutes) == -1 ?
+                        current_resistance_weekly_exercise_minutes : previous_resistance_weekly_exercise_minutes)) * 100,
                   } : general_results.resistance_weekly_minutes
-            
+
                 var smoking_cigarettes_per_day_difference = {
                   numeric: total_smoking_cigarettes_per_day,
-                  percent: (total_smoking_cigarettes_per_day / (Math.sign(total_smoking_cigarettes_per_day) == -1 
-                  ? current_smoking_cigarettes_per_day : previous_smoking_cigarettes_per_day)) * 100,
+                  percent: (total_smoking_cigarettes_per_day / (Math.sign(total_smoking_cigarettes_per_day) == -1 ?
+                    current_smoking_cigarettes_per_day : previous_smoking_cigarettes_per_day)) * 100,
                 }
 
                 return {
@@ -7446,16 +7839,13 @@ let vm = new Vue({
                     cigarettes_per_day: smoking_cigarettes_per_day_difference
                   }
                 }
-              }
-              else {
+              } else {
                 return general_results
               }
-            }
-            else {
+            } else {
               return general_results
             }
-          }
-          else {
+          } else {
             var obj = app.patient_life_style
             var general_results = {
               aerobic_weekly_minutes: {
@@ -7501,17 +7891,16 @@ let vm = new Vue({
                 var total_smoking_cigarettes_per_day = current_smoking_cigarettes_per_day - previous_smoking_cigarettes_per_day
 
                 var aerobic_exercise_minutes_difference = !parseInt(current_life_style.sedentary) &&
-                  current_life_style.exercise.type.includes('Aeróbico') && !parseInt(previous_life_style.sedentary)
-                  && previous_life_style.exercise.type.includes('Aeróbico')
-                  ? {
+                  current_life_style.exercise.type.includes('Aeróbico') && !parseInt(previous_life_style.sedentary) &&
+                  previous_life_style.exercise.type.includes('Aeróbico') ?
+                  {
                     numeric: total_aerobic_weekly_minutes,
                     percent: (total_aerobic_weekly_minutes / previous_aerobic_weekly_exercise_minutes) * 100,
                   } : general_results.aerobic_weekly_minutes
 
                 var resistance_exercise_minutes_difference = !parseInt(current_life_style.sedentary) &&
-                  current_life_style.exercise.type.includes('Resistencia') && !parseInt(previous_life_style.sedentary)
-                  && previous_life_style.exercise.type.includes('Resistencia')
-                  ?
+                  current_life_style.exercise.type.includes('Resistencia') && !parseInt(previous_life_style.sedentary) &&
+                  previous_life_style.exercise.type.includes('Resistencia') ?
                   {
                     numeric: total_resistance_weekly_minutes,
                     percent: (total_resistance_weekly_minutes / previous_resistance_weekly_exercise_minutes) * 100,
@@ -7528,12 +7917,10 @@ let vm = new Vue({
                     cigarettes_per_day: smoking_cigarettes_per_day_difference
                   }
                 }
-              }
-              else {
+              } else {
                 return general_results
               }
-            }
-            else {
+            } else {
               return general_results
             }
           }
@@ -7549,11 +7936,9 @@ let vm = new Vue({
       var sign = ''
       if (Math.sign(amount) == 1 && amount !== 0 && amount !== Infinity && amount !== NaN) {
         sign = '+'
-      }
-      else if (Math.sign(amount) == -1 && amount !== 0 && amount !== Infinity && amount !== NaN) {
+      } else if (Math.sign(amount) == -1 && amount !== 0 && amount !== Infinity && amount !== NaN) {
         sign = ''
-      }
-      else {
+      } else {
         sign = ''
         amount = 0
       }
@@ -7600,8 +7985,7 @@ let vm = new Vue({
             app.initializePlans()
             break;
         }
-      }
-      else {
+      } else {
         switch (app.tab) {
           case 'tab-3':
             app.initializeHistory()
